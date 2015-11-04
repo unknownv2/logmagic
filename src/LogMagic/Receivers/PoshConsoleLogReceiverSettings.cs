@@ -7,7 +7,7 @@
    {
       /// <summary>
       /// When set to true (default) abbreviates class names in log output. For example
-      /// PoshConsoleLogReceiver becomes PCLR.
+      /// PoshConsoleLogReceiver becomes PCLR.Ы
       /// </summary>
       public bool AbbreviateClassNames { get; set; }
    }
