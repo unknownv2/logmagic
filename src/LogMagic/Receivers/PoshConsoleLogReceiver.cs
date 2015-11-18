@@ -49,7 +49,7 @@ namespace LogMagic.Receivers
 
          //level
          Cg.Write("|", ConsoleColor.DarkGray);
-         LogSeverity(severity);
+         GetLogSeverity(severity);
 
          //source
          Cg.Write("|", ConsoleColor.DarkGray);
@@ -73,20 +73,20 @@ namespace LogMagic.Receivers
          Console.WriteLine();
       }
 
-      private void LogSeverity(LogSeverity s)
+      private void GetLogSeverity(LogSeverity s)
       {
          switch(s)
          {
-            case Model.LogSeverity.Debug:
+            case LogSeverity.Debug:
                Cg.Write("D", ConsoleColor.Magenta);
                break;
-            case Model.LogSeverity.Error:
+            case LogSeverity.Error:
                Cg.Write("E", ConsoleColor.Red);
                break;
-            case Model.LogSeverity.Info:
+            case LogSeverity.Info:
                Cg.Write("I", ConsoleColor.Green);
                break;
-            case Model.LogSeverity.Warning:
+            case LogSeverity.Warning:
                Cg.Write("W", ConsoleColor.DarkRed);
                break;
          }

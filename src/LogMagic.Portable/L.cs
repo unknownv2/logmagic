@@ -18,6 +18,17 @@ namespace LogMagic
          }
       }
 
+      /// <summary>
+      /// Removes all log receivers
+      /// </summary>
+      public static void ClearReceivers()
+      {
+         lock (LogReceivers)
+         {
+            LogReceivers.Clear();
+         }
+      }
+
       public static ILog G<T>()
       {
          return new LogClient(typeof(T), LogReceivers, EventLock);

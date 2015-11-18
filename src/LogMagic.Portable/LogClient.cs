@@ -43,12 +43,30 @@ namespace LogMagic
             error = null;
          }
 
-         var message = string.Format(format, parameters);
+         string message = parameters == null ? format : string.Format(format, parameters);
+         PushToReceivers(severity, threadName, eventTime, message, error);
+      }
 
+      private void Serve(LogSeverity severity, IFormattable formattable, Exception error)
+      {
+         string threadName = Task.CurrentId.ToString();
+         DateTime eventTime = DateTime.UtcNow;
+         string message = formattable.ToString();
+
+         PushToReceivers(severity, threadName, eventTime, message, error);
+      }
+
+      private void PushToReceivers(
+         LogSeverity severity,
+         string threadName,
+         DateTime eventTime,
+         string message,
+         Exception error)
+      {
          //send the message
-         lock(_eventLock)
+         lock (_eventLock)
          {
-            foreach(ILogReceiver receiver in _receivers)
+            foreach (ILogReceiver receiver in _receivers)
             {
                //Not sure if logging in parallel will make sense. I'm not doing this for now because
                //most of my apps have just one receiver
@@ -60,6 +78,11 @@ namespace LogMagic
       public void D(string format, params object[] parameters)
       {
          Serve(LogSeverity.Debug, format, parameters);
+      }
+
+      public void D(IFormattable message)
+      {
+         Serve(LogSeverity.Debug, message, null);
       }
 
       public void E(string format, params object[] parameters)

@@ -1,8 +1,12 @@
-﻿namespace LogMagic
+﻿using System;
+
+namespace LogMagic
 {
    public interface ILog
    {
       void D(string format, params object[] parameters);
+
+      void D(IFormattable message);
 
       void E(string format, params object[] parameters);
 
