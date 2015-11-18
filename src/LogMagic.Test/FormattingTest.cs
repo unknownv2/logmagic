@@ -28,14 +28,6 @@ namespace LogMagic.Test
          Assert.AreEqual("one 1 string s", Message);
       }
 
-      [Test]
-      public void Interpolation_OneParameter_Formats()
-      {
-         _log.D($"current: {5}");
-
-         Assert.AreEqual("current: 5", Message);
-      }
-
       private class TestReceiver : ILogReceiver
       {
          public string Message { get; private set; }

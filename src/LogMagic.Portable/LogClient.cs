@@ -80,11 +80,6 @@ namespace LogMagic
          Serve(LogSeverity.Debug, format, parameters);
       }
 
-      public void D(IFormattable message)
-      {
-         Serve(LogSeverity.Debug, message, null);
-      }
-
       public void E(string format, params object[] parameters)
       {
          Serve(LogSeverity.Error, format, parameters);
