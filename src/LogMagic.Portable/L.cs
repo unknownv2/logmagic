@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace LogMagic
 {
@@ -38,5 +40,41 @@ namespace LogMagic
       {
          return new LogClient(t, LogReceivers, EventLock);
       }
+
+#if !PORTABLE
+      public static ILog G()
+      {
+         return new LogClient(GetClassFullName(), LogReceivers, EventLock);
+      }
+
+      /// <summary>
+      /// Gets the fully qualified name of the class invoking the LogManager, including the 
+      /// namespace but not the assembly.    
+      /// </summary>
+      private static string GetClassFullName()
+      {
+         string className;
+         Type declaringType;
+         int framesToSkip = 2;
+
+         do
+         {
+            StackFrame frame = new StackFrame(framesToSkip, false);
+            MethodBase method = frame.GetMethod();
+            declaringType = method.DeclaringType;
+            if (declaringType == null)
+            {
+               className = method.Name;
+               break;
+            }
+
+            framesToSkip++;
+            className = declaringType.FullName;
+         } while (declaringType.Module.Name.Equals("mscorlib.dll", StringComparison.OrdinalIgnoreCase));
+
+         return className;
+      }
+
+#endif
    }
 }

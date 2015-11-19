@@ -13,13 +13,19 @@ namespace LogMagic
       private readonly object _eventLock;
       private readonly string _name;
 
-      public LogClient(Type type, IEnumerable<ILogReceiver> receivers, object eventLock)
+      public LogClient(Type type, IEnumerable<ILogReceiver> receivers, object eventLock) :
+         this(type.Name, receivers, eventLock)
       {
-         if(type == null) throw new ArgumentNullException(nameof(type));
+         
+      }
+
+      public LogClient(string name, IEnumerable<ILogReceiver> receivers, object eventLock)
+      {
+         if(name == null) throw new ArgumentNullException(nameof(name));
          if(receivers == null) throw new ArgumentNullException(nameof(receivers));
          if(eventLock == null) throw new ArgumentNullException(nameof(eventLock));
 
-         _name = type.Name;
+         _name = name;
          _receivers = receivers;
          _eventLock = eventLock;
       }
