@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace LogMagic
+﻿namespace LogMagic
 {
+   /// <summary>
+   /// Logging interface used by the client code, the most high level
+   /// </summary>
    public interface ILog
    {
       void D(string format, params object[] parameters);

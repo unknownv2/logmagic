@@ -32,28 +32,27 @@ namespace LogMagic.Receivers
          Console.BackgroundColor = ConsoleColor.Black;
       }
 
-      public void Send(LogSeverity severity, string sourceName, string threadName, DateTime eventTime, string message,
-         Exception error)
+      public void Send(LogChunk chunk)
       {
          string threadId = Thread.CurrentThread.Name;
          if (string.IsNullOrEmpty(threadId)) threadId = Thread.CurrentThread.ManagedThreadId.ToString();
 
          //timestamp
-         Cg.Write(eventTime.ToString("HH"), ConsoleColor.Green);
+         Cg.Write(chunk.EventTime.ToString("HH"), ConsoleColor.Green);
          Cg.Write(":", ConsoleColor.Gray);
-         Cg.Write(eventTime.ToString("mm"), ConsoleColor.Green);
+         Cg.Write(chunk.EventTime.ToString("mm"), ConsoleColor.Green);
          Cg.Write(":", ConsoleColor.Gray);
-         Cg.Write(eventTime.ToString("ss"), ConsoleColor.Green);
+         Cg.Write(chunk.EventTime.ToString("ss"), ConsoleColor.Green);
          Cg.Write(",", ConsoleColor.Gray);
-         Cg.Write(eventTime.ToString("fff"), ConsoleColor.DarkGreen);
+         Cg.Write(chunk.EventTime.ToString("fff"), ConsoleColor.DarkGreen);
 
          //level
          Cg.Write("|", ConsoleColor.DarkGray);
-         GetLogSeverity(severity);
+         GetLogSeverity(chunk.Severity);
 
          //source
          Cg.Write("|", ConsoleColor.DarkGray);
-         Cg.Write(Abbreviate(sourceName), ConsoleColor.Gray);
+         Cg.Write(Abbreviate(chunk.SourceName), ConsoleColor.Gray);
 
          //thread ID
          Cg.Write("|", ConsoleColor.DarkGray);
@@ -61,13 +60,13 @@ namespace LogMagic.Receivers
 
          //message
          Cg.Write("|", ConsoleColor.DarkGray);
-         Cg.Write(message, GetMessageColor(severity));
+         Cg.Write(chunk.Message, GetMessageColor(chunk.Severity));
 
          //error
-         if(error != null)
+         if(chunk.Error != null)
          {
             Console.WriteLine();
-            Cg.Write(error.ToString(), ConsoleColor.Red);
+            Cg.Write(chunk.Error.ToString(), ConsoleColor.Red);
          }
 
          Console.WriteLine();
@@ -144,6 +143,11 @@ namespace LogMagic.Receivers
             Console.ForegroundColor = _prevColor;
          }
 
+      }
+
+      public void Dispose()
+      {
+         //nothing to dispose in posh console
       }
    }
 }

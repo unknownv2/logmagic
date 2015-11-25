@@ -1,21 +1,25 @@
 ﻿using System;
-using System.Threading;
 
 namespace LogMagic.Receivers
 {
+   /// <summary>
+   /// Adds log messages to system console
+   /// </summary>
    public class ConsoleLogReceiver : ILogReceiver
    {
-      public void Send(LogSeverity severity, string sourceName, string threadName, DateTime eventTime, string message, Exception error)
+      public void Send(LogChunk chunk)
       {
-         string threadId = Thread.CurrentThread.Name;
-         if (string.IsNullOrEmpty(threadId)) threadId = Thread.CurrentThread.ManagedThreadId.ToString();
-
          Console.WriteLine(@"{0}|{1}|{2}|{3}{4}",
-            eventTime.ToString("H:mm:ss,fff"),
-            sourceName,
-            threadId,
-            message,
-            error == null ? string.Empty : (Environment.NewLine + error));
+            chunk.EventTime.ToString("H:mm:ss,fff"),
+            chunk.SourceName,
+            chunk.ThreadName,
+            chunk.Message,
+            chunk.Error == null ? string.Empty : (Environment.NewLine + chunk.Error));
+      }
+
+      public void Dispose()
+      {
+         //nothing to dispose in console
       }
    }
 }

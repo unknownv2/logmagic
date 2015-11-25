@@ -5,6 +5,9 @@ using System.Reflection;
 
 namespace LogMagic
 {
+   /// <summary>
+   /// Global public logging configuration and initialisation class
+   /// </summary>
    public static class L
    {
       private static readonly List<ILogReceiver> LogReceivers = new List<ILogReceiver>();
@@ -31,17 +34,31 @@ namespace LogMagic
          }
       }
 
+      /// <summary>
+      /// Get logger for the specified type
+      /// </summary>
+      /// <typeparam name="T"></typeparam>
+      /// <returns></returns>
       public static ILog G<T>()
       {
          return new LogClient(typeof(T), LogReceivers, EventLock);
       }
 
+      /// <summary>
+      /// Get logger for the specified type
+      /// </summary>
+      /// <param name="t"></param>
+      /// <returns></returns>
       public static ILog G(Type t)
       {
          return new LogClient(t, LogReceivers, EventLock);
       }
 
 #if !PORTABLE
+      /// <summary>
+      /// Get logger for the current class
+      /// </summary>
+      /// <returns></returns>
       public static ILog G()
       {
          return new LogClient(GetClassFullName(), LogReceivers, EventLock);

@@ -2,13 +2,8 @@
 
 namespace LogMagic
 {
-   public interface ILogReceiver
+   public interface ILogReceiver : IDisposable
    {
-      void Send(LogSeverity severity,
-         string sourceName,
-         string threadName,
-         DateTime eventTime,
-         string message,
-         Exception error);
+      void Send(LogChunk chunk);
    }
 }

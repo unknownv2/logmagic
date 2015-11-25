@@ -74,9 +74,7 @@ namespace LogMagic
          {
             foreach (ILogReceiver receiver in _receivers)
             {
-               //Not sure if logging in parallel will make sense. I'm not doing this for now because
-               //most of my apps have just one receiver
-               receiver.Send(severity, _name, threadName, eventTime, message, error);
+               receiver.Send(new LogChunk(severity, _name, threadName, eventTime, message, error));
             }
          }
       }

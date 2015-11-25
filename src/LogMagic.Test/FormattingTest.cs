@@ -32,10 +32,13 @@ namespace LogMagic.Test
       {
          public string Message { get; private set; }
 
-         public void Send(LogSeverity severity, string sourceName, string threadName, DateTime eventTime, string message,
-            Exception error)
+         public void Dispose()
          {
-            Message = message;
+         }
+
+         public void Send(LogChunk chunk)
+         {
+            Message = chunk.Message;
          }
       }
    }
