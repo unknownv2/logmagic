@@ -21,6 +21,6 @@
       </dependencies>
    </metadata>
    <files>
-      <file src="src\LogMagic.WindowsAzure\*" target="lib\net45"/>
+      <file src="src\LogMagic.WindowsAzure\bin\Release\LogMagic.WindowsAzure.*" target="lib\net45"/>
    </files>
 </package>

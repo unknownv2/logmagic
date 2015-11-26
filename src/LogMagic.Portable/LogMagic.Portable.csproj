@@ -39,6 +39,8 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formatters\StandardFormatter.cs" />
+    <Compile Include="IFormatter.cs" />
     <Compile Include="ILog.cs" />
     <Compile Include="ILogReceiver.cs" />
     <Compile Include="L.cs" />

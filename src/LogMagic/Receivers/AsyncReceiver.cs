@@ -51,6 +51,8 @@ namespace LogMagic.Receivers
             {
                SendChunks(container);
             }
+
+            Thread.Sleep(TimeSpan.FromSeconds(1));
          }
       }
 

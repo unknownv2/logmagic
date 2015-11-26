@@ -70,7 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppendBlobLogReceiver.cs" />
+    <Compile Include="AzureAppendBlobLogReceiver.cs" />
     <Compile Include="AzureTableLogReceiver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

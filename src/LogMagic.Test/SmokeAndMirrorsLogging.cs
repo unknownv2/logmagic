@@ -1,4 +1,6 @@
-﻿using Config.Net;
+﻿using System;
+using System.Threading;
+using Config.Net;
 using Config.Net.Stores;
 using LogMagic.WindowsAzure;
 using NUnit.Framework;
@@ -9,6 +11,7 @@ namespace LogMagic.Test
    /// Only tests that logging on all the provider doesn't crash"
    /// </summary>
    [TestFixture("azure-blob")]
+   [TestFixture("azure-table")]
    public class SmokeAndMirrorsLogging
    {
       private static readonly Setting<string> AzureStorageName = new Setting<string>("Azure.Storage.Name", null);
@@ -31,8 +34,12 @@ namespace LogMagic.Test
          switch (_receiverName)
          {
             case "azure-blob":
-               L.AddReceiver(new AppendBlobLogReceiver(Cfg.Read(AzureStorageName), Cfg.Read(AzureStorageKey),
+               L.AddReceiver(new AzureAppendBlobLogReceiver(Cfg.Read(AzureStorageName), Cfg.Read(AzureStorageKey),
                   "logs-integration", "smokeandmirrors"));
+               break;
+            case "azure-table":
+               L.AddReceiver(new AzureTableLogReceiver(Cfg.Read(AzureStorageName), Cfg.Read(AzureStorageKey),
+                  "logsintegration"));
                break;
          }   
       }
@@ -49,6 +56,8 @@ namespace LogMagic.Test
          ILog log = L.G();
 
          log.D("hello!");
+
+         Thread.Sleep(TimeSpan.FromSeconds(5));
       }
    }
 }

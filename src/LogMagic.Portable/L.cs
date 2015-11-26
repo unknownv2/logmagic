@@ -13,6 +13,12 @@ namespace LogMagic
       private static readonly List<ILogReceiver> LogReceivers = new List<ILogReceiver>();
       private static readonly object EventLock = new object();
 
+      /// <summary>
+      /// Identifies this machine or node uniquely. Useful in situations when you are writing same or similar
+      /// log lines into single location and need to know which node they are coming from.
+      /// </summary>
+      public static string NodeId { get; set; }
+
       public static void AddReceiver(ILogReceiver receiver)
       {
          if(receiver == null) throw new ArgumentNullException(nameof(receiver));
@@ -30,6 +36,11 @@ namespace LogMagic
       {
          lock (LogReceivers)
          {
+            foreach (ILogReceiver receiver in LogReceivers)
+            {
+               receiver.Dispose();
+            }
+
             LogReceivers.Clear();
          }
       }

@@ -1,4 +1,5 @@
 ﻿using System;
+using LogMagic.Formatters;
 
 namespace LogMagic.Receivers
 {
@@ -7,14 +8,21 @@ namespace LogMagic.Receivers
    /// </summary>
    public class ConsoleLogReceiver : ILogReceiver
    {
+      private readonly IFormatter _formatter;
+
+      public ConsoleLogReceiver() : this(null)
+      {
+         
+      }
+
+      public ConsoleLogReceiver(IFormatter formatter)
+      {
+         _formatter = formatter ?? new StandardFormatter();
+      }
+
       public void Send(LogChunk chunk)
       {
-         Console.WriteLine(@"{0}|{1}|{2}|{3}{4}",
-            chunk.EventTime.ToString("H:mm:ss,fff"),
-            chunk.SourceName,
-            chunk.ThreadName,
-            chunk.Message,
-            chunk.Error == null ? string.Empty : (Environment.NewLine + chunk.Error));
+         Console.Write(_formatter.Format(chunk));
       }
 
       public void Dispose()
