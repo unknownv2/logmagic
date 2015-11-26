@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LogMagic
@@ -32,7 +33,13 @@ namespace LogMagic
 
       private void Serve(LogSeverity severity, string format, params object[] parameters)
       {
+
+#if PORTABLE
          string threadName = Task.CurrentId.ToString();
+#else
+         string threadName = Thread.CurrentThread.ManagedThreadId.ToString();
+#endif
+
          DateTime eventTime = DateTime.UtcNow;
          Exception error;
 
@@ -50,15 +57,6 @@ namespace LogMagic
          }
 
          string message = parameters == null ? format : string.Format(format, parameters);
-         PushToReceivers(severity, threadName, eventTime, message, error);
-      }
-
-      private void Serve(LogSeverity severity, IFormattable formattable, Exception error)
-      {
-         string threadName = Task.CurrentId.ToString();
-         DateTime eventTime = DateTime.UtcNow;
-         string message = formattable.ToString();
-
          PushToReceivers(severity, threadName, eventTime, message, error);
       }
 
