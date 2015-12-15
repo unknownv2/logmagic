@@ -4,6 +4,8 @@ using Config.Net;
 using Config.Net.Stores;
 using LogMagic.WindowsAzure;
 using NUnit.Framework;
+using System.IO;
+using LogMagic.Receivers;
 
 namespace LogMagic.Test
 {
@@ -12,7 +14,8 @@ namespace LogMagic.Test
    /// </summary>
    [TestFixture("azure-blob")]
    [TestFixture("azure-table")]
-   public class SmokeAndMirrorsLogging
+   [TestFixture("files")]
+   public class SmokeAndMirrorsLogging : AbstractTestFixture
    {
       private static readonly Setting<string> AzureStorageName = new Setting<string>("Azure.Storage.Name", null);
       private static readonly Setting<string> AzureStorageKey = new Setting<string>("Azure.Storage.Key", null);
@@ -40,6 +43,9 @@ namespace LogMagic.Test
             case "azure-table":
                L.AddReceiver(new AzureTableLogReceiver(Cfg.Read(AzureStorageName), Cfg.Read(AzureStorageKey),
                   "logsintegration"));
+               break;
+            case "files":
+               L.AddReceiver(new FileReceiver(Path.Combine(TestDir.FullName, "testlog.txt")));
                break;
          }   
       }
