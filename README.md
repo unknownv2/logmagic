@@ -29,6 +29,47 @@ private static Logger log = LogManager.GetCurrentClassLogger();
 log.Debug("my line");
 ```
 
+## How To Use
+
+First, reference LogMagic package from NuGet.
+
+Second, add the logging variable into your class:
+
+```csharp
+public class LoggingDemoTest
+{
+  private readonly ILog _log = L.G();
+
+  //...
+}
+```
+
+You are ready to go, start logging!
+
+```csharp
+public class LoggingDemoTest
+{
+  private readonly ILog _log = L.G();
+
+  public void SomeMethod()
+  {
+    //some code
+
+    _log.D("my log string");
+
+    //some code
+  }
+}
+```
+
+### Where does it log?
+
+Generally you should not care. By default it does not log anywhere, however you can add log receivers on application initialisation, for example this line configures LogMagic to save everything to a text file:
+
+```csharp
+L.AddReceiver(new FileReceiver("c:\\myapp.log"));
+```
+
 ## Unique Features
 
 ### Exception logging
