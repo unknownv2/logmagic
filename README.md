@@ -2,7 +2,7 @@
 
 LogMagic in the easiest logging abstraction for .NET framework. It has the shortest syntax and the easiest exensibility model. It is extremely lightweight and has zero external dependencies.
 
-Available as NuGet package - search "LogMagic" in nuget.
+Available as [NuGet Package](https://www.nuget.org/packages/LogMagic).
 
 ## Syntax comparison
 
@@ -70,6 +70,16 @@ Generally you should not care. By default it does not log anywhere, however you 
 L.AddReceiver(new FileReceiver("c:\\myapp.log"));
 ```
 
+There are a few other most commonly used receivers available out of the box.
+
+## Built-in receivers
+
+### ConsoleLogReceiver
+
+### FileReceiver
+
+### PoshConsoleLogReceiver
+
 ## Unique Features
 
 ### Exception logging
@@ -78,6 +88,41 @@ L.AddReceiver(new FileReceiver("c:\\myapp.log"));
 
 ### Dead Simple Initialisation
 
+LogMagic is initialised in one line, there is no extra work to do. Configuration files and other bullcrap is not here.
+
 ### Windows Azure Integration
 
+LogMagic supports Azure Append Blobs and Azure Tables through an additional [LogMagic.WindowsAzure](https://www.nuget.org/packages/LogMagic.WindowsAzure/) package.
 
+#### Append Blobs
+
+Append blobs are remote "files" in Windows Azure which can dynamically expand as new information comes in. LogMagic supports that via statement:
+
+```csharp
+L.AddReceiver(
+  new AzureAppendBlobLogReceiver(
+    "storageaccountname"
+    "storagekey",
+    "blobcontainername",
+    "blobnameprefix");
+```
+
+All the parameters are self explanatory except for **blobnameprefix**. This parameter is responsible for naming blobs in the container. Azure blobs will be named as **++blobnameprefix++-yyyy-MM-dd.txt**.
+
+#### Tables
+
+Add table receiver using:
+
+```csharp
+L.AddReceiver(
+  new AzureTableLogReceiver(
+    "storageaccountname"
+    "storagekey",
+    "tablename"));
+```
+
+**tablename** specifies the destination log table name for logging. Each log statement creates a new log record where:
+
+- **partition key** is yy-MM-dd
+- **row key** is HH-mm-ss-fff
+- **extra columns** such as NodeId, Severity, SourceName, ThreadName, Message, Error.

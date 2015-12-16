@@ -37,11 +37,13 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
+    <Folder Include="Namers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Formatters\StandardFormatter.cs" />
-    <Compile Include="IFormatter.cs" />
+    <Compile Include="ILogChunkFormatter.cs" />
     <Compile Include="ILog.cs" />
+    <Compile Include="ILogNamer.cs" />
     <Compile Include="ILogReceiver.cs" />
     <Compile Include="L.cs" />
     <Compile Include="LogChunk.cs" />

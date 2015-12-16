@@ -40,11 +40,14 @@
     <Compile Include="..\LogMagic.Portable\Formatters\StandardFormatter.cs">
       <Link>Formatters\StandardFormatter.cs</Link>
     </Compile>
-    <Compile Include="..\LogMagic.Portable\IFormatter.cs">
-      <Link>IFormatter.cs</Link>
-    </Compile>
     <Compile Include="..\LogMagic.Portable\ILog.cs">
       <Link>ILog.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.Portable\ILogChunkFormatter.cs">
+      <Link>ILogChunkFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.Portable\ILogNamer.cs">
+      <Link>ILogNamer.cs</Link>
     </Compile>
     <Compile Include="..\LogMagic.Portable\ILogReceiver.cs">
       <Link>ILogReceiver.cs</Link>
@@ -71,7 +74,9 @@
     <Compile Include="Receivers\PoshConsoleLogReceiver.cs" />
     <Compile Include="Receivers\PoshConsoleLogReceiverSettings.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Namers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

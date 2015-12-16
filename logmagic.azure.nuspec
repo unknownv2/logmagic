@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
    <metadata>
       <id>LogMagic.WindowsAzure</id>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
       <authors>Ivan Gavryliuk</authors>
       <owners>Ivan Gavryliuk</owners>
       <projectUrl>https://github.com/aloneguid/logmagic</projectUrl>
@@ -16,7 +16,7 @@
       <copyright>Copyright (c) 2015 by Ivan Gavryliuk</copyright>
       <tags>Common</tags>
       <dependencies>
-         <dependency id="LogMagic" version="1.0" />
+         <dependency id="LogMagic" version="1.0.3" />
          <dependency id="WindowsAzure.Storage" version="6.1"/>
       </dependencies>
    </metadata>

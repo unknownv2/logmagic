@@ -19,6 +19,10 @@ namespace LogMagic
       /// </summary>
       public static string NodeId { get; set; }
 
+      /// <summary>
+      /// Adds a receiver to log configuration
+      /// </summary>
+      /// <param name="receiver">Receiver instance</param>
       public static void AddReceiver(ILogReceiver receiver)
       {
          if(receiver == null) throw new ArgumentNullException(nameof(receiver));

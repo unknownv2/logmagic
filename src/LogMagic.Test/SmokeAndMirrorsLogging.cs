@@ -33,6 +33,7 @@ namespace LogMagic.Test
          L.ClearReceivers();
          Cfg.Configuration.RemoveAllStores();
          Cfg.Configuration.AddStore(new IniFileConfigStore("c:\\tmp\\integration-tests.ini"));
+         L.NodeId = "testnode";
 
          switch (_receiverName)
          {

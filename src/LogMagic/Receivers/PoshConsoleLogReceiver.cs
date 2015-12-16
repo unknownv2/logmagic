@@ -32,6 +32,9 @@ namespace LogMagic.Receivers
          Console.BackgroundColor = ConsoleColor.Black;
       }
 
+      /// <summary>
+      /// Sends the chunk to posh console!
+      /// </summary>
       public void Send(LogChunk chunk)
       {
          string threadId = Thread.CurrentThread.Name;
@@ -45,6 +48,13 @@ namespace LogMagic.Receivers
          Cg.Write(chunk.EventTime.ToString("ss"), ConsoleColor.Green);
          Cg.Write(",", ConsoleColor.Gray);
          Cg.Write(chunk.EventTime.ToString("fff"), ConsoleColor.DarkGreen);
+
+         //node ID
+         if (!string.IsNullOrEmpty(L.NodeId))
+         {
+            Cg.Write("|", ConsoleColor.DarkGray);
+            Cg.Write(L.NodeId.PadRight(10, ' '), ConsoleColor.Red);
+         }
 
          //level
          Cg.Write("|", ConsoleColor.DarkGray);
@@ -145,6 +155,9 @@ namespace LogMagic.Receivers
 
       }
 
+      /// <summary>
+      /// Dispose
+      /// </summary>
       public void Dispose()
       {
          //nothing to dispose in posh console

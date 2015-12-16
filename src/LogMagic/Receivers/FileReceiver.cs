@@ -10,15 +10,24 @@ namespace LogMagic.Receivers
    /// </summary>
    public class FileReceiver : AsyncReceiver
    {
-      private readonly IFormatter _formatter;
+      private readonly ILogChunkFormatter _formatter;
       private StreamWriter _writer;
 
+      /// <summary>
+      /// Creates an instance of file receiver
+      /// </summary>
+      /// <param name="fileName">Target filename. If file does not exist it will be created.</param>
       public FileReceiver(string fileName) : this(fileName, null)
       {
 
       }
 
-      public FileReceiver(string fileName, IFormatter formatter)
+      /// <summary>
+      /// Creates an instance of file receiver
+      /// </summary>
+      /// <param name="fileName">Target filename. If file does not exist it will be created.</param>
+      /// <param name="formatter">Optional chunk formatter</param>
+      public FileReceiver(string fileName, ILogChunkFormatter formatter)
       {
          if (fileName == null) throw new ArgumentNullException(nameof(fileName));
 
@@ -26,6 +35,9 @@ namespace LogMagic.Receivers
          _writer = File.CreateText(fileName);
       }
 
+      /// <summary>
+      /// Sends chunks
+      /// </summary>
       protected override void SendChunks(IEnumerable<LogChunk> chunks)
       {
          foreach(LogChunk chunk in chunks)
@@ -34,6 +46,9 @@ namespace LogMagic.Receivers
          }
       }
 
+      /// <summary>
+      /// Closes the target file
+      /// </summary>
       public override void Dispose()
       {
          _writer.Dispose();

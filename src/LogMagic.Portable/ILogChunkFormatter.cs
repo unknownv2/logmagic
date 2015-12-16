@@ -3,7 +3,7 @@
    /// <summary>
    /// Performs formatting of a log chunk to a string
    /// </summary>
-   public interface IFormatter
+   public interface ILogChunkFormatter
    {
       /// <summary>
       /// Formats a log chunk into a string
