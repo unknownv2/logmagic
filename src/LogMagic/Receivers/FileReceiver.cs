@@ -32,7 +32,7 @@ namespace LogMagic.Receivers
          if (fileName == null) throw new ArgumentNullException(nameof(fileName));
 
          _formatter = formatter ?? new StandardFormatter();
-         _writer = File.CreateText(fileName);
+         _writer = File.Exists(fileName) ? File.AppendText(fileName) : File.CreateText(fileName);
       }
 
       /// <summary>
