@@ -48,7 +48,7 @@ namespace LogMagic.Test
                   "logsintegration"));
                break;
             case "files":
-               L.AddReceiver(new FileReceiver(Path.Combine(TestDir.FullName, "testlog.txt")));
+               L.AddReceiver(new FileReceiver(Path.Combine(TestDir.FullName, "subdir", "testlog.txt")));
                break;
             case "console":
                L.AddReceiver(new ConsoleLogReceiver());

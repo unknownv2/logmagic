@@ -31,10 +31,19 @@ namespace LogMagic.Receivers
       {
          if (fileName == null) throw new ArgumentNullException(nameof(fileName));
 
-         //todo: create directory if it doesn't exist
+         PreCreateDirectory(fileName);
 
          _formatter = formatter ?? new StandardFormatter();
          _writer = File.Exists(fileName) ? File.AppendText(fileName) : File.CreateText(fileName);
+      }
+
+      private void PreCreateDirectory(string logFileName)
+      {
+         int idx = logFileName.LastIndexOf(Path.DirectorySeparatorChar);
+         if (idx == -1) return;  //file name can be just a name or format may be wrong
+
+         string dirPath = logFileName.Substring(0, idx);
+         if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
       }
 
       /// <summary>

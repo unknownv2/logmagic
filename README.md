@@ -4,6 +4,8 @@ LogMagic in the easiest logging abstraction for .NET framework. It has the short
 
 Available as [NuGet Package](https://www.nuget.org/packages/LogMagic).
 
+
+
 ## Syntax comparison
 
 Some examples on syntax comparison between a few popular logging frameworks.
