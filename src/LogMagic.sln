@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic", "LogMagic\LogMagic.csproj", "{8AD9626D-6FAB-410B-AE0F-434339E69CBB}"
 EndProject
@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		..\logmagic.azure.nuspec = ..\logmagic.azure.nuspec
 		..\logmagic.nuspec = ..\logmagic.nuspec
+		..\pack.cmd = ..\pack.cmd
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.WindowsAzure", "LogMagic.WindowsAzure\LogMagic.WindowsAzure.csproj", "{59F5AE33-1605-4395-9EEB-70E4BB82B19D}"
