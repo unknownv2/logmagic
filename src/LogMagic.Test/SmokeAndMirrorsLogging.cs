@@ -15,6 +15,8 @@ namespace LogMagic.Test
    [TestFixture("azure-blob")]
    [TestFixture("azure-table")]
    [TestFixture("files")]
+   [TestFixture("console")]
+   [TestFixture("posh-console")]
    public class SmokeAndMirrorsLogging : AbstractTestFixture
    {
       private static readonly Setting<string> AzureStorageName = new Setting<string>("Azure.Storage.Name", null);
@@ -47,6 +49,12 @@ namespace LogMagic.Test
                break;
             case "files":
                L.AddReceiver(new FileReceiver(Path.Combine(TestDir.FullName, "testlog.txt")));
+               break;
+            case "console":
+               L.AddReceiver(new ConsoleLogReceiver());
+               break;
+            case "posh-console":
+               L.AddReceiver(new PoshConsoleLogReceiver());
                break;
          }   
       }

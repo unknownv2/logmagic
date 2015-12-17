@@ -4,7 +4,8 @@ using LogMagic.Formatters;
 namespace LogMagic.Receivers
 {
    /// <summary>
-   /// Adds log messages to system console
+   /// Outputs messages to system console and ideal for server logging. It doesn't do anything fancy 
+   /// unlike <see cref="PoshConsoleLogReceiver"/>
    /// </summary>
    public class ConsoleLogReceiver : ILogReceiver
    {

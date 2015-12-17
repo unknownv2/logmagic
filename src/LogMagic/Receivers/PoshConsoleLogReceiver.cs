@@ -6,7 +6,7 @@ using System.Threading;
 namespace LogMagic.Receivers
 {
    /// <summary>
-   /// Posh colorful console, you should use this
+   /// Posh colorful console, you should use this if you want to look cool.
    /// </summary>
    public class PoshConsoleLogReceiver : ILogReceiver
    {

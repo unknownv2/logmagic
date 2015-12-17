@@ -76,9 +76,21 @@ There are a few other most commonly used receivers available out of the box.
 
 ### ConsoleLogReceiver
 
-### FileReceiver
+Outputs messages to system console and ideal for server logging. It doesn't do anything fancy unlike the next one. To add it to configuration simply write:
+
+```csharp
+L.AddReceiver(new ConsoleLogReceiver());
+```
 
 ### PoshConsoleLogReceiver
+
+Outputs messages to system console in a cheerful colorful way. You should use this if you need to look cool. Note that due to the fact it switches console colors frequently during logging, it's slower than **ConsoleLogReceiver** therefore you should use this only if your app is running in console or in debug mode:
+
+```csharp
+L.AddReceiver(new PoshConsoleLogReceiver());
+```
+
+### FileReceiver
 
 ## Unique Features
 
