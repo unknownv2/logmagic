@@ -31,6 +31,8 @@ namespace LogMagic.Receivers
       {
          if (fileName == null) throw new ArgumentNullException(nameof(fileName));
 
+         //todo: create directory if it doesn't exist
+
          _formatter = formatter ?? new StandardFormatter();
          _writer = File.Exists(fileName) ? File.AppendText(fileName) : File.CreateText(fileName);
       }
@@ -44,6 +46,7 @@ namespace LogMagic.Receivers
          {
             _writer.Write(_formatter.Format(chunk));
          }
+         _writer.Flush();
       }
 
       /// <summary>
