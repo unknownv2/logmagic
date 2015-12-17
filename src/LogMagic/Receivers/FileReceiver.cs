@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace LogMagic.Receivers
 {
@@ -34,7 +35,8 @@ namespace LogMagic.Receivers
          PreCreateDirectory(fileName);
 
          _formatter = formatter ?? new StandardFormatter();
-         _writer = File.Exists(fileName) ? File.AppendText(fileName) : File.CreateText(fileName);
+
+         _writer = OpenWriter(fileName);
       }
 
       private void PreCreateDirectory(string logFileName)
@@ -44,6 +46,12 @@ namespace LogMagic.Receivers
 
          string dirPath = logFileName.Substring(0, idx);
          if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
+      }
+
+      private StreamWriter OpenWriter(string fileName)
+      {
+         FileStream fs = File.Open(fileName, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
+         return new StreamWriter(fs, Encoding.Unicode, 1024, false);
       }
 
       /// <summary>
