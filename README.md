@@ -119,7 +119,7 @@ L.AddReceiver(
     "blobnameprefix");
 ```
 
-All the parameters are self explanatory except for **blobnameprefix**. This parameter is responsible for naming blobs in the container. Azure blobs will be named as **++blobnameprefix++-yyyy-MM-dd.txt**.
+All the parameters are self explanatory except for **blobnameprefix**. This parameter is responsible for naming blobs in the container. Azure blobs will be named as **blobnameprefix-yyyy-MM-dd.txt**.
 
 #### Tables
 
