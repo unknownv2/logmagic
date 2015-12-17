@@ -51,7 +51,7 @@ namespace LogMagic.Receivers
       private StreamWriter OpenWriter(string fileName)
       {
          FileStream fs = File.Open(fileName, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
-         return new StreamWriter(fs, Encoding.Unicode, 1024, false);
+         return new StreamWriter(fs, Encoding.UTF8, 1024, false);
       }
 
       /// <summary>
