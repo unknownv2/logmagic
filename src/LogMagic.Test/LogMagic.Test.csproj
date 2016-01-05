@@ -32,6 +32,12 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\logmagic.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Config.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Config.Net.1.0.4\lib\net45\Config.Net.dll</HintPath>
@@ -75,6 +81,9 @@
     <Compile Include="SmokeAndMirrorsLogging.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\logmagic.snk">
+      <Link>logmagic.snk</Link>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
