@@ -14,9 +14,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\logmagic.azure.nuspec = ..\logmagic.azure.nuspec
 		..\logmagic.nuspec = ..\logmagic.nuspec
 		..\pack.cmd = ..\pack.cmd
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.WindowsAzure", "LogMagic.WindowsAzure\LogMagic.WindowsAzure.csproj", "{59F5AE33-1605-4395-9EEB-70E4BB82B19D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "snippets", "snippets", "{F12318E0-B0C4-461D-9499-D24B32D0D30A}"
+	ProjectSection(SolutionItems) = preProject
+		vssnippets\install.ps1 = vssnippets\install.ps1
+		vssnippets\ld.snippet = vssnippets\ld.snippet
+		vssnippets\ldef.snippet = vssnippets\ldef.snippet
+		vssnippets\le.snippet = vssnippets\le.snippet
+		vssnippets\li.snippet = vssnippets\li.snippet
+		vssnippets\lw.snippet = vssnippets\lw.snippet
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,5 +54,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F12318E0-B0C4-461D-9499-D24B32D0D30A} = {86C6EC58-DA78-496D-809A-576813B4FD93}
 	EndGlobalSection
 EndGlobal

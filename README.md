@@ -113,7 +113,18 @@ _log.E("failed on {0}", 1, ex);
 
 ### Visual Studio Snippets
 
-There are visual studio snippets available in the git repository for log variable declaration and all the logging methods. You can import them into VS with built-in Import Snippet dialog.
+Visual Studio snippets are installed along with the NuGet package so you can use them straight away with any project:
+
+`ldef` defines a logging variable inside the class:
+```csharp
+private readonly ILog _log = L.G();
+```
+
+`ld` writes a logging statement:
+```csharp
+_log.D("...");
+```
+there are identical shortcuts for other logging levels `le`, `li`, `lw`.
 
 ### Dead Simple Initialisation
 
