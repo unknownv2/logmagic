@@ -17,6 +17,7 @@ namespace LogMagic.Test
    [TestFixture("files")]
    [TestFixture("console")]
    [TestFixture("posh-console")]
+   [TestFixture("trace")]
    public class SmokeAndMirrorsLogging : AbstractTestFixture
    {
       private static readonly Setting<string> AzureStorageName = new Setting<string>("Azure.Storage.Name", null);
@@ -56,6 +57,9 @@ namespace LogMagic.Test
             case "posh-console":
                L.AddReceiver(new PoshConsoleLogReceiver());
                break;
+            case "trace":
+               L.AddReceiver(new TraceReceiver());
+               break;
          }   
       }
 
@@ -71,8 +75,6 @@ namespace LogMagic.Test
          ILog log = L.G();
 
          log.D("hello!");
-
-         Thread.Sleep(TimeSpan.FromSeconds(5));
       }
    }
 }

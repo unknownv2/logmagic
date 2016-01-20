@@ -79,6 +79,7 @@
     <Compile Include="Receivers\FileReceiver.cs" />
     <Compile Include="Receivers\PoshConsoleLogReceiver.cs" />
     <Compile Include="Receivers\PoshConsoleLogReceiverSettings.cs" />
+    <Compile Include="Receivers\TraceReceiver.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Namers\" />

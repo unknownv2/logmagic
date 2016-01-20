@@ -5,7 +5,7 @@ namespace LogMagic.Test
    /// <summary>
    /// This demonstrates generic use case for logging
    /// </summary>
-   [TestFixture, Ignore]
+   [TestFixture, Ignore("this is a demo")]
    public class LoggingDemoTest
    {
       private readonly ILog _log = L.G();
