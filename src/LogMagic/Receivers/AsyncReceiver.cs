@@ -12,7 +12,6 @@ namespace LogMagic.Receivers
    public abstract class AsyncReceiver : ILogReceiver
    {
       private readonly ConcurrentQueue<LogChunk> _messageQueue = new ConcurrentQueue<LogChunk>();
-      private readonly Thread _dispatchThread;
       private bool _disposed;
 
       /// <summary>
@@ -20,8 +19,8 @@ namespace LogMagic.Receivers
       /// </summary>
       protected AsyncReceiver()
       {
-         _dispatchThread = new Thread(DispatchThreadEntry) {IsBackground = true, Priority = ThreadPriority.Lowest};
-         _dispatchThread.Start();
+         var dispatchThread = new Thread(DispatchThreadEntry) {IsBackground = true, Priority = ThreadPriority.Lowest};
+         dispatchThread.Start();
       }
 
       /// <summary>

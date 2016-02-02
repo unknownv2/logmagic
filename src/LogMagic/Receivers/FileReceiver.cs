@@ -7,12 +7,18 @@ using System.Text;
 namespace LogMagic.Receivers
 {
    /// <summary>
-   /// Simple file logger
+   /// Simple file receiver.
    /// </summary>
    public class FileReceiver : AsyncReceiver
    {
+      private readonly string _directoryName;
+      private readonly string _fileNamePart;
+      private readonly string _extensionPart;
       private readonly ILogChunkFormatter _formatter;
       private StreamWriter _writer;
+      private int _fileYear;
+      private int _fileMonth;
+      private int _fileDay;
 
       /// <summary>
       /// Creates an instance of file receiver
@@ -30,13 +36,36 @@ namespace LogMagic.Receivers
       /// <param name="formatter">Optional chunk formatter</param>
       public FileReceiver(string fileName, ILogChunkFormatter formatter)
       {
-         if (fileName == null) throw new ArgumentNullException(nameof(fileName));
+         if(fileName == null) throw new ArgumentNullException(nameof(fileName));
+
+         SplitPath(fileName, out _directoryName, out _fileNamePart, out _extensionPart);
+         if(!Directory.Exists(_directoryName)) Directory.CreateDirectory(_directoryName);
 
          PreCreateDirectory(fileName);
 
          _formatter = formatter ?? new StandardFormatter();
+      }
 
-         _writer = OpenWriter(fileName);
+      /// <summary>
+      /// Contains the full file name of the current log file
+      /// </summary>
+      public string FileName { get; private set; }
+
+      private static void SplitPath(string fullName, out string directory, out string file, out string ext)
+      {
+         int idx = fullName.LastIndexOf(Path.DirectorySeparatorChar);
+         if(idx == -1)//file name can be just a name or format may be wrong
+         {
+            directory = null;
+            file = Path.GetFileNameWithoutExtension(fullName);
+            ext = Path.GetExtension(fullName);
+            return;
+         }
+
+         directory = fullName.Substring(0, idx);
+         file = fullName.Substring(idx + 1);
+         ext = Path.GetExtension(file);
+         file = Path.GetFileNameWithoutExtension(file);
       }
 
       private void PreCreateDirectory(string logFileName)
@@ -48,10 +77,13 @@ namespace LogMagic.Receivers
          if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
       }
 
-      private StreamWriter OpenWriter(string fileName)
+      private void OpenWriter(DateTime date)
       {
-         FileStream fs = File.Open(fileName, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
-         return new StreamWriter(fs, Encoding.UTF8, 1024, false);
+         _writer?.Dispose();
+
+         FileName = Path.Combine(_directoryName, $"{_fileNamePart}-{date.ToString("yyyy-MM-dd")}{_extensionPart}");
+         FileStream fs = File.Open(FileName, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
+         _writer = new StreamWriter(fs, Encoding.UTF8, 1024, false);
       }
 
       /// <summary>
@@ -61,9 +93,23 @@ namespace LogMagic.Receivers
       {
          foreach(LogChunk chunk in chunks)
          {
+            CheckRolling(chunk.EventTime);
+
             _writer.Write(_formatter.Format(chunk));
          }
          _writer.Flush();
+      }
+
+      private void CheckRolling(DateTime date)
+      {
+         if(_writer == null || date.Year != _fileYear || date.Month != _fileMonth || date.Day != _fileDay)
+         {
+            OpenWriter(date);
+
+            _fileYear = date.Year;
+            _fileMonth = date.Month;
+            _fileDay = date.Day;
+         }
       }
 
       /// <summary>
@@ -71,7 +117,7 @@ namespace LogMagic.Receivers
       /// </summary>
       public override void Dispose()
       {
-         _writer.Dispose();
+         _writer?.Dispose();
 
          base.Dispose();
       }

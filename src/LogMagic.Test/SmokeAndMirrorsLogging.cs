@@ -75,6 +75,8 @@ namespace LogMagic.Test
          ILog log = L.G();
 
          log.D("hello!");
+
+         //Thread.Sleep(TimeSpan.FromMinutes(1));
       }
    }
 }
