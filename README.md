@@ -1,5 +1,7 @@
 # LogMagic
 
+![](https://aloneguid.visualstudio.com/DefaultCollection/_apis/public/build/definitions/323c5f4c-c814-452d-9eaf-1006c83fd44c/3/badge)
+
 LogMagic in the easiest logging abstraction for .NET framework. It has the shortest syntax and the easiest exensibility model. It is extremely lightweight and has zero external dependencies.
 
 Available as [NuGet Package](https://www.nuget.org/packages/LogMagic).
