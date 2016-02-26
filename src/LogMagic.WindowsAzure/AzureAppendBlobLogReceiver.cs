@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using LogMagic.Formatters;
 using LogMagic.Receivers;
 using Microsoft.WindowsAzure.Storage;
@@ -78,12 +79,18 @@ namespace LogMagic.WindowsAzure
       /// <param name="chunks"></param>
       protected override void SendChunks(IEnumerable<LogChunk> chunks)
       {
+         CloudAppendBlob blob = null;
+         var sb = new StringBuilder();
+
          foreach (LogChunk chunk in chunks)
          {
-            string line = _formatter.Format(chunk);
+            if (blob == null) blob = GetBlob(chunk.EventTime);
 
-            GetBlob(chunk.EventTime).AppendText(line);
+            string line = _formatter.Format(chunk);
+            sb.Append(line);
          }
+
+         blob?.AppendText(sb.ToString());
       }
    }
 }
