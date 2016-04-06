@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace LogMagic.Test
@@ -26,6 +27,16 @@ namespace LogMagic.Test
          _log.D("one {0} string {1}", 1, "s");
 
          Assert.AreEqual("one 1 string s", Message);
+      }
+
+      [Test]
+      public void IEnumerable_CanGetCount_Formats()
+      {
+         var lst = new List<string> {"one", "two", "three" };
+
+         _log.D("the {0} format", lst);
+
+         Assert.AreEqual("the (3 elements) format", Message);
       }
 
       private class TestReceiver : ILogReceiver

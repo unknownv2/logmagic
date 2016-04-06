@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -56,8 +58,20 @@ namespace LogMagic
             error = null;
          }
 
-         string message = parameters == null ? format : string.Format(format, parameters);
+         string message = parameters == null ? format : string.Format(format, parameters.Select(FormatParameter).ToArray());
          PushToReceivers(severity, threadName, eventTime, message, error);
+      }
+
+      private object FormatParameter(object parameter)
+      {
+         if (parameter is ICollection)
+         {
+            ICollection p = (ICollection)parameter;
+
+            return $"({p.Count} elements)";
+         }
+
+         return parameter;
       }
 
       private void PushToReceivers(

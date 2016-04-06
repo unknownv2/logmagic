@@ -4,6 +4,8 @@
 
 LogMagic in the easiest logging abstraction for .NET framework. It has the shortest syntax and the easiest exensibility model. It is extremely lightweight and has zero external dependencies.
 
+It's also smart and expands most known types (for example collections) into a readable format before printing.
+
 Available as [NuGet Package](https://www.nuget.org/packages/LogMagic).
 
 
@@ -75,6 +77,14 @@ L.AddReceiver(new FileReceiver("c:\\myapp.log"));
 ```
 
 There are a few other most commonly used receivers available out of the box.
+
+## Smart formatting
+
+LogMagic reformats some of the types into a more readable format suitable for humans and developers.
+
+# Collections
+
+If a type implements ICollection interface it gets expanded into `(<count> elements)`.
 
 ## Built-in receivers
 
