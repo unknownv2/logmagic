@@ -73,6 +73,15 @@
     <Compile Include="..\LogMagic.Portable\PartitioningStrategy.cs">
       <Link>PartitioningStrategy.cs</Link>
     </Compile>
+    <Compile Include="..\LogMagic.Portable\TypeFormatters\EnumerableFormatter.cs">
+      <Link>TypeFormatters\EnumerableFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.Portable\TypeFormatters\FormatterEntry.cs">
+      <Link>TypeFormatters\FormatterEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.Portable\TypeFormatters\ITypeFormatter.cs">
+      <Link>TypeFormatters\ITypeFormatter.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Receivers\AsyncReceiver.cs" />
     <Compile Include="Receivers\ConsoleLogReceiver.cs" />

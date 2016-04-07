@@ -57,6 +57,9 @@
     <Compile Include="LogSeverity.cs" />
     <Compile Include="PartitioningStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TypeFormatters\EnumerableFormatter.cs" />
+    <Compile Include="TypeFormatters\FormatterEntry.cs" />
+    <Compile Include="TypeFormatters\ITypeFormatter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\logmagic.snk">

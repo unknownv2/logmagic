@@ -84,7 +84,7 @@ LogMagic reformats some of the types into a more readable format suitable for hu
 
 # Collections
 
-If a type implements ICollection interface it gets expanded into `(<count> elements)`.
+If a type implements ICollection interface it gets expanded into `[<count> el: {element1, element2, ... +N more]`.
 
 ## Built-in receivers
 

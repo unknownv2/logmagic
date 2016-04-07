@@ -30,13 +30,32 @@ namespace LogMagic.Test
       }
 
       [Test]
-      public void IEnumerable_CanGetCount_Formats()
+      public void IEnumerable_SmallList_Formats()
       {
          var lst = new List<string> {"one", "two", "three" };
 
          _log.D("the {0} format", lst);
 
-         Assert.AreEqual("the (3 elements) format", Message);
+         Assert.AreEqual("the [3 el: {one}, {two}, {three}] format", Message);
+      }
+
+      [Test]
+      public void IEnumerable_LargeList_Formats()
+      {
+         var lst = new List<string> { "one", "two", "three", "four", "five", "six", "seven" };
+
+         _log.D("the {0} format", lst);
+
+         Assert.AreEqual("the [7 el: {one}, {two}, {three}, {four}, {five} +2 more] format", Message);
+      }
+
+
+      [Test]
+      public void String_NoTransform_Formats()
+      {
+         _log.D("the {0}", "string");
+
+         Assert.AreEqual("the string", Message);
       }
 
       private class TestReceiver : ILogReceiver
