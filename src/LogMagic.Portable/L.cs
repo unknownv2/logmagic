@@ -52,8 +52,6 @@ namespace LogMagic
       /// <summary>
       /// Get logger for the specified type
       /// </summary>
-      /// <typeparam name="T"></typeparam>
-      /// <returns></returns>
       public static ILog G<T>()
       {
          return new LogClient(typeof(T), LogReceivers, EventLock);
@@ -62,11 +60,17 @@ namespace LogMagic
       /// <summary>
       /// Get logger for the specified type
       /// </summary>
-      /// <param name="t"></param>
-      /// <returns></returns>
       public static ILog G(Type t)
       {
          return new LogClient(t, LogReceivers, EventLock);
+      }
+
+      /// <summary>
+      /// Gets logger by specified name. Use when you can't use more specific methods.
+      /// </summary>
+      public static ILog G(string name)
+      {
+         return new LogClient(name, LogReceivers, EventLock);
       }
 
 #if !PORTABLE
