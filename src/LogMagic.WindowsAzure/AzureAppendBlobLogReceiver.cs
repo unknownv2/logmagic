@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using LogMagic.Formatters;
 using LogMagic.Receivers;
@@ -90,7 +91,16 @@ namespace LogMagic.WindowsAzure
             sb.Append(line);
          }
 
-         blob?.AppendText(sb.ToString());
+         if (blob != null)
+         {
+            using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(sb.ToString())))
+            {
+               blob.AppendBlock(ms);
+            }
+         }
+
+         //AppendText has a strange proble, whereas AppendBlock doesn't have it! The append position condition specified was not met.
+         //blob?.AppendText(sb.ToString());
       }
    }
 }
