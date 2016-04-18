@@ -58,7 +58,15 @@ namespace LogMagic.Receivers
 
             if (container.Count > 0)
             {
-               SendChunks(container);
+               try
+               {
+                  SendChunks(container);
+               }
+               catch (Exception ex)
+               {
+                  //there is nowhere to log, try console
+                  Console.WriteLine("cannot submit chunks: {0}", ex);
+               }
             }
 
             Thread.Sleep(TimeSpan.FromSeconds(1));
