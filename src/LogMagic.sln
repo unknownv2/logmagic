@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic", "LogMagic\LogMagic.csproj", "{8AD9626D-6FAB-410B-AE0F-434339E69CBB}"
 EndProject
@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "snippets", "snippets", "{F1
 		vssnippets\lw.snippet = vssnippets\lw.snippet
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.Android", "LogMagic.Android\LogMagic.Android.csproj", "{96C4492C-8799-4EAF-91B0-379CD5F572F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{59F5AE33-1605-4395-9EEB-70E4BB82B19D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59F5AE33-1605-4395-9EEB-70E4BB82B19D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59F5AE33-1605-4395-9EEB-70E4BB82B19D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96C4492C-8799-4EAF-91B0-379CD5F572F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96C4492C-8799-4EAF-91B0-379CD5F572F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96C4492C-8799-4EAF-91B0-379CD5F572F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96C4492C-8799-4EAF-91B0-379CD5F572F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
