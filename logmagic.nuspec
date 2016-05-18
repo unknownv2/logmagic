@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
    <metadata>
       <id>LogMagic</id>
-      <version>1.3.1</version>
+      <version>1.3.2</version>
       <authors>Ivan Gavryliuk</authors>
       <owners>Ivan Gavryliuk</owners>
       <projectUrl>https://github.com/aloneguid/logmagic</projectUrl>
@@ -18,8 +18,8 @@
    <files>
       <file src="src\LogMagic.Portable\bin\Release\LogMagic.*" target="lib\portable-net45+wp80+win8+wpa81+dnxcore50"/>
       <file src="src\LogMagic\bin\Release\LogMagic.*" target="lib\net45"/>
-      <file src="src\LogMagic\bin\Release\LogMagic.*" target="lib\MonoAndroid"/>
-      <file src="src\LogMagic\bin\Release\LogMagic.*" target="lib\MonoTouch"/>
+      <file src="src\LogMagic.Portable\bin\Release\LogMagic.*" target="lib\MonoAndroid"/>
+      <file src="src\LogMagic.Portable\bin\Release\LogMagic.*" target="lib\MonoTouch"/>
       
       <!-- fuck resharper-->
       <!--<file src="src\logmagic-shortcuts.DotSettings" target="ReSharper\10"/>-->
