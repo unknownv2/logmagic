@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace LogMagic.Receivers
+namespace LogMagic.Writers
 {
    /// <summary>
    /// Simple file receiver.
    /// </summary>
-   public class FileReceiver : AsyncReceiver
+   public class FileLogWriter : ILogWriter
    {
       private readonly string _directoryName;
       private readonly string _fileNamePart;
@@ -24,7 +24,7 @@ namespace LogMagic.Receivers
       /// Creates an instance of file receiver
       /// </summary>
       /// <param name="fileName">Target filename. If file does not exist it will be created.</param>
-      public FileReceiver(string fileName) : this(fileName, null)
+      public FileLogWriter(string fileName) : this(fileName, null)
       {
 
       }
@@ -34,7 +34,7 @@ namespace LogMagic.Receivers
       /// </summary>
       /// <param name="fileName">Target filename. If file does not exist it will be created.</param>
       /// <param name="formatter">Optional chunk formatter</param>
-      public FileReceiver(string fileName, ILogChunkFormatter formatter)
+      public FileLogWriter(string fileName, ILogChunkFormatter formatter)
       {
          if(fileName == null) throw new ArgumentNullException(nameof(fileName));
 

@@ -3,12 +3,12 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading;
 
-namespace LogMagic.Receivers
+namespace LogMagic.Writers
 {
    /// <summary>
    /// Posh colorful console, you should use this if you want to look cool.
    /// </summary>
-   public class PoshConsoleLogReceiver : ILogReceiver
+   public class PoshConsoleLogWriter : ILogWriter
    {
       private static readonly ConcurrentDictionary<string, string> SourceNameToShortName = new ConcurrentDictionary<string, string>();
 
@@ -22,7 +22,7 @@ namespace LogMagic.Receivers
       /// <summary>
       /// Constructs and instance of this class
       /// </summary>
-      public PoshConsoleLogReceiver()
+      public PoshConsoleLogWriter()
       {
          Settings = new PoshConsoleLogReceiverSettings
          {

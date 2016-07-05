@@ -49,16 +49,16 @@ namespace LogMagic.Test
                   "logsintegration"));
                break;
             case "files":
-               L.AddReceiver(new FileReceiver(Path.Combine(TestDir.FullName, "subdir", "testlog.txt")));
+               L.Config.WriteToFile(Path.Combine(TestDir.FullName, "subdir", "testlog.txt"));
                break;
             case "console":
-               L.AddReceiver(new ConsoleLogReceiver());
+               L.Config.WriteToConsole();
                break;
             case "posh-console":
-               L.AddReceiver(new PoshConsoleLogReceiver());
+               L.Config.WriteToColoredConsole();
                break;
             case "trace":
-               L.AddReceiver(new TraceReceiver());
+               L.Config.WriteToTrace();
                break;
          }   
       }

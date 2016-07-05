@@ -1,20 +1,20 @@
 ﻿using System;
 using LogMagic.Formatters;
 
-namespace LogMagic.Receivers
+namespace LogMagic.Writers
 {
    /// <summary>
    /// Outputs messages to system console and ideal for server logging. It doesn't do anything fancy 
    /// unlike <see cref="PoshConsoleLogReceiver"/>
    /// </summary>
-   public class ConsoleLogReceiver : ILogReceiver
+   public class ConsoleLogWriter : ILogWriter
    {
       private readonly ILogChunkFormatter _formatter;
 
       /// <summary>
       /// Creates class instance
       /// </summary>
-      public ConsoleLogReceiver() : this(null)
+      public ConsoleLogWriter() : this(null)
       {
          
       }
@@ -23,7 +23,7 @@ namespace LogMagic.Receivers
       /// Creates class instance
       /// </summary>
       /// <param name="formatter">Optional formatter</param>
-      public ConsoleLogReceiver(ILogChunkFormatter formatter)
+      public ConsoleLogWriter(ILogChunkFormatter formatter)
       {
          _formatter = formatter ?? new StandardFormatter();
       }

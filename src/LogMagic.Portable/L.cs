@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using LogMagic.Configuration;
 
 namespace LogMagic
 {
@@ -10,8 +11,11 @@ namespace LogMagic
    /// </summary>
    public static class L
    {
-      private static readonly List<ILogReceiver> LogReceivers = new List<ILogReceiver>();
+      private static readonly List<ILogWriter> LogReceivers = new List<ILogWriter>();
       private static readonly object EventLock = new object();
+      private static readonly ILogConfiguration _config = new LogConfiguration();
+
+      public static ILogConfiguration Config {  get { return _config; } }
 
       /// <summary>
       /// Identifies this machine or node uniquely. Useful in situations when you are writing same or similar
@@ -23,7 +27,7 @@ namespace LogMagic
       /// Adds a receiver to log configuration
       /// </summary>
       /// <param name="receiver">Receiver instance</param>
-      public static void AddReceiver(ILogReceiver receiver)
+      public static void AddReceiver(ILogWriter receiver)
       {
          if(receiver == null) throw new ArgumentNullException(nameof(receiver));
 
@@ -40,7 +44,7 @@ namespace LogMagic
       {
          lock (LogReceivers)
          {
-            foreach (ILogReceiver receiver in LogReceivers)
+            foreach (ILogWriter receiver in LogReceivers)
             {
                receiver.Dispose();
             }

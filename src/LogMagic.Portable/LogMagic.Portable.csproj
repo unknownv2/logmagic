@@ -45,15 +45,17 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Formatters\StandardFormatter.cs" />
+    <Compile Include="Configuration\LogConfiguration.cs" />
+    <Compile Include="TextFormatter.cs" />
     <Compile Include="ILogChunkFormatter.cs" />
     <Compile Include="ILog.cs" />
-    <Compile Include="ILogNamer.cs" />
-    <Compile Include="ILogReceiver.cs" />
+    <Compile Include="ILogConfiguration.cs" />
+    <Compile Include="ILogWriter.cs" />
     <Compile Include="L.cs" />
     <Compile Include="LogChunk.cs" />
     <Compile Include="LogClient.cs" />
     <Compile Include="LogSeverity.cs" />
+    <Compile Include="Model\LogEvent.cs" />
     <Compile Include="PartitioningStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeFormatters\EnumerableFormatter.cs" />

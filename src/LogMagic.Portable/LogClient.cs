@@ -14,17 +14,17 @@ namespace LogMagic
    /// </summary>
    class LogClient : ILog
    {
-      private readonly IEnumerable<ILogReceiver> _receivers;
+      private readonly IEnumerable<ILogWriter> _receivers;
       private readonly object _eventLock;
       private readonly string _name;
 
-      public LogClient(Type type, IEnumerable<ILogReceiver> receivers, object eventLock) :
+      public LogClient(Type type, IEnumerable<ILogWriter> receivers, object eventLock) :
          this(type.Name, receivers, eventLock)
       {
          
       }
 
-      public LogClient(string name, IEnumerable<ILogReceiver> receivers, object eventLock)
+      public LogClient(string name, IEnumerable<ILogWriter> receivers, object eventLock)
       {
          if(name == null) throw new ArgumentNullException(nameof(name));
          if(receivers == null) throw new ArgumentNullException(nameof(receivers));
@@ -74,7 +74,7 @@ namespace LogMagic
          //send the message
          lock (_eventLock)
          {
-            foreach (ILogReceiver receiver in _receivers)
+            foreach (ILogWriter receiver in _receivers)
             {
                receiver.Send(new LogChunk(severity, _name, threadName, eventTime, message, error));
             }

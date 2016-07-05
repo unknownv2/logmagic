@@ -58,7 +58,7 @@ namespace LogMagic.Test
          Assert.AreEqual("the string", Message);
       }
 
-      private class TestReceiver : ILogReceiver
+      private class TestReceiver : ILogWriter
       {
          public string Message { get; private set; }
 

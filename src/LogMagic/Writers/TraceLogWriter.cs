@@ -1,20 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using LogMagic.Formatters;
+using LogMagic.Model;
 
-namespace LogMagic.Receivers
+namespace LogMagic.Writers
 {
    /// <summary>
    /// Receives log chunks into standard <see cref="Trace"/>
    /// </summary>
-   public class TraceReceiver : ILogReceiver
+   public class TraceLogWriter : ILogWriter
    {
       private ILogChunkFormatter _formatter;
 
       /// <summary>
       /// Creates an instance with standard formatter
       /// </summary>
-      public TraceReceiver() : this(null)
+      public TraceLogWriter() : this(null)
       {
 
       }
@@ -22,7 +24,7 @@ namespace LogMagic.Receivers
       /// <summary>
       /// Creates an instance with custom formatter
       /// </summary>
-      public TraceReceiver(ILogChunkFormatter formatter)
+      public TraceLogWriter(ILogChunkFormatter formatter)
       {
          _formatter = formatter ?? new StandardFormatter();
       }
@@ -41,6 +43,14 @@ namespace LogMagic.Receivers
       /// </summary>
       public void Dispose()
       {
+      }
+
+      public void Write(IEnumerable<LogEvent> events)
+      {
+         foreach(LogEvent e in events)
+         {
+
+         }
       }
    }
 }

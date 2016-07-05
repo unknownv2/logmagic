@@ -43,8 +43,8 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\LogMagic.Portable\Formatters\StandardFormatter.cs">
-      <Link>Formatters\StandardFormatter.cs</Link>
+    <Compile Include="..\LogMagic.Portable\Configuration\LogConfiguration.cs">
+      <Link>Configuration\LogConfiguration.cs</Link>
     </Compile>
     <Compile Include="..\LogMagic.Portable\ILog.cs">
       <Link>ILog.cs</Link>
@@ -52,11 +52,11 @@
     <Compile Include="..\LogMagic.Portable\ILogChunkFormatter.cs">
       <Link>ILogChunkFormatter.cs</Link>
     </Compile>
-    <Compile Include="..\LogMagic.Portable\ILogNamer.cs">
-      <Link>ILogNamer.cs</Link>
+    <Compile Include="..\LogMagic.Portable\ILogConfiguration.cs">
+      <Link>ILogConfiguration.cs</Link>
     </Compile>
-    <Compile Include="..\LogMagic.Portable\ILogReceiver.cs">
-      <Link>ILogReceiver.cs</Link>
+    <Compile Include="..\LogMagic.Portable\ILogWriter.cs">
+      <Link>ILogWriter.cs</Link>
     </Compile>
     <Compile Include="..\LogMagic.Portable\L.cs">
       <Link>L.cs</Link>
@@ -70,8 +70,14 @@
     <Compile Include="..\LogMagic.Portable\LogSeverity.cs">
       <Link>LogSeverity.cs</Link>
     </Compile>
+    <Compile Include="..\LogMagic.Portable\Model\LogEvent.cs">
+      <Link>Model\LogEvent.cs</Link>
+    </Compile>
     <Compile Include="..\LogMagic.Portable\PartitioningStrategy.cs">
       <Link>PartitioningStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.Portable\TextFormatter.cs">
+      <Link>TextFormatter.cs</Link>
     </Compile>
     <Compile Include="..\LogMagic.Portable\TypeFormatters\EnumerableFormatter.cs">
       <Link>TypeFormatters\EnumerableFormatter.cs</Link>
@@ -83,12 +89,12 @@
       <Link>TypeFormatters\ITypeFormatter.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Receivers\AsyncReceiver.cs" />
-    <Compile Include="Receivers\ConsoleLogReceiver.cs" />
-    <Compile Include="Receivers\FileReceiver.cs" />
-    <Compile Include="Receivers\PoshConsoleLogReceiver.cs" />
-    <Compile Include="Receivers\PoshConsoleLogReceiverSettings.cs" />
-    <Compile Include="Receivers\TraceReceiver.cs" />
+    <Compile Include="Writers\ConsoleLogWriter.cs" />
+    <Compile Include="Writers\FileLogWriter.cs" />
+    <Compile Include="Writers\PoshConsoleLogReceiver.cs" />
+    <Compile Include="Writers\PoshConsoleLogReceiverSettings.cs" />
+    <Compile Include="Writers\TraceLogWriter.cs" />
+    <Compile Include="Writers\WriterExtensions.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
