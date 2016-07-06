@@ -17,7 +17,10 @@ namespace LogMagic
       }
 
 #if !PORTABLE
-      //public static ILogConfiguration EnrichWithMethodName()
+      public static ILogConfiguration MethodName(this IEnricherConfiguration configuration)
+      {
+         return configuration.Custom(new MethodNameEnricher());
+      }
 #endif
    }
 }

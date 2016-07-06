@@ -10,13 +10,14 @@ namespace LogMagic.Test
    {
       private static ILog _log = L.G(typeof(ConsoleEntry));
 
-      public static void Main()
+      public static void Main(string[] args)
       {
          L.Config
             .WriteTo.PoshConsole()
             .WriteTo.Seq(new Uri("http://192.168.137.1:5341"))
             .EnrichWith.ThreadId()
-            .EnrichWith.Constant("client", "testcon");
+            .EnrichWith.Constant("client", "testcon")
+            .EnrichWith.MethodName();
 
          _log.D("test");
 

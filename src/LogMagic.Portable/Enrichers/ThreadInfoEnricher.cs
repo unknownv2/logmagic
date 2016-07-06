@@ -12,7 +12,7 @@ namespace LogMagic.Enrichers
    {
       public void Enrich(LogEvent e, out string propertyName, out string propertyValue)
       {
-         propertyName = "ThreadId";
+         propertyName = "threadId";
          propertyValue = GetThreadId();
       }
 
