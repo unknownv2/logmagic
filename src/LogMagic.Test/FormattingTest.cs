@@ -16,6 +16,7 @@ namespace LogMagic.Test
          _writer = new TestWriter();
          L.Config.ClearWriters();
          L.Config
+            .WriteTo.Trace()
             .WriteTo.Custom(_writer)
             .EnrichWith.ThreadId()
             .EnrichWith.Constant("node", "test");
@@ -29,6 +30,7 @@ namespace LogMagic.Test
       }
 
       private string Message => _writer.Message;
+      private LogEvent Event => _writer.Event;
 
       [Test]
       public void Mixed_IntegerAndString_Formats()
@@ -71,9 +73,30 @@ namespace LogMagic.Test
          Assert.AreEqual("the string", Message);
       }
 
+      [Test]
+      public void Structured_NamedString_Formats()
+      {
+         _log.D("the {Count} kettles", "5");
+
+         L.Flush();
+         Assert.AreEqual("the 5 kettles", Message);
+         Assert.AreEqual("5", Event.GetProperty("Count"));
+      }
+
+      [Test]
+      public void Structured_Mixed_Formats()
+      {
+         _log.D("{0} kettles and {three:D2} lamps{2}", 5, 3, "...");
+
+         L.Flush();
+         Assert.AreEqual("5 kettles and 03 lamps...", Message);
+         Assert.AreEqual("03", Event.GetProperty("three"));
+      }
+
       private class TestWriter : ILogWriter
       {
          public string Message { get; private set; }
+         public LogEvent Event { get; private set; }
 
          public void Dispose()
          {
@@ -84,6 +107,7 @@ namespace LogMagic.Test
             foreach (LogEvent e in events)
             {
                Message = e.Message;
+               Event = e;
             }
          }
       }

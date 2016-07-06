@@ -9,6 +9,22 @@ namespace LogMagic
 {
    static class EventFactory
    {
+      private static readonly char[] ParamTrims = new char[] { '{', '}' };
+
+      private struct TokenTag
+      {
+         public string Value;
+         public bool IsParameter;
+         public string Formatted;
+
+         public TokenTag(string value, bool isParameter)
+         {
+            Value = value;
+            IsParameter = isParameter;
+            Formatted = null;
+         }
+      }
+
       public static LogEvent CreateEvent(string sourceName, LogSeverity severity, string format, object[] parameters)
       {
          var e = new LogEvent(severity, sourceName, DateTime.UtcNow);
@@ -48,8 +64,106 @@ namespace LogMagic
 
       private static string FormatMessage(LogEvent e, string format, object[] parameters)
       {
-         string message = parameters == null ? format : string.Format(format, parameters.Select(FormatterEntry.FormatParameter).ToArray());
-         return message;
+         if (parameters == null || parameters.Length == 0) return format;
+
+         List<TokenTag> tokens = Tokenise(format);
+         var r = new StringBuilder();
+
+         int pi = 0;
+         for(int i = 0; i < tokens.Count; i++)
+         {
+            TokenTag tag = tokens[i];
+            if (tag.IsParameter)
+            {
+               int pos;
+               string nativeFormat;
+               string paramName;
+               ParseToken(tag.Value, out paramName, out pos, out nativeFormat);
+
+               if (pos == -1) pos = pi;
+               if(pos < parameters.Length)
+               {
+                  object inputValue = parameters[pos];
+                  string outputValue = FormatterEntry.FormatParameter(inputValue);
+                  if (outputValue == null) outputValue = string.Format(nativeFormat, inputValue);
+                  r.Append(outputValue);
+                  e.AddProperty(paramName, outputValue);
+               }
+               else
+               {
+                  r.Append(tag.Value);
+               }
+
+               pi++;
+            }
+            else
+            {
+               r.Append(tag.Value);
+            }
+         }
+
+         return r.ToString();
+      }
+
+      private static void ParseToken(string value, out string paramName, out int position, out string nativeFormat)
+      {
+         value = value.Trim(ParamTrims);
+
+         int idx = value.IndexOf(":");
+         string format = idx == -1 ? null : value.Substring(idx + 1);
+         string pos = idx == -1 ? value : value.Substring(0, idx);
+
+         if (!int.TryParse(pos, out position))
+         {
+            position = -1;
+            paramName = pos;
+         }
+         else
+         {
+            paramName = null;
+         }
+         nativeFormat = format == null
+            ? $"{{0}}"
+            : $"{{0:{format}}}";
+      }
+
+      private static List<TokenTag> Tokenise(string format)
+      {
+         string token = string.Empty;
+         bool isParameter = false;
+         var tokens = new List<TokenTag>();
+
+         foreach(char ch in format)
+         {
+            switch(ch)
+            {
+               case '{':
+                  if(token != string.Empty)
+                  {
+                     tokens.Add(new TokenTag(token, isParameter));
+                  }
+                  isParameter = true;
+                  token = string.Empty;
+                  token += ch;
+                  break;
+               case '}':
+                  if(token != string.Empty)
+                  {
+                     token += ch;
+                     tokens.Add(new TokenTag(token, isParameter));
+                  }
+                  token = string.Empty;
+                  isParameter = false;
+                  break;
+               default:
+                  token += ch;
+                  break;
+            }
+         }
+
+         if (token != string.Empty) tokens.Add(new TokenTag(token, false));
+
+         return tokens;
       }
    }
 }

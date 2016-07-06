@@ -17,10 +17,11 @@ namespace LogMagic.TypeFormatters
       //used to cache ALL type mappings passed to logging, for increased performance
       private static readonly Dictionary<Type, ITypeFormatter> TypeToTransformer = new Dictionary<Type, ITypeFormatter>();
 
-      public static object FormatParameter(object parameter)
+      public static string FormatParameter(object parameter)
       {
-         if(parameter == null) return "null";
+         if(parameter == null) return "NULL";
 
+         /*
          Type t = parameter.GetType();
          ITypeFormatter formatter;
          if(!TypeToTransformer.TryGetValue(t, out formatter))
@@ -40,7 +41,10 @@ namespace LogMagic.TypeFormatters
             }
          }
 
-         return formatter == null ? parameter : formatter.Format(parameter);
+         return formatter == null ? null : formatter.Format(parameter);
+         */
+
+         return null;
       }
    }
 }
