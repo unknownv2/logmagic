@@ -2,7 +2,7 @@
 
 namespace LogMagic
 {
-   public static class WriterExtensions
+   public static class ConfigurationExtensions
    {
       public static ILogConfiguration WriteToAzureAppendBlob(this ILogConfiguration configuration,
          string storageAccountName,

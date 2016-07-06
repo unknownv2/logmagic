@@ -38,9 +38,6 @@ namespace LogMagic.Writers
       /// </summary>
       private void Write(LogEvent e)
       {
-         string threadId = Thread.CurrentThread.Name;
-         if (string.IsNullOrEmpty(threadId)) threadId = Thread.CurrentThread.ManagedThreadId.ToString();
-
          //timestamp
          Cg.Write(e.EventTime.ToString("HH"), ConsoleColor.Green);
          Cg.Write(":", ConsoleColor.Gray);
@@ -58,9 +55,17 @@ namespace LogMagic.Writers
          Cg.Write("|", ConsoleColor.DarkGray);
          Cg.Write(Abbreviate(e.SourceName), ConsoleColor.Gray);
 
-         //thread ID
-         Cg.Write("|", ConsoleColor.DarkGray);
-         Cg.Write(threadId.PadLeft(4, ' '), ConsoleColor.Blue);
+         //enriched properties
+         if(e.Properties != null && e.Properties.Count > 0)
+         {
+            foreach(var prop in e.Properties)
+            {
+               Cg.Write("|", ConsoleColor.DarkGray);
+               Cg.Write(prop.Key, ConsoleColor.Gray);
+               Cg.Write(": ", ConsoleColor.DarkGray);
+               Cg.Write(prop.Value, ConsoleColor.Green);
+            }
+         }
 
          //message
          Cg.Write("|", ConsoleColor.DarkGray);

@@ -101,7 +101,7 @@
     <Compile Include="Writers\PoshConsoleLogReceiver.cs" />
     <Compile Include="Writers\PoshConsoleLogReceiverSettings.cs" />
     <Compile Include="Writers\TraceLogWriter.cs" />
-    <Compile Include="Writers\WriterExtensions.cs" />
+    <Compile Include="Writers\ConfigurationExtensions.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

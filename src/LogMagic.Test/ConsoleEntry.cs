@@ -12,9 +12,15 @@ namespace LogMagic.Test
 
       public static void Main()
       {
-         L.Config.WriteToColoredConsole();
+         L.Config
+            .WriteToColoredConsole()
+            .WriteToSeq(new Uri("http://192.168.137.1:5341"))
+            .EnrichWithThreadId()
+            .EnrichWithConstant("client", "testcon");
 
          _log.D("test");
+
+         Console.ReadLine();
       }
    }
 }

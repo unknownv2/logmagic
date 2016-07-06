@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic", "LogMagic\LogMagic.csproj", "{8AD9626D-6FAB-410B-AE0F-434339E69CBB}"
 EndProject
@@ -29,6 +29,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "snippets", "snippets", "{F1
 		vssnippets\lw.snippet = vssnippets\lw.snippet
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.Seq", "LogMagic.Seq\LogMagic.Seq.csproj", "{D7692DCC-9B4A-48CC-A0BD-2C36E0042ABF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{968E3104-FAC1-4D0E-B941-3665D65D4414}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,11 +55,17 @@ Global
 		{59F5AE33-1605-4395-9EEB-70E4BB82B19D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59F5AE33-1605-4395-9EEB-70E4BB82B19D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59F5AE33-1605-4395-9EEB-70E4BB82B19D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7692DCC-9B4A-48CC-A0BD-2C36E0042ABF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7692DCC-9B4A-48CC-A0BD-2C36E0042ABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7692DCC-9B4A-48CC-A0BD-2C36E0042ABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7692DCC-9B4A-48CC-A0BD-2C36E0042ABF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{59F5AE33-1605-4395-9EEB-70E4BB82B19D} = {968E3104-FAC1-4D0E-B941-3665D65D4414}
 		{F12318E0-B0C4-461D-9499-D24B32D0D30A} = {86C6EC58-DA78-496D-809A-576813B4FD93}
+		{D7692DCC-9B4A-48CC-A0BD-2C36E0042ABF} = {968E3104-FAC1-4D0E-B941-3665D65D4414}
 	EndGlobalSection
 EndGlobal
