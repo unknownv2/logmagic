@@ -7,7 +7,7 @@ namespace LogMagic.Writers
    /// <summary>
    /// Receives log chunks into standard <see cref="Trace"/>
    /// </summary>
-   public class TraceLogWriter : ILogWriter
+   class TraceLogWriter : ILogWriter
    {
       /// <summary>
       /// Creates an instance with standard formatter

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Threading;
-using Config.Net;
+﻿using Config.Net;
 using Config.Net.Stores;
-using LogMagic.WindowsAzure;
 using NUnit.Framework;
 using System.IO;
 
@@ -40,12 +37,12 @@ namespace LogMagic.Test
          switch (_receiverName)
          {
             case "azure-blob":
-               L.AddReceiver(new AzureAppendBlobLogWriter(Cfg.Read(AzureStorageName), Cfg.Read(AzureStorageKey),
-                  "logs-integration", "smokeandmirrors"));
+               L.Config.WriteToAzureAppendBlob(Cfg.Read(AzureStorageName), Cfg.Read(AzureStorageKey),
+                  "logs-integration", "smokeandmirrors");
                break;
             case "azure-table":
-               L.AddReceiver(new AzureTableLogWriter(Cfg.Read(AzureStorageName), Cfg.Read(AzureStorageKey),
-                  "logsintegration"));
+               L.Config.WriteToAzureTable(Cfg.Read(AzureStorageName), Cfg.Read(AzureStorageKey),
+                  "logsintegration");
                break;
             case "files":
                L.Config.WriteToFile(Path.Combine(TestDir.FullName, "subdir", "testlog.txt"));

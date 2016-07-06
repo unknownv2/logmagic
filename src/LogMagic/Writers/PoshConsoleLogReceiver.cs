@@ -9,7 +9,7 @@ namespace LogMagic.Writers
    /// <summary>
    /// Posh colorful console, you should use this if you want to look cool.
    /// </summary>
-   public class PoshConsoleLogWriter : ILogWriter
+   class PoshConsoleLogWriter : ILogWriter
    {
       private static readonly ConcurrentDictionary<string, string> SourceNameToShortName = new ConcurrentDictionary<string, string>();
 

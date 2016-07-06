@@ -79,6 +79,7 @@
     <Compile Include="AzureAppendBlobLogWriter.cs" />
     <Compile Include="AzureTableLogWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WriterExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\logmagic.snk">

@@ -8,7 +8,7 @@ namespace LogMagic.Writers
    /// <summary>
    /// Simple file receiver.
    /// </summary>
-   public class FileLogWriter : ILogWriter
+   class FileLogWriter : ILogWriter
    {
       private readonly string _directoryName;
       private readonly string _fileNamePart;

@@ -9,7 +9,7 @@ namespace LogMagic.WindowsAzure
    /// <summary>
    /// Azure Table Storage receiver
    /// </summary>
-   public class AzureTableLogWriter : ILogWriter
+   class AzureTableLogWriter : ILogWriter
    {
       private readonly CloudTable _table;
 

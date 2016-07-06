@@ -11,7 +11,7 @@ namespace LogMagic.WindowsAzure
    /// <summary>
    /// Azure Append Blob Receiver
    /// </summary>
-   public class AzureAppendBlobLogWriter : ILogWriter
+   class AzureAppendBlobLogWriter : ILogWriter
    {
       private readonly string _blobNamePrefix;
       //http://blogs.technet.com/b/thbrown/archive/2015/08/26/azure-blob-now-has-append.aspx
