@@ -30,7 +30,6 @@ namespace LogMagic
          _isRunning = false;
          _waitEvent.Set();
 
-         _shutdownCompleteEvent.Reset();
          _shutdownCompleteEvent.WaitOne();
       }
 
