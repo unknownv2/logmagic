@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace LogMagic.Model
+namespace LogMagic
 {
    public class LogEvent
    {
-      public LogEvent()
+      public LogEvent(LogSeverity severity, string sourceName, DateTime eventTime, string message, Exception error)
       {
 
       }
@@ -18,6 +15,8 @@ namespace LogMagic.Model
       public LogSeverity Severity;
 
       public DateTime EventTime;
+
+      public string Message;
 
       public Exception Error;
 

@@ -76,7 +76,7 @@ namespace LogMagic
          {
             foreach (ILogWriter receiver in _receivers)
             {
-               receiver.Send(new LogChunk(severity, _name, threadName, eventTime, message, error));
+               receiver.Write(new List<LogEvent> { new LogEvent(severity, _name, eventTime, message, error)});
             }
          }
       }

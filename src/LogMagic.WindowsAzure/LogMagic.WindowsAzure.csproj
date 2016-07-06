@@ -76,8 +76,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AzureAppendBlobLogReceiver.cs" />
-    <Compile Include="AzureTableLogReceiver.cs" />
+    <Compile Include="AzureAppendBlobLogWriter.cs" />
+    <Compile Include="AzureTableLogWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,13 +7,13 @@ namespace LogMagic.Test
    [TestFixture]
    public class FormattingTest
    {
-      private TestReceiver _receiver;
+      private TestWriter _receiver;
       private ILog _log;
 
       [SetUp]
       public void SetUp()
       {
-         _receiver = new TestReceiver();
+         _receiver = new TestWriter();
          L.ClearReceivers();
          L.AddReceiver(_receiver);
          _log = L.G<FormattingTest>();
@@ -58,7 +58,7 @@ namespace LogMagic.Test
          Assert.AreEqual("the string", Message);
       }
 
-      private class TestReceiver : ILogWriter
+      private class TestWriter : ILogWriter
       {
          public string Message { get; private set; }
 
@@ -66,9 +66,12 @@ namespace LogMagic.Test
          {
          }
 
-         public void Send(LogChunk chunk)
+         public void Write(IEnumerable<LogEvent> events)
          {
-            Message = chunk.Message;
+            foreach (LogEvent e in events)
+            {
+               Message = e.Message;
+            }
          }
       }
    }

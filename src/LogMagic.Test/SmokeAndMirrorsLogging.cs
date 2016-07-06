@@ -5,7 +5,6 @@ using Config.Net.Stores;
 using LogMagic.WindowsAzure;
 using NUnit.Framework;
 using System.IO;
-using LogMagic.Receivers;
 
 namespace LogMagic.Test
 {
@@ -41,11 +40,11 @@ namespace LogMagic.Test
          switch (_receiverName)
          {
             case "azure-blob":
-               L.AddReceiver(new AzureAppendBlobLogReceiver(Cfg.Read(AzureStorageName), Cfg.Read(AzureStorageKey),
+               L.AddReceiver(new AzureAppendBlobLogWriter(Cfg.Read(AzureStorageName), Cfg.Read(AzureStorageKey),
                   "logs-integration", "smokeandmirrors"));
                break;
             case "azure-table":
-               L.AddReceiver(new AzureTableLogReceiver(Cfg.Read(AzureStorageName), Cfg.Read(AzureStorageKey),
+               L.AddReceiver(new AzureTableLogWriter(Cfg.Read(AzureStorageName), Cfg.Read(AzureStorageKey),
                   "logsintegration"));
                break;
             case "files":

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LogMagic.Receivers;
-using LogMagic.Writers;
+﻿using LogMagic.Writers;
 
 namespace LogMagic
 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
@@ -35,19 +36,19 @@ namespace LogMagic.Writers
       /// <summary>
       /// Sends the chunk to posh console!
       /// </summary>
-      public void Send(LogChunk chunk)
+      private void Write(LogEvent e)
       {
          string threadId = Thread.CurrentThread.Name;
          if (string.IsNullOrEmpty(threadId)) threadId = Thread.CurrentThread.ManagedThreadId.ToString();
 
          //timestamp
-         Cg.Write(chunk.EventTime.ToString("HH"), ConsoleColor.Green);
+         Cg.Write(e.EventTime.ToString("HH"), ConsoleColor.Green);
          Cg.Write(":", ConsoleColor.Gray);
-         Cg.Write(chunk.EventTime.ToString("mm"), ConsoleColor.Green);
+         Cg.Write(e.EventTime.ToString("mm"), ConsoleColor.Green);
          Cg.Write(":", ConsoleColor.Gray);
-         Cg.Write(chunk.EventTime.ToString("ss"), ConsoleColor.Green);
+         Cg.Write(e.EventTime.ToString("ss"), ConsoleColor.Green);
          Cg.Write(",", ConsoleColor.Gray);
-         Cg.Write(chunk.EventTime.ToString("fff"), ConsoleColor.DarkGreen);
+         Cg.Write(e.EventTime.ToString("fff"), ConsoleColor.DarkGreen);
 
          //node ID
          if (!string.IsNullOrEmpty(L.NodeId))
@@ -58,11 +59,11 @@ namespace LogMagic.Writers
 
          //level
          Cg.Write("|", ConsoleColor.DarkGray);
-         GetLogSeverity(chunk.Severity);
+         GetLogSeverity(e.Severity);
 
          //source
          Cg.Write("|", ConsoleColor.DarkGray);
-         Cg.Write(Abbreviate(chunk.SourceName), ConsoleColor.Gray);
+         Cg.Write(Abbreviate(e.SourceName), ConsoleColor.Gray);
 
          //thread ID
          Cg.Write("|", ConsoleColor.DarkGray);
@@ -70,13 +71,13 @@ namespace LogMagic.Writers
 
          //message
          Cg.Write("|", ConsoleColor.DarkGray);
-         Cg.Write(chunk.Message, GetMessageColor(chunk.Severity));
+         Cg.Write(e.Message, GetMessageColor(e.Severity));
 
          //error
-         if(chunk.Error != null)
+         if(e.Error != null)
          {
             Console.WriteLine();
-            Cg.Write(chunk.Error.ToString(), ConsoleColor.Red);
+            Cg.Write(e.Error.ToString(), ConsoleColor.Red);
          }
 
          Console.WriteLine();
@@ -161,6 +162,14 @@ namespace LogMagic.Writers
       public void Dispose()
       {
          //nothing to dispose in posh console
+      }
+
+      public void Write(IEnumerable<LogEvent> events)
+      {
+         foreach(LogEvent e in events)
+         {
+            Write(e);
+         }
       }
    }
 }

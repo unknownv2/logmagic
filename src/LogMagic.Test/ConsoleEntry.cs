@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LogMagic.Receivers;
 
 namespace LogMagic.Test
 {
@@ -13,7 +12,7 @@ namespace LogMagic.Test
 
       public static void Main()
       {
-         L.AddReceiver(new PoshConsoleLogReceiver());
+         L.Config.WriteToColoredConsole();
          L.NodeId = "localhost";
 
          _log.D("test");

@@ -49,9 +49,6 @@
     <Compile Include="..\LogMagic.Portable\ILog.cs">
       <Link>ILog.cs</Link>
     </Compile>
-    <Compile Include="..\LogMagic.Portable\ILogChunkFormatter.cs">
-      <Link>ILogChunkFormatter.cs</Link>
-    </Compile>
     <Compile Include="..\LogMagic.Portable\ILogConfiguration.cs">
       <Link>ILogConfiguration.cs</Link>
     </Compile>
@@ -61,17 +58,14 @@
     <Compile Include="..\LogMagic.Portable\L.cs">
       <Link>L.cs</Link>
     </Compile>
-    <Compile Include="..\LogMagic.Portable\LogChunk.cs">
-      <Link>LogChunk.cs</Link>
-    </Compile>
     <Compile Include="..\LogMagic.Portable\LogClient.cs">
       <Link>LogClient.cs</Link>
     </Compile>
+    <Compile Include="..\LogMagic.Portable\LogEvent.cs">
+      <Link>LogEvent.cs</Link>
+    </Compile>
     <Compile Include="..\LogMagic.Portable\LogSeverity.cs">
       <Link>LogSeverity.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\Model\LogEvent.cs">
-      <Link>Model\LogEvent.cs</Link>
     </Compile>
     <Compile Include="..\LogMagic.Portable\PartitioningStrategy.cs">
       <Link>PartitioningStrategy.cs</Link>

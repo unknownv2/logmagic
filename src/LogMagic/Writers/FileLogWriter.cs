@@ -1,5 +1,4 @@
-﻿using LogMagic.Formatters;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -14,7 +13,6 @@ namespace LogMagic.Writers
       private readonly string _directoryName;
       private readonly string _fileNamePart;
       private readonly string _extensionPart;
-      private readonly ILogChunkFormatter _formatter;
       private StreamWriter _writer;
       private int _fileYear;
       private int _fileMonth;
@@ -24,17 +22,7 @@ namespace LogMagic.Writers
       /// Creates an instance of file receiver
       /// </summary>
       /// <param name="fileName">Target filename. If file does not exist it will be created.</param>
-      public FileLogWriter(string fileName) : this(fileName, null)
-      {
-
-      }
-
-      /// <summary>
-      /// Creates an instance of file receiver
-      /// </summary>
-      /// <param name="fileName">Target filename. If file does not exist it will be created.</param>
-      /// <param name="formatter">Optional chunk formatter</param>
-      public FileLogWriter(string fileName, ILogChunkFormatter formatter)
+      public FileLogWriter(string fileName)
       {
          if(fileName == null) throw new ArgumentNullException(nameof(fileName));
 
@@ -42,8 +30,6 @@ namespace LogMagic.Writers
          if(!Directory.Exists(_directoryName)) Directory.CreateDirectory(_directoryName);
 
          PreCreateDirectory(fileName);
-
-         _formatter = formatter ?? new StandardFormatter();
       }
 
       /// <summary>
@@ -86,20 +72,6 @@ namespace LogMagic.Writers
          _writer = new StreamWriter(fs, Encoding.UTF8, 1024, false);
       }
 
-      /// <summary>
-      /// Sends chunks
-      /// </summary>
-      protected override void SendChunks(IEnumerable<LogChunk> chunks)
-      {
-         foreach(LogChunk chunk in chunks)
-         {
-            CheckRolling(chunk.EventTime);
-
-            _writer.Write(_formatter.Format(chunk));
-         }
-         _writer.Flush();
-      }
-
       private void CheckRolling(DateTime date)
       {
          if(_writer == null || date.Year != _fileYear || date.Month != _fileMonth || date.Day != _fileDay)
@@ -115,11 +87,21 @@ namespace LogMagic.Writers
       /// <summary>
       /// Closes the target file
       /// </summary>
-      public override void Dispose()
+      public void Dispose()
       {
          _writer?.Dispose();
+      }
 
-         base.Dispose();
+      public void Write(IEnumerable<LogEvent> events)
+      {
+         foreach(LogEvent e in events)
+         {
+            CheckRolling(e.EventTime);
+
+            _writer.Write(TextFormatter.Format(e));
+         }
+
+         _writer.Flush();
       }
    }
 }

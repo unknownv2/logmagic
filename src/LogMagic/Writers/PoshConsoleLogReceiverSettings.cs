@@ -1,7 +1,7 @@
-﻿namespace LogMagic.Receivers
+﻿namespace LogMagic.Writers
 {
    /// <summary>
-   /// Configuration settings for <see cref="PoshConsoleLogReceiver"/>
+   /// Configuration settings for <see cref="PoshConsoleLogWriter"/>
    /// </summary>
    public class PoshConsoleLogReceiverSettings
    {

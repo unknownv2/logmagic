@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using LogMagic.Receivers;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Table;
@@ -9,7 +9,7 @@ namespace LogMagic.WindowsAzure
    /// <summary>
    /// Azure Table Storage receiver
    /// </summary>
-   public class AzureTableLogReceiver : AsyncReceiver
+   public class AzureTableLogWriter : ILogWriter
    {
       private readonly CloudTable _table;
 
@@ -28,17 +28,16 @@ namespace LogMagic.WindowsAzure
          public string Error { get; set; }
 
 
-         public static TableLogEntry FromLogChunk(LogChunk chunk)
+         public static TableLogEntry FromLogEvent(LogEvent e)
          {
             var entry = new TableLogEntry();
-            entry.PartitionKey = chunk.EventTime.ToString("yy-MM-dd");
-            entry.RowKey = chunk.EventTime.ToString("HH-mm-ss-fff");
+            entry.PartitionKey = e.EventTime.ToString("yy-MM-dd");
+            entry.RowKey = e.EventTime.ToString("HH-mm-ss-fff");
             entry.NodeId = L.NodeId;
-            entry.Severity = chunk.Severity.ToString();
-            entry.SourceName = chunk.SourceName;
-            entry.ThreadName = chunk.ThreadName;
-            entry.Message = chunk.Message;
-            if (chunk.Error != null) entry.Error = chunk.Error.ToString();
+            entry.Severity = e.Severity.ToString();
+            entry.SourceName = e.SourceName;
+            entry.Message = e.Message;
+            if (e.Error != null) entry.Error = e.Error.ToString();
 
             return entry;
          }
@@ -50,7 +49,7 @@ namespace LogMagic.WindowsAzure
       /// <param name="storageAccountName">Storage account name</param>
       /// <param name="storageAccountKey">Storage account key</param>
       /// <param name="tableName">Target table name</param>
-      public AzureTableLogReceiver(string storageAccountName, string storageAccountKey, string tableName)
+      public AzureTableLogWriter(string storageAccountName, string storageAccountKey, string tableName)
       {
          var creds = new StorageCredentials(storageAccountName, storageAccountKey);
          var account = new CloudStorageAccount(creds, true);
@@ -63,20 +62,24 @@ namespace LogMagic.WindowsAzure
       /// <summary>
       /// Sends chunks to table
       /// </summary>
-      /// <param name="chunks"></param>
-      protected override void SendChunks(IEnumerable<LogChunk> chunks)
+      /// <param name="events"></param>
+      public void Write(IEnumerable<LogEvent> events)
       {
          var batch = new TableBatchOperation();
 
-         foreach (LogChunk chunk in chunks)
+         foreach (LogEvent e in events)
          {
-            batch.Insert(TableLogEntry.FromLogChunk(chunk));
+            batch.Insert(TableLogEntry.FromLogEvent(e));
          }
 
          if (batch.Count > 0)
          {
             _table.ExecuteBatch(batch);
          }
+      }
+
+      public void Dispose()
+      {
       }
    }
 }

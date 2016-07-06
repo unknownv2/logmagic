@@ -1,40 +1,20 @@
 ﻿using System;
-using LogMagic.Formatters;
+using System.Collections.Generic;
 
 namespace LogMagic.Writers
 {
    /// <summary>
    /// Outputs messages to system console and ideal for server logging. It doesn't do anything fancy 
-   /// unlike <see cref="PoshConsoleLogReceiver"/>
+   /// unlike <see cref="PoshConsoleLogWriter"/>
    /// </summary>
-   public class ConsoleLogWriter : ILogWriter
+   class ConsoleLogWriter : ILogWriter
    {
-      private readonly ILogChunkFormatter _formatter;
-
       /// <summary>
       /// Creates class instance
       /// </summary>
-      public ConsoleLogWriter() : this(null)
+      public ConsoleLogWriter()
       {
          
-      }
-
-      /// <summary>
-      /// Creates class instance
-      /// </summary>
-      /// <param name="formatter">Optional formatter</param>
-      public ConsoleLogWriter(ILogChunkFormatter formatter)
-      {
-         _formatter = formatter ?? new StandardFormatter();
-      }
-
-      /// <summary>
-      /// Prints chunk to system console using the formatter
-      /// </summary>
-      /// <param name="chunk"></param>
-      public void Send(LogChunk chunk)
-      {
-         Console.Write(_formatter.Format(chunk));
       }
 
       /// <summary>
@@ -42,6 +22,14 @@ namespace LogMagic.Writers
       /// </summary>
       public void Dispose()
       {
+      }
+
+      public void Write(IEnumerable<LogEvent> events)
+      {
+         foreach(LogEvent e in events)
+         {
+            TextFormatter.Format(e);
+         }
       }
    }
 }
