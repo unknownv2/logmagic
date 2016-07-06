@@ -13,7 +13,6 @@ namespace LogMagic.Test
       public static void Main()
       {
          L.Config.WriteToColoredConsole();
-         L.NodeId = "localhost";
 
          _log.D("test");
       }

@@ -7,19 +7,22 @@ namespace LogMagic.Test
    [TestFixture]
    public class FormattingTest
    {
-      private TestWriter _receiver;
+      private TestWriter _writer;
       private ILog _log;
 
       [SetUp]
       public void SetUp()
       {
-         _receiver = new TestWriter();
-         L.ClearReceivers();
-         L.AddReceiver(_receiver);
+         _writer = new TestWriter();
+         L.Config.ClearWriters();
+         L.Config
+            .AddWriter(_writer)
+            .EnrichWithThreadId()
+            .EnrichWithConstant("node", "test");
          _log = L.G<FormattingTest>();
       }
 
-      private string Message => _receiver.Message;
+      private string Message => _writer.Message;
 
       [Test]
       public void Mixed_IntegerAndString_Formats()

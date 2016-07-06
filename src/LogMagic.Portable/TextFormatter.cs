@@ -8,9 +8,10 @@ namespace LogMagic
 
       public static string Format(LogEvent chunk)
       {
-         string nodeId = string.IsNullOrEmpty(L.NodeId) ? string.Empty : (L.NodeId + "|");
-         string errorString = chunk.Error == null ? string.Empty : (Environment.NewLine + chunk.Error);
-         string line = $"{chunk.EventTime.ToString("H:mm:ss,fff")}|{nodeId}{chunk.SourceName}|{chunk.Message}{errorString}{Environment.NewLine}";
+         string error = chunk.GetProperty(LogEvent.ErrorPropertyName);
+
+         string errorString = error == null ? string.Empty : (Environment.NewLine + error);
+         string line = $"{chunk.EventTime.ToString("H:mm:ss,fff")}|{chunk.SourceName}|{chunk.Message}{errorString}{Environment.NewLine}";
          return line;
       }
    }

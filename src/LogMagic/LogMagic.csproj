@@ -46,6 +46,21 @@
     <Compile Include="..\LogMagic.Portable\Configuration\LogConfiguration.cs">
       <Link>Configuration\LogConfiguration.cs</Link>
     </Compile>
+    <Compile Include="..\LogMagic.Portable\Enrichers\ConstantEnricher.cs">
+      <Link>Enrichers\ConstantEnricher.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.Portable\Enrichers\EnricherExtensions.cs">
+      <Link>Enrichers\EnricherExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.Portable\Enrichers\ThreadInfoEnricher.cs">
+      <Link>Enrichers\ThreadInfoEnricher.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.Portable\EventFactory.cs">
+      <Link>EventFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.Portable\IEnricher.cs">
+      <Link>IEnricher.cs</Link>
+    </Compile>
     <Compile Include="..\LogMagic.Portable\ILog.cs">
       <Link>ILog.cs</Link>
     </Compile>
@@ -67,9 +82,6 @@
     <Compile Include="..\LogMagic.Portable\LogSeverity.cs">
       <Link>LogSeverity.cs</Link>
     </Compile>
-    <Compile Include="..\LogMagic.Portable\PartitioningStrategy.cs">
-      <Link>PartitioningStrategy.cs</Link>
-    </Compile>
     <Compile Include="..\LogMagic.Portable\TextFormatter.cs">
       <Link>TextFormatter.cs</Link>
     </Compile>
@@ -82,6 +94,7 @@
     <Compile Include="..\LogMagic.Portable\TypeFormatters\ITypeFormatter.cs">
       <Link>TypeFormatters\ITypeFormatter.cs</Link>
     </Compile>
+    <Compile Include="LogEventPump.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Writers\ConsoleLogWriter.cs" />
     <Compile Include="Writers\FileLogWriter.cs" />

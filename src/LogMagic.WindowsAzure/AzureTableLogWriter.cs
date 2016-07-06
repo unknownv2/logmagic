@@ -15,8 +15,6 @@ namespace LogMagic.WindowsAzure
 
       private class TableLogEntry : TableEntity
       {
-         public string NodeId { get; set; }
-
          public string Severity { get; set; }
 
          public string SourceName { get; set; }
@@ -33,11 +31,10 @@ namespace LogMagic.WindowsAzure
             var entry = new TableLogEntry();
             entry.PartitionKey = e.EventTime.ToString("yy-MM-dd");
             entry.RowKey = e.EventTime.ToString("HH-mm-ss-fff");
-            entry.NodeId = L.NodeId;
             entry.Severity = e.Severity.ToString();
             entry.SourceName = e.SourceName;
             entry.Message = e.Message;
-            if (e.Error != null) entry.Error = e.Error.ToString();
+            entry.Error = e.GetProperty(LogEvent.ErrorPropertyName);
 
             return entry;
          }

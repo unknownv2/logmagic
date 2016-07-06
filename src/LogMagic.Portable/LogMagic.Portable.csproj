@@ -46,6 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\LogConfiguration.cs" />
+    <Compile Include="Enrichers\ConstantEnricher.cs" />
+    <Compile Include="Enrichers\EnricherExtensions.cs" />
+    <Compile Include="Enrichers\ThreadInfoEnricher.cs" />
+    <Compile Include="EventFactory.cs" />
+    <Compile Include="IEnricher.cs" />
+    <Compile Include="LogEventPump.cs" />
     <Compile Include="TextFormatter.cs" />
     <Compile Include="ILog.cs" />
     <Compile Include="ILogConfiguration.cs" />
@@ -54,7 +60,6 @@
     <Compile Include="LogClient.cs" />
     <Compile Include="LogSeverity.cs" />
     <Compile Include="LogEvent.cs" />
-    <Compile Include="PartitioningStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeFormatters\EnumerableFormatter.cs" />
     <Compile Include="TypeFormatters\FormatterEntry.cs" />

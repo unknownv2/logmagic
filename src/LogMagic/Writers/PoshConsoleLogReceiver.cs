@@ -50,13 +50,6 @@ namespace LogMagic.Writers
          Cg.Write(",", ConsoleColor.Gray);
          Cg.Write(e.EventTime.ToString("fff"), ConsoleColor.DarkGreen);
 
-         //node ID
-         if (!string.IsNullOrEmpty(L.NodeId))
-         {
-            Cg.Write("|", ConsoleColor.DarkGray);
-            Cg.Write(L.NodeId.PadRight(10, ' '), ConsoleColor.Red);
-         }
-
          //level
          Cg.Write("|", ConsoleColor.DarkGray);
          GetLogSeverity(e.Severity);
@@ -74,10 +67,11 @@ namespace LogMagic.Writers
          Cg.Write(e.Message, GetMessageColor(e.Severity));
 
          //error
-         if(e.Error != null)
+         string error = e.GetProperty(LogEvent.ErrorPropertyName);
+         if(error != null)
          {
             Console.WriteLine();
-            Cg.Write(e.Error.ToString(), ConsoleColor.Red);
+            Cg.Write(error, ConsoleColor.Red);
          }
 
          Console.WriteLine();

@@ -11,54 +11,16 @@ namespace LogMagic
    /// </summary>
    public static class L
    {
-      private static readonly List<ILogWriter> LogReceivers = new List<ILogWriter>();
-      private static readonly object EventLock = new object();
       private static readonly ILogConfiguration _config = new LogConfiguration();
 
       public static ILogConfiguration Config {  get { return _config; } }
-
-      /// <summary>
-      /// Identifies this machine or node uniquely. Useful in situations when you are writing same or similar
-      /// log lines into single location and need to know which node they are coming from.
-      /// </summary>
-      public static string NodeId { get; set; }
-
-      /// <summary>
-      /// Adds a receiver to log configuration
-      /// </summary>
-      /// <param name="receiver">Receiver instance</param>
-      public static void AddReceiver(ILogWriter receiver)
-      {
-         if(receiver == null) throw new ArgumentNullException(nameof(receiver));
-
-         lock(LogReceivers)
-         {
-            LogReceivers.Add(receiver);
-         }
-      }
-
-      /// <summary>
-      /// Removes all log receivers
-      /// </summary>
-      public static void ClearReceivers()
-      {
-         lock (LogReceivers)
-         {
-            foreach (ILogWriter receiver in LogReceivers)
-            {
-               receiver.Dispose();
-            }
-
-            LogReceivers.Clear();
-         }
-      }
 
       /// <summary>
       /// Get logger for the specified type
       /// </summary>
       public static ILog G<T>()
       {
-         return new LogClient(typeof(T), LogReceivers, EventLock);
+         return new LogClient(typeof(T));
       }
 
       /// <summary>
@@ -66,7 +28,7 @@ namespace LogMagic
       /// </summary>
       public static ILog G(Type t)
       {
-         return new LogClient(t, LogReceivers, EventLock);
+         return new LogClient(t);
       }
 
       /// <summary>
@@ -74,7 +36,7 @@ namespace LogMagic
       /// </summary>
       public static ILog G(string name)
       {
-         return new LogClient(name, LogReceivers, EventLock);
+         return new LogClient(name);
       }
 
 #if !PORTABLE
@@ -84,7 +46,7 @@ namespace LogMagic
       /// <returns></returns>
       public static ILog G()
       {
-         return new LogClient(GetClassFullName(), LogReceivers, EventLock);
+         return new LogClient(GetClassFullName());
       }
 
       /// <summary>

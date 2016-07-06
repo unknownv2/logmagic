@@ -29,10 +29,9 @@ namespace LogMagic.Test
       [SetUp]
       public void SetUp()
       {
-         L.ClearReceivers();
+         L.Config.ClearWriters();
          Cfg.Configuration.RemoveAllStores();
          Cfg.Configuration.AddStore(new IniFileConfigStore("c:\\tmp\\integration-tests.ini"));
-         L.NodeId = "testnode";
 
          switch (_receiverName)
          {
