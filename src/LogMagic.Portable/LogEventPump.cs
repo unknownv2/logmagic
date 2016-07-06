@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace LogMagic
 {
@@ -11,7 +7,18 @@ namespace LogMagic
    {
       public static void Queue(LogEvent e)
       {
-
+         foreach (ILogWriter writer in L.Config.Writers)
+         {
+            try
+            {
+               writer.Write(new[] { e });
+            }
+            catch(Exception ex)
+            {
+               //swallow this
+               Debug.WriteLine("failed to log, " + ex);
+            }
+         }
       }
    }
 }
