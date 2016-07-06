@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogMagic.Seq
 {
@@ -15,7 +12,7 @@ namespace LogMagic.Seq
 
       public string MessageTemplate { get; set; }
 
-      public Dictionary<string, object> Properties { get; set; }
+      public Dictionary<string, string> Properties { get; set; }
 
       public string Exception { get; set; }
 
@@ -26,8 +23,8 @@ namespace LogMagic.Seq
             Timestamp = new DateTimeOffset(e.EventTime),
             Level = e.Severity.ToString(),
             MessageTemplate = e.Message,
-            Properties = null,
-            Exception = e.GetProperty(LogEvent.ErrorPropertyName)
+            Properties = e.Properties,
+            Exception = e.GetProperty(LogEvent.ErrorPropertyName),
          };
       }
    }
