@@ -56,7 +56,7 @@ namespace LogMagic.Writers
          Cg.Write(Abbreviate(e.SourceName), ConsoleColor.Gray);
 
          //enriched properties
-         if(e.Properties != null && e.Properties.Count > 0)
+         /*if(e.Properties != null && e.Properties.Count > 0)
          {
             foreach(var prop in e.Properties)
             {
@@ -65,7 +65,7 @@ namespace LogMagic.Writers
                Cg.Write(": ", ConsoleColor.DarkGray);
                Cg.Write(prop.Value, ConsoleColor.Green);
             }
-         }
+         }*/
 
          //message
          Cg.Write("|", ConsoleColor.DarkGray);
