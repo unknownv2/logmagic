@@ -17,7 +17,7 @@
       <copyright>Copyright (c) 2015 by Ivan Gavryliuk</copyright>
       <tags>Common</tags>
       <dependencies>
-         <dependency id="LogMagic" version="1.3" />
+         <dependency id="LogMagic" version="2.0" />
       </dependencies>
    </metadata>
    <files>
