@@ -4,25 +4,25 @@ namespace LogMagic
 {
    public static class ConfigurationExtensions
    {
-      public static ILogConfiguration WriteToAzureAppendBlob(this ILogConfiguration configuration,
+      public static ILogConfiguration AzureAppendBlob(this IWriterConfiguration configuration,
          string storageAccountName,
          string storageAccountKey,
          string containerName,
          string blobNamePrefix)
       {
-         return configuration.AddWriter(new AzureAppendBlobLogWriter(
+         return configuration.Custom(new AzureAppendBlobLogWriter(
             storageAccountName,
             storageAccountKey,
             containerName,
             blobNamePrefix));
       }
 
-      public static ILogConfiguration WriteToAzureTable(this ILogConfiguration configuration,
+      public static ILogConfiguration AzureTable(this IWriterConfiguration configuration,
          string storageAccountName,
          string storageAccountKey,
          string tableName)
       {
-         return configuration.AddWriter(new AzureTableLogWriter(storageAccountName, storageAccountKey, tableName));
+         return configuration.Custom(new AzureTableLogWriter(storageAccountName, storageAccountKey, tableName));
       }
    }
 }

@@ -36,24 +36,24 @@ namespace LogMagic.Test
          switch (_receiverName)
          {
             case "azure-blob":
-               L.Config.WriteToAzureAppendBlob(Cfg.Read(AzureStorageName), Cfg.Read(AzureStorageKey),
+               L.Config.WriteTo.AzureAppendBlob(Cfg.Read(AzureStorageName), Cfg.Read(AzureStorageKey),
                   "logs-integration", "smokeandmirrors");
                break;
             case "azure-table":
-               L.Config.WriteToAzureTable(Cfg.Read(AzureStorageName), Cfg.Read(AzureStorageKey),
+               L.Config.WriteTo.AzureTable(Cfg.Read(AzureStorageName), Cfg.Read(AzureStorageKey),
                   "logsintegration");
                break;
             case "files":
-               L.Config.WriteToFile(Path.Combine(TestDir.FullName, "subdir", "testlog.txt"));
+               L.Config.WriteTo.File(Path.Combine(TestDir.FullName, "subdir", "testlog.txt"));
                break;
             case "console":
-               L.Config.WriteToConsole();
+               L.Config.WriteTo.Console();
                break;
             case "posh-console":
-               L.Config.WriteToColoredConsole();
+               L.Config.WriteTo.PoshConsole();
                break;
             case "trace":
-               L.Config.WriteToTrace();
+               L.Config.WriteTo.Trace();
                break;
          }   
       }

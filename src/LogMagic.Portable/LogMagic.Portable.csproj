@@ -47,10 +47,13 @@
   <ItemGroup>
     <Compile Include="Configuration\LogConfiguration.cs" />
     <Compile Include="Enrichers\ConstantEnricher.cs" />
-    <Compile Include="Enrichers\EnricherExtensions.cs" />
+    <Compile Include="Enrichers\EnrichersConfigurationExtensions.cs" />
+    <Compile Include="Enrichers\MethodNameEnricher.cs" />
     <Compile Include="Enrichers\ThreadInfoEnricher.cs" />
     <Compile Include="EventFactory.cs" />
     <Compile Include="IEnricher.cs" />
+    <Compile Include="IEnricherConfiguration.cs" />
+    <Compile Include="IWriterConfiguration.cs" />
     <Compile Include="LogEventPump.cs" />
     <Compile Include="TextFormatter.cs" />
     <Compile Include="ILog.cs" />

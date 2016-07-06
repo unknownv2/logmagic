@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogMagic.Configuration
 {
-   class LogConfiguration : ILogConfiguration
+   class LogConfiguration : ILogConfiguration, IWriterConfiguration, IEnricherConfiguration
    {
       private readonly List<ILogWriter> _writers = new List<ILogWriter>();
       private readonly List<IEnricher> _enrichers = new List<IEnricher>();
@@ -15,12 +15,22 @@ namespace LogMagic.Configuration
 
       public IEnumerable<ILogWriter> Writers => _writers;
 
-      public ILogConfiguration AddWriter(ILogWriter writer)
+      public ILogConfiguration ClearWriters()
+      {
+         _writers.Clear();
+
+         return this;
+      }
+
+      public ILogConfiguration Custom(ILogWriter writer)
       {
          _writers.Add(writer);
 
          return this;
       }
+
+      public IWriterConfiguration WriteTo => this;
+
 
       public ILogConfiguration Enrich(IEnricher enricher)
       {
@@ -29,18 +39,13 @@ namespace LogMagic.Configuration
          return this;
       }
 
-      public ILogConfiguration AddEnricher(IEnricher enricher)
+      public ILogConfiguration Custom(IEnricher enricher)
       {
          _enrichers.Add(enricher);
 
          return this;
       }
 
-      public ILogConfiguration ClearWriters()
-      {
-         _writers.Clear();
-
-         return this;
-      }
+      public IEnricherConfiguration EnrichWith => this;
    }
 }

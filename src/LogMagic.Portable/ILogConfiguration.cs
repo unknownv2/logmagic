@@ -6,12 +6,12 @@ namespace LogMagic
    {
       ILogConfiguration ClearWriters();
 
-      ILogConfiguration AddWriter(ILogWriter writer);
-
-      ILogConfiguration AddEnricher(IEnricher enricher);
+      IEnumerable<IEnricher> Enrichers { get; }
 
       IEnumerable<ILogWriter> Writers { get; }
 
-      IEnumerable<IEnricher> Enrichers { get; }
+      IEnricherConfiguration EnrichWith { get; }
+
+      IWriterConfiguration WriteTo { get; }
    }
 }

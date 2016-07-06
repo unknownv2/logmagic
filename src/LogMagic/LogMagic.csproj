@@ -49,8 +49,11 @@
     <Compile Include="..\LogMagic.Portable\Enrichers\ConstantEnricher.cs">
       <Link>Enrichers\ConstantEnricher.cs</Link>
     </Compile>
-    <Compile Include="..\LogMagic.Portable\Enrichers\EnricherExtensions.cs">
-      <Link>Enrichers\EnricherExtensions.cs</Link>
+    <Compile Include="..\LogMagic.Portable\Enrichers\EnrichersConfigurationExtensions.cs">
+      <Link>Enrichers\EnrichersConfigurationExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.Portable\Enrichers\MethodNameEnricher.cs">
+      <Link>Enrichers\MethodNameEnricher.cs</Link>
     </Compile>
     <Compile Include="..\LogMagic.Portable\Enrichers\ThreadInfoEnricher.cs">
       <Link>Enrichers\ThreadInfoEnricher.cs</Link>
@@ -61,6 +64,9 @@
     <Compile Include="..\LogMagic.Portable\IEnricher.cs">
       <Link>IEnricher.cs</Link>
     </Compile>
+    <Compile Include="..\LogMagic.Portable\IEnricherConfiguration.cs">
+      <Link>IEnricherConfiguration.cs</Link>
+    </Compile>
     <Compile Include="..\LogMagic.Portable\ILog.cs">
       <Link>ILog.cs</Link>
     </Compile>
@@ -69,6 +75,9 @@
     </Compile>
     <Compile Include="..\LogMagic.Portable\ILogWriter.cs">
       <Link>ILogWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.Portable\IWriterConfiguration.cs">
+      <Link>IWriterConfiguration.cs</Link>
     </Compile>
     <Compile Include="..\LogMagic.Portable\L.cs">
       <Link>L.cs</Link>
@@ -101,7 +110,7 @@
     <Compile Include="Writers\PoshConsoleLogReceiver.cs" />
     <Compile Include="Writers\PoshConsoleLogReceiverSettings.cs" />
     <Compile Include="Writers\TraceLogWriter.cs" />
-    <Compile Include="Writers\ConfigurationExtensions.cs" />
+    <Compile Include="Writers\WritersConfigurationExtensions.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
