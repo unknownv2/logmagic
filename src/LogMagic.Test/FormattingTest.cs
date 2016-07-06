@@ -22,12 +22,19 @@ namespace LogMagic.Test
          _log = L.G<FormattingTest>();
       }
 
+      [SetUp]
+      public void TearDown()
+      {
+         L.Shutdown();
+      }
+
       private string Message => _writer.Message;
 
       [Test]
       public void Mixed_IntegerAndString_Formats()
       {
          _log.D("one {0} string {1}", 1, "s");
+         L.Flush();
 
          Assert.AreEqual("one 1 string s", Message);
       }
@@ -39,6 +46,7 @@ namespace LogMagic.Test
 
          _log.D("the {0} format", lst);
 
+         L.Flush();
          Assert.AreEqual("the [3 el: {one}, {two}, {three}] format", Message);
       }
 
@@ -49,6 +57,7 @@ namespace LogMagic.Test
 
          _log.D("the {0} format", lst);
 
+         L.Flush();
          Assert.AreEqual("the [7 el: {one}, {two}, {three}, {four}, {five} +2 more] format", Message);
       }
 
@@ -58,6 +67,7 @@ namespace LogMagic.Test
       {
          _log.D("the {0}", "string");
 
+         L.Flush();
          Assert.AreEqual("the string", Message);
       }
 

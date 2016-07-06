@@ -10,6 +10,8 @@ namespace LogMagic
       private const int BufferSize = 100;
       private static readonly ConcurrentQueue<LogEvent> _eventQueue = new ConcurrentQueue<LogEvent>();
       private static ManualResetEvent _waitEvent = new ManualResetEvent(false);
+      private static ManualResetEvent _shutdownCompleteEvent = new ManualResetEvent(false);
+      private static bool _isRunning = true;
 
       static LogEventPump()
       {
@@ -23,9 +25,17 @@ namespace LogMagic
          _waitEvent.Set();
       }
 
+      public static void Shutdown()
+      {
+         _isRunning = false;
+         _waitEvent.Set();
+
+         _shutdownCompleteEvent.WaitOne();
+      }
+
       private static void PumpMethod()
       {
-         while(true)
+         while(_isRunning)
          {
             _waitEvent.Reset();
 
@@ -46,11 +56,21 @@ namespace LogMagic
 
             _waitEvent.WaitOne(TimeSpan.FromSeconds(5));
          }
+
+         _shutdownCompleteEvent.Set();
+      }
+
+      internal static void Flush()
+      {
+         var buffer = new List<LogEvent>();
+         LogEvent e;
+         while (_eventQueue.TryDequeue(out e)) buffer.Add(e);
+         Submit(buffer);
       }
 
       private static void Submit(List<LogEvent> events)
       {
-         foreach(ILogWriter writer in L.Config.Writers)
+         foreach(ILogWriter writer in new List<ILogWriter>(L.Config.Writers))
          {
             try
             {
@@ -62,7 +82,6 @@ namespace LogMagic
                Console.WriteLine("could not write: " + ex);
             }
          }
-
       }
    }
 }

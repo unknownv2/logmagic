@@ -49,6 +49,16 @@ namespace LogMagic
          return new LogClient(GetClassFullName());
       }
 
+      public static void Shutdown()
+      {
+         LogEventPump.Shutdown();
+      }
+
+      public static void Flush()
+      {
+         LogEventPump.Flush();
+      }
+
       /// <summary>
       /// Gets the fully qualified name of the class invoking the LogManager, including the 
       /// namespace but not the assembly.    

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LogMagic.TypeFormatters;
 
 namespace LogMagic
 {
@@ -47,8 +48,8 @@ namespace LogMagic
 
       private static string FormatMessage(LogEvent e, string format, object[] parameters)
       {
-         //string message = parameters == null ? format : string.Format(format, parameters.Select(FormatterEntry.FormatParameter).ToArray());
-         return format;
+         string message = parameters == null ? format : string.Format(format, parameters.Select(FormatterEntry.FormatParameter).ToArray());
+         return message;
       }
    }
 }
