@@ -91,10 +91,12 @@
   <ItemGroup>
     <Compile Include="AbstractTestFixture.cs" />
     <Compile Include="ConsoleEntry.cs" />
+    <Compile Include="EnrichersTest.cs" />
     <Compile Include="FormattingTest.cs" />
     <Compile Include="LoggingDemoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SmokeAndMirrorsLogging.cs" />
+    <Compile Include="TestWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\logmagic.snk">

@@ -30,7 +30,14 @@ namespace LogMagic.Enrichers
          bool isFirst = true;
          foreach(ParameterInfo p in method.GetParameters())
          {
-            if(!isFirst) sb.Append(", ");
+            if (!isFirst)
+            {
+               sb.Append(", ");
+            }
+            else
+            {
+               isFirst = false;
+            }
             sb.Append(p.ParameterType.Name);
             sb.Append(" ");
             sb.Append(p.Name);
