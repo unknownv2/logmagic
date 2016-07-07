@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using LogMagic.TypeFormatters;
@@ -25,6 +26,7 @@ namespace LogMagic
          }
       }
 
+      [MethodImpl(MethodImplOptions.NoInlining)]
       public static LogEvent CreateEvent(string sourceName, LogSeverity severity, string format, object[] parameters)
       {
          var e = new LogEvent(severity, sourceName, DateTime.UtcNow);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,8 @@ namespace LogMagic.Enrichers
 #if !PORTABLE
    class MethodNameEnricher : IEnricher
    {
+      //the rest of the methods up the chain should be marked too so we can get method name in release version
+      [MethodImpl(MethodImplOptions.NoInlining)]
       public void Enrich(LogEvent e, out string propertyName, out string propertyValue)
       {
          var frame = new StackFrame(4);   //warning! this can change after refactoring
