@@ -103,6 +103,8 @@
     <Compile Include="..\LogMagic.Portable\TypeFormatters\ITypeFormatter.cs">
       <Link>TypeFormatters\ITypeFormatter.cs</Link>
     </Compile>
+    <Compile Include="Enrichers\MachineIpEnricher.cs" />
+    <Compile Include="Enrichers\MachineNameEnricher.cs" />
     <Compile Include="LogEventPump.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Writers\ConsoleLogWriter.cs" />

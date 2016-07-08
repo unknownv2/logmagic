@@ -21,6 +21,17 @@ namespace LogMagic
       {
          return configuration.Custom(new MethodNameEnricher());
       }
+
+      public static ILogConfiguration MachineName(this IEnricherConfiguration configuration)
+      {
+         return configuration.Custom(new MachineNameEnricher());
+      }
+
+      public static ILogConfiguration MachineIpAddress(this IEnricherConfiguration configuration)
+      {
+         return configuration.Custom(new MachineIpEnricher());
+      }
+
 #endif
    }
 }

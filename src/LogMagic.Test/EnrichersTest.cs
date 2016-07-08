@@ -56,5 +56,18 @@ namespace LogMagic.Test
          _log.D("parameters method");
          return s;
       }
+
+      [Test]
+      public void MachineIp_Current_ReturnsSomething()
+      {
+         L.Config.EnrichWith.MachineIpAddress();
+         _log.D("what's this machine IP?");
+
+         L.Flush();
+         string address = _writer.Event.GetProperty("machineIp");
+         _log.D("address: {ipAddress}", address);
+         L.Flush();
+         Assert.IsNotNull(address);
+      }
    }
 }
