@@ -12,7 +12,7 @@ namespace LogMagic.Seq
 
       public string MessageTemplate { get; set; }
 
-      public Dictionary<string, string> Properties { get; set; }
+      public Dictionary<string, object> Properties { get; set; }
 
       public string Exception { get; set; }
 
@@ -24,7 +24,7 @@ namespace LogMagic.Seq
             Level = e.Severity.ToString(),
             MessageTemplate = e.Message,
             Properties = e.Properties,
-            Exception = e.GetProperty(LogEvent.ErrorPropertyName),
+            Exception = (e.GetProperty(LogEvent.ErrorPropertyName) as Exception)?.ToString(),
          };
       }
    }

@@ -11,7 +11,7 @@
          _propertyValue = propertyValue;
       }
 
-      public void Enrich(LogEvent e, out string propertyName, out string propertyValue)
+      public void Enrich(LogEvent e, out string propertyName, out object propertyValue)
       {
          propertyName = _propertyName;
          propertyValue = _propertyValue;

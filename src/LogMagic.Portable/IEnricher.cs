@@ -11,6 +11,6 @@
       /// <param name="e">Log event</param>
       /// <param name="propertyName">Property name to enrich</param>
       /// <param name="propertyValue">Enriched property value</param>
-      void Enrich(LogEvent e, out string propertyName, out string propertyValue);
+      void Enrich(LogEvent e, out string propertyName, out object propertyValue);
    }
 }

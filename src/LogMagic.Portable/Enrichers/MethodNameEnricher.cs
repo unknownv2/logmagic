@@ -14,7 +14,7 @@ namespace LogMagic.Enrichers
    {
       //the rest of the methods up the chain should be marked too so we can get method name in release version
       [MethodImpl(MethodImplOptions.NoInlining)]
-      public void Enrich(LogEvent e, out string propertyName, out string propertyValue)
+      public void Enrich(LogEvent e, out string propertyName, out object propertyValue)
       {
          var frame = new StackFrame(4);   //warning! this can change after refactoring
 

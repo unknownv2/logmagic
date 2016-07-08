@@ -34,7 +34,7 @@ namespace LogMagic.WindowsAzure
             entry.Severity = e.Severity.ToString();
             entry.SourceName = e.SourceName;
             entry.Message = e.Message;
-            entry.Error = e.GetProperty(LogEvent.ErrorPropertyName);
+            entry.Error = (e.GetProperty(LogEvent.ErrorPropertyName) as Exception)?.ToString();
 
             return entry;
          }

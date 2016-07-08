@@ -11,7 +11,7 @@ namespace LogMagic.Enrichers
          _machineName = Environment.MachineName;
       }
 
-      public void Enrich(LogEvent e, out string propertyName, out string propertyValue)
+      public void Enrich(LogEvent e, out string propertyName, out object propertyValue)
       {
          propertyName = "machineName";
          propertyValue = _machineName;

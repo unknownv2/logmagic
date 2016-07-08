@@ -10,7 +10,7 @@ namespace LogMagic.Enrichers
 {
    class ThreadInfoEnricher : IEnricher
    {
-      public void Enrich(LogEvent e, out string propertyName, out string propertyValue)
+      public void Enrich(LogEvent e, out string propertyName, out object propertyValue)
       {
          propertyName = "threadId";
          propertyValue = GetThreadId();

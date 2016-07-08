@@ -38,7 +38,8 @@ namespace LogMagic
          //enrich
          foreach(IEnricher enricher in L.Config.Enrichers)
          {
-            string pn, pv;
+            string pn;
+            object pv;
             enricher.Enrich(e, out pn, out pv);
             e.AddProperty(pn, pv);
          }
@@ -87,9 +88,11 @@ namespace LogMagic
                {
                   object inputValue = parameters[pos];
                   string outputValue = FormatterEntry.FormatParameter(inputValue);
-                  if (outputValue == null) outputValue = string.Format(nativeFormat, inputValue);
+                  if (outputValue == null) outputValue = nativeFormat == null 
+                        ? inputValue?.ToString() 
+                        : string.Format(nativeFormat, inputValue);
                   r.Append(outputValue);
-                  e.AddProperty(paramName, outputValue);
+                  e.AddProperty(paramName, inputValue);
                }
                else
                {
@@ -125,7 +128,7 @@ namespace LogMagic
             paramName = null;
          }
          nativeFormat = format == null
-            ? $"{{0}}"
+            ? null
             : $"{{0:{format}}}";
       }
 

@@ -72,11 +72,11 @@ namespace LogMagic.Writers
          Cg.Write(e.Message, GetMessageColor(e.Severity));
 
          //error
-         string error = e.GetProperty(LogEvent.ErrorPropertyName);
+         object error = e.GetProperty(LogEvent.ErrorPropertyName);
          if(error != null)
          {
             Console.WriteLine();
-            Cg.Write(error, ConsoleColor.Red);
+            Cg.Write(error.ToString(), ConsoleColor.Red);
          }
 
          Console.WriteLine();

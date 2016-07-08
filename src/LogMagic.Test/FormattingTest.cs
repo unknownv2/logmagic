@@ -78,11 +78,11 @@ namespace LogMagic.Test
       [Test]
       public void Structured_NamedString_Formats()
       {
-         _log.D("the {Count} kettles", "5");
+         _log.D("the {Count} kettles", 5);
 
          L.Flush();
          Assert.AreEqual("the 5 kettles", Message);
-         Assert.AreEqual("5", Event.GetProperty("Count"));
+         Assert.AreEqual(5, (int)Event.GetProperty("Count"));
       }
 
       [Test]
@@ -92,7 +92,7 @@ namespace LogMagic.Test
 
          L.Flush();
          Assert.AreEqual("5 kettles and 03 lamps...", Message);
-         Assert.AreEqual("03", Event.GetProperty("three"));
+         Assert.AreEqual(3, Event.GetProperty("three"));
       }
 
       

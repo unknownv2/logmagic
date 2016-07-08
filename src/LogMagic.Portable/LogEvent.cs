@@ -22,22 +22,22 @@ namespace LogMagic
 
       public string Message;
 
-      public Dictionary<string, string> Properties;
+      public Dictionary<string, object> Properties;
 
-      public void AddProperty(string name, string value)
+      public void AddProperty(string name, object value)
       {
          if (name == null || value == null) return;
 
-         if(Properties == null) Properties = new Dictionary<string, string>();
+         if(Properties == null) Properties = new Dictionary<string, object>();
 
          Properties[name] = value;
       }
 
-      public string GetProperty(string name)
+      public object GetProperty(string name)
       {
          if (Properties == null) return null;
 
-         string r;
+         object r;
          if (!Properties.TryGetValue(name, out r)) return null;
          return r;
       }

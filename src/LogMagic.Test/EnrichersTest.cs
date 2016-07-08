@@ -37,7 +37,8 @@ namespace LogMagic.Test
          _log.D("method call");
 
          L.Flush();
-         Assert.AreEqual("LogMagic.Test.EnrichersTest.MethodName_ThisMethod_Matches()", _writer.Event.GetProperty("method"));
+         Assert.AreEqual("LogMagic.Test.EnrichersTest.MethodName_ThisMethod_Matches()", 
+            (string)_writer.Event.GetProperty("method"));
       }
 
       [Test]
@@ -48,7 +49,7 @@ namespace LogMagic.Test
 
          L.Flush();
          Assert.AreEqual("LogMagic.Test.EnrichersTest.MethodWithParameters(String s, Int32 i, Guid g)",
-            _writer.Event.GetProperty("method"));
+            (string)_writer.Event.GetProperty("method"));
       }
 
       private string MethodWithParameters(string s, int i, Guid g)
@@ -64,7 +65,7 @@ namespace LogMagic.Test
          _log.D("what's this machine IP?");
 
          L.Flush();
-         string address = _writer.Event.GetProperty("machineIp");
+         string address = (string)_writer.Event.GetProperty("machineIp");
          _log.D("address: {ipAddress}", address);
          L.Flush();
          Assert.IsNotNull(address);
