@@ -18,14 +18,18 @@ namespace LogMagic.Seq
 
       public static RawEvent FromLogEvent(LogEvent e)
       {
-         return new RawEvent
+         var re = new RawEvent
          {
             Timestamp = new DateTimeOffset(e.EventTime),
             Level = e.Severity.ToString(),
             MessageTemplate = e.Message,
-            Properties = e.Properties,
             Exception = (e.GetProperty(LogEvent.ErrorPropertyName) as Exception)?.ToString(),
          };
+
+         re.Properties = new Dictionary<string, object>(e.Properties);
+         re.Properties.Add("source", e.SourceName);
+
+         return re;
       }
    }
 }
