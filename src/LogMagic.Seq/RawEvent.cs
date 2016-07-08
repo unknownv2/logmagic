@@ -23,7 +23,7 @@ namespace LogMagic.Seq
             Timestamp = new DateTimeOffset(e.EventTime),
             Level = e.Severity.ToString(),
             MessageTemplate = e.Message,
-            Exception = (e.GetProperty(LogEvent.ErrorPropertyName) as Exception)?.ToString(),
+            Exception = e.GetProperty(LogEvent.ErrorPropertyName)?.ToString(),
          };
 
          re.Properties = new Dictionary<string, object>(e.Properties);

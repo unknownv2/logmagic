@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="AzureAppendBlobLogWriter.cs" />
     <Compile Include="AzureTableLogWriter.cs" />
+    <Compile Include="ElasticTableEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConfigurationExtensions.cs" />
   </ItemGroup>

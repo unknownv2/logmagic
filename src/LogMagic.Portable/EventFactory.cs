@@ -33,7 +33,7 @@ namespace LogMagic
 
          //add error
          Exception error = ExtractError(parameters);
-         if (error != null) e.AddProperty("error", error.ToString());
+         if (error != null) e.AddProperty("error", error);
 
          //enrich
          foreach(IEnricher enricher in L.Config.Enrichers)

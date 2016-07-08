@@ -2,6 +2,7 @@
 using Config.Net.Stores;
 using NUnit.Framework;
 using System.IO;
+using System;
 
 namespace LogMagic.Test
 {
@@ -70,7 +71,9 @@ namespace LogMagic.Test
          ILog log = L.G();
 
          log.D("hello!");
+         log.D("exception is here!", new Exception("test exception"));
 
+         L.Flush();
          //Thread.Sleep(TimeSpan.FromMinutes(1));
       }
    }

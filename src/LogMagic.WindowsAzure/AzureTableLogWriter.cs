@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Table;
+using Newtonsoft.Json.Linq;
 
 namespace LogMagic.WindowsAzure
 {
@@ -12,33 +13,6 @@ namespace LogMagic.WindowsAzure
    class AzureTableLogWriter : ILogWriter
    {
       private readonly CloudTable _table;
-
-      private class TableLogEntry : TableEntity
-      {
-         public string Severity { get; set; }
-
-         public string SourceName { get; set; }
-
-         public string ThreadName { get; set; }
-
-         public string Message { get; set; }
-
-         public string Error { get; set; }
-
-
-         public static TableLogEntry FromLogEvent(LogEvent e)
-         {
-            var entry = new TableLogEntry();
-            entry.PartitionKey = e.EventTime.ToString("yy-MM-dd");
-            entry.RowKey = e.EventTime.ToString("HH-mm-ss-fff");
-            entry.Severity = e.Severity.ToString();
-            entry.SourceName = e.SourceName;
-            entry.Message = e.Message;
-            entry.Error = (e.GetProperty(LogEvent.ErrorPropertyName) as Exception)?.ToString();
-
-            return entry;
-         }
-      }
 
       /// <summary>
       /// Creates class instance
@@ -66,7 +40,28 @@ namespace LogMagic.WindowsAzure
 
          foreach (LogEvent e in events)
          {
-            batch.Insert(TableLogEntry.FromLogEvent(e));
+            var row = new ElasticTableEntity
+            {
+               PartitionKey = e.EventTime.ToString("yy-MM-dd"),
+               RowKey = e.EventTime.ToString("HH-mm-ss-fff")
+            };
+
+            row.Add("source", e.SourceName);
+            row.Add("severity", e.Severity);
+            row.Add("message", e.Message);
+            row.Add("error", e.ErrorException == null ? string.Empty : e.ErrorException.ToString());
+
+            if (e.Properties != null)
+            {
+               foreach (var p in e.Properties)
+               {
+                  if (p.Key == LogEvent.ErrorPropertyName) continue;
+
+                  row.Add(p.Key, p.Value);
+               }
+            }
+
+            batch.Insert(row);
          }
 
          if (batch.Count > 0)
