@@ -17,6 +17,7 @@ namespace LogMagic.Test
             .WriteTo.Seq(new Uri("http://192.168.137.1:5341"))
             .EnrichWith.ThreadId()
             .EnrichWith.Constant("client", "testcon")
+            .EnrichWith.MachineIpAddress()
             .EnrichWith.MethodName();
 
          _log.D("test");

@@ -11,7 +11,7 @@ namespace LogMagic
       private readonly string _name;
 
       public LogClient(Type type) :
-         this(type.Name)
+         this(type.FullName)
       {
          
       }
