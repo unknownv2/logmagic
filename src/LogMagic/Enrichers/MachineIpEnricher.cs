@@ -14,8 +14,8 @@ namespace LogMagic.Enrichers
          IPAddress[] addresses = Dns.GetHostAddresses(hostName);
 
          IPAddress address = useIpv6
-            ? addresses.LastOrDefault(a => a.AddressFamily == AddressFamily.InterNetworkV6)
-            : addresses.LastOrDefault(a => a.AddressFamily == AddressFamily.InterNetwork);
+            ? addresses.Where(a => !IPAddress.IsLoopback(a) && a.AddressFamily == AddressFamily.InterNetworkV6).LastOrDefault()
+            : addresses.Where(a => !IPAddress.IsLoopback(a) && a.AddressFamily == AddressFamily.InterNetwork).LastOrDefault();
 
          _address = address?.ToString();
       }
