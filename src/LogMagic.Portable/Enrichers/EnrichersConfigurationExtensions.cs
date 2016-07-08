@@ -27,9 +27,12 @@ namespace LogMagic
          return configuration.Custom(new MachineNameEnricher());
       }
 
-      public static ILogConfiguration MachineIpAddress(this IEnricherConfiguration configuration)
+      /// <summary>
+      /// Enrich by this machine's IP address
+      /// </summary>
+      public static ILogConfiguration MachineIpAddress(this IEnricherConfiguration configuration, bool includeIpV6 = false)
       {
-         return configuration.Custom(new MachineIpEnricher());
+         return configuration.Custom(new MachineIpEnricher(includeIpV6));
       }
 
 #endif

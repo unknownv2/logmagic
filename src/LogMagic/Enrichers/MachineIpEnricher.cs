@@ -8,16 +8,14 @@ namespace LogMagic.Enrichers
    {
       private readonly string _address;
 
-      public MachineIpEnricher(bool useIpv6 = false)
+      public MachineIpEnricher(bool includeIpV6)
       {
          string hostName = Dns.GetHostName();
          IPAddress[] addresses = Dns.GetHostAddresses(hostName);
 
-         IPAddress address = useIpv6
-            ? addresses.Where(a => !IPAddress.IsLoopback(a) && a.AddressFamily == AddressFamily.InterNetworkV6).LastOrDefault()
-            : addresses.Where(a => !IPAddress.IsLoopback(a) && a.AddressFamily == AddressFamily.InterNetwork).LastOrDefault();
-
-         _address = address?.ToString();
+         _address = string.Join(", ", addresses.Where(a => 
+            !IPAddress.IsLoopback(a) &&
+            (a.AddressFamily == AddressFamily.InterNetwork || (a.AddressFamily == AddressFamily.InterNetworkV6 && includeIpV6))));
       }
 
       public void Enrich(LogEvent e, out string propertyName, out object propertyValue)
