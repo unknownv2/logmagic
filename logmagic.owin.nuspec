@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+   <metadata>
+      <id>LogMagic.Owin</id>
+      <version>1.2.1</version>
+      <authors>Ivan Gavryliuk</authors>
+      <owners>Ivan Gavryliuk</owners>
+      <iconUrl>https://alonestore.blob.core.windows.net/nuget/logmagic.png</iconUrl>
+      <projectUrl>https://github.com/aloneguid/logmagic</projectUrl>
+      <requireLicenseAcceptance>false</requireLicenseAcceptance>
+      <description>
+         OWIN support for LogMagic. Contains OWIN middleware for logging and request ID logging enricher.
+      </description>
+      <summary>
+         The library tagets .NET 4.5 framework only.
+      </summary>
+      <copyright>Copyright (c) 2015 by Ivan Gavryliuk</copyright>
+      <tags>Common</tags>
+      <dependencies>
+         <dependency id="LogMagic" version="2.0" />
+         <dependency id="Aloneguid.Support" version="2.3"/>
+         <dependency id="Newtonsoft.Json" version="8.0"/>
+      </dependencies>
+   </metadata>
+   <files>
+      <file src="src\LogMagic.Owin\bin\Release\LogMagic.Owin.*" target="lib\net45"/>
+   </files>
+</package>
