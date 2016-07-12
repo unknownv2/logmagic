@@ -8,7 +8,7 @@ namespace LogMagic.Test
    public class FormattingTest
    {
       private TestWriter _writer;
-      private ILog _log;
+      private ILog _log = L.G();
 
       [SetUp]
       public void SetUp()
@@ -20,7 +20,6 @@ namespace LogMagic.Test
             .WriteTo.Custom(_writer)
             .EnrichWith.ThreadId()
             .EnrichWith.Constant("node", "test");
-         _log = L.G<FormattingTest>();
       }
 
       [SetUp]
@@ -73,6 +72,15 @@ namespace LogMagic.Test
 
          L.Flush();
          Assert.AreEqual("the string", Message);
+      }
+
+      [Test]
+      public void SourceName_Reflected_ThisClass()
+      {
+         _log.D("testing source");
+
+         L.Flush();
+         Assert.AreEqual("LogMagic.Test.FormattingTest", Event.SourceName);
       }
 
       [Test]

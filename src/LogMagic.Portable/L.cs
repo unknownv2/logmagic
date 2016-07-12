@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using LogMagic.Configuration;
 
 namespace LogMagic
@@ -44,6 +45,7 @@ namespace LogMagic
       /// Get logger for the current class
       /// </summary>
       /// <returns></returns>
+      [MethodImpl(MethodImplOptions.NoInlining)]
       public static ILog G()
       {
          return new LogClient(GetClassFullName());
@@ -63,6 +65,7 @@ namespace LogMagic
       /// Gets the fully qualified name of the class invoking the LogManager, including the 
       /// namespace but not the assembly.    
       /// </summary>
+      [MethodImpl(MethodImplOptions.NoInlining)]
       private static string GetClassFullName()
       {
          string className;
