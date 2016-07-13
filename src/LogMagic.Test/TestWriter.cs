@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace LogMagic.Test
 {
@@ -18,6 +20,12 @@ namespace LogMagic.Test
             Message = e.Message;
             Event = e;
          }
+      }
+
+      public Task WriteAsync(IEnumerable<LogEvent> events)
+      {
+         Write(events);
+         return Task.FromResult(true);
       }
    }
 }

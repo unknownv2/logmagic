@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Table;
@@ -30,11 +31,7 @@ namespace LogMagic.WindowsAzure
          _table.CreateIfNotExists();
       }
 
-      /// <summary>
-      /// Sends chunks to table
-      /// </summary>
-      /// <param name="events"></param>
-      public void Write(IEnumerable<LogEvent> events)
+      private TableBatchOperation ComposeBatch(IEnumerable<LogEvent> events)
       {
          var batch = new TableBatchOperation();
 
@@ -64,10 +61,23 @@ namespace LogMagic.WindowsAzure
             batch.Insert(row);
          }
 
-         if (batch.Count > 0)
-         {
-            _table.ExecuteBatch(batch);
-         }
+         return batch.Count > 0 ? batch : null;
+      }
+
+      /// <summary>
+      /// Sends chunks to table
+      /// </summary>
+      /// <param name="events"></param>
+      public void Write(IEnumerable<LogEvent> events)
+      {
+         TableBatchOperation batch = ComposeBatch(events);
+         if (batch != null) _table.ExecuteBatch(batch);        
+      }
+
+      public async Task WriteAsync(IEnumerable<LogEvent> events)
+      {
+         TableBatchOperation batch = ComposeBatch(events);
+         if (batch != null) await _table.ExecuteBatchAsync(batch);
       }
 
       public void Dispose()

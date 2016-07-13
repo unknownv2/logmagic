@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace LogMagic.Writers
 {
@@ -99,6 +100,18 @@ namespace LogMagic.Writers
             CheckRolling(e.EventTime);
 
             _writer.WriteLine(TextFormatter.Format(e, true));
+         }
+
+         _writer.Flush();
+      }
+
+      public async Task WriteAsync(IEnumerable<LogEvent> events)
+      {
+         foreach (LogEvent e in events)
+         {
+            CheckRolling(e.EventTime);
+
+            await _writer.WriteLineAsync(TextFormatter.Format(e, true));
          }
 
          _writer.Flush();

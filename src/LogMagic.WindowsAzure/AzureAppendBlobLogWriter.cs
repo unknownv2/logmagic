@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -53,6 +54,23 @@ namespace LogMagic.WindowsAzure
          return _appendBlob;
       }
 
+      private async Task<CloudAppendBlob> GetBlobAsync(DateTime eventTime)
+      {
+         string tagName = eventTime.ToString("yyyy-MM-dd");
+
+         if (tagName != _currentTagName)
+         {
+            _currentTagName = tagName;
+            _appendBlob = _blobContainer.GetAppendBlobReference($"{_blobNamePrefix}{_currentTagName}.txt");
+            if (!(await _appendBlob.ExistsAsync()))
+            {
+               await _appendBlob.CreateOrReplaceAsync();
+            }
+         }
+
+         return _appendBlob;
+      }
+
       /// <summary>
       /// Sends chunks to append blob
       /// </summary>
@@ -80,6 +98,28 @@ namespace LogMagic.WindowsAzure
 
          //AppendText has a strange proble, whereas AppendBlock doesn't have it! The append position condition specified was not met.
          //blob?.AppendText(sb.ToString());
+      }
+
+      public async Task WriteAsync(IEnumerable<LogEvent> events)
+      {
+         CloudAppendBlob blob = null;
+         var sb = new StringBuilder();
+
+         foreach (LogEvent e in events)
+         {
+            if (blob == null) blob = await GetBlobAsync(e.EventTime);
+
+            string line = TextFormatter.Format(e, true);
+            sb.AppendLine(line);
+         }
+
+         if (blob != null)
+         {
+            using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(sb.ToString())))
+            {
+               await blob.AppendBlockAsync(ms);
+            }
+         }
       }
 
       public void Dispose()

@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace LogMagic.Writers
 {
@@ -46,6 +46,13 @@ namespace LogMagic.Writers
                   break;
             }
          }
+      }
+
+      public Task WriteAsync(IEnumerable<LogEvent> events)
+      {
+         Write(events);
+
+         return Task.FromResult(true);
       }
    }
 }

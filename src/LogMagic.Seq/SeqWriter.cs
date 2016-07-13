@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace LogMagic.Seq
 {
@@ -11,16 +12,28 @@ namespace LogMagic.Seq
    class SeqWriter : ILogWriter
    {
       private readonly HttpClient _client;
+      private const string PostUrl = "/api/events/raw";
+      private const string ContentType = "application/json";
 
       public SeqWriter(Uri serverAddress)
       {
          _client = new HttpClient();
          _client.BaseAddress = serverAddress;
          _client.DefaultRequestHeaders.Accept.Clear();
-         _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+         _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(ContentType));
       }
 
       public void Write(IEnumerable<LogEvent> events)
+      {
+         _client.PostAsync(PostUrl, new StringContent(ToJson(events), Encoding.UTF8, ContentType)).Wait();
+      }
+
+      public async Task WriteAsync(IEnumerable<LogEvent> events)
+      {
+         await _client.PostAsync(PostUrl, new StringContent(ToJson(events), Encoding.UTF8, ContentType));
+      }
+
+      private static string ToJson(IEnumerable<LogEvent> events)
       {
          var data = new RawEvents
          {
@@ -28,7 +41,7 @@ namespace LogMagic.Seq
          };
 
          string json = data.ToJsonString();
-         _client.PostAsync("/api/events/raw", new StringContent(json, Encoding.UTF8, "application/json"));
+         return json;
       }
 
       public void Dispose()

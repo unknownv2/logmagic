@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace LogMagic.Writers
 {
@@ -30,6 +31,12 @@ namespace LogMagic.Writers
          {
             Console.WriteLine(TextFormatter.Format(e, true));
          }
+      }
+
+      public Task WriteAsync(IEnumerable<LogEvent> events)
+      {
+         Write(events);
+         return Task.FromResult(true);
       }
    }
 }

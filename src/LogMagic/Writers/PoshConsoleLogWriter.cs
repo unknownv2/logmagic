@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace LogMagic.Writers
 {
@@ -183,6 +183,12 @@ namespace LogMagic.Writers
                Write(e);
             }
          }
+      }
+
+      public Task WriteAsync(IEnumerable<LogEvent> events)
+      {
+         Write(events);
+         return Task.FromResult(true);
       }
    }
 }
