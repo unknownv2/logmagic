@@ -11,6 +11,7 @@ namespace LogMagic
          {
             try
             {
+               //todo: use asynchronouse versions
                writer.Write(new[] { e });
             }
             catch(Exception ex)
