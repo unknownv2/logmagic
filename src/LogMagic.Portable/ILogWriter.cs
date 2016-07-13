@@ -8,6 +8,9 @@ namespace LogMagic
    /// </summary>
    public interface ILogWriter : IDisposable
    {
+      /// <summary>
+      /// Writes a sequence of log events to the target.
+      /// </summary>
       void Write(IEnumerable<LogEvent> events);
    }
 }

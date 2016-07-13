@@ -16,7 +16,7 @@ namespace LogMagic.Writers
       /// <summary>
       /// Receiver's settings
       /// </summary>
-      public PoshConsoleLogReceiverSettings Settings { get; private set; }
+      public PoshConsoleLogWriterSettings Settings { get; private set; }
 
       private int _classNamePadding = 10;
 
@@ -25,7 +25,7 @@ namespace LogMagic.Writers
       /// </summary>
       public PoshConsoleLogWriter()
       {
-         Settings = new PoshConsoleLogReceiverSettings
+         Settings = new PoshConsoleLogWriterSettings
          {
             AbbreviateClassNames = false
          };

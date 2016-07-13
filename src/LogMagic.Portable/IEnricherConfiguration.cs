@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LogMagic
+﻿namespace LogMagic
 {
+   /// <summary>
+   /// Configuration of logging enrichers
+   /// </summary>
    public interface IEnricherConfiguration
    {
+      /// <summary>
+      /// Adds a custom enricher
+      /// </summary>
       ILogConfiguration Custom(IEnricher enricher);
    }
 }

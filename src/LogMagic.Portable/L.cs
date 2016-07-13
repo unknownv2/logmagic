@@ -14,6 +14,9 @@ namespace LogMagic
    {
       private static readonly ILogConfiguration _config = new LogConfiguration();
 
+      /// <summary>
+      /// Gets logging library configuration
+      /// </summary>
       public static ILogConfiguration Config {  get { return _config; } }
 
       /// <summary>
@@ -51,11 +54,18 @@ namespace LogMagic
          return new LogClient(GetClassFullName());
       }
 
+      /// <summary>
+      /// Shuts down logging library resources. Considered as a nice way to say goodbye before exiting your
+      /// application.
+      /// </summary>
       public static void Shutdown()
       {
          LogEventPump.Shutdown();
       }
 
+      /// <summary>
+      /// Flush any queued log messages immediately to configured writers.
+      /// </summary>
       public static void Flush()
       {
          LogEventPump.Flush();
