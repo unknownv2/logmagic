@@ -66,8 +66,8 @@ namespace LogMagic.WindowsAzure
          {
             if (blob == null) blob = GetBlob(e.EventTime);
 
-            string line = TextFormatter.Format(e);
-            sb.Append(line);
+            string line = TextFormatter.Format(e, true);
+            sb.AppendLine(line);
          }
 
          if (blob != null)

@@ -98,7 +98,7 @@ namespace LogMagic.Writers
          {
             CheckRolling(e.EventTime);
 
-            _writer.Write(TextFormatter.Format(e));
+            _writer.WriteLine(TextFormatter.Format(e, true));
          }
 
          _writer.Flush();

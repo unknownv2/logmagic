@@ -12,6 +12,7 @@ namespace LogMagic.Writers
    class PoshConsoleLogWriter : ILogWriter
    {
       private static readonly ConcurrentDictionary<string, string> SourceNameToShortName = new ConcurrentDictionary<string, string>();
+      private static object ColourLock = new object();
 
       /// <summary>
       /// Receiver's settings
@@ -55,17 +56,27 @@ namespace LogMagic.Writers
          Cg.Write("|", ConsoleColor.DarkGray);
          Cg.Write(Abbreviate(e.SourceName), ConsoleColor.Gray);
 
-         //enriched properties
-         /*if(e.Properties != null && e.Properties.Count > 0)
+         if(e.Properties != null && e.Properties.Count > 0)
          {
-            foreach(var prop in e.Properties)
+            Console.WriteLine();
+            bool firstProp = true;
+            foreach (var prop in e.Properties)
             {
-               Cg.Write("|", ConsoleColor.DarkGray);
+               if (!firstProp)
+               {
+                  Cg.Write("|", ConsoleColor.DarkGray);
+               }
+               else
+               {
+                  firstProp = false;
+               }
+               
                Cg.Write(prop.Key, ConsoleColor.Gray);
-               Cg.Write(": ", ConsoleColor.DarkGray);
-               Cg.Write(prop.Value, ConsoleColor.Green);
+               Cg.Write("='", ConsoleColor.DarkGray);
+               Cg.Write(prop.Value.ToString(), ConsoleColor.Green);
+               Cg.Write("'", ConsoleColor.DarkGray);
             }
-         }*/
+         }
 
          //message
          Cg.Write("|", ConsoleColor.DarkGray);
@@ -165,9 +176,12 @@ namespace LogMagic.Writers
 
       public void Write(IEnumerable<LogEvent> events)
       {
-         foreach(LogEvent e in events)
+         lock (ColourLock)
          {
-            Write(e);
+            foreach (LogEvent e in events)
+            {
+               Write(e);
+            }
          }
       }
    }

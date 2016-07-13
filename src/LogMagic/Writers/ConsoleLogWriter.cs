@@ -28,7 +28,7 @@ namespace LogMagic.Writers
       {
          foreach(LogEvent e in events)
          {
-            TextFormatter.Format(e);
+            Console.WriteLine(TextFormatter.Format(e, true));
          }
       }
    }

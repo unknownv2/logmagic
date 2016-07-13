@@ -14,6 +14,7 @@ namespace LogMagic.Test
       {
          L.Config
             .WriteTo.PoshConsole()
+            .WriteTo.Console()
             .WriteTo.Seq(new Uri("http://192.168.137.1:5341"))
             .EnrichWith.ThreadId()
             .EnrichWith.Constant("client", "testcon")

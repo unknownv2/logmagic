@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace LogMagic
 {
@@ -12,13 +13,64 @@ namespace LogMagic
       /// <summary>
       /// Formats log event for text representation, not including any properties. Error is included though.
       /// </summary>
-      public static string Format(LogEvent chunk)
+      public static string Format(LogEvent e, bool appendEnrichedProperties)
       {
-         object error = chunk.GetProperty(LogEvent.ErrorPropertyName);
+         var b = new StringBuilder();
+         b.Append(e.EventTime.ToString("H:mm:ss,fff"));
+         b.Append(BlockSeparator);
+         b.Append(GetLogSeverity(e.Severity));
+         b.Append(BlockSeparator);
+         b.Append(e.SourceName);
+         b.Append(BlockSeparator);
+         b.Append(e.Message);
 
-         string errorString = error == null ? string.Empty : (Environment.NewLine + error);
-         string line = $"{chunk.EventTime.ToString("H:mm:ss,fff")}{BlockSeparator}{chunk.SourceName}{BlockSeparator}{chunk.Message}{errorString}{Environment.NewLine}";
-         return line;
+         object error = e.GetProperty(LogEvent.ErrorPropertyName);
+         if(error != null)
+         {
+            b.Append(Environment.NewLine);
+            b.Append(error.ToString());
+         }
+
+         if(appendEnrichedProperties && e.Properties != null)
+         {
+            b.Append(Environment.NewLine);
+            bool firstProp = true;
+            foreach(var p in e.Properties)
+            {
+               if (!firstProp)
+               {
+                  b.Append("; ");
+               }
+               else
+               {
+                  firstProp = false;
+               }
+
+               b.Append(p.Key);
+               b.Append("='");
+               b.Append(p.Value?.ToString());
+               b.Append("'");
+            }
+         }
+
+         return b.ToString();
+      }
+
+      private static string GetLogSeverity(LogSeverity s)
+      {
+         switch (s)
+         {
+            case LogSeverity.Debug:
+               return "D";
+            case LogSeverity.Error:
+               return "E";
+            case LogSeverity.Info:
+               return "I";
+            case LogSeverity.Warning:
+               return "W";
+            default:
+               return string.Empty;
+         }
       }
    }
 }
