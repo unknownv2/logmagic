@@ -22,7 +22,7 @@ namespace LogMagic
          b.Append(BlockSeparator);
          b.Append(e.SourceName);
          b.Append(BlockSeparator);
-         b.Append(e.Message);
+         b.Append(e.FormattedMessage);
 
          object error = e.GetProperty(LogEvent.ErrorPropertyName);
          if(error != null)
@@ -61,13 +61,13 @@ namespace LogMagic
          switch (s)
          {
             case LogSeverity.Debug:
-               return "D";
+               return "DEBUG";
             case LogSeverity.Error:
-               return "E";
+               return "ERROR";
             case LogSeverity.Info:
-               return "I";
+               return "INFO ";
             case LogSeverity.Warning:
-               return "W";
+               return "WARN ";
             default:
                return string.Empty;
          }

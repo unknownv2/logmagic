@@ -43,6 +43,24 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\LogMagic.NetCore\Tokenisation\FormattedString.cs">
+      <Link>Tokenisation\FormattedString.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\Tokenisation\Token.cs">
+      <Link>Tokenisation\Token.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\Tokenisation\TokenType.cs">
+      <Link>Tokenisation\TokenType.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\TypeFormatters\EnumerableFormatter.cs">
+      <Link>TypeFormatters\EnumerableFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\TypeFormatters\FormatterEntry.cs">
+      <Link>TypeFormatters\FormatterEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\TypeFormatters\ITypeFormatter.cs">
+      <Link>TypeFormatters\ITypeFormatter.cs</Link>
+    </Compile>
     <Compile Include="..\LogMagic.Portable\Configuration\LogConfiguration.cs">
       <Link>Configuration\LogConfiguration.cs</Link>
     </Compile>
@@ -93,15 +111,6 @@
     </Compile>
     <Compile Include="..\LogMagic.Portable\TextFormatter.cs">
       <Link>TextFormatter.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\TypeFormatters\EnumerableFormatter.cs">
-      <Link>TypeFormatters\EnumerableFormatter.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\TypeFormatters\FormatterEntry.cs">
-      <Link>TypeFormatters\FormatterEntry.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\TypeFormatters\ITypeFormatter.cs">
-      <Link>TypeFormatters\ITypeFormatter.cs</Link>
     </Compile>
     <Compile Include="Enrichers\MachineIpEnricher.cs" />
     <Compile Include="Enrichers\MachineNameEnricher.cs" />

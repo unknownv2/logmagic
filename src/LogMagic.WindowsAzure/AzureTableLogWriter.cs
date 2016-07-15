@@ -45,7 +45,7 @@ namespace LogMagic.WindowsAzure
 
             row.Add("source", e.SourceName);
             row.Add("severity", e.Severity);
-            row.Add("message", e.Message);
+            row.Add("message", e.FormattedMessage);
             row.Add("error", e.ErrorException == null ? string.Empty : e.ErrorException.ToString());
 
             if (e.Properties != null)

@@ -1,129 +1,130 @@
 # LogMagic
 
+![logmagic icon](https://alonestore.blob.core.windows.net/nuget/logmagic.png)
+
 ![](https://aloneguid.visualstudio.com/DefaultCollection/_apis/public/build/definitions/323c5f4c-c814-452d-9eaf-1006c83fd44c/3/badge)
 
-LogMagic in the easiest logging abstraction for .NET framework. It has the shortest syntax and the easiest exensibility model. It is extremely lightweight and has zero external dependencies.
+## Why LogMagic
 
-It's also smart and expands most known types (for example collections) into a readable format before printing.
+Like many other libraries for .NET, LogMagic provides diagnostic logging into files, the console, and *elsewhere*. It's probably the easiest framework to setup, has a clean API, extremely extensible.
 
-Available as [NuGet Package](https://www.nuget.org/packages/LogMagic).
+LogMagic also supports a relatively new paradigm of *structured logging*.
 
+## Installation
 
+### Installing from NuGet
 
-## Syntax comparison
+The core logging package is [LogMagic](https://www.nuget.org/packages/LogMagic). Supported frameworks are:
 
-Some examples on syntax comparison between a few popular logging frameworks.
+* **.NET 4.5**
+* **PCL** (Portable Library)
+* **.NET Core** support is coming soon
 
-### LogMagic
-
-```csharp
-private readonly ILog log = L.G();
-log.D("my line");
+```
+PM> Install-Package LogMagic
 ```
 
-### Log4Net
+### Setup
+
+Types are in `LogMagic` namespace
 
 ```csharp
-ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-log.Debug("my line");
+using LogMagic;
 ```
 
-### NLog
+An `ILog` instance is the one used to log events and can be created in one of three ways by calling to global static `L` class.
+
+Create using current class type name
 
 ```csharp
-private static Logger log = LogManager.GetCurrentClassLogger();
-log.Debug("my line");
+ILog _log = L.G();
 ```
 
-## How To Use
-
-First, reference LogMagic package from NuGet.
-
-Second, add the logging variable into your class:
+Or by specifying type explicitly
 
 ```csharp
-public class LoggingDemoTest
+ILog _log = L.G<T>;			//using generics
+ILog _log = L.G(typeof(T));	//passing type
+```
+
+Or by specifying name explicitly
+
+```csharp
+ILog _log = L.G("instance name");
+```
+
+By default LogMagic doesn't write events anywhere and you need to configure it:
+
+```csharp
+L.Config.WriteTo.Console();
+```
+
+This is typically done once at application startup.
+
+### Example application
+
+The complete example below shows logging in a simple console application, with events sent to the console as well as to file on disk.
+
+1. **Create a new Console Application project**
+2. **Install the core LogMagic package**
+
+In Visual Studio, open Package Manager Console and type:
+
+```powershell
+Install-Package LogMagic
+```
+
+3. **Add the following code to `Program.cs`**
+
+```csharp
+using System;
+using LogMagic;
+
+namespace LogMagicExample
 {
-  private readonly ILog _log = L.G();
+   public class Program
+   {
+      private readonly ILog _log = L.G();
 
-  //...
+      public static void Main(string[] args)
+      {
+         L.Config
+            .WriteTo.Console()
+            .EnrichWith.ThreadId();
+
+         new Program().Run();
+
+         Console.ReadLine();
+
+         L.Shutdown();
+      }
+
+      private void Run()
+      {
+         _log.I("hello, LogMagic!");
+
+         int a = 10, b = 0;
+
+         try
+         {
+            _log.D("dividing {a} by {b}", a, b);
+            Console.WriteLine(a / b);
+         }
+         catch(Exception ex)
+         {
+            _log.E("unexpected error", ex);
+         }
+
+         _log.D("attempting to divide by zero");
+      }
+
+   }
 }
 ```
 
-You are ready to go, start logging!
+4. **Run the program**
 
-```csharp
-public class LoggingDemoTest
-{
-  private readonly ILog _log = L.G();
-
-  public void SomeMethod()
-  {
-    //some code
-
-    _log.D("my log string");
-
-    //some code
-  }
-}
-```
-
-### Where does it log?
-
-Generally you should not care. By default it does not log anywhere, however you can add log receivers on application initialisation, for example this line configures LogMagic to save everything to a text file:
-
-```csharp
-L.AddReceiver(new FileReceiver("c:\\myapp.log"));
-```
-
-There are a few other most commonly used receivers available out of the box.
-
-## Smart formatting
-
-LogMagic reformats some of the types into a more readable format suitable for humans and developers.
-
-# Collections
-
-If a type implements ICollection interface it gets expanded into `[<count> el: {element1, element2, ... +N more]`.
-
-## Built-in receivers
-
-### ConsoleLogReceiver
-
-Outputs messages to system console and ideal for server logging. It doesn't do anything fancy unlike the next one. To add it to configuration simply write:
-
-```csharp
-L.AddReceiver(new ConsoleLogReceiver());
-```
-
-### PoshConsoleLogReceiver
-
-Outputs messages to system console in a cheerful colorful way. You should use this if you need to look cool. Note that due to the fact it switches console colors frequently during logging, it's slower than **ConsoleLogReceiver** therefore you should use this only if your app is running in console or in debug mode:
-
-```csharp
-L.AddReceiver(new PoshConsoleLogReceiver());
-```
-
-### FileReceiver
-
-Outputs messages to a file on local filesystem. Accepts full file path to the target file. This receiver opens or creates the file in append mode and sets sharing mode to read & write. It also creates the directory on file system if it doesn't exist.
-
-```csharp
-L.AddReceiver(new FileReceiver("c:\\logs\\myapp.log")));
-```
-
-## Unique Features
-
-### Exception logging
-
-There is no special overload method to log exceptions. Passing any exception object is enough. Note that you shouldn't reserve any format parameter in the log string, i.e. this just works:
-
-```csharp
-_log.E("something bad happened", ex);
-_log.E("failed on {0}", 1, ex);
-```
-
-### Visual Studio Snippets
+## Visual Studio Snippets
 
 Visual Studio snippets are installed along with the NuGet package so you can use them straight away with any project:
 
@@ -138,78 +139,6 @@ _log.D("...");
 ```
 there are identical shortcuts for other logging levels `le`, `li`, `lw`.
 
-### Dead Simple Initialisation
+## Configuration basics
 
-LogMagic is initialised in one line, there is no extra work to do. Configuration files and other bullcrap is not here.
-
-### Windows Azure Integration
-
-LogMagic supports Azure Append Blobs and Azure Tables through an additional [LogMagic.WindowsAzure](https://www.nuget.org/packages/LogMagic.WindowsAzure/) package.
-
-#### Append Blobs
-
-Append blobs are remote "files" in Windows Azure which can dynamically expand as new information comes in. LogMagic supports that via statement:
-
-```csharp
-L.AddReceiver(
-  new AzureAppendBlobLogReceiver(
-    "storageaccountname"
-    "storagekey",
-    "blobcontainername",
-    "blobnameprefix");
-```
-
-All the parameters are self explanatory except for **blobnameprefix**. This parameter is responsible for naming blobs in the container. Azure blobs will be named as **blobnameprefix-yyyy-MM-dd.txt**.
-
-#### Tables
-
-Add table receiver using:
-
-```csharp
-L.AddReceiver(
-  new AzureTableLogReceiver(
-    "storageaccountname"
-    "storagekey",
-    "tablename"));
-```
-
-**tablename** specifies the destination log table name for logging. Each log statement creates a new log record where:
-
-- **partition key** is yy-MM-dd
-- **row key** is HH-mm-ss-fff
-- **extra columns** such as NodeId, Severity, SourceName, ThreadName, Message, Error.
-
-## Extending
-
-Extending LogMagic (adding your own implementation of a **receiver**) is extremely easy. All you need to do is implement the ILogReceiver interface:
-
-```csharp
-/// <summary>
-/// Common interface for a log receiver
-/// </summary>
-public interface ILogReceiver : IDisposable
-{
-   /// <summary>
-   /// Sends a chunk of log data to the receiver
-   /// </summary>
-   void Send(LogChunk chunk);
-}
-```
-
-There is just **one** method to implement, unlike the overcomplicated slow corporate frameworks!
-
-### Blocking Operations
-
-Note that all the calls to ILog are **synchronous** and blocking. This is by design. Heavy and slow receivers, such as Azure Blob Storage or even FileReceiver aren't blocking because they derive from an abstract `AsyncReceiver` which sends messages in the background.
-
-In order to implement an **asynchronous** receiver you can just derive from `AsyncReceiver` and implement one method:
-
-```csharp
-      /// <summary>
-      /// Sends accumulated chunks to the destination
-      /// </summary>
-      /// <param name="chunks">Chunks accumulated</param>
-      protected abstract void SendChunks(IEnumerable<LogChunk> chunks);
-```
-
-`AsyncReceiver` groups log chunks sent too fast so you can utilise batching approach.
+todo

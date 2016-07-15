@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using LogMagic.Tokenisation;
 
 namespace LogMagic
 {
@@ -41,7 +42,12 @@ namespace LogMagic
       /// <summary>
       /// Formatted log message
       /// </summary>
-      public string Message;
+      public string FormattedMessage;
+
+      /// <summary>
+      /// Tokenised log message
+      /// </summary>
+      public FormattedString Message;
 
       /// <summary>
       /// Extra properties

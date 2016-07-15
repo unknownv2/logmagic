@@ -17,7 +17,7 @@ namespace LogMagic.Test
       {
          foreach (LogEvent e in events)
          {
-            Message = e.Message;
+            Message = e.FormattedMessage;
             Event = e;
          }
       }
