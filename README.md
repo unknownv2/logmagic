@@ -141,4 +141,86 @@ there are identical shortcuts for other logging levels `le`, `li`, `lw`.
 
 ## Configuration basics
 
-todo
+LogMagic uses C# API to configure logging.
+
+### Log writers
+
+Log event writers generally record log events to some external representation, typically console, file, or external data store. LogMagic has a few built-in writers to get you started. More writers are redistributed via NuGet.
+
+A curated list of available packages are listed below on this page.
+
+Writers are configure using `WriteTo` congiguration object.
+
+```csharp
+L.Config.WriteTo.PoshConsole();
+```
+
+Multiple writers can be active at the same time.
+
+```csharp
+L.Config
+	.WriteTo.PoshConsole()
+    .WriteTo.Trace();
+```
+
+### Enrichers
+
+Enrickers are simple components that add properties to a log event. This can be used for the purpose of attaching a thread id, machine IP address etc. for example.
+
+```csharp
+L.Config.EnrichWith.ThreadId();
+```
+
+## Writing log events
+
+Log events are written to writers using the `ILog` interface. Typically you will instantiate it on top of your class definition you want to log from. 
+
+```csharp
+private readonly ILog _log = L.G<Class>();
+
+// ...
+
+_log.I("application v{version} started on {date}", "1.0", DateTime.UtcNow);
+```
+
+### Message template syntax
+
+the string above `"application v{version} started on {date}"` is a *message template*. Message templates are superset of standard .NET format string, so any format string acceptable to `string.Format()` will also be correctly processed by LogMagic.
+
+- Property names are written between `{` and `}` brackets
+- Formats that use numeric property names, like `{0}` and `{1}` exclusively, will be matched with the log method's parameters by treating the property names as indexes; this is identical to `string.Format()`'s behavior
+- If any of the property names are non-numeric, then all property names will be matched from left-to-right with the log method's parameters
+- Property names, both numeric and named, may be suffixed with an optional format, e.g. `:000` to control how the property is rendered; these format strings behave exactly as their counterparts within the `string.Format()` syntax
+
+### Log event levels
+
+LogMagic uses levels as the primary means for assigning importance to log events. The levels in increasing order of importance are:
+
+1. **Debug** - internal control flow and diagnostic state dumps to facilitate pinpointing of recognised problems
+2. **Information** - events of interest or that have relevance to outside observers
+3. **Warning** - indicators of possible issues or service degradation
+4. **Error** - fa failure within application or connected system, critical errors causing complete failure
+
+## Provided Writers and Enrichers
+
+### Writers
+
+| Package     | Writer Syntax | Meaning        |
+|-------------|---------------|----------------|
+|  core       |  `.Console()` | system console |
+|  core | `.FiileLog()` | file on disk |
+| core | `.PoshConsole()` | graphical console with coloring |
+| core | `.Trace()` | system trace diagnostics |
+| [LogMagic.WindowsAzure](https://www.nuget.org/packages/LogMagic.WindowsAzure/) | `.AzureAppendBlob()` | appends to Microsoft Azure blob storage append blob and rotates on daily basis |
+| [LogMagic.WindowsAzure](https://www.nuget.org/packages/LogMagic.WindowsAzure/) | `.AzureTable()` | appends to Microsoft Azure table storage |
+| [LogMagic.Seq](https://www.nuget.org/packages/LogMagic.Seq/) | `.Seq()` | writes events to [Seq](https://getseq.net/)
+
+### Enrichers
+
+| Package     | Writer Syntax | Meaning        |
+|-------------|---------------|----------------|
+|  core       |  `.Constant()` | adds a constant value to every log event |
+| core | `.MachineIp()` | current machine IP address |
+| core | `.MachineName()` | current machine DNS name |
+| core | `.MethodName()` | caller's method name |
+| core | `.ThreadId()` | managed thread id |
