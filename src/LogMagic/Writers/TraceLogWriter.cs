@@ -28,7 +28,7 @@ namespace LogMagic.Writers
       {
          foreach(LogEvent e in events)
          {
-            string line = TextFormatter.Format(e, true);
+            string line = TextFormatter.Format(e);
 
             switch(e.Severity)
             {

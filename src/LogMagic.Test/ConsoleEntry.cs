@@ -10,7 +10,8 @@ namespace LogMagicExample
       public static void Main(string[] args)
       {
          L.Config
-            .WriteTo.PoshConsole()
+            //.WriteTo.PoshConsole()
+            .WriteTo.Console()
             .EnrichWith.ThreadId();
 
          new Program().Run();

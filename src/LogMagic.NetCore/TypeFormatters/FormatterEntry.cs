@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogMagic.TypeFormatters
 {
@@ -19,7 +15,7 @@ namespace LogMagic.TypeFormatters
 
       public static object FormatParameter(object parameter)
       {
-         if(parameter == null) return "NULL";
+         if(parameter == null) return string.Empty;
 
          /*
          Type t = parameter.GetType();

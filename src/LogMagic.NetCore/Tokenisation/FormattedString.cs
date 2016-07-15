@@ -61,29 +61,29 @@ namespace LogMagic.Tokenisation
       /// <summary>
       /// Formats the token as a string
       /// </summary>
-      public string Format(Token token)
+      public string Format(Token token, object value = null)
       {
          switch(token.Type)
          {
             case TokenType.String:
                return token.Value;
             case TokenType.Parameter:
-               if (_parameters == null) return string.Empty;
-               if(token.Position < _parameters.Length)
-               {
-                  object value = _parameters[token.Position];
-                  value = FormatterEntry.FormatParameter(value);
+               if (value == null && _parameters == null) return string.Empty;
 
-                  if(token.NativeFormat != null)
-                  {
-                     return string.Format(token.NativeFormat, value);
-                  }
-                  else
-                  {
-                     return FormatterEntry.FormatParameter(value).ToString();
-                  }
+               if (value == null && token.Position < _parameters.Length)
+               {
+                  value = _parameters[token.Position];
+                  value = FormatterEntry.FormatParameter(value);
                }
-               break;
+
+               if(token.NativeFormat != null)
+               {
+                  return string.Format(token.NativeFormat, value);
+               }
+               else
+               {
+                  return FormatterEntry.FormatParameter(value).ToString();
+               }
          }
 
          return string.Empty;
@@ -158,13 +158,14 @@ namespace LogMagic.Tokenisation
          string name = null;
          int position = 0;
          string nativeFormat = null;
+         string format = null;
 
          if(isParameter)
          {
             value = value.Trim(ParamTrims);
 
             int idx = value.IndexOf(":");
-            string format = idx == -1 ? null : value.Substring(idx + 1);
+            format = idx == -1 ? null : value.Substring(idx + 1);
             string pos = idx == -1 ? value : value.Substring(0, idx);
 
             int p;
@@ -177,13 +178,14 @@ namespace LogMagic.Tokenisation
             {
                position = p;
             }
+
             nativeFormat = format == null
                ? null
                : $"{{0:{format}}}";
             _namedPos++;
          }
 
-         return new Token(type, value, name, position, nativeFormat);
+         return new Token(type, value, name, position, nativeFormat, format);
       }
    }
 }

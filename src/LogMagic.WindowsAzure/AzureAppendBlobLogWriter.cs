@@ -84,7 +84,7 @@ namespace LogMagic.WindowsAzure
          {
             if (blob == null) blob = GetBlob(e.EventTime);
 
-            string line = TextFormatter.Format(e, true);
+            string line = TextFormatter.Format(e);
             sb.AppendLine(line);
          }
 
@@ -109,7 +109,7 @@ namespace LogMagic.WindowsAzure
          {
             if (blob == null) blob = await GetBlobAsync(e.EventTime);
 
-            string line = TextFormatter.Format(e, true);
+            string line = TextFormatter.Format(e);
             sb.AppendLine(line);
          }
 

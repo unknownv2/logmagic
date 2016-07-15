@@ -29,7 +29,7 @@ namespace LogMagic.Writers
       {
          foreach(LogEvent e in events)
          {
-            Console.WriteLine(TextFormatter.Format(e, true));
+            Console.WriteLine(TextFormatter.Format(e));
          }
       }
 

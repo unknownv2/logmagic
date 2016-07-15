@@ -21,6 +21,11 @@
       public string NativeFormat;
 
       /// <summary>
+      /// If a native formatting is used contains the format string without position parameter
+      /// </summary>
+      public string Format;
+
+      /// <summary>
       /// Type of the token
       /// </summary>
       public TokenType Type;
@@ -33,13 +38,14 @@
       /// <summary>
       /// Create a new instance of the token
       /// </summary>
-      public Token(TokenType type, string value, string name, int position, string nativeFormat)
+      public Token(TokenType type, string value, string name, int position, string nativeFormat, string format)
       {
          Type = type;
          Value = value;
          Name = name;
          Position = position;
          NativeFormat = nativeFormat;
+         Format = format;
       }
    }
 }

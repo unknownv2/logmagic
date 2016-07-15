@@ -1,5 +1,5 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
+using LogMagic.Tokenisation;
 
 namespace LogMagic
 {
@@ -9,47 +9,75 @@ namespace LogMagic
    public static class TextFormatter
    {
       const string BlockSeparator = "|";
+      static readonly FormattedString DefaultFormat = FormattedString.Parse("{time:H:mm:ss,fff}|{level:LLL}|{source}|{message}{error}", null);
+
+      const string Time = "time";
+      const string Severity = "level";
+      const string Source = "source";
+      const string Message = "message";
+      const string Error = "error";
+      const string NewLine = "br";
 
       /// <summary>
       /// Formats log event for text representation, not including any properties. Error is included though.
       /// </summary>
-      public static string Format(LogEvent e, bool appendEnrichedProperties)
+      public static string Format(LogEvent e, FormattedString format = null)
       {
+         if (format == null) format = DefaultFormat;
+
          var b = new StringBuilder();
-         b.Append(e.EventTime.ToString("H:mm:ss,fff"));
-         b.Append(BlockSeparator);
-         b.Append(GetLogSeverity(e.Severity));
-         b.Append(BlockSeparator);
-         b.Append(e.SourceName);
-         b.Append(BlockSeparator);
-         b.Append(e.FormattedMessage);
 
-         object error = e.GetProperty(LogEvent.ErrorPropertyName);
-         if(error != null)
+         foreach(Token token in format.Tokens)
          {
-            b.Append(Environment.NewLine);
-            b.Append(error.ToString());
-         }
-
-         if(appendEnrichedProperties && e.Properties != null)
-         {
-            b.Append(Environment.NewLine);
-            bool firstProp = true;
-            foreach(var p in e.Properties)
+            switch(token.Type)
             {
-               if (!firstProp)
-               {
-                  b.Append("; ");
-               }
-               else
-               {
-                  firstProp = false;
-               }
+               case TokenType.String:
+                  b.Append(token.Value);
+                  break;
+               case TokenType.Parameter:
+                  switch(token.Name)
+                  {
+                     case Time:
+                        b.Append(e.EventTime.ToString(token.Format));
+                        break;
+                     case Severity:
+                        string sev = e.Severity.ToString().ToUpper();
+                        if(token.Format != null && token.Format.Length < sev.Length)
+                        {
+                           sev = sev.Substring(0, token.Format.Length);
+                        }
 
-               b.Append(p.Key);
-               b.Append("='");
-               b.Append(p.Value?.ToString());
-               b.Append("'");
+                        b.Append(sev);
+                        break;
+                     case Source:
+                        b.Append(e.SourceName);
+                        break;
+                     case Message:
+                        b.Append(e.FormattedMessage);
+                        break;
+                     case Error:
+                        if (e.ErrorException != null)
+                        {
+                           b.AppendLine();
+                           b.Append(e.ErrorException.ToString());
+                        }
+                        break;
+                     case NewLine:
+                        b.AppendLine();
+                        break;
+                     default:
+                        if(e.Properties != null)
+                        {
+                           object value;
+                           if(e.Properties.TryGetValue(token.Name, out value))
+                           {
+                              string custom = format.Format(token, value);
+                              b.Append(custom);
+                           }
+                        }
+                        break;
+                  }
+                  break;
             }
          }
 
