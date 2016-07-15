@@ -8,15 +8,17 @@ namespace LogMagic
    /// </summary>
    public static class TextFormatter
    {
-      const string BlockSeparator = "|";
-      static readonly FormattedString DefaultFormat = FormattedString.Parse("{time:H:mm:ss,fff}|{level:LLL}|{source}|{message}{error}", null);
+      /// <summary>
+      /// Default format string used to format log text
+      /// </summary>
+      public static readonly FormattedString DefaultFormat = FormattedString.Parse("{time:H:mm:ss,fff}|{level,-7}|{source}|{message}{error}", null);
 
-      const string Time = "time";
-      const string Severity = "level";
-      const string Source = "source";
-      const string Message = "message";
-      const string Error = "error";
-      const string NewLine = "br";
+      internal const string Time = "time";
+      internal const string Severity = "level";
+      internal const string Source = "source";
+      internal const string Message = "message";
+      internal const string Error = "error";
+      internal const string NewLine = "br";
 
       /// <summary>
       /// Formats log event for text representation, not including any properties. Error is included though.
@@ -42,11 +44,7 @@ namespace LogMagic
                         break;
                      case Severity:
                         string sev = e.Severity.ToString().ToUpper();
-                        if(token.Format != null && token.Format.Length < sev.Length)
-                        {
-                           sev = sev.Substring(0, token.Format.Length);
-                        }
-
+                        if (token.Format != null) sev = string.Format(token.NativeFormat, sev);
                         b.Append(sev);
                         break;
                      case Source:

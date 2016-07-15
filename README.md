@@ -122,7 +122,11 @@ namespace LogMagicExample
 }
 ```
 
-4. **Run the program**
+4 **Run the program**
+
+## Logging exceptions
+
+LogMagic always check last parameter of log arguments whether it's an exception class and eliminates from the argument list.
 
 ## Visual Studio Snippets
 
@@ -162,6 +166,29 @@ L.Config
 	.WriteTo.PoshConsole()
     .WriteTo.Trace();
 ```
+
+### Formatting
+
+Text-based writers support message formatting. Whenever a `format` parameter appears in writer configuration you can specify your own one:
+
+```csharp
+L.Config
+	.EnrichWith.ThreadId()
+	.WriteTo.Console("{time:H:mm:ss,fff}|{threadId}{level,-7}|{source}|{message}{error}");
+```
+
+Enriched properties can also appear in the output. In the example above a `threadId` comes from thread ID ennricher.
+
+#### Formatting syntax
+
+Built-in property names:
+- `{time}` - used to reference event time
+- `{level}` - prints message severity
+- `{source}` - logging source name
+- `{message}` - log message
+- `{error}` - error
+
+All of the properties support standard .NET formatting used in `string.Format()`.
 
 ### Enrichers
 

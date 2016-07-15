@@ -14,12 +14,15 @@ namespace LogMagic.Writers
    {
       private static readonly ConcurrentDictionary<string, string> SourceNameToShortName = new ConcurrentDictionary<string, string>();
       private static object ColourLock = new object();
+      private readonly FormattedString _format;
 
       private const ConsoleColor SeparatorColour = ConsoleColor.DarkGray,
+                                 SourceColour = ConsoleColor.DarkGray,
                                  MessageColour = ConsoleColor.White,
                                  ParameterColour = ConsoleColor.Green,
                                  ExceptionHeadlineColour = ConsoleColor.Red,
-                                 ExceptionStackTraceColour = ConsoleColor.Gray;
+                                 ExceptionStackTraceColour = ConsoleColor.Gray,
+                                 TimeColour = ConsoleColor.Green;
       private const string Pipe = "|";
 
       /// <summary>
@@ -32,8 +35,10 @@ namespace LogMagic.Writers
       /// <summary>
       /// Constructs and instance of this class
       /// </summary>
-      public PoshConsoleLogWriter()
+      public PoshConsoleLogWriter(string format)
       {
+         _format = format == null ? TextFormatter.DefaultFormat : FormattedString.Parse(format, null);
+
          Settings = new PoshConsoleLogWriterSettings
          {
             AbbreviateClassNames = false
@@ -47,28 +52,71 @@ namespace LogMagic.Writers
       /// </summary>
       private void Write(LogEvent e)
       {
-         //timestamp
-         Cg.Write(e.EventTime.ToString("HH"), ConsoleColor.Green);
-         Cg.Write(":", SeparatorColour);
-         Cg.Write(e.EventTime.ToString("mm"), ConsoleColor.Green);
-         Cg.Write(":", SeparatorColour);
-         Cg.Write(e.EventTime.ToString("ss"), ConsoleColor.Green);
-         Cg.Write(",", SeparatorColour);
-         Cg.Write(e.EventTime.ToString("fff"), ConsoleColor.DarkGreen);
-
-         //level
-         Cg.Write(Pipe, SeparatorColour);
-         LogSeverity(e.Severity);
-
-         //source
-         //Cg.Write(Pipe, SeparatorColour);
-         //Cg.Write(Abbreviate(e.SourceName), ConsoleColor.Gray);
-
-         //message
-         Cg.Write(Pipe, SeparatorColour);
-         foreach(Token token in e.Message.Tokens)
+         foreach (Token token in _format.Tokens)
          {
-            switch(token.Type)
+            switch (token.Type)
+            {
+               case TokenType.String:
+                  Cg.Write(token.Value, SeparatorColour);
+                  break;
+               case TokenType.Parameter:
+                  switch (token.Name)
+                  {
+                     case TextFormatter.Time:
+                        Cg.Write(e.EventTime.ToString(token.Format), TimeColour);
+                        break;
+                     case TextFormatter.Severity:
+                        LogSeverity(e.Severity);
+                        break;
+                     case TextFormatter.Source:
+                        Cg.Write(e.SourceName, SourceColour);
+                        break;
+                     case TextFormatter.Message:
+                        LogMessage(e);
+                        break;
+                     case TextFormatter.Error:
+                        LogError(e);
+                        break;
+                     case TextFormatter.NewLine:
+                        Console.WriteLine();
+                        break;
+                     default:
+                        if (e.Properties != null)
+                        {
+                           object value;
+                           if (e.Properties.TryGetValue(token.Name, out value))
+                           {
+                              string custom = _format.Format(token, value);
+                              Cg.Write(custom, ParameterColour);
+                           }
+                        }
+                        break;
+                  }
+                  break;
+            }
+         }
+
+         Console.WriteLine();
+      }
+
+      private void LogError(LogEvent e)
+      {
+         Exception ex = e.ErrorException;
+         if (ex != null)
+         {
+            Console.WriteLine();
+            Cg.Write($"{ex.GetType()}: {ex.Message}", ExceptionHeadlineColour);
+
+            Console.WriteLine();
+            Cg.Write(ex.StackTrace, ExceptionStackTraceColour);
+         }
+      }
+
+      private void LogMessage(LogEvent e)
+      {
+         foreach (Token token in e.Message.Tokens)
+         {
+            switch (token.Type)
             {
                case TokenType.String:
                   Cg.Write(e.Message.Format(token), MessageColour);
@@ -78,44 +126,6 @@ namespace LogMagic.Writers
                   break;
             }
          }
-
-         //error
-         Exception ex = e.ErrorException;
-         if(ex != null)
-         {
-            Console.WriteLine();
-            Cg.Write($"{ex.GetType()}: {ex.Message}", ExceptionHeadlineColour);
-
-            Console.WriteLine();
-            Cg.Write(ex.StackTrace, ExceptionStackTraceColour);
-         }
-
-         //extra properties
-         /*if (e.Properties != null && e.Properties.Count > 0)
-         {
-            Console.WriteLine();
-            bool firstProp = true;
-            foreach (var prop in e.Properties)
-            {
-               if (prop.Key == LogEvent.ErrorPropertyName) continue;
-
-               if (!firstProp)
-               {
-                  Cg.Write(Pipe, Separator);
-               }
-               else
-               {
-                  firstProp = false;
-               }
-
-               Cg.Write(prop.Key, ConsoleColor.Gray);
-               Cg.Write("='", Separator);
-               Cg.Write(prop.Value.ToString(), ConsoleColor.Green);
-               Cg.Write("'", Separator);
-            }
-         }*/
-
-         Console.WriteLine();
       }
 
       private void LogSeverity(LogSeverity s)

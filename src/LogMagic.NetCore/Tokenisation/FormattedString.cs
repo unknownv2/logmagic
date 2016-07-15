@@ -165,7 +165,8 @@ namespace LogMagic.Tokenisation
             value = value.Trim(ParamTrims);
 
             int idx = value.IndexOf(":");
-            format = idx == -1 ? null : value.Substring(idx + 1);
+            if (idx == -1) idx = value.IndexOf(",");
+            format = idx == -1 ? null : value.Substring(idx);
             string pos = idx == -1 ? value : value.Substring(0, idx);
 
             int p;
@@ -181,7 +182,7 @@ namespace LogMagic.Tokenisation
 
             nativeFormat = format == null
                ? null
-               : $"{{0:{format}}}";
+               : $"{{0{format}}}";
             _namedPos++;
          }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using LogMagic.Tokenisation;
 
 namespace LogMagic.Writers
 {
@@ -10,12 +11,14 @@ namespace LogMagic.Writers
    /// </summary>
    class ConsoleLogWriter : ILogWriter
    {
+      private readonly FormattedString _format;
+
       /// <summary>
       /// Creates class instance
       /// </summary>
-      public ConsoleLogWriter()
+      public ConsoleLogWriter(string format)
       {
-         
+         _format = format == null ? null : FormattedString.Parse(format, null);
       }
 
       /// <summary>
@@ -29,7 +32,7 @@ namespace LogMagic.Writers
       {
          foreach(LogEvent e in events)
          {
-            Console.WriteLine(TextFormatter.Format(e));
+            Console.WriteLine(TextFormatter.Format(e, _format));
          }
       }
 

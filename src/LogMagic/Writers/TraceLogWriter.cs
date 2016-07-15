@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using LogMagic.Tokenisation;
 
 namespace LogMagic.Writers
 {
@@ -9,12 +10,14 @@ namespace LogMagic.Writers
    /// </summary>
    class TraceLogWriter : ILogWriter
    {
+      private readonly FormattedString _format;
+
       /// <summary>
       /// Creates an instance with standard formatter
       /// </summary>
-      public TraceLogWriter()
+      public TraceLogWriter(string format)
       {
-
+         _format = format == null ? null : FormattedString.Parse(format, null);
       }
 
       /// <summary>
@@ -28,7 +31,7 @@ namespace LogMagic.Writers
       {
          foreach(LogEvent e in events)
          {
-            string line = TextFormatter.Format(e);
+            string line = TextFormatter.Format(e, _format);
 
             switch(e.Severity)
             {

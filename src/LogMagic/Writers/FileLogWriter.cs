@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using LogMagic.Tokenisation;
 
 namespace LogMagic.Writers
 {
@@ -18,12 +19,14 @@ namespace LogMagic.Writers
       private int _fileYear;
       private int _fileMonth;
       private int _fileDay;
+      private readonly FormattedString _format;
 
       /// <summary>
       /// Creates an instance of file receiver
       /// </summary>
       /// <param name="fileName">Target filename. If file does not exist it will be created.</param>
-      public FileLogWriter(string fileName)
+      /// <param name="format">format</param>
+      public FileLogWriter(string fileName, string format)
       {
          if(fileName == null) throw new ArgumentNullException(nameof(fileName));
 
@@ -31,6 +34,8 @@ namespace LogMagic.Writers
          if(!Directory.Exists(_directoryName)) Directory.CreateDirectory(_directoryName);
 
          PreCreateDirectory(fileName);
+
+         _format = format == null ? null : FormattedString.Parse(format, null);
       }
 
       /// <summary>
