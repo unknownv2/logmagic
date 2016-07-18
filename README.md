@@ -1,4 +1,4 @@
-# LogMagic [![Visual Studio Team services](https://img.shields.io/vso/build/aloneguid/323c5f4c-c814-452d-9eaf-1006c83fd44c/3.svg?maxAge=2592000?style=flat-square)]() [![NuGet](https://img.shields.io/nuget/v/LogMagic.svg?maxAge=2592000?style=flat-square)]()
+# LogMagic ![Visual Studio Team services](https://img.shields.io/vso/build/aloneguid/323c5f4c-c814-452d-9eaf-1006c83fd44c/3.svg?maxAge=2592000?style=flat-square) [![NuGet](https://img.shields.io/nuget/v/LogMagic.svg?maxAge=2592000?style=flat-square)](https://www.nuget.org/packages/LogMagic/)
 
 ![logmagic icon](https://alonestore.blob.core.windows.net/nuget/logmagic.png)
 
