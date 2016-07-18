@@ -134,12 +134,12 @@ Visual Studio snippets are installed along with the NuGet package so you can use
 
 `ldef` defines a logging variable inside the class:
 ```csharp
-private readonly ILog _log = L.G();
+private static readonly LogMagic.ILog log = LogMagic.L.G(typeof(container_class));
 ```
 
 `ld` writes a logging statement:
 ```csharp
-_log.D("...");
+log.D("...");
 ```
 there are identical shortcuts for other logging levels `le`, `li`, `lw`.
 
