@@ -1,21 +1,28 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
-  <CodeSnippet Format="1.0.0">
-    <Header>
-      <Title>ldef</Title>
-      <Author />
-      <Description>LogMagic - declare log variable inside class</Description>
-      <HelpUrl />
-      <SnippetTypes />
-      <Keywords />
-      <Shortcut>ldef</Shortcut>
-    </Header>
-    <Snippet>
-      <References />
-      <Imports />
-      <Declarations />
-      <Code Language="csharp" Kind="" Delimiter="$"><![CDATA[private readonly ILog _log = L.G();
-$end$]]></Code>
-    </Snippet>
-  </CodeSnippet>
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+   <CodeSnippet Format="1.0.0">
+      <Header>
+         <Title>ldef</Title>
+         <Shortcut>ldef</Shortcut>
+         <Description>LogMagic - declare log variable inside class</Description>
+         <Author>Ivan Gavryliuk</Author>
+         <SnippetTypes>
+            <SnippetType>Expansion</SnippetType>
+         </SnippetTypes>
+      </Header>
+      <Snippet>
+         <Declarations>
+            <Literal Editable="false">
+               <ID>classname</ID>
+               <ToolTip>Class name</ToolTip>
+               <Function>ClassName()</Function>
+               <Default>ClassNamePlaceholder</Default>
+            </Literal>
+         </Declarations>
+         <Code Language="csharp">
+            <![CDATA[private static readonly LogMagic.ILog log = LogMagic.L.G(typeof($classname$));
+$end$]]>
+         </Code>
+      </Snippet>
+   </CodeSnippet>
 </CodeSnippets>
