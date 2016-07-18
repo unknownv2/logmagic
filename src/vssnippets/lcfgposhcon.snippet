@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+   <CodeSnippet Format="1.0.0">
+      <Header>
+         <Title>lcfgposhcon</Title>
+         <Shortcut>lcfgposhcon</Shortcut>
+         <Description>LogMagic - configure with typical posh console writer</Description>
+         <Author>Ivan Gavryliuk</Author>
+         <SnippetTypes>
+            <SnippetType>Expansion</SnippetType>
+         </SnippetTypes>
+      </Header>
+      <Snippet>
+         <Declarations>
+            <Literal Editable="false">
+               <ID>classname</ID>
+               <ToolTip>Class name</ToolTip>
+               <Function>ClassName()</Function>
+               <Default>ClassNamePlaceholder</Default>
+            </Literal>
+         </Declarations>
+         <Code Language="csharp">
+            <![CDATA[LogMagic.L.Config
+            .WriteTo.PoshConsole("{time:H:mm:ss,fff}|{level}|{threadId,4}|{source}|{message}{error}")
+            .EnrichWith.ThreadId();
+            $end$]]>
+         </Code>
+      </Snippet>
+   </CodeSnippet>
+</CodeSnippets>

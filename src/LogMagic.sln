@@ -24,6 +24,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "snippets", "snippets", "{F12318E0-B0C4-461D-9499-D24B32D0D30A}"
 	ProjectSection(SolutionItems) = preProject
 		vssnippets\install.ps1 = vssnippets\install.ps1
+		vssnippets\lcfgposhcon.snippet = vssnippets\lcfgposhcon.snippet
 		vssnippets\ld.snippet = vssnippets\ld.snippet
 		vssnippets\ldef.snippet = vssnippets\ldef.snippet
 		vssnippets\le.snippet = vssnippets\le.snippet

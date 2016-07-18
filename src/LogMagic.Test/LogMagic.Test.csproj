@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractTestFixture.cs" />
+    <Compile Include="ConfigTest.cs" />
     <Compile Include="ConsoleEntry.cs" />
     <Compile Include="EnrichersTest.cs" />
     <Compile Include="FormattedStringTest.cs" />
