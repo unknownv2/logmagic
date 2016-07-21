@@ -1,6 +1,6 @@
-# LogMagic [![NuGet](https://img.shields.io/nuget/v/LogMagic.svg?maxAge=2592000?style=flat-square)](https://www.nuget.org/packages/LogMagic/)
+# LogMagic [![NuGet](https://img.shields.io/nuget/v/LogMagic.svg?maxAge=2592000?style=flat-square)](https://www.nuget.org/packages/LogMagic/) [![Gitter](https://badges.gitter.im/aloneguid/logmagic.svg)](https://gitter.im/aloneguid/logmagic?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-![logmagic icon](https://alonestore.blob.core.windows.net/nuget/logmagic.png) [![Gitter](https://badges.gitter.im/aloneguid/logmagic.svg)](https://gitter.im/aloneguid/logmagic?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+![logmagic icon](https://alonestore.blob.core.windows.net/nuget/logmagic.png) 
 
 ## Why LogMagic
 
