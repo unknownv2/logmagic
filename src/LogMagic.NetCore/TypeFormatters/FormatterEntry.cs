@@ -10,8 +10,6 @@ namespace LogMagic.TypeFormatters
          new EnumerableFormatter()
       };
 
-      private static readonly char[] StringTrims = new char[] { '\'', '"' };
-
       //used to cache ALL type mappings passed to logging, for increased performance
       private static readonly Dictionary<Type, ITypeFormatter> TypeToTransformer = new Dictionary<Type, ITypeFormatter>();
 
@@ -22,7 +20,7 @@ namespace LogMagic.TypeFormatters
          string asString = parameter as string;
          if(asString != null)
          {
-            return "'" + asString.Trim(StringTrims) + "'";
+            return "'" + asString + "'";
          }
 
          /*
