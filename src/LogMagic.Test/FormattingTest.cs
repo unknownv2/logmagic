@@ -37,7 +37,7 @@ namespace LogMagic.Test
          _log.D("one {0} string {1}", 1, "s");
          L.Flush();
 
-         Assert.AreEqual("one 1 string s", Message);
+         Assert.AreEqual("one 1 string 's'", Message);
       }
 
       [Test]
@@ -71,7 +71,7 @@ namespace LogMagic.Test
          _log.D("the {0}", "string");
 
          L.Flush();
-         Assert.AreEqual("the string", Message);
+         Assert.AreEqual("the 'string'", Message);
       }
 
       [Test]
@@ -99,7 +99,7 @@ namespace LogMagic.Test
          _log.D("{0} kettles and {three:D2} lamps{2}", 5, 3, "...");
 
          L.Flush();
-         Assert.AreEqual("5 kettles and 03 lamps...", Message);
+         Assert.AreEqual("5 kettles and 03 lamps'...'", Message);
          Assert.AreEqual(3, Event.GetProperty("three"));
       }
 

@@ -82,7 +82,7 @@ namespace LogMagic.Tokenisation
                }
                else
                {
-                  return FormatterEntry.FormatParameter(value).ToString();
+                  return value == null ? string.Empty : value.ToString();
                }
          }
 
