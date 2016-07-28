@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\LogMagic.XML</DocumentationFile>
@@ -26,7 +26,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\LogMagic.XML</DocumentationFile>
@@ -43,6 +43,57 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\LogMagic.NetCore\Configuration\LogConfiguration.cs">
+      <Link>Configuration\LogConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\Enrichers\ConstantEnricher.cs">
+      <Link>Enrichers\ConstantEnricher.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\Enrichers\EnrichersConfigurationExtensions.cs">
+      <Link>Enrichers\EnrichersConfigurationExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\Enrichers\MethodNameEnricher.cs">
+      <Link>Enrichers\MethodNameEnricher.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\Enrichers\ThreadInfoEnricher.cs">
+      <Link>Enrichers\ThreadInfoEnricher.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\EventFactory.cs">
+      <Link>EventFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\IEnricher.cs">
+      <Link>IEnricher.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\IEnricherConfiguration.cs">
+      <Link>IEnricherConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\ILog.cs">
+      <Link>ILog.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\ILogConfiguration.cs">
+      <Link>ILogConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\ILogWriter.cs">
+      <Link>ILogWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\IWriterConfiguration.cs">
+      <Link>IWriterConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\L.cs">
+      <Link>L.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\LogClient.cs">
+      <Link>LogClient.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\LogEvent.cs">
+      <Link>LogEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\LogSeverity.cs">
+      <Link>LogSeverity.cs</Link>
+    </Compile>
+    <Compile Include="..\LogMagic.NetCore\TextFormatter.cs">
+      <Link>TextFormatter.cs</Link>
+    </Compile>
     <Compile Include="..\LogMagic.NetCore\Tokenisation\FormattedString.cs">
       <Link>Tokenisation\FormattedString.cs</Link>
     </Compile>
@@ -60,57 +111,6 @@
     </Compile>
     <Compile Include="..\LogMagic.NetCore\TypeFormatters\ITypeFormatter.cs">
       <Link>TypeFormatters\ITypeFormatter.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\Configuration\LogConfiguration.cs">
-      <Link>Configuration\LogConfiguration.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\Enrichers\ConstantEnricher.cs">
-      <Link>Enrichers\ConstantEnricher.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\Enrichers\EnrichersConfigurationExtensions.cs">
-      <Link>Enrichers\EnrichersConfigurationExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\Enrichers\MethodNameEnricher.cs">
-      <Link>Enrichers\MethodNameEnricher.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\Enrichers\ThreadInfoEnricher.cs">
-      <Link>Enrichers\ThreadInfoEnricher.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\EventFactory.cs">
-      <Link>EventFactory.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\IEnricher.cs">
-      <Link>IEnricher.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\IEnricherConfiguration.cs">
-      <Link>IEnricherConfiguration.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\ILog.cs">
-      <Link>ILog.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\ILogConfiguration.cs">
-      <Link>ILogConfiguration.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\ILogWriter.cs">
-      <Link>ILogWriter.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\IWriterConfiguration.cs">
-      <Link>IWriterConfiguration.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\L.cs">
-      <Link>L.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\LogClient.cs">
-      <Link>LogClient.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\LogEvent.cs">
-      <Link>LogEvent.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\LogSeverity.cs">
-      <Link>LogSeverity.cs</Link>
-    </Compile>
-    <Compile Include="..\LogMagic.Portable\TextFormatter.cs">
-      <Link>TextFormatter.cs</Link>
     </Compile>
     <Compile Include="Enrichers\MachineIpEnricher.cs" />
     <Compile Include="Enrichers\MachineNameEnricher.cs" />

@@ -18,7 +18,7 @@ namespace LogMagic.Enrichers
 
       private static string GetThreadId()
       {
-#if PORTABLE
+#if PORTABLE || NETCORE
          string threadId = Task.CurrentId.ToString();
 #else
          string threadId = Thread.CurrentThread.ManagedThreadId.ToString();

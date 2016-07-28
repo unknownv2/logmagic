@@ -25,7 +25,7 @@ namespace LogMagic
          return configuration.Custom(new ConstantEnricher(propertyName, propertyValue));
       }
 
-#if !PORTABLE
+#if NET45
       /// <summary>
       /// Enrich with caller's method name. This is using reflection on every log event therefore
       /// call with caution as it may cause serious performance issues in production.

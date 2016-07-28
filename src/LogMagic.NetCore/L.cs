@@ -43,7 +43,7 @@ namespace LogMagic
          return new LogClient(name);
       }
 
-#if !PORTABLE
+#if NET45
       /// <summary>
       /// Get logger for the current class
       /// </summary>

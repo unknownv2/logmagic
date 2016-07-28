@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LogMagic.Enrichers
 {
-#if !PORTABLE
+#if NET45
    class MethodNameEnricher : IEnricher
    {
       //the rest of the methods up the chain should be marked too so we can get method name in release version

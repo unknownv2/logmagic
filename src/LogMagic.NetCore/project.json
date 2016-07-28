@@ -9,6 +9,7 @@
       }
    },
    "buildOptions": {
-      "xmlDoc": true
+      "xmlDoc": true,
+      "define": [ "NETCORE" ]
    }
 }
