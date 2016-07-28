@@ -21,6 +21,7 @@
       <file src="src\LogMagic\bin\Release\LogMagic.*" target="lib\net45"/>
       <file src="src\LogMagic.Portable\bin\Release\LogMagic.*" target="lib\MonoAndroid"/>
       <file src="src\LogMagic.Portable\bin\Release\LogMagic.*" target="lib\MonoTouch"/>
+      <file src="src\LogMagic.NetCore\bin\Release\netstandard1.6\LogMagic.*" target="lib\dotnet"/>
       
       <!-- fuck resharper-->
       <!--<file src="src\logmagic-shortcuts.DotSettings" target="ReSharper\10"/>-->
