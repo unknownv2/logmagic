@@ -69,12 +69,21 @@ namespace LogMagic.Test
       public void Smoke_SomethingSimple_DoestCrash()
       {
          ILog log = L.G();
+         ILog _log = L.G();
 
          log.D("hello!");
          log.D("exception is here!", new Exception("test exception"));
 
          L.Flush();
          //Thread.Sleep(TimeSpan.FromMinutes(1));
+      }
+
+      [Test]
+      public void Roslyn()
+      {
+         ILog log = L.G();
+
+         log.D("has {0} items", 5);
       }
    }
 }
