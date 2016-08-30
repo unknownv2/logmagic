@@ -17,9 +17,6 @@ namespace LogMagic.Test
    [TestFixture("trace")]
    public class SmokeAndMirrorsLogging : AbstractTestFixture
    {
-      private static readonly Setting<string> AzureStorageName = new Setting<string>("Azure.Storage.Name", null);
-      private static readonly Setting<string> AzureStorageKey = new Setting<string>("Azure.Storage.Key", null);
-
       private readonly string _receiverName;
 
       public SmokeAndMirrorsLogging(string receiverName)
@@ -31,17 +28,16 @@ namespace LogMagic.Test
       public void SetUp()
       {
          L.Config.ClearWriters();
-         Cfg.Configuration.RemoveAllStores();
-         Cfg.Configuration.AddStore(new IniFileConfigStore("c:\\tmp\\integration-tests.ini"));
+         var settings = new TestSettings();
 
          switch (_receiverName)
          {
             case "azure-blob":
-               L.Config.WriteTo.AzureAppendBlob(Cfg.Read(AzureStorageName), Cfg.Read(AzureStorageKey),
+               L.Config.WriteTo.AzureAppendBlob(settings.AzureStorageName, settings.AzureStorageKey,
                   "logs-integration", "smokeandmirrors");
                break;
             case "azure-table":
-               L.Config.WriteTo.AzureTable(Cfg.Read(AzureStorageName), Cfg.Read(AzureStorageKey),
+               L.Config.WriteTo.AzureTable(settings.AzureStorageName, settings.AzureStorageKey,
                   "logsintegration");
                break;
             case "files":
