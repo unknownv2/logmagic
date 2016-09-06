@@ -71,13 +71,5 @@ namespace LogMagic.Test
          L.Flush();
          //Thread.Sleep(TimeSpan.FromMinutes(1));
       }
-
-      [Test]
-      public void Roslyn()
-      {
-         ILog log = L.G();
-
-         log.D("has {0} items", 5);
-      }
    }
 }

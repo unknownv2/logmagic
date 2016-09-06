@@ -13,7 +13,7 @@ namespace LogMagic.Test
       [TestCase(null, null, "")]
       [TestCase("null params{0}", null, "null params")]
       [TestCase("named {format:D3}", new object[] { 1 }, "named 001")]
-      [TestCase("quote {0}", new object[] { "'trim" }, "quote 'trim'")]
+      [TestCase("quote {0}", new object[] { "'trim" }, "quote ''trim'")]
       public void Format_Variable_Variable(string format, object[] parameters, string output)
       {
          FormattedString fs = FormattedString.Parse(format, parameters);
