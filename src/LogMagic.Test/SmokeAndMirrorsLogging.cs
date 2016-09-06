@@ -1,6 +1,4 @@
-﻿using Config.Net;
-using Config.Net.Stores;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.IO;
 using System;
 

@@ -15,9 +15,10 @@ namespace LogMagic.Seq
       private const string PostUrl = "/api/events/raw";
       private const string ContentType = "application/json";
 
-      public SeqWriter(Uri serverAddress)
+      public SeqWriter(Uri serverAddress, string apiKey)
       {
          _client = new HttpClient();
+         if (apiKey != null) _client.DefaultRequestHeaders.Add("X-Seq-ApiKey", apiKey);
          _client.BaseAddress = serverAddress;
          _client.DefaultRequestHeaders.Accept.Clear();
          _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(ContentType));
