@@ -1,4 +1,5 @@
-﻿using LogMagic.Writers;
+﻿using System;
+using LogMagic.Writers;
 
 namespace LogMagic
 {
@@ -72,5 +73,17 @@ namespace LogMagic
       {
          return configuration.Custom(new FileLogWriter(fileName, format));
       }
+
+#if NETFULL
+      public static ILogConfiguration Seq(this IWriterConfiguration configuration, Uri serverAddress)
+      {
+         return configuration.Custom(new SeqWriter(serverAddress, null));
+      }
+
+      public static ILogConfiguration Seq(this IWriterConfiguration configuration, Uri serverAddress, string apiKey)
+      {
+         return configuration.Custom(new SeqWriter(serverAddress, apiKey));
+      }
+#endif
    }
 }

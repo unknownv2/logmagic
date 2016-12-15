@@ -30,9 +30,15 @@
          "dependencies": {
             "Newtonsoft.Json": "8.0.3"
          },
+         "frameworkAssemblies": {
+            "System.Net.Http": "4.0.0.0"
+         },
          "buildOptions": {
             "define": [ "NETFULL" ]
          }
       }
+   },
+   "dependencies": {
+      "netbox": "1.0.2"
    }
 }
