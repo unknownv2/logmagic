@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Security;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
-using NUnit.Framework;
+using Xunit;
 
 namespace LogMagic.Test
 {
@@ -128,7 +128,7 @@ namespace LogMagic.Test
 
       protected void AssertEqualsNoLineFeeds(string expected, string actual)
       {
-         Assert.AreEqual(NormaliseLineFeeds(expected), NormaliseLineFeeds(actual));
+         Assert.Equal(NormaliseLineFeeds(expected), NormaliseLineFeeds(actual));
       }
 
       private string NormaliseLineFeeds(string s)

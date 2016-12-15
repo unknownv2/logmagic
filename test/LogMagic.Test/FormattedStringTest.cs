@@ -1,9 +1,8 @@
 ﻿using LogMagic.Tokenisation;
-using NUnit.Framework;
+using Xunit;
 
 namespace LogMagic.Test
 {
-   [TestFixture]
    public class FormattedStringTest
    {
       [TestCase("it's just {0} egg", new object[] { "one" }, "it's just 'one' egg")]
@@ -18,17 +17,17 @@ namespace LogMagic.Test
       {
          FormattedString fs = FormattedString.Parse(format, parameters);
 
-         Assert.AreEqual(output, fs.ToString());
+         Assert.Equal(output, fs.ToString());
       }
 
-      [Test]
+      [Fact]
       public void Format_NamedParameters_OnlyNamedCaptured()
       {
          FormattedString fs = FormattedString.Parse("named parameters are: {first} and {second}", new object[] { 1, 2 });
 
-         Assert.AreEqual(2, fs.NamedParameters.Count);
-         Assert.AreEqual(1, fs.NamedParameters["first"]);
-         Assert.AreEqual(2, fs.NamedParameters["second"]);
+         Assert.Equal(2, fs.NamedParameters.Count);
+         Assert.Equal(1, fs.NamedParameters["first"]);
+         Assert.Equal(2, fs.NamedParameters["second"]);
       }
    }
 }

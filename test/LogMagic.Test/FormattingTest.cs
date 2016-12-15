@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using NUnit.Framework;
+using Xunit;
 
 namespace LogMagic.Test
 {
-   [TestFixture]
    public class FormattingTest
    {
       private TestWriter _writer;
@@ -31,51 +30,51 @@ namespace LogMagic.Test
       private string Message => _writer.Message;
       private LogEvent Event => _writer.Event;
 
-      [Test]
+      [Fact]
       public void Mixed_IntegerAndString_Formats()
       {
          _log.D("one {0} string {1}", 1, "s");
          L.Flush();
 
-         Assert.AreEqual("one 1 string 's'", Message);
+         Assert.Equal("one 1 string 's'", Message);
       }
 
-      [Test]
+      [Fact]
       public void String_NoTransform_Formats()
       {
          _log.D("the {0}", "string");
 
          L.Flush();
-         Assert.AreEqual("the 'string'", Message);
+         Assert.Equal("the 'string'", Message);
       }
 
-      [Test]
+      [Fact]
       public void SourceName_Reflected_ThisClass()
       {
          _log.D("testing source");
 
          L.Flush();
-         Assert.AreEqual("LogMagic.Test.FormattingTest", Event.SourceName);
+         Assert.Equal("LogMagic.Test.FormattingTest", Event.SourceName);
       }
 
-      [Test]
+      [Fact]
       public void Structured_NamedString_Formats()
       {
          _log.D("the {Count} kettles", 5);
 
          L.Flush();
-         Assert.AreEqual("the 5 kettles", Message);
-         Assert.AreEqual(5, (int)Event.GetProperty("Count"));
+         Assert.Equal("the 5 kettles", Message);
+         Assert.Equal(5, (int)Event.GetProperty("Count"));
       }
 
-      [Test]
+      [Fact]
       public void Structured_Mixed_Formats()
       {
          _log.D("{0} kettles and {three:D2} lamps{2}", 5, 3, "...");
 
          L.Flush();
-         Assert.AreEqual("5 kettles and 03 lamps'...'", Message);
-         Assert.AreEqual(3, Event.GetProperty("three"));
+         Assert.Equal("5 kettles and 03 lamps'...'", Message);
+         Assert.Equal(3, Event.GetProperty("three"));
       }
 
       

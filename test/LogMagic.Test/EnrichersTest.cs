@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NUnit.Framework;
+using Xunit;
 
 namespace LogMagic.Test
 {
-   [TestFixture]
-   public class EnrichersTest
+   public class EnrichersTest : IDisposable
    {
       private TestWriter _writer;
       private ILog _log;
 
-      [SetUp]
-      public void SetUp()
+      public EnrichersTest()
       {
          _writer = new TestWriter();
          L.Config.ClearWriters();
@@ -24,31 +22,30 @@ namespace LogMagic.Test
          _log = L.G<FormattingTest>();
       }
 
-      [SetUp]
-      public void TearDown()
+      public void Dispose()
       {
          L.Shutdown();
       }
 
-      [Test]
+      [Fact]
       public void MethodName_ThisMethod_Matches()
       {
          L.Config.EnrichWith.MethodName();
          _log.D("method call");
 
          L.Flush();
-         Assert.AreEqual("LogMagic.Test.EnrichersTest.MethodName_ThisMethod_Matches()", 
+         Assert.Equal("LogMagic.Test.EnrichersTest.MethodName_ThisMethod_Matches()", 
             (string)_writer.Event.GetProperty("method"));
       }
 
-      [Test]
+      [Fact]
       public void MethodName_MethodWithParameters_ParametersFormatted()
       {
          L.Config.EnrichWith.MethodName();
          MethodWithParameters(null, 1, Guid.NewGuid());
 
          L.Flush();
-         Assert.AreEqual("LogMagic.Test.EnrichersTest.MethodWithParameters(String s, Int32 i, Guid g)",
+         Assert.Equal("LogMagic.Test.EnrichersTest.MethodWithParameters(String s, Int32 i, Guid g)",
             (string)_writer.Event.GetProperty("method"));
       }
 
@@ -58,7 +55,7 @@ namespace LogMagic.Test
          return s;
       }
 
-      [Test]
+      [Fact]
       public void MachineIp_Current_ReturnsSomething()
       {
          L.Config.EnrichWith.MachineIpAddress();
@@ -68,7 +65,7 @@ namespace LogMagic.Test
          string address = (string)_writer.Event.GetProperty("machineIp");
          _log.D("address: {ipAddress}", address);
          L.Flush();
-         Assert.IsNotNull(address);
+         Assert.NotNull(address);
       }
    }
 }

@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using System.IO;
 using System;
 
@@ -53,13 +53,7 @@ namespace LogMagic.Test
          }   
       }
 
-      [TearDown]
-      public void TearDown()
-      {
-         
-      }
-
-      [Test]
+      [Fact]
       public void Smoke_SomethingSimple_DoestCrash()
       {
          ILog log = L.G();
