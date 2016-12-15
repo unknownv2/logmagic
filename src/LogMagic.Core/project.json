@@ -11,7 +11,7 @@
    "buildOptions": {
       "keyFile": "../../logmagic.snk",
       "xmlDoc": true,
-      "outputName": "LogMagic.dll"
+      "outputName": "LogMagic"
    },
    "frameworks": {
       "netstandard1.6": {
