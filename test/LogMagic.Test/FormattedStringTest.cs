@@ -5,14 +5,15 @@ namespace LogMagic.Test
 {
    public class FormattedStringTest
    {
-      [TestCase("it's just {0} egg", new object[] { "one" }, "it's just 'one' egg")]
-      [TestCase("wrong position {5}", new object[] { 5 }, "wrong position ")]
-      [TestCase("plain {0} and {name}", new object[] { "param", "named" }, "plain 'param' and 'named'")]
-      [TestCase("{0:D2}", new object[] { 5 }, "05")]
-      [TestCase(null, null, "")]
-      [TestCase("null params{0}", null, "null params")]
-      [TestCase("named {format:D3}", new object[] { 1 }, "named 001")]
-      [TestCase("quote {0}", new object[] { "'trim" }, "quote ''trim'")]
+      [Theory]
+      [InlineData("it's just {0} egg", new object[] { "one" }, "it's just 'one' egg")]
+      [InlineData("wrong position {5}", new object[] { 5 }, "wrong position ")]
+      [InlineData("plain {0} and {name}", new object[] { "param", "named" }, "plain 'param' and 'named'")]
+      [InlineData("{0:D2}", new object[] { 5 }, "05")]
+      [InlineData(null, null, "")]
+      [InlineData("null params{0}", null, "null params")]
+      [InlineData("named {format:D3}", new object[] { 1 }, "named 001")]
+      [InlineData("quote {0}", new object[] { "'trim" }, "quote ''trim'")]
       public void Format_Variable_Variable(string format, object[] parameters, string output)
       {
          FormattedString fs = FormattedString.Parse(format, parameters);

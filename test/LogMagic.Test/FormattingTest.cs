@@ -4,13 +4,12 @@ using Xunit;
 
 namespace LogMagic.Test
 {
-   public class FormattingTest
+   public class FormattingTest : IDisposable
    {
       private TestWriter _writer;
       private ILog _log = L.G();
 
-      [SetUp]
-      public void SetUp()
+      public FormattingTest()
       {
          _writer = new TestWriter();
          L.Config.ClearWriters();
@@ -21,8 +20,7 @@ namespace LogMagic.Test
             .EnrichWith.Constant("node", "test");
       }
 
-      [SetUp]
-      public void TearDown()
+      public void Dispose()
       {
          L.Shutdown();
       }

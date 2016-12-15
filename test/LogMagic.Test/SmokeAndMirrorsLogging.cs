@@ -1,4 +1,4 @@
-﻿using Xunit;
+﻿/*using Xunit;
 using System.IO;
 using System;
 
@@ -67,3 +67,4 @@ namespace LogMagic.Test
       }
    }
 }
+*/
