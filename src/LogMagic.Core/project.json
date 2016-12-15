@@ -1,6 +1,5 @@
 ﻿{
    "version": "2.1.0",
-
    "authors": [ "Ivan Gavryliuk" ],
    "title": "LogMagic",
    "copyright": "Copyright (c) 2015-2016 by Ivan Gavryliuk",
@@ -9,17 +8,19 @@
       "projectUrl": "https://github.com/aloneguid/logmagic",
       "summary": "Logging made easy"
    },
-
    "buildOptions": {
       "keyFile": "../../logmagic.snk",
-      "xmlDoc": true
+      "xmlDoc": true,
+      "outputName": "LogMagic.dll"
    },
-
    "frameworks": {
       "netstandard1.6": {
          "imports": "dnxcore50",
          "dependencies": {
-            "NETStandard.Library": "1.6.1"
+            "NETStandard.Library": "1.6.1",
+            "System.Diagnostics.StackTrace": "4.3.0",
+            "System.Threading.Thread": "4.3.0",
+            "System.Net.NameResolution": "4.3.0"
          },
          "buildOptions": {
             "define": [ "NETSTANDARD" ]
