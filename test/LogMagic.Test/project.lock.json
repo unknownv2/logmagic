@@ -3,6 +3,21 @@
   "version": 2,
   "targets": {
     ".NETFramework,Version=v4.5": {
+      "Config.Net/3.0.1": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0"
+        },
+        "frameworkAssemblies": [
+          "System.Configuration"
+        ],
+        "compile": {
+          "lib/net45/Config.Net.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Config.Net.dll": {}
+        }
+      },
       "Microsoft.NETCore.Platforms/1.1.0": {
         "type": "package",
         "compile": {
@@ -487,6 +502,51 @@
     }
   },
   "libraries": {
+    "Config.Net/3.0.1": {
+      "sha512": "ht0H/0Zs7FKxVj7KoDzPCKoJ/juC+2JF2Ea6IfSvaTxx3L4KBF3R5nMD7NDKGj0x8lSCNg7rX6s5yzwEOAApGw==",
+      "type": "package",
+      "path": "Config.Net/3.0.1",
+      "files": [
+        "Config.Net.3.0.1.nupkg.sha512",
+        "Config.Net.nuspec",
+        "lib/net45/Config.Net.dll",
+        "lib/net45/Config.Net.pdb",
+        "lib/netstandard1.6/Config.Net.dll",
+        "lib/netstandard1.6/Config.Net.pdb",
+        "src/Config.Net/ConfigurationExtensions.cs",
+        "src/Config.Net/ContainerConfiguration.cs",
+        "src/Config.Net/IConfigConfiguration.cs",
+        "src/Config.Net/IConfigStore.cs",
+        "src/Config.Net/ITypeParser.cs",
+        "src/Config.Net/JiraTime.cs",
+        "src/Config.Net/Option.cs",
+        "src/Config.Net/OptionValue.cs",
+        "src/Config.Net/Properties/AssemblyInfo.cs",
+        "src/Config.Net/SettingsContainer.cs",
+        "src/Config.Net/Stores/AppConfigStore.cs",
+        "src/Config.Net/Stores/AssemblyConfigStore.cs",
+        "src/Config.Net/Stores/EnvironmentVariablesStore.cs",
+        "src/Config.Net/Stores/Formats/IniComment.cs",
+        "src/Config.Net/Stores/Formats/IniEntity.cs",
+        "src/Config.Net/Stores/Formats/IniKeyValue.cs",
+        "src/Config.Net/Stores/Formats/IniSection.cs",
+        "src/Config.Net/Stores/Formats/StructuredIniFile.cs",
+        "src/Config.Net/Stores/InMemoryConfigStore.cs",
+        "src/Config.Net/Stores/IniFileConfigStore.cs",
+        "src/Config.Net/TypeParsers/BoolParser.cs",
+        "src/Config.Net/TypeParsers/CoreParsers.cs",
+        "src/Config.Net/TypeParsers/DateTimeParser.cs",
+        "src/Config.Net/TypeParsers/DefaultParser.cs",
+        "src/Config.Net/TypeParsers/DoubleParser.cs",
+        "src/Config.Net/TypeParsers/IntParser.cs",
+        "src/Config.Net/TypeParsers/JiraTimeParser.cs",
+        "src/Config.Net/TypeParsers/LongParser.cs",
+        "src/Config.Net/TypeParsers/StringArrayParser.cs",
+        "src/Config.Net/TypeParsers/StringParser.cs",
+        "src/Config.Net/TypeParsers/TimeSpanParser.cs",
+        "src/Config.Net/TypeParsers/TypeParserSettings.cs"
+      ]
+    },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "sha512": "kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
       "type": "package",
@@ -2766,6 +2826,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "Config.Net >= 3.0.1",
       "LogMagic.Core >= 2.1.0",
       "NETStandard.Library >= 1.6.1"
     ],
