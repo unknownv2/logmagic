@@ -6,7 +6,7 @@ using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json.Linq;
 
-namespace LogMagic.WindowsAzure
+namespace LogMagic.Microsoft.Azure
 {
    /// <summary>
    /// Azure Table Storage receiver

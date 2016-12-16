@@ -7,7 +7,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 
-namespace LogMagic.WindowsAzure
+namespace LogMagic.Microsoft.Azure
 {
    /// <summary>
    /// Azure Append Blob Receiver

@@ -75,11 +75,17 @@ namespace LogMagic
       }
 
 #if NETFULL
+      /// <summary>
+      /// Writes events to Seq server (https://getseq.net/)
+      /// </summary>
       public static ILogConfiguration Seq(this IWriterConfiguration configuration, Uri serverAddress)
       {
          return configuration.Custom(new SeqWriter(serverAddress, null));
       }
 
+      /// <summary>
+      /// Writes events to Seq server (https://getseq.net/)
+      /// </summary>
       public static ILogConfiguration Seq(this IWriterConfiguration configuration, Uri serverAddress, string apiKey)
       {
          return configuration.Custom(new SeqWriter(serverAddress, apiKey));

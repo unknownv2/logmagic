@@ -1,4 +1,4 @@
-﻿using LogMagic.WindowsAzure;
+﻿using LogMagic.Microsoft.Azure;
 
 namespace LogMagic
 {

@@ -1,29 +1,62 @@
-﻿/*using Xunit;
+﻿using Xunit;
 using System.IO;
 using System;
 
 namespace LogMagic.Test
 {
-   /// <summary>
-   /// Only tests that logging on all the provider doesn't crash"
-   /// </summary>
-   [TestFixture("azure-blob")]
-   [TestFixture("azure-table")]
-   [TestFixture("files")]
-   [TestFixture("console")]
-   [TestFixture("posh-console")]
-   [TestFixture("trace")]
-   public class SmokeAndMirrorsLogging : AbstractTestFixture
+   public class AzureBlobWriterTest : SmokeAndMirrorsLogging
+   {
+      public AzureBlobWriterTest() : base("azure-blob")
+      {
+
+      }
+   }
+
+   public class AzureTableWriterTest : SmokeAndMirrorsLogging
+   {
+      public AzureTableWriterTest() : base("azure-table")
+      {
+
+      }
+   }
+
+   public class FilesWriterTest : SmokeAndMirrorsLogging
+   {
+      public FilesWriterTest() : base("files")
+      {
+
+      }
+   }
+
+   public class ConsoleWriterTest : SmokeAndMirrorsLogging
+   {
+      public ConsoleWriterTest() : base("console")
+      {
+
+      }
+   }
+
+   public class PoshConsoleWriterTest : SmokeAndMirrorsLogging
+   {
+      public PoshConsoleWriterTest() : base("posh-console")
+      {
+
+      }
+   }
+
+   public class TraceWriterTest : SmokeAndMirrorsLogging
+   {
+      public TraceWriterTest() : base("trace")
+      {
+
+      }
+   }
+
+   public abstract class SmokeAndMirrorsLogging : AbstractTestFixture
    {
       private readonly string _receiverName;
 
-      public SmokeAndMirrorsLogging(string receiverName)
-      {
-         _receiverName = receiverName;
-      }
-
-      [SetUp]
-      public void SetUp()
+      protected SmokeAndMirrorsLogging(string receiverName)
       {
          L.Config.ClearWriters();
          var settings = new TestSettings();
@@ -67,4 +100,3 @@ namespace LogMagic.Test
       }
    }
 }
-*/

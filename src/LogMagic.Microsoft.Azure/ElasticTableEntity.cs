@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 
-namespace LogMagic.WindowsAzure
+namespace LogMagic.Microsoft.Azure
 {
    class ElasticTableEntity : ITableEntity
    {

@@ -1,0 +1,29 @@
+﻿{
+   "version": "2.1.0",
+   "authors": [ "Ivan Gavryliuk" ],
+   "title": "LogMagic.Microsoft.Azure",
+   "copyright": "Copyright (c) 2015-2016 by Ivan Gavryliuk",
+   "packOptions": {
+      "iconUrl": "https://alonestore.blob.core.windows.net/nuget/logmagic.png",
+      "projectUrl": "https://github.com/aloneguid/logmagic",
+      "summary": "Logging made easy"
+   },
+
+   "buildOptions": {
+      "keyFile": "../../logmagic.snk",
+      "xmlDoc": true,
+      "outputName": "LogMagic.Microsoft.Azure"
+   },
+
+   "dependencies": {
+      "LogMagic.Core": "2.1.0"
+   },
+
+   "frameworks": {
+      "net45": {
+         "dependencies": {
+            "WindowsAzure.Storage": "7.2.1"
+         }
+      }
+   }
+}
