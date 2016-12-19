@@ -15,8 +15,7 @@ LogMagic also supports a relatively new paradigm of *structured logging*.
 The core logging package is [LogMagic](https://www.nuget.org/packages/LogMagic). Supported frameworks are:
 
 * **.NET 4.5**
-* **PCL** (Portable Library)
-* **.NET Core** support is coming soon
+* **.NET Standard 1.6**. By supporting .NET Standard we ensure that LogMagic works on .NET Core, Android, iOS or anything else.
 
 ```
 PM> Install-Package LogMagic
