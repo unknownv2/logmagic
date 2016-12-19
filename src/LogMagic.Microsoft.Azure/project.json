@@ -16,7 +16,7 @@
    },
 
    "dependencies": {
-      "LogMagic.Core": "2.1.0"
+      "LogMagic": "2.1.0"
    },
 
    "frameworks": {

@@ -1487,7 +1487,7 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "LogMagic.Core/2.1.0": {
+      "LogMagic/2.1.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
@@ -1498,10 +1498,10 @@
           "netbox": "1.0.2"
         },
         "compile": {
-          "netstandard1.6/LogMagic.Core.dll": {}
+          "netstandard1.6/LogMagic.dll": {}
         },
         "runtime": {
-          "netstandard1.6/LogMagic.Core.dll": {}
+          "netstandard1.6/LogMagic.dll": {}
         }
       }
     }
@@ -5194,15 +5194,15 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "LogMagic.Core/2.1.0": {
+    "LogMagic/2.1.0": {
       "type": "project",
       "path": "../LogMagic.Core/project.json",
-      "msbuildProject": "../LogMagic.Core/LogMagic.Core.xproj"
+      "msbuildProject": "../LogMagic.Core/LogMagic.xproj"
     }
   },
   "projectFileDependencyGroups": {
     "": [
-      "LogMagic.Core >= 2.1.0",
+      "LogMagic >= 2.1.0",
       "Microsoft.Extensions.Logging.Abstractions >= 1.1.0",
       "NETStandard.Library >= 1.6.1"
     ],

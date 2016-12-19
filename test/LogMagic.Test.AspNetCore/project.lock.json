@@ -2880,22 +2880,7 @@
           "lib/netstandard1.3/_._": {}
         }
       },
-      "LogMagic.AspNetCore/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v1.6",
-        "dependencies": {
-          "LogMagic.Core": "2.1.0",
-          "Microsoft.Extensions.Logging.Abstractions": "1.1.0",
-          "NETStandard.Library": "1.6.1"
-        },
-        "compile": {
-          "netstandard1.6/LogMagic.AspNetCore.dll": {}
-        },
-        "runtime": {
-          "netstandard1.6/LogMagic.AspNetCore.dll": {}
-        }
-      },
-      "LogMagic.Core/2.1.0": {
+      "LogMagic/2.1.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
@@ -2906,10 +2891,25 @@
           "netbox": "1.0.2"
         },
         "compile": {
-          "netstandard1.6/LogMagic.Core.dll": {}
+          "netstandard1.6/LogMagic.dll": {}
         },
         "runtime": {
-          "netstandard1.6/LogMagic.Core.dll": {}
+          "netstandard1.6/LogMagic.dll": {}
+        }
+      },
+      "LogMagic.AspNetCore/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v1.6",
+        "dependencies": {
+          "LogMagic": "2.1.0",
+          "Microsoft.Extensions.Logging.Abstractions": "1.1.0",
+          "NETStandard.Library": "1.6.1"
+        },
+        "compile": {
+          "netstandard1.6/LogMagic.AspNetCore.dll": {}
+        },
+        "runtime": {
+          "netstandard1.6/LogMagic.AspNetCore.dll": {}
         }
       }
     }
@@ -8321,15 +8321,15 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
+    "LogMagic/2.1.0": {
+      "type": "project",
+      "path": "../../src/LogMagic.Core/project.json",
+      "msbuildProject": "../../src/LogMagic.Core/LogMagic.xproj"
+    },
     "LogMagic.AspNetCore/1.0.0": {
       "type": "project",
       "path": "../../src/LogMagic.AspNetCore/project.json",
       "msbuildProject": "../../src/LogMagic.AspNetCore/LogMagic.AspNetCore.xproj"
-    },
-    "LogMagic.Core/2.1.0": {
-      "type": "project",
-      "path": "../../src/LogMagic.Core/project.json",
-      "msbuildProject": "../../src/LogMagic.Core/LogMagic.Core.xproj"
     }
   },
   "projectFileDependencyGroups": {

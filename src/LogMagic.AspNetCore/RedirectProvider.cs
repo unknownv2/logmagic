@@ -10,7 +10,7 @@ namespace LogMagic.AspNetCore
    {
       public RedirectProvider()
       {
-         L.Config.WriteTo.Custom()
+         //L.Config.WriteTo.Custom()
       }
 
       public ILogger CreateLogger(string categoryName)
@@ -43,7 +43,7 @@ namespace LogMagic.AspNetCore
 
          public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
          {
-            L.Flush
+            //L.Flush
 
             throw new NotImplementedException();
          }

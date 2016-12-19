@@ -10,8 +10,7 @@
    },
    "buildOptions": {
       "keyFile": "../../logmagic.snk",
-      "xmlDoc": true,
-      "outputName": "LogMagic"
+      "xmlDoc": true
    },
    "frameworks": {
       "netstandard1.6": {

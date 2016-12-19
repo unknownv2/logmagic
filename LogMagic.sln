@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "LogMagic.Core", "src\LogMagic.Core\LogMagic.Core.xproj", "{D154DBFD-E8AD-4ACC-990A-4B6393242C3E}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "LogMagic", "src\LogMagic\LogMagic.xproj", "{D154DBFD-E8AD-4ACC-990A-4B6393242C3E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0D2BC941-7E3A-4A1A-B5DA-A7F3AB32C785}"
 EndProject

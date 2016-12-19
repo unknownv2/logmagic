@@ -668,7 +668,7 @@
       "xunit.runner.visualstudio/2.1.0": {
         "type": "package"
       },
-      "LogMagic.Core/2.1.0": {
+      "LogMagic/2.1.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
@@ -679,17 +679,17 @@
           "System.Net.Http"
         ],
         "compile": {
-          "net45/LogMagic.Core.dll": {}
+          "net45/LogMagic.dll": {}
         },
         "runtime": {
-          "net45/LogMagic.Core.dll": {}
+          "net45/LogMagic.dll": {}
         }
       },
       "LogMagic.Microsoft.Azure/2.1.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
-          "LogMagic.Core": "2.1.0",
+          "LogMagic": "2.1.0",
           "WindowsAzure.Storage": "7.2.1"
         },
         "compile": {
@@ -3252,10 +3252,10 @@
         "xunit.runner.visualstudio.nuspec"
       ]
     },
-    "LogMagic.Core/2.1.0": {
+    "LogMagic/2.1.0": {
       "type": "project",
       "path": "../../src/LogMagic.Core/project.json",
-      "msbuildProject": "../../src/LogMagic.Core/LogMagic.Core.xproj"
+      "msbuildProject": "../../src/LogMagic.Core/LogMagic.xproj"
     },
     "LogMagic.Microsoft.Azure/2.1.0": {
       "type": "project",

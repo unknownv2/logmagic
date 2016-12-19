@@ -214,7 +214,7 @@
           "lib/net40/Microsoft.WindowsAzure.Storage.dll": {}
         }
       },
-      "LogMagic.Core/2.1.0": {
+      "LogMagic/2.1.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
@@ -225,10 +225,10 @@
           "System.Net.Http"
         ],
         "compile": {
-          "net45/LogMagic.Core.dll": {}
+          "net45/LogMagic.dll": {}
         },
         "runtime": {
-          "net45/LogMagic.Core.dll": {}
+          "net45/LogMagic.dll": {}
         }
       }
     }
@@ -555,15 +555,15 @@
         "lib/wpa/Microsoft.WindowsAzure.Storage.pdb"
       ]
     },
-    "LogMagic.Core/2.1.0": {
+    "LogMagic/2.1.0": {
       "type": "project",
       "path": "../LogMagic.Core/project.json",
-      "msbuildProject": "../LogMagic.Core/LogMagic.Core.xproj"
+      "msbuildProject": "../LogMagic.Core/LogMagic.xproj"
     }
   },
   "projectFileDependencyGroups": {
     "": [
-      "LogMagic.Core >= 2.1.0"
+      "LogMagic >= 2.1.0"
     ],
     ".NETFramework,Version=v4.5": [
       "WindowsAzure.Storage >= 7.2.1"

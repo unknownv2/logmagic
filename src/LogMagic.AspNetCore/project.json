@@ -4,7 +4,7 @@
    "dependencies": {
       "Microsoft.Extensions.Logging.Abstractions": "1.1.0",
       "NETStandard.Library": "1.6.1",
-      "LogMagic.Core": "2.1"
+      "LogMagic": "2.1.0"
    },
 
   "frameworks": {

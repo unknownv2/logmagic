@@ -3,7 +3,7 @@
 
    "dependencies": {
       "NETStandard.Library": "1.6.1",
-      "LogMagic.Core": "2.1.0",
+      "LogMagic": "2.1.0",
       "LogMagic.Microsoft.Azure": "2.1.0",
       "Config.Net": "3.0.1"
    },
