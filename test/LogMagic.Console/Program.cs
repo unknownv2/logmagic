@@ -12,7 +12,8 @@ namespace LogMagic.Console
       public static void Main(string[] args)
       {
          //L.Config.WriteTo.Console();
-         L.Config.WriteTo.PoshConsole();
+         //L.Config.WriteTo.PoshConsole();
+         L.Config.WriteTo.File("c:\\tmp\\my.log");
 
          log.D("debug message");
          log.W("warning message");

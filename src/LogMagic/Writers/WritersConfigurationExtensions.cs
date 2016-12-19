@@ -59,7 +59,7 @@ namespace LogMagic
 #endif
 
       /// <summary>
-      /// Writes to file on disk
+      /// Writes to file on disk and rolls it over every day.
       /// </summary>
       public static ILogConfiguration File(this IWriterConfiguration configuration, string fileName)
       {
@@ -67,7 +67,7 @@ namespace LogMagic
       }
 
       /// <summary>
-      /// Writes to file on disk
+      /// Writes to file on disk and rolls it over every day.
       /// </summary>
       public static ILogConfiguration File(this IWriterConfiguration configuration, string fileName, string format)
       {

@@ -8,7 +8,7 @@ using LogMagic.Tokenisation;
 namespace LogMagic.Writers
 {
    /// <summary>
-   /// Simple file receiver.
+   /// Simple file receiver rolling every day.
    /// </summary>
    class FileLogWriter : ILogWriter
    {

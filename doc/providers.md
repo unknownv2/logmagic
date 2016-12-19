@@ -38,16 +38,42 @@ Colorful console writer. By default it looks like this:
 
 ### File on disk
 
-... in progress
+**Package**: built-in
 
-core|`.FiileLog()`| file on disk |
-core|`.PoshConsole()`| graphical console with coloring |
-core|`.Trace()`| system trace diagnostics|
+**Supported Frameworks**: `.NET 4.5`, `.NET Standard 1.6`
+
+**Syntax:**
+```csharp
+L.Config.WriteTo.File("c:\\tmp\\my.log");
+```
+
+Writes logs to a file on disk specified in the first parameter. File is rolled every day and is always named as `name-YYYY-mm-dd.extension`. For example for the line above on December 19, 2016 the first file created immediately in `c:\tmp` folder will be `my-2016-12-19.log`, next day `my-2016-12-20.log` and so on. Time calculation is always performed in UTC and never local time.
+
+`.File(string name, string format)` overload allows custom formatting.
+
+### System trace
+
+**Package**: built-in
+
+**Supported Frameworks**: `.NET 4.5`
+
+**Syntax:**
+```csharp
+L.Config.WriteTo.Trace();
+```
+Writes events to `System.Diagnostics.Trace`. Note that it's only supported in `.NET 4.5` because at the moment `.NET Standard` doesn't have trace logging support.
+
+`.Trace(string format)` overload allows custom formatting.
+
+### Seq
+
+in progress...
+
 [LogMagic.WindowsAzure](https://www.nuget.org/packages/LogMagic.WindowsAzure/) | `.AzureAppendBlob()` | appends to Microsoft Azure blob storage append blob and rotates on daily basis |
 | [LogMagic.WindowsAzure](https://www.nuget.org/packages/LogMagic.WindowsAzure/) | `.AzureTable()` | appends to Microsoft Azure table storage |
 | [LogMagic.Seq](https://www.nuget.org/packages/LogMagic.Seq/) | `.Seq()` | writes events to [Seq](https://getseq.net/)
 
-### Enrichers
+## Enrichers
 
 | Package     | Writer Syntax | Meaning        |
 |-------------|---------------|----------------|
