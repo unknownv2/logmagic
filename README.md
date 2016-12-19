@@ -17,6 +17,8 @@ The core logging package is [LogMagic](https://www.nuget.org/packages/LogMagic).
 * **.NET 4.5**
 * **.NET Standard 1.6**. By supporting .NET Standard we ensure that LogMagic works on .NET Core, Android, iOS or anything else.
 
+> Note to ASP.NET Core users: LogMagic does not integrate with ASP.NET Core logging system, it's a separate logging framework you can use in conjunction with or instead of it. Both system have their pros and cons.
+
 ```
 PM> Install-Package LogMagic
 ```
@@ -125,20 +127,6 @@ namespace LogMagicExample
 
 LogMagic always check last parameter of log arguments whether it's an exception class and eliminates from the argument list.
 
-## Visual Studio Snippets
-
-Visual Studio snippets are installed along with the NuGet package so you can use them straight away with any project:
-
-`ldef` defines a logging variable inside the class:
-```csharp
-private static readonly LogMagic.ILog log = LogMagic.L.G(typeof(container_class));
-```
-
-`ld` writes a logging statement:
-```csharp
-log.D("...");
-```
-there are identical shortcuts for other logging levels `le`, `li`, `lw`.
 
 ## Configuration basics
 
@@ -225,26 +213,7 @@ LogMagic uses levels as the primary means for assigning importance to log events
 3. **Warning** - indicators of possible issues or service degradation
 4. **Error** - fa failure within application or connected system, critical errors causing complete failure
 
-## Provided Writers and Enrichers
+# Read More On
 
-### Writers
-
-| Package     | Writer Syntax | Meaning        |
-|-------------|---------------|----------------|
-|  core       |  `.Console()` | system console |
-|  core | `.FiileLog()` | file on disk |
-| core | `.PoshConsole()` | graphical console with coloring |
-| core | `.Trace()` | system trace diagnostics |
-| [LogMagic.WindowsAzure](https://www.nuget.org/packages/LogMagic.WindowsAzure/) | `.AzureAppendBlob()` | appends to Microsoft Azure blob storage append blob and rotates on daily basis |
-| [LogMagic.WindowsAzure](https://www.nuget.org/packages/LogMagic.WindowsAzure/) | `.AzureTable()` | appends to Microsoft Azure table storage |
-| [LogMagic.Seq](https://www.nuget.org/packages/LogMagic.Seq/) | `.Seq()` | writes events to [Seq](https://getseq.net/)
-
-### Enrichers
-
-| Package     | Writer Syntax | Meaning        |
-|-------------|---------------|----------------|
-|  core       |  `.Constant()` | adds a constant value to every log event |
-| core | `.MachineIp()` | current machine IP address |
-| core | `.MachineName()` | current machine DNS name |
-| core | `.MethodName()` | caller's method name |
-| core | `.ThreadId()` | managed thread id |
+- [Visual Studio Integration (snippets)](doc/vssnippets.md)
+- [List of known writers and enrichers](doc/providers.md)
