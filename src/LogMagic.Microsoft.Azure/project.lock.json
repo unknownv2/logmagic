@@ -557,8 +557,8 @@
     },
     "LogMagic/2.1.0": {
       "type": "project",
-      "path": "../LogMagic.Core/project.json",
-      "msbuildProject": "../LogMagic.Core/LogMagic.xproj"
+      "path": "../LogMagic/project.json",
+      "msbuildProject": "../LogMagic/LogMagic.xproj"
     }
   },
   "projectFileDependencyGroups": {

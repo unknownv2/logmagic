@@ -3254,8 +3254,8 @@
     },
     "LogMagic/2.1.0": {
       "type": "project",
-      "path": "../../src/LogMagic.Core/project.json",
-      "msbuildProject": "../../src/LogMagic.Core/LogMagic.xproj"
+      "path": "../../src/LogMagic/project.json",
+      "msbuildProject": "../../src/LogMagic/LogMagic.xproj"
     },
     "LogMagic.Microsoft.Azure/2.1.0": {
       "type": "project",
@@ -3266,7 +3266,7 @@
   "projectFileDependencyGroups": {
     "": [
       "Config.Net >= 3.0.1",
-      "LogMagic.Core >= 2.1.0",
+      "LogMagic >= 2.1.0",
       "LogMagic.Microsoft.Azure >= 2.1.0",
       "NETStandard.Library >= 1.6.1"
     ],
