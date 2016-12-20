@@ -67,13 +67,41 @@ Writes events to `System.Diagnostics.Trace`. Note that it's only supported in `.
 
 ### Seq
 
-in progress...
+**Package**: built-in
 
-[LogMagic.WindowsAzure](https://www.nuget.org/packages/LogMagic.WindowsAzure/) | `.AzureAppendBlob()` | appends to Microsoft Azure blob storage append blob and rotates on daily basis |
-| [LogMagic.WindowsAzure](https://www.nuget.org/packages/LogMagic.WindowsAzure/) | `.AzureTable()` | appends to Microsoft Azure table storage |
-| [LogMagic.Seq](https://www.nuget.org/packages/LogMagic.Seq/) | `.Seq()` | writes events to [Seq](https://getseq.net/)
+**Supported Frameworks**: `.NET 4.5`
+
+**Syntax:**
+```csharp
+L.Config.WriteTo.Seq("server address");
+```
+Writes events to the remote [Seq](https://getseq.net/) server. Seq is a great log collection and analysis framework.
+
+`.Seq(string address, string apiKey)` overload allows passing an API key.
+
+### Microsoft Azure Blobs
+
+**Package**: [LogMagic.Microsoft.Azure](https://www.nuget.org/packages/LogMagic.Microsoft.Azure/)
+
+**Supported Frameworks**: `.NET 4.5`
+
+> todo
+
+Appends to Microsoft Azure blob storage append blob and rotates on daily basis.
+
+> todo
+
+### Microsoft Azure Tables
+
+**Package**: [LogMagic.Microsoft.Azure](https://www.nuget.org/packages/LogMagic.Microsoft.Azure/)
+
+**Supported Frameworks**: `.NET 4.5`
+
+> todo
 
 ## Enrichers
+
+> todo
 
 | Package     | Writer Syntax | Meaning        |
 |-------------|---------------|----------------|
