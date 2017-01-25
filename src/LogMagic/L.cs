@@ -21,6 +21,7 @@ namespace LogMagic
 
       /// <summary>
       /// Get logger for the specified type
+      /// <typeparam name="T">Class type</typeparam>
       /// </summary>
       public static ILog G<T>()
       {
