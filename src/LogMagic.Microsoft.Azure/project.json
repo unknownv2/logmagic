@@ -15,9 +15,10 @@
       "outputName": "LogMagic.Microsoft.Azure"
    },
 
-   "dependencies": {
-      "LogMagic": "2.1.0"
-   },
+    "dependencies": {
+        "LogMagic": "2.1.0",
+        "Microsoft.ApplicationInsights": "2.2.0"
+    },
 
    "frameworks": {
       "net45": {

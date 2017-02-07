@@ -44,5 +44,11 @@ namespace LogMagic
       {
          return configuration.Custom(new AzureTableLogWriter(storageAccountName, storageAccountKey, tableName));
       }
+
+      public static ILogConfiguration AzureAppInsights(this IWriterConfiguration configuration,
+         string instrumentationKey)
+      {
+         return configuration.Custom(new AppInsightsLogWriter(instrumentationKey));
+      }
    }
 }

@@ -52,12 +52,21 @@ namespace LogMagic.Test
       }
    }
 
+   public class AppInsightsWriterTest : SmokeAndMirrorsLogging
+   {
+      public AppInsightsWriterTest() : base("azure-appinsights")
+      {
+
+      }
+   }
+
    public abstract class SmokeAndMirrorsLogging : AbstractTestFixture
    {
       private readonly string _receiverName;
 
       protected SmokeAndMirrorsLogging(string receiverName)
       {
+         _receiverName = receiverName;
          L.Config.ClearWriters();
          var settings = new TestSettings();
 
@@ -83,6 +92,9 @@ namespace LogMagic.Test
             case "trace":
                L.Config.WriteTo.Trace();
                break;
+            case "azure-appinsights":
+               L.Config.WriteTo.AzureAppInsights(settings.AzureAppInsightsKey);
+               break;
          }   
       }
 
@@ -95,7 +107,13 @@ namespace LogMagic.Test
          log.D("hello!");
          log.D("exception is here!", new Exception("test exception"));
 
+         for (int i = 0; i < 1000; i++)
+         {
+            log.D("event at {evtime}", DateTime.UtcNow);
+         }
+
          L.Flush();
+         L.Shutdown();
          //Thread.Sleep(TimeSpan.FromMinutes(1));
       }
    }

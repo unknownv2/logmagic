@@ -8,6 +8,8 @@ namespace LogMagic.Test
 
       public readonly Option<string> AzureStorageKey = new Option<string>("Azure.Storage.Key", null);
 
+      public readonly Option<string> AzureAppInsightsKey = new Option<string>("Azure.AppInsights.InstrumentationKey", null);
+
       protected override void OnConfigure(IConfigConfiguration configuration)
       {
          configuration.UseIniFile("c:\\tmp\\integration-tests.ini");

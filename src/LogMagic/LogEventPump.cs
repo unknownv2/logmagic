@@ -31,6 +31,11 @@ namespace LogMagic
          _waitEvent.Set();
 
          _shutdownCompleteEvent.WaitOne();
+
+         foreach (ILogWriter writer in new List<ILogWriter>(L.Config.Writers))
+         {
+            writer.Dispose();
+         }
       }
 
       private static void PumpMethod()

@@ -99,6 +99,10 @@ Appends to Microsoft Azure blob storage append blob and rotates on daily basis.
 
 > todo
 
+### Microsoft Azure Application Insights
+
+**Package**: [LogMagic.Microsoft.Azure](https://www.nuget.org/packages/LogMagic.Microsoft.Azure/)
+
 ## Enrichers
 
 > todo
