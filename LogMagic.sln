@@ -1,23 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "LogMagic", "src\LogMagic\LogMagic.xproj", "{D154DBFD-E8AD-4ACC-990A-4B6393242C3E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0D2BC941-7E3A-4A1A-B5DA-A7F3AB32C785}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{42816ED5-2E52-4DBE-980A-9034B21B228D}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		global.json = global.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6714F8E9-8637-4F54-9728-5951ECC204DF}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "LogMagic.Test", "test\LogMagic.Test\LogMagic.Test.xproj", "{97B33270-5CCE-40E0-A1C0-F6D93FF1F393}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "LogMagic.Microsoft.Azure", "src\LogMagic.Microsoft.Azure\LogMagic.Microsoft.Azure.xproj", "{B05630D8-B766-4949-AAED-5BBB2459CF47}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{93BEADBD-BDF0-4261-81C9-233EA3CF0A4F}"
 	ProjectSection(SolutionItems) = preProject
@@ -26,12 +19,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{93BEADBD-BDF
 		doc\vsshortcuts.md = doc\vsshortcuts.md
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "LogMagic.Console", "test\LogMagic.Console\LogMagic.Console.xproj", "{421BB0B7-13E0-4C5A-AC55-6AB17B545F24}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "providers", "providers", "{2027642C-6F44-4F03-86ED-7775080B8471}"
 	ProjectSection(SolutionItems) = preProject
 		doc\providers\windows-etw.md = doc\providers\windows-etw.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic", "src\LogMagic\LogMagic.csproj", "{D154DBFD-E8AD-4ACC-990A-4B6393242C3E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Test", "test\LogMagic.Test\LogMagic.Test.csproj", "{97B33270-5CCE-40E0-A1C0-F6D93FF1F393}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Microsoft.Azure", "src\LogMagic.Microsoft.Azure\LogMagic.Microsoft.Azure.csproj", "{B05630D8-B766-4949-AAED-5BBB2459CF47}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Console", "test\LogMagic.Console\LogMagic.Console.csproj", "{421BB0B7-13E0-4C5A-AC55-6AB17B545F24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,10 +59,10 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{2027642C-6F44-4F03-86ED-7775080B8471} = {93BEADBD-BDF0-4261-81C9-233EA3CF0A4F}
 		{D154DBFD-E8AD-4ACC-990A-4B6393242C3E} = {0D2BC941-7E3A-4A1A-B5DA-A7F3AB32C785}
 		{97B33270-5CCE-40E0-A1C0-F6D93FF1F393} = {6714F8E9-8637-4F54-9728-5951ECC204DF}
 		{B05630D8-B766-4949-AAED-5BBB2459CF47} = {0D2BC941-7E3A-4A1A-B5DA-A7F3AB32C785}
 		{421BB0B7-13E0-4C5A-AC55-6AB17B545F24} = {6714F8E9-8637-4F54-9728-5951ECC204DF}
-		{2027642C-6F44-4F03-86ED-7775080B8471} = {93BEADBD-BDF0-4261-81C9-233EA3CF0A4F}
 	EndGlobalSection
 EndGlobal

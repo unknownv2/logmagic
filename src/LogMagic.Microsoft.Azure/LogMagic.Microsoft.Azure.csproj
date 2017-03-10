@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Copyright>Copyright (c) 2015-2016 by Ivan Gavryliuk</Copyright>
+    <AssemblyTitle>LogMagic.Microsoft.Azure</AssemblyTitle>
+    <VersionPrefix>2.1.0</VersionPrefix>
+    <Authors>Ivan Gavryliuk</Authors>
+    <TargetFramework>net45</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>LogMagic.Microsoft.Azure</AssemblyName>
+    <AssemblyOriginatorKeyFile>../../logmagic.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+    <PackageId>LogMagic.Microsoft.Azure</PackageId>
+    <PackageIconUrl>https://alonestore.blob.core.windows.net/nuget/logmagic.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/aloneguid/logmagic</PackageProjectUrl>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LogMagic\LogMagic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <PackageReference Include="WindowsAzure.Storage" Version="7.2.1" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>
