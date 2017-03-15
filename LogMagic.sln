@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Microsoft.Azure", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Console", "test\LogMagic.Console\LogMagic.Console.csproj", "{421BB0B7-13E0-4C5A-AC55-6AB17B545F24}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.Microsoft.Azure.ServiceFabric", "src\LogMagic.Microsoft.Azure.ServiceFabric\LogMagic.Microsoft.Azure.ServiceFabric.csproj", "{025BAAB3-68E5-4276-AFE5-95D84F282F71}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{421BB0B7-13E0-4C5A-AC55-6AB17B545F24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{421BB0B7-13E0-4C5A-AC55-6AB17B545F24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{421BB0B7-13E0-4C5A-AC55-6AB17B545F24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{025BAAB3-68E5-4276-AFE5-95D84F282F71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{025BAAB3-68E5-4276-AFE5-95D84F282F71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{025BAAB3-68E5-4276-AFE5-95D84F282F71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{025BAAB3-68E5-4276-AFE5-95D84F282F71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,5 +71,6 @@ Global
 		{97B33270-5CCE-40E0-A1C0-F6D93FF1F393} = {6714F8E9-8637-4F54-9728-5951ECC204DF}
 		{B05630D8-B766-4949-AAED-5BBB2459CF47} = {0D2BC941-7E3A-4A1A-B5DA-A7F3AB32C785}
 		{421BB0B7-13E0-4C5A-AC55-6AB17B545F24} = {6714F8E9-8637-4F54-9728-5951ECC204DF}
+		{025BAAB3-68E5-4276-AFE5-95D84F282F71} = {0D2BC941-7E3A-4A1A-B5DA-A7F3AB32C785}
 	EndGlobalSection
 EndGlobal
