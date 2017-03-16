@@ -18,4 +18,12 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LogMagic\LogMagic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Enrichers\" />
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,7 @@
 ﻿using Xunit;
 using System.IO;
 using System;
+using System.Threading;
 
 namespace LogMagic.Test
 {
@@ -52,16 +53,23 @@ namespace LogMagic.Test
       }
    }
 
+   public class AppInsightsWriterTest : SmokeAndMirrorsLogging
+   {
+      public AppInsightsWriterTest() : base("azure-appinsights")
+      {
+
+      }
+   }
+
+
    public abstract class SmokeAndMirrorsLogging : AbstractTestFixture
    {
-      private readonly string _receiverName;
-
       protected SmokeAndMirrorsLogging(string receiverName)
       {
          L.Config.ClearWriters();
          var settings = new TestSettings();
 
-         switch (_receiverName)
+         switch (receiverName)
          {
             case "azure-blob":
                L.Config.WriteTo.AzureAppendBlob(settings.AzureStorageName, settings.AzureStorageKey,
@@ -83,6 +91,9 @@ namespace LogMagic.Test
             case "trace":
                L.Config.WriteTo.Trace();
                break;
+            case "azure-appinsights":
+               L.Config.WriteTo.AzureApplicationInsights(settings.AppInsightsKey);
+               break;
          }   
       }
 
@@ -95,8 +106,13 @@ namespace LogMagic.Test
          log.D("hello!");
          log.D("exception is here!", new Exception("test exception"));
 
+         for(int i = 0; i < 100; i++)
+         {
+            log.D("test {i}", i);
+         }
+
          L.Flush();
-         //Thread.Sleep(TimeSpan.FromMinutes(1));
+         Thread.Sleep(TimeSpan.FromMinutes(1));
       }
    }
 }
