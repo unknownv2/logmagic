@@ -11,7 +11,14 @@ function Update-ProjectVersions([string]$RelPath, [string]$Version, [bool]$Updat
 
    if($UpdatePackageVersion)
    {
-      $xml.Project.PropertyGroup[0].VersionPrefix = $Version
+      if($xml.Project.PropertyGroup.Count -eq $null)
+      {
+         $xml.Project.PropertyGroup.VersionPrefix = $Version
+      }
+      else
+      {
+         $xml.Project.PropertyGroup[0].VersionPrefix = $Version
+      }
    }
 
    foreach($other in $args)

@@ -1,27 +1,24 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-     <TargetFramework>net45</TargetFramework>
-     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-     <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
-     <PackageProjectUrl>https://github.com/aloneguid/logmagic</PackageProjectUrl>
-     <PackageIconUrl>https://alonestore.blob.core.windows.net/nuget/logmagic.png</PackageIconUrl>
-     <Description>LogMagic Azure Service Fabric integration support. This package extracts context information from the running service and injects as enriched properties.</Description>
-     <RepositoryUrl>https://github.com/aloneguid/logmagic</RepositoryUrl>
-     <RepositoryType>GitHub</RepositoryType>
-     <AssemblyOriginatorKeyFile>../../logmagic.snk</AssemblyOriginatorKeyFile>
-     <SignAssembly>true</SignAssembly>
-     <PackageTags>azure-service-fabric logging</PackageTags>
+    <TargetFramework>net45</TargetFramework>
+    <VersionPrefix>2.1.1703.1701</VersionPrefix>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
+    <PackageProjectUrl>https://github.com/aloneguid/logmagic</PackageProjectUrl>
+    <PackageIconUrl>https://alonestore.blob.core.windows.net/nuget/logmagic.png</PackageIconUrl>
+    <Description>LogMagic Azure Service Fabric integration support. This package extracts context information from the running service and injects as enriched properties.</Description>
+    <RepositoryUrl>https://github.com/aloneguid/logmagic</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <AssemblyOriginatorKeyFile>../../logmagic.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <PackageTags>azure-service-fabric logging</PackageTags>
   </PropertyGroup>
-
   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
     <PackageReference Include="Microsoft.ServiceFabric">
       <Version>5.4.164</Version>
     </PackageReference>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\LogMagic\LogMagic.csproj" />
   </ItemGroup>
-
 </Project>
