@@ -1,4 +1,5 @@
 ﻿#if NETFULL
+using LogMagic.Enrichers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,7 +79,7 @@ namespace LogMagic.Writers
                Timestamp = new DateTimeOffset(e.EventTime),
                Level = e.Severity.ToString(),
                MessageTemplate = e.FormattedMessage,
-               Exception = e.GetProperty(LogEvent.ErrorPropertyName)?.ToString(),
+               Exception = e.GetProperty(KnownProperty.Error)?.ToString(),
             };
 
             re.Properties = new Dictionary<string, object>(e.Properties);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using LogMagic.Tokenisation;
+using LogMagic.Enrichers;
 
 namespace LogMagic
 {
@@ -9,11 +10,6 @@ namespace LogMagic
    /// </summary>
    public class LogEvent
    {
-      /// <summary>
-      /// Standard property name to store error information
-      /// </summary>
-      public const string ErrorPropertyName = "error";
-
       /// <summary>
       /// Constructs a new instance of a log event
       /// </summary>
@@ -61,9 +57,8 @@ namespace LogMagic
       {
          get
          {
-            object exceptionObject = GetProperty(ErrorPropertyName);
+            object exceptionObject = GetProperty(KnownProperty.Error);
             return exceptionObject as Exception;
-            
          }
       }
 
@@ -89,6 +84,29 @@ namespace LogMagic
          object r;
          if (!Properties.TryGetValue(name, out r)) return null;
          return r;
+      }
+
+      /// <summary>
+      /// Calling this method get the property by name and removes from the properties dictionary
+      /// </summary>
+      /// <param name="name">Property name</param>
+      /// <param name="defaultValue">Defalt value to use if property is not found</param>
+      /// <returns>Property value</returns>
+      public T UseProperty<T>(string name, T defaultValue = default(T))
+      {
+         if (Properties == null) return defaultValue;
+
+         object r;
+         if (Properties.TryGetValue(name, out r))
+         {
+            Properties.Remove(name);
+         }
+         else
+         {
+            r = defaultValue;
+         }
+
+         return (T)r;
       }
    }
 }

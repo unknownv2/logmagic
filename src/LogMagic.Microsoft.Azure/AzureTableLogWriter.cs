@@ -5,6 +5,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json.Linq;
+using LogMagic.Enrichers;
 
 namespace LogMagic.Microsoft.Azure
 {
@@ -52,7 +53,7 @@ namespace LogMagic.Microsoft.Azure
             {
                foreach (var p in e.Properties)
                {
-                  if (p.Key == LogEvent.ErrorPropertyName) continue;
+                  if (p.Key == KnownProperty.Error) continue;
 
                   row.Add(p.Key, p.Value);
                }

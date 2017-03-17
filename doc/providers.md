@@ -99,7 +99,7 @@ Appends to Microsoft Azure blob storage append blob and rotates on daily basis.
 
 > todo
 
-## Enrichers
+## Built-In Enrichers
 
 > todo
 

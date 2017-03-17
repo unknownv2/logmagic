@@ -20,7 +20,7 @@ namespace LogMagic.Enrichers
 
       public void Enrich(LogEvent e, out string propertyName, out object propertyValue)
       {
-         propertyName = "machineIp";
+         propertyName = KnownProperty.NodeIp;
          propertyValue = _address;
       }
    }

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using System.Text;
 using LogMagic.Tokenisation;
-using LogMagic.TypeFormatters;
+using LogMagic.Enrichers;
 
 namespace LogMagic
 {
@@ -16,7 +14,7 @@ namespace LogMagic
 
          //add error
          Exception error = ExtractError(parameters);
-         if (error != null) e.AddProperty(LogEvent.ErrorPropertyName, error);
+         if (error != null) e.AddProperty(KnownProperty.Error, error);
 
          //enrich
          foreach(IEnricher enricher in L.Config.Enrichers)
@@ -24,7 +22,10 @@ namespace LogMagic
             string pn;
             object pv;
             enricher.Enrich(e, out pn, out pv);
-            e.AddProperty(pn, pv);
+            if (pn != null)
+            {
+               e.AddProperty(pn, pv);
+            }
          }
 
          //message

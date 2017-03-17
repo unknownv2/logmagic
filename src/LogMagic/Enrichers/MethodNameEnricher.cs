@@ -14,7 +14,7 @@ namespace LogMagic.Enrichers
       {
          var frame = new StackFrame(4);   //warning! this can change after refactoring
 
-         propertyName = "method";
+         propertyName = KnownProperty.MethodName;
 
          MethodBase method = frame.GetMethod();
          var sb = new StringBuilder();

@@ -26,4 +26,5 @@ function Update-ProjectVersions([string]$RelPath, [string]$Version, [bool]$Updat
 
 Update-ProjectVersions "src\LogMagic\LogMagic.csproj" $Version $true
 Update-ProjectVersions "src\LogMagic.Microsoft.Azure\LogMagic.Microsoft.Azure.csproj" $Version $true
-Update-ProjectVersions "src\LogMagic.Microsoft.Azure.ServiceFabric\LogMagic.Microsoft.Azure.ServiceFabriccsproj" $Version $true
+Update-ProjectVersions "src\LogMagic.Microsoft.Azure.ServiceFabric\LogMagic.Microsoft.Azure.ServiceFabric.csproj" $Version $true
+Update-ProjectVersions "src\LogMagic.Microsoft.Azure.ApplicationInsights\LogMagic.Microsoft.Azure.ApplicationInsights.csproj" $Version $true
