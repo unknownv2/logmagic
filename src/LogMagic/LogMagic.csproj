@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
     <AssemblyTitle>LogMagic</AssemblyTitle>
-    <VersionPrefix>2.1.1703.1701</VersionPrefix>
+    <VersionPrefix>2.2.0-alpha-1</VersionPrefix>
     <Authors>Ivan Gavryliuk</Authors>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

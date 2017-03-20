@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <VersionPrefix>2.1.1703.1701</VersionPrefix>
+    <VersionPrefix>2.2.0-alpha-1</VersionPrefix>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>Provides loggic facilities for Microsoft Azure Application Insights.</Description>
     <Copyright>Copyright (c) 2015-2016 by Ivan Gavryliuk</Copyright>

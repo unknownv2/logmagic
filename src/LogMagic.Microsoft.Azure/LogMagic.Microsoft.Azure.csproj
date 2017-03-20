@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
     <AssemblyTitle>LogMagic.Microsoft.Azure</AssemblyTitle>
-    <VersionPrefix>2.1.1703.1701</VersionPrefix>
+    <VersionPrefix>2.2.0-alpha-1</VersionPrefix>
     <Authors>Ivan Gavryliuk</Authors>
     <TargetFramework>net45</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
