@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Config.Net" Version="3.0.1" />
+    <PackageReference Include="Config.Net" Version="3.0.1702.1002" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
