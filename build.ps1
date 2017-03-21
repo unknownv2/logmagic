@@ -7,7 +7,7 @@ param(
 )
 
 $VersionPrefix = "2"
-$VersionSuffix = "2.5.0"
+$VersionSuffix = "2.6.0"
 
 $SlnPath = "logmagic.sln"
 $AssemblyVersion = "$VersionPrefix.0.0.0"
