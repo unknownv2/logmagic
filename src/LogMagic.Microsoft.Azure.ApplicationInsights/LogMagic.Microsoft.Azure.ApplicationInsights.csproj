@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <VersionPrefix>2.2.0-alpha-1</VersionPrefix>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>Provides loggic facilities for Microsoft Azure Application Insights.</Description>
     <Copyright>Copyright (c) 2015-2016 by Ivan Gavryliuk</Copyright>
@@ -12,6 +11,9 @@
     <PackageTags>application-insights logging</PackageTags>
     <AssemblyOriginatorKeyFile>../../logmagic.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.2.5.0</FileVersion>
+    <Version>2.2.5.0</Version>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
     <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>

@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net45</TargetFramework>
-    <VersionPrefix>2.2.0-alpha-1</VersionPrefix>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
     <PackageProjectUrl>https://github.com/aloneguid/logmagic</PackageProjectUrl>
@@ -12,6 +11,9 @@
     <AssemblyOriginatorKeyFile>../../logmagic.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <PackageTags>azure-service-fabric logging</PackageTags>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.2.5.0</FileVersion>
+    <Version>2.2.5.0</Version>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
     <PackageReference Include="Microsoft.ServiceFabric">
