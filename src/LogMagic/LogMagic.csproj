@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
     <AssemblyTitle>LogMagic</AssemblyTitle>
-    <Authors>Ivan Gavryliuk</Authors>
+    <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>LogMagic</AssemblyName>
@@ -10,7 +10,7 @@
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <PackageId>LogMagic</PackageId>
-    <PackageIconUrl>https://alonestore.blob.core.windows.net/nuget/logmagic.png</PackageIconUrl>
+    <PackageIconUrl>http://i.isolineltd.com/nuget/logmagic.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/aloneguid/logmagic</PackageProjectUrl>
     <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard1.6' ">$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.6' ">1.6.1</NetStandardImplicitPackageVersion>
@@ -22,7 +22,7 @@
     <RepositoryType>GitHub</RepositoryType>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.2.6.0</FileVersion>
-    <Version>2.2.6.0</Version>
+    <Version>2.2.6</Version>
     <Description>Like many other libraries for .NET, LogMagic provides diagnostic logging into files, the console, and elsewhere. It's probably the easiest framework to setup, has a clean API, extremely extensible.
 LogMagic also supports a relatively new paradigm of structured logging.</Description>
   </PropertyGroup>

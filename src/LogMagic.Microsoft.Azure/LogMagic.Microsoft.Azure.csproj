@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
     <AssemblyTitle>LogMagic.Microsoft.Azure</AssemblyTitle>
-    <Authors>Ivan Gavryliuk</Authors>
+    <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
     <TargetFramework>net45</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>LogMagic.Microsoft.Azure</AssemblyName>
@@ -10,7 +10,7 @@
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <PackageId>LogMagic.Microsoft.Azure</PackageId>
-    <PackageIconUrl>https://alonestore.blob.core.windows.net/nuget/logmagic.png</PackageIconUrl>
+    <PackageIconUrl>http://i.isolineltd.com/nuget/logmagic.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/aloneguid/logmagic</PackageProjectUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
@@ -18,8 +18,11 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.2.6.0</FileVersion>
-    <Version>2.2.6.0</Version>
+    <Version>2.2.6</Version>
     <Description>Provides integrations for LogMagic library with Microsoft Azure tables and blobs as a destination.</Description>
+    <RepositoryUrl>https://github.com/aloneguid/logmagic</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/aloneguid/logmagic/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryType>GitHub</RepositoryType>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\LogMagic\LogMagic.csproj" />

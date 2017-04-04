@@ -1,10 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net45</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
     <PackageProjectUrl>https://github.com/aloneguid/logmagic</PackageProjectUrl>
-    <PackageIconUrl>https://alonestore.blob.core.windows.net/nuget/logmagic.png</PackageIconUrl>
+    <PackageIconUrl>http://i.isolineltd.com/nuget/logmagic.png</PackageIconUrl>
     <Description>LogMagic Azure Service Fabric integration support. This package extracts context information from the running service and injects as enriched properties.</Description>
     <RepositoryUrl>https://github.com/aloneguid/logmagic</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
@@ -13,7 +13,9 @@
     <PackageTags>azure-service-fabric logging</PackageTags>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.2.6.0</FileVersion>
-    <Version>2.2.6.0</Version>
+    <Version>2.2.6</Version>
+    <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
+    <PackageLicenseUrl>https://github.com/aloneguid/logmagic/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
     <PackageReference Include="Microsoft.ServiceFabric">

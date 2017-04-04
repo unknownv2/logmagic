@@ -3,9 +3,9 @@
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>Provides loggic facilities for Microsoft Azure Application Insights.</Description>
-    <Copyright>Copyright (c) 2015-2016 by Ivan Gavryliuk</Copyright>
+    <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
     <PackageProjectUrl>https://github.com/aloneguid/logmagic</PackageProjectUrl>
-    <PackageIconUrl>https://alonestore.blob.core.windows.net/nuget/logmagic.png</PackageIconUrl>
+    <PackageIconUrl>http://i.isolineltd.com/nuget/logmagic.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/aloneguid/logmagic</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>application-insights logging</PackageTags>
@@ -13,7 +13,9 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.2.6.0</FileVersion>
-    <Version>2.2.6.0</Version>
+    <Version>2.2.6</Version>
+    <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
+    <PackageLicenseUrl>https://github.com/aloneguid/logmagic/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
     <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>

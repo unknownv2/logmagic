@@ -2,6 +2,8 @@
 using System.IO;
 using System;
 using System.Threading;
+using Storage.Net;
+using System.Net;
 
 namespace LogMagic.Test
 {
@@ -72,8 +74,12 @@ namespace LogMagic.Test
          switch (receiverName)
          {
             case "azure-blob":
-               L.Config.WriteTo.AzureAppendBlob(settings.AzureStorageName, settings.AzureStorageKey,
-                  "logs-integration", "smokeandmirrors");
+               L.Config.WriteTo.StorageAppendBlob(
+                  StorageFactory.Blobs.AzureBlobStorage(new NetworkCredential(settings.AzureStorageName, settings.AzureStorageKey), "logmagic"),
+                  "smokeandmirrors");
+
+               //L.Config.WriteTo.AzureAppendBlob(settings.AzureStorageName, settings.AzureStorageKey,
+               //   "logs-integration", "smokeandmirrors");
                break;
             case "azure-table":
                L.Config.WriteTo.AzureTable(settings.AzureStorageName, settings.AzureStorageKey,
