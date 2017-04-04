@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -12,13 +11,11 @@ namespace LogMagic
    /// </summary>
    public static class L
    {
-      private static readonly ILogConfiguration _config = new LogConfiguration();
 
       /// <summary>
       /// Gets logging library configuration
       /// </summary>
-      public static ILogConfiguration Config {  get { return _config; } }
-
+      public static ILogConfiguration Config { get; } = new LogConfiguration();
       /// <summary>
       /// Get logger for the specified type
       /// <typeparam name="T">Class type</typeparam>
