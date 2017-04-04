@@ -32,5 +32,10 @@ namespace LogMagic
       /// Entry point to writers configuration
       /// </summary>
       IWriterConfiguration WriteTo { get; }
+
+      /// <summary>
+      /// Entry point to filters configuration
+      /// </summary>
+      IFilterConfiguration FilterBy { get; }
    }
 }

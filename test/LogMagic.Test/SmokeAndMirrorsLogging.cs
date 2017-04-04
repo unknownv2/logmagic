@@ -109,6 +109,8 @@ namespace LogMagic.Test
          ILog log = L.G();
          ILog _log = L.G();
 
+         //L.Config.FilterBy.
+
          log.D("hello!");
          log.D("exception is here!", new Exception("test exception"));
 

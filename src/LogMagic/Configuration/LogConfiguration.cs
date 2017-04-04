@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace LogMagic.Configuration
 {
-   class LogConfiguration : ILogConfiguration, IWriterConfiguration, IEnricherConfiguration
+   class LogConfiguration : ILogConfiguration, IWriterConfiguration, IEnricherConfiguration, IFilterConfiguration
    {
       private readonly List<ILogWriter> _writers = new List<ILogWriter>();
       private readonly List<IEnricher> _enrichers = new List<IEnricher>();
+      private readonly List<IFilter> _activeFilters = new List<IFilter>();
 
       public IEnumerable<IEnricher> Enrichers => _enrichers;
 
@@ -47,5 +44,12 @@ namespace LogMagic.Configuration
       }
 
       public IEnricherConfiguration EnrichWith => this;
+
+      public ILogConfiguration Custom(IFilter filter)
+      {
+         return this;
+      }
+
+      public IFilterConfiguration FilterBy => this;
    }
 }
