@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
     <AssemblyTitle>LogMagic</AssemblyTitle>
@@ -12,6 +12,7 @@
     <PackageId>LogMagic</PackageId>
     <PackageIconUrl>http://i.isolineltd.com/nuget/logmagic.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/aloneguid/logmagic</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/aloneguid/logmagic/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard1.6' ">$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.6' ">1.6.1</NetStandardImplicitPackageVersion>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
