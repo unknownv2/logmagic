@@ -9,6 +9,7 @@ param(
 $gv = "2.2.6"
 $vt = @{
    "LogMagic.Storage.Net.csproj" = "1.0.0-alpha-2";
+   "LogMagic.Microsoft.Azure.ServiceFabric" = "2.3.0";
 }
 
 $Copyright = "Copyright (c) 2015-2017 by Ivan Gavryliuk"

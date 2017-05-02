@@ -25,6 +25,7 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Enrichers
          e.AddProperty(KnownProperty.NodeIp, _context.NodeContext.IPAddressOrFQDN);
          e.AddProperty("partitionId", _context.PartitionId);
          e.AddProperty(KnownProperty.NodeInstanceId, _context.NodeContext.NodeInstanceId);
+         e.AddProperty("replicaOrInstanceId", _context.ReplicaOrInstanceId);
          e.AddProperty(KnownProperty.ApplicationName, _context.ServiceName);
          e.AddProperty("serviceTypeName", _context.ServiceTypeName);
       }
