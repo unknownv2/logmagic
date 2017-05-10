@@ -62,14 +62,6 @@ namespace LogMagic
          LogEventPump.Shutdown();
       }
 
-      /// <summary>
-      /// Flush any queued log messages immediately to configured writers.
-      /// </summary>
-      public static void Flush()
-      {
-         LogEventPump.Flush();
-      }
-
 #if NETFULL
     /// <summary>
     /// Gets the fully qualified name of the class invoking the LogManager, including the 

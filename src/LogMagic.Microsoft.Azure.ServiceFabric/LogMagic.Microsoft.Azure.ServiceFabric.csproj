@@ -12,15 +12,15 @@
     <SignAssembly>true</SignAssembly>
     <PackageTags>azure-service-fabric logging</PackageTags>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.3.0.0</FileVersion>
-    <Version>2.3.0</Version>
+    <FileVersion>2.3.1.0</FileVersion>
+    <Version>2.3.1</Version>
     <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
     <PackageLicenseUrl>https://github.com/aloneguid/logmagic/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
     <PackageReference Include="Microsoft.ServiceFabric">
-      <Version>5.4.164</Version> 
+      <Version>5.4.164</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

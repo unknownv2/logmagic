@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net451</TargetFrameworks>
     <AssemblyOriginatorKeyFile>../../logmagic.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
-    <Version>1.0.0-alpha-2</Version>
+    <Version>1.0.0-alpha-3</Version>
     <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
     <PackageIconUrl>http://i.isolineltd.com/nuget/logmagic.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/aloneguid/logmagic</PackageProjectUrl>
@@ -17,6 +17,12 @@
     <PackageReleaseNotes>
     </PackageReleaseNotes>
     <Description>Integrates LogMagic with Storage.Net</Description>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.6|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard1.6\LogMagic.Storage.Net.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.6\LogMagic.Storage.Net.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Storage.Net">

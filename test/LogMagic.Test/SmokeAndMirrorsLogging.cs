@@ -119,7 +119,6 @@ namespace LogMagic.Test
             log.D("test {i}", i);
          }
 
-         L.Flush();
          Thread.Sleep(TimeSpan.FromMinutes(1));
       }
    }

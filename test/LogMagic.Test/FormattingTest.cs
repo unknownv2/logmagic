@@ -32,7 +32,6 @@ namespace LogMagic.Test
       public void Mixed_IntegerAndString_Formats()
       {
          _log.D("one {0} string {1}", 1, "s");
-         L.Flush();
 
          Assert.Equal("one 1 string 's'", Message);
       }
@@ -42,7 +41,6 @@ namespace LogMagic.Test
       {
          _log.D("the {0}", "string");
 
-         L.Flush();
          Assert.Equal("the 'string'", Message);
       }
 
@@ -51,7 +49,6 @@ namespace LogMagic.Test
       {
          _log.D("testing source");
 
-         L.Flush();
          Assert.Equal("LogMagic.Test.FormattingTest", Event.SourceName);
       }
 
@@ -60,7 +57,6 @@ namespace LogMagic.Test
       {
          _log.D("the {Count} kettles", 5);
 
-         L.Flush();
          Assert.Equal("the 5 kettles", Message);
          Assert.Equal(5, (int)Event.GetProperty("Count"));
       }
@@ -70,7 +66,6 @@ namespace LogMagic.Test
       {
          _log.D("{0} kettles and {three:D2} lamps{2}", 5, 3, "...");
 
-         L.Flush();
          Assert.Equal("5 kettles and 03 lamps'...'", Message);
          Assert.Equal(3, Event.GetProperty("three"));
       }

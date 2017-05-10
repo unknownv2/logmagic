@@ -33,7 +33,6 @@ namespace LogMagic.Test
          L.Config.EnrichWith.MethodName();
          _log.D("method call");
 
-         L.Flush();
          Assert.Equal("LogMagic.Test.EnrichersTest.MethodName_ThisMethod_Matches()", 
             (string)_writer.Event.GetProperty("method"));
       }
@@ -44,7 +43,6 @@ namespace LogMagic.Test
          L.Config.EnrichWith.MethodName();
          MethodWithParameters(null, 1, Guid.NewGuid());
 
-         L.Flush();
          Assert.Equal("LogMagic.Test.EnrichersTest.MethodWithParameters(String s, Int32 i, Guid g)",
             (string)_writer.Event.GetProperty("method"));
       }
@@ -61,10 +59,8 @@ namespace LogMagic.Test
          L.Config.EnrichWith.MachineIpAddress();
          _log.D("what's this machine IP?");
 
-         L.Flush();
          string address = (string)_writer.Event.GetProperty("machineIp");
          _log.D("address: {ipAddress}", address);
-         L.Flush();
          Assert.NotNull(address);
       }
    }

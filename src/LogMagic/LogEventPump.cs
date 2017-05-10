@@ -2,50 +2,46 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace LogMagic
 {
    static class LogEventPump
    {
       private const int BufferSize = 100;
+      private static readonly TimeSpan ScanDelay = TimeSpan.FromMinutes(10);
       private static readonly ConcurrentQueue<LogEvent> _eventQueue = new ConcurrentQueue<LogEvent>();
-      private static ManualResetEvent _waitEvent = new ManualResetEvent(false);
-      private static ManualResetEvent _shutdownCompleteEvent = new ManualResetEvent(false);
-      private static bool _isRunning = true;
+      private static readonly Task logTask;
+      private static ManualResetEventSlim logEvent = new ManualResetEventSlim(false);
+      private static CancellationTokenSource cts = new CancellationTokenSource();
 
       static LogEventPump()
       {
-         var t = new Thread(PumpMethod) { IsBackground = true };
-         t.Start();
+         logTask = Task.Factory.StartNew(() => PumpMethod(cts.Token), cts.Token);
       }
 
       public static void Queue(LogEvent e)
       {
          _eventQueue.Enqueue(e);
-         _waitEvent.Set();
+         logEvent.Set();
       }
 
       public static void Shutdown()
       {
-         _isRunning = false;
-         _waitEvent.Set();
-
-         _shutdownCompleteEvent.WaitOne();
+         cts.Cancel();
+         logTask.Wait();
       }
 
-      private static void PumpMethod()
+      private static void PumpMethod(CancellationToken token)
       {
-         while(_isRunning)
+         while(!token.IsCancellationRequested)
          {
-            _waitEvent.Reset();
-
             while(!_eventQueue.IsEmpty)
             {
                var buffer = new List<LogEvent>();
                while(!_eventQueue.IsEmpty && buffer.Count < BufferSize)
                {
-                  LogEvent e;
-                  if (_eventQueue.TryDequeue(out e)) buffer.Add(e);
+                  if (_eventQueue.TryDequeue(out LogEvent e)) buffer.Add(e);
                }
 
                if(buffer.Count > 0)
@@ -54,18 +50,15 @@ namespace LogMagic
                }
             }
 
-            _waitEvent.WaitOne(TimeSpan.FromSeconds(5));
+            try
+            {
+               logEvent.Wait(ScanDelay, token);
+            }
+            catch(OperationCanceledException)
+            {
+
+            }
          }
-
-         _shutdownCompleteEvent.Set();
-      }
-
-      internal static void Flush()
-      {
-         var buffer = new List<LogEvent>();
-         LogEvent e;
-         while (_eventQueue.TryDequeue(out e)) buffer.Add(e);
-         Submit(buffer);
       }
 
       private static void Submit(List<LogEvent> events)
