@@ -17,9 +17,10 @@
     <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
     <PackageLicenseUrl>https://github.com/aloneguid/logmagic/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
     <PackageReference Include="Microsoft.ServiceFabric">
-      <Version>5.4.164</Version>
+      <Version>5.4.164</Version> 
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
