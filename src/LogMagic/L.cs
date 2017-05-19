@@ -53,15 +53,6 @@ namespace LogMagic
       }
 #endif
 
-      /// <summary>
-      /// Shuts down logging library resources. Considered as a nice way to say goodbye before exiting your
-      /// application.
-      /// </summary>
-      public static void Shutdown()
-      {
-         LogEventPump.Shutdown();
-      }
-
 #if NETFULL
     /// <summary>
     /// Gets the fully qualified name of the class invoking the LogManager, including the 

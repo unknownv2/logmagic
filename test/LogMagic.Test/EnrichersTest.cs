@@ -7,7 +7,7 @@ using Xunit;
 
 namespace LogMagic.Test
 {
-   public class EnrichersTest : IDisposable
+   public class EnrichersTest
    {
       private TestWriter _writer;
       private ILog _log;
@@ -20,11 +20,6 @@ namespace LogMagic.Test
             .WriteTo.Trace()
             .WriteTo.Custom(_writer);
          _log = L.G<FormattingTest>();
-      }
-
-      public void Dispose()
-      {
-         L.Shutdown();
       }
 
       [Fact]

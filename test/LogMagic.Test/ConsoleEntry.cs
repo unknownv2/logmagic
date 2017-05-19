@@ -17,8 +17,6 @@ namespace LogMagicExample
          new Program().Run();
 
          Console.ReadLine();
-
-         L.Shutdown();
       }
 
       private void Run()

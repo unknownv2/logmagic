@@ -17,19 +17,15 @@ namespace LogMagic
 
       static LogEventPump()
       {
-         logTask = Task.Factory.StartNew(() => PumpMethod(cts.Token), cts.Token);
+         //logTask = Task.Factory.StartNew(() => PumpMethod(cts.Token), cts.Token);
       }
 
       public static void Queue(LogEvent e)
       {
-         _eventQueue.Enqueue(e);
-         logEvent.Set();
-      }
+         Task t = SubmitAsync(new List<LogEvent> { e });
 
-      public static void Shutdown()
-      {
-         cts.Cancel();
-         logTask.Wait();
+         //_eventQueue.Enqueue(e);
+         //logEvent.Set();
       }
 
       private static void PumpMethod(CancellationToken token)
@@ -76,5 +72,22 @@ namespace LogMagic
             }
          }
       }
+
+      private static async Task SubmitAsync(List<LogEvent> events)
+      {
+         foreach (ILogWriter writer in new List<ILogWriter>(L.Config.Writers))
+         {
+            try
+            {
+               await writer.WriteAsync(events);
+            }
+            catch (Exception ex)
+            {
+               //there is nowhere else to log the error as we are the logger!
+               Console.WriteLine("could not write: " + ex);
+            }
+         }
+      }
+
    }
 }
