@@ -8,6 +8,10 @@ namespace LogMagic
     {
         Trace,
 
-        Dependency
+        Dependency,
+
+        ApplicationEvent,
+
+        HandledRequest
     }
 }

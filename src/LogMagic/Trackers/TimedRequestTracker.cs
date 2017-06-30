@@ -6,18 +6,16 @@ using System.Text;
 
 namespace LogMagic.Trackers
 {
-   class TimedDependencyTracker : IDependencyTracker
+   class TimedRequestTracker : IRequestTracker
    {
       private readonly Stopwatch _stopwatch = new Stopwatch();
       private readonly string _name;
-      private readonly string _command;
       private readonly LogClient _client;
       private Exception _error;
 
-      public TimedDependencyTracker(string name, string command, LogClient client)
+      public TimedRequestTracker(string name, LogClient client)
       {
          _name = name;
-         _command = command;
          _client = client;
          _stopwatch.Start();
       }
@@ -35,15 +33,14 @@ namespace LogMagic.Trackers
          var properties = new Dictionary<string, object>
          {
             { KnownProperty.Duration, ticks },
-            { KnownProperty.ApplicationName, _name },
-            { KnownProperty.MethodName, _command }
+            { KnownProperty.ApplicationName, _name }
          };
 
-         var parameters = new List<object> { _name, _command, TimeSpan.FromTicks(ticks) };
+         var parameters = new List<object> { _name, TimeSpan.FromTicks(ticks) };
          if (_error != null) parameters.Add(_error);
 
-         _client.Serve(LogSeverity.Info, EventType.Dependency, properties,
-            "dependency {0}.{1} took {2}",
+         _client.Serve(LogSeverity.Info, EventType.HandledRequest, properties,
+            "request {0} took {1}",
             parameters.ToArray());
       }
    }

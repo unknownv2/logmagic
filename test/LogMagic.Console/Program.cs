@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using LogMagic.Enrichers;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using C = System.Console;
@@ -20,6 +19,7 @@ namespace LogMagic.Console
          //L.Config.WriteTo.PoshConsole();
          //L.Config.WriteTo.File("c:\\tmp\\my.log");
          L.Config
+            .EnrichWith.Constant(KnownProperty.NodeName, "program.cs")
             .WriteTo.PoshConsole()
             .WriteTo.AzureApplicationInsights("b75b27a8-d3a2-4709-a2e3-5e99b07ba2ec");
 
@@ -39,9 +39,20 @@ namespace LogMagic.Console
             dep.Add(new Exception("can't plug out, it's stuck!"));
          }
 
-         for (int i = 0; i < 1000; i++)
+         for (int i = 0; i < 10; i++)
          {
-            log.D("event #{0} at {1}", i, DateTime.Now);
+            log.TrackEvent("program run");
+         }
+
+         using (var rq = log.TrackRequest("write to console"))
+         {
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+            rq.Add(new Exception("totally unhandled"));
+         }
+
+         for (int i = 0; i < 10; i++)
+         {
+            log.D("trace #{0} at {1}", i, DateTime.Now);
          }
 
          log.D("done, press a key");

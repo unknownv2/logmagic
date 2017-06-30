@@ -32,11 +32,19 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
                ApplyDependency(e);
                break;
 
+            case EventType.ApplicationEvent:
+               ApplyEvent(e);
+               break;
+
+            case EventType.HandledRequest:
+               ApplyRequest(e);
+               break;
+
             default:
                ApplyTrace(e);
                break;
-
          }
+
       }
 
       private void ApplyDependency(LogEvent e)
@@ -57,6 +65,18 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
          _client.TrackDependency(d);
       }
 
+      private void ApplyEvent(LogEvent e)
+      {
+         var t = new EventTelemetry
+         {
+            Name = e.UseProperty<string>(KnownProperty.MethodName)
+         };
+         Add(t, e);
+         Add(t, e.Properties);
+
+         _client.TrackEvent(t);
+      }
+
       private void ApplyTrace(LogEvent e)
       {
          var tr = new TraceTelemetry(e.FormattedMessage, ToLogSeverity(e.Severity));
@@ -68,6 +88,21 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
          {
             _client.TrackException(new ExceptionTelemetry(e.ErrorException) { Timestamp = e.EventTime });
          }
+      }
+
+      private void ApplyRequest(LogEvent e)
+      {
+         var tr = new RequestTelemetry
+         {
+            Name = e.UseProperty<string>(KnownProperty.ApplicationName),
+            Duration = TimeSpan.FromTicks(e.UseProperty<long>(KnownProperty.Duration)),
+            Success = e.ErrorException == null,
+            ResponseCode = e.ErrorException == null ? "200" : e.ErrorException.GetType().Name
+         };
+         Add(tr, e);
+         Add(tr, e.Properties);
+
+         _client.TrackRequest(tr);
       }
 
       private static void Add(ISupportProperties telemetry, Dictionary<string, object> properties)

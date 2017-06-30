@@ -1,4 +1,6 @@
-﻿namespace LogMagic
+﻿using LogMagic.Trackers;
+
+namespace LogMagic
 {
    /// <summary>
    /// Logging interface used by the client code, the most high level
@@ -32,5 +34,13 @@
       /// <param name="command">Command issued to the dependency</param>
       /// <returns>Dependency tracker. Needs to be disposed to stop tracking.</returns>
       IDependencyTracker TrackDependency(string name, string command);
+
+      /// <summary>
+      /// Tracks application event
+      /// </summary>
+      /// <param name="name">Event name</param>
+      void TrackEvent(string name);
+
+      IRequestTracker TrackRequest(string name);
    }
 }

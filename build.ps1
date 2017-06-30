@@ -6,7 +6,7 @@ param(
    $NuGetApiKey
 )
 
-$gv = "2.3.0"
+$gv = "2.4.0"
 $vt = @{
    "LogMagic.Storage.Net.csproj" = "1.0.0-alpha-3";
    "LogMagic.Microsoft.Azure.ServiceFabric.csproj" = "5.6.204";

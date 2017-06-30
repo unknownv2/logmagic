@@ -1,4 +1,5 @@
-﻿using LogMagic.Trackers;
+﻿using LogMagic.Enrichers;
+using LogMagic.Trackers;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -69,6 +70,25 @@ namespace LogMagic
       public IDependencyTracker TrackDependency(string name, string command)
       {
          return new TimedDependencyTracker(name, command, this);
+      }
+
+      [MethodImpl(MethodImplOptions.NoInlining)]
+      public void TrackEvent(string name)
+      {
+         var properties = new Dictionary<string, object>
+         {
+            { KnownProperty.MethodName, name }
+         };
+
+         Serve(LogSeverity.Info, EventType.ApplicationEvent, properties,
+            "application event {0} occurred",
+            name);
+      }
+
+      [MethodImpl(MethodImplOptions.NoInlining)]
+      public IRequestTracker TrackRequest(string name)
+      {
+         return new TimedRequestTracker(name, this);
       }
    }
 }
