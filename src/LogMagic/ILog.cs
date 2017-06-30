@@ -24,5 +24,13 @@
       /// Send warning statement
       /// </summary>
       void W(string format, params object[] parameters);
+
+      /// <summary>
+      /// Start tracking dependency.
+      /// </summary>
+      /// <param name="name">Dependency name</param>
+      /// <param name="command">Command issued to the dependency</param>
+      /// <returns>Dependency tracker. Needs to be disposed to stop tracking.</returns>
+      IDependencyTracker TrackDependency(string name, string command);
    }
 }

@@ -8,9 +8,9 @@ namespace LogMagic
    static class EventFactory
    {
       [MethodImpl(MethodImplOptions.NoInlining)]
-      public static LogEvent CreateEvent(string sourceName, LogSeverity severity, string format, object[] parameters)
+      public static LogEvent CreateEvent(string sourceName, LogSeverity severity, EventType eventType, string format, object[] parameters)
       {
-         var e = new LogEvent(severity, sourceName, DateTime.UtcNow);
+         var e = new LogEvent(severity, sourceName, DateTime.UtcNow) { EventType = eventType };
 
          //add error
          Exception error = ExtractError(parameters);

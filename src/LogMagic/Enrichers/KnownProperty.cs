@@ -45,5 +45,9 @@
       /// </summary>
       public const string ThreadId = "threadId";
 
+      /// <summary>
+      /// Operation ducation
+      /// </summary>
+      public const string Duration = "duration";
    }
 }

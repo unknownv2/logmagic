@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LogMagic.Trackers;
+using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace LogMagic
@@ -18,40 +20,55 @@ namespace LogMagic
 
       public LogClient(string name)
       {
-         if(name == null) throw new ArgumentNullException(nameof(name));
-
-         _name = name;
+         _name = name ?? throw new ArgumentNullException(nameof(name));
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
-      private void Serve(LogSeverity severity, string format, params object[] parameters)
+      internal void Serve(LogSeverity severity, EventType eventType,
+         Dictionary<string, object> properties,
+         string format,  params object[] parameters)
       {
-         LogEvent e = EventFactory.CreateEvent(_name, severity, format, parameters);
+         LogEvent e = EventFactory.CreateEvent(_name, severity, eventType, format, parameters);
+
+         if(properties != null && properties.Count > 0)
+         {
+            foreach(var prop in properties)
+            {
+               e.AddProperty(prop.Key, prop.Value);
+            }
+         }
+
          LogEventPump.Queue(e);
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
       public void D(string format, params object[] parameters)
       {
-         Serve(LogSeverity.Debug, format, parameters);
+         Serve(LogSeverity.Debug, EventType.Trace, null, format, parameters);
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
       public void E(string format, params object[] parameters)
       {
-         Serve(LogSeverity.Error, format, parameters);
+         Serve(LogSeverity.Error, EventType.Trace, null, format, parameters);
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
       public void I(string format, params object[] parameters)
       {
-         Serve(LogSeverity.Info, format, parameters);
+         Serve(LogSeverity.Info, EventType.Trace, null, format, parameters);
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
       public void W(string format, params object[] parameters)
       {
-         Serve(LogSeverity.Warning, format, parameters);
+         Serve(LogSeverity.Warning, EventType.Trace, null, format, parameters);
+      }
+
+      [MethodImpl(MethodImplOptions.NoInlining)]
+      public IDependencyTracker TrackDependency(string name, string command)
+      {
+         return new TimedDependencyTracker(name, command, this);
       }
    }
 }

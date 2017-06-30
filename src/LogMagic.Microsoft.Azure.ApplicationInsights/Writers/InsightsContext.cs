@@ -1,5 +1,6 @@
 ﻿using LogMagic.Enrichers;
 using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DataContracts;
 using System;
 using System.Collections.Generic;
@@ -20,25 +21,65 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
 
       public void Apply(LogEvent e)
       {
-         var tr = new TraceTelemetry(e.FormattedMessage, ToLogSeverity(e.Severity));
-         tr.Timestamp = e.EventTime;
-
          _context.Component.Version = e.UseProperty(KnownProperty.Version, string.Empty);
          _context.Operation.Name = e.UseProperty(KnownProperty.MethodName, string.Empty);
          _context.Cloud.RoleName = e.UseProperty(KnownProperty.NodeName, string.Empty);
          _context.Cloud.RoleInstance = e.UseProperty(KnownProperty.NodeInstanceId, string.Empty);
 
-         if (e.Properties != null)
+         switch(e.EventType)
          {
-            tr.Properties.AddRange(e.Properties.ToDictionary(entry => entry.Key, entry => entry.Value?.ToString()));
-         }
+            case EventType.Dependency:
+               ApplyDependency(e);
+               break;
 
+            default:
+               ApplyTrace(e);
+               break;
+
+         }
+      }
+
+      private void ApplyDependency(LogEvent e)
+      {
+         string appName = e.UseProperty<string>(KnownProperty.ApplicationName);
+
+         var d = new DependencyTelemetry()
+         {
+            Type = appName,
+            Name = appName,
+            Data = e.FormattedMessage,
+            Duration = TimeSpan.FromTicks(e.UseProperty<long>(KnownProperty.Duration)),
+            Success = e.ErrorException == null,
+         };
+         Add(d, e.Properties);
+         Add(d, e);
+
+         _client.TrackDependency(d);
+      }
+
+      private void ApplyTrace(LogEvent e)
+      {
+         var tr = new TraceTelemetry(e.FormattedMessage, ToLogSeverity(e.Severity));
+         Add(tr, e);
+         Add(tr, e.Properties);
          _client.TrackTrace(tr);
 
          if (e.ErrorException != null)
          {
             _client.TrackException(new ExceptionTelemetry(e.ErrorException) { Timestamp = e.EventTime });
          }
+      }
+
+      private static void Add(ISupportProperties telemetry, Dictionary<string, object> properties)
+      {
+         if (properties == null) return;
+
+         telemetry.Properties.AddRange(properties.ToDictionary(entry => entry.Key, entry => entry.Value?.ToString()));
+      }
+
+      private static void Add(ITelemetry telemetry, LogEvent e)
+      {
+         telemetry.Timestamp = e.EventTime;
       }
 
       private static SeverityLevel ToLogSeverity(LogSeverity severity)

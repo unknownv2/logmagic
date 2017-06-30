@@ -20,19 +20,32 @@ namespace LogMagic.Console
          //L.Config.WriteTo.PoshConsole();
          //L.Config.WriteTo.File("c:\\tmp\\my.log");
          L.Config
-            //.WriteTo.AzureApplicationInsights("6fd5b7d6-5844-478b-a9df-cfb49d5bd65e")
-            .WriteTo.PoshConsole();
+            .WriteTo.PoshConsole()
+            .WriteTo.AzureApplicationInsights("b75b27a8-d3a2-4709-a2e3-5e99b07ba2ec");
 
          log.D("debug message");
          log.W("warning message");
          log.I("information");
 
-         for (int i = 0; i < 100; i++)
+         using (var dep = log.TrackDependency("coffeepot", "plug-in"))
          {
-            log.D("event at " + DateTime.UtcNow);
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+         }
+
+         using (var dep = log.TrackDependency("coffeepot", "plug-out"))
+         {
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+
+            dep.Add(new Exception("can't plug out, it's stuck!"));
+         }
+
+         for (int i = 0; i < 1000; i++)
+         {
+            log.D("event #{0} at {1}", i, DateTime.Now);
          }
 
          log.D("done, press a key");
+         System.Console.WriteLine("done!");
          System.Console.ReadLine();
       }
 

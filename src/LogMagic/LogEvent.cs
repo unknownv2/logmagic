@@ -31,6 +31,11 @@ namespace LogMagic
       public LogSeverity Severity;
 
       /// <summary>
+      /// Type of log event, default is trace
+      /// </summary>
+      public EventType EventType;
+
+      /// <summary>
       /// Time in UTC when log event has occurred
       /// </summary>
       public DateTime EventTime;
