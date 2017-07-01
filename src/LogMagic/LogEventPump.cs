@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -68,6 +69,10 @@ namespace LogMagic
             {
                //there is nowhere else to log the error as we are the logger!
                Console.WriteLine("could not write: " + ex);
+
+#if NETFULL
+               Trace.TraceError("fatal submit error: " + ex);
+#endif
             }
          }
       }

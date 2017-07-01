@@ -82,6 +82,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
          var tr = new TraceTelemetry(e.FormattedMessage, ToLogSeverity(e.Severity));
          Add(tr, e);
          Add(tr, e.Properties);
+
          _client.TrackTrace(tr);
 
          if (e.ErrorException != null)

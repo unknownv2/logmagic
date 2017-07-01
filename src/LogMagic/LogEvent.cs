@@ -111,7 +111,20 @@ namespace LogMagic
             r = defaultValue;
          }
 
-         return (T)r;
+         try
+         {
+            return (T)r;
+         }
+         catch(InvalidCastException)
+         {
+            //as a last resort try to cast to string
+            if(typeof(T) == typeof(string))
+            {
+               return (T)(object)(r.ToString());
+            }
+
+            return defaultValue;
+         }
       }
    }
 }

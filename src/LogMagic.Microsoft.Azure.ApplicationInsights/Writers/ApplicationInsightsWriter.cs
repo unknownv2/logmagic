@@ -14,6 +14,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
       {
          TelemetryConfiguration.Active.InstrumentationKey = instrumentationKey;
          _telemetryClient = new TelemetryClient();
+         _telemetryClient.InstrumentationKey = instrumentationKey;
          _context = new InsightsContext(_telemetryClient);
       }
 
