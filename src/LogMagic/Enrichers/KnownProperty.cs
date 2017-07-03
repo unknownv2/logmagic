@@ -46,8 +46,16 @@
       public const string ThreadId = "threadId";
 
       /// <summary>
-      /// Operation ducation
+      /// Operation duration
       /// </summary>
       public const string Duration = "duration";
+
+      public const string EventName = "eventName";
+
+      public const string RequestName = "requestName";
+
+      public const string MetricName = "metricName";
+
+      public const string MetricValue = "metricValue";
    }
 }

@@ -12,6 +12,8 @@ namespace LogMagic
 
         ApplicationEvent,
 
-        HandledRequest
+        HandledRequest,
+
+        Metric
     }
 }

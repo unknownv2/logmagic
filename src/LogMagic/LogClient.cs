@@ -1,8 +1,8 @@
 ﻿using LogMagic.Enrichers;
-using LogMagic.Trackers;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace LogMagic
 {
@@ -67,17 +67,29 @@ namespace LogMagic
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
-      public IDependencyTracker TrackDependency(string name, string command)
-      {
-         return new TimedDependencyTracker(name, command, this);
-      }
-
-      [MethodImpl(MethodImplOptions.NoInlining)]
-      public void TrackEvent(string name)
+      public void Dependency(string name, string command, long duration, Exception error)
       {
          var properties = new Dictionary<string, object>
          {
-            { KnownProperty.MethodName, name }
+            { KnownProperty.Duration, duration },
+            { KnownProperty.ApplicationName, _name },
+            { KnownProperty.MethodName, command }
+         };
+
+         var parameters = new List<object> { _name, command, TimeSpan.FromTicks(duration) };
+         if (error != null) parameters.Add(error);
+
+         Serve(LogSeverity.Info, EventType.Dependency, properties,
+            "dependency {0}.{1} took {2}",
+            parameters.ToArray());
+      }
+
+      [MethodImpl(MethodImplOptions.NoInlining)]
+      public void Event(string name)
+      {
+         var properties = new Dictionary<string, object>
+         {
+            { KnownProperty.EventName, name }
          };
 
          Serve(LogSeverity.Info, EventType.ApplicationEvent, properties,
@@ -86,9 +98,34 @@ namespace LogMagic
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
-      public IRequestTracker TrackRequest(string name)
+      public void Request(string name, long duration, Exception error)
       {
-         return new TimedRequestTracker(name, this);
+         var properties = new Dictionary<string, object>
+         {
+            { KnownProperty.Duration, duration },
+            { KnownProperty.RequestName, _name }
+         };
+
+         var parameters = new List<object> { _name, TimeSpan.FromTicks(duration) };
+         if (error != null) parameters.Add(error);
+
+         Serve(LogSeverity.Info, EventType.HandledRequest, properties,
+            "request {0} took {1}",
+            parameters.ToArray());
+      }
+
+      [MethodImpl(MethodImplOptions.NoInlining)]
+      public void Metric(string name, double value)
+      {
+         var properties = new Dictionary<string, object>
+         {
+            { KnownProperty.MetricName, name },
+            { KnownProperty.MetricValue, value }
+         };
+
+         Serve(LogSeverity.Info, EventType.Metric, properties,
+            "metric {0} == {1}",
+            name, value);
       }
    }
 }

@@ -1,4 +1,4 @@
-﻿using LogMagic.Trackers;
+﻿using System;
 
 namespace LogMagic
 {
@@ -32,15 +32,30 @@ namespace LogMagic
       /// </summary>
       /// <param name="name">Dependency name</param>
       /// <param name="command">Command issued to the dependency</param>
+      /// <param name="duration"></param>
+      /// <param name="error"></param>
       /// <returns>Dependency tracker. Needs to be disposed to stop tracking.</returns>
-      IDependencyTracker TrackDependency(string name, string command);
+      void Dependency(string name, string command, long duration, Exception error = null);
 
       /// <summary>
       /// Tracks application event
       /// </summary>
       /// <param name="name">Event name</param>
-      void TrackEvent(string name);
+      void Event(string name);
 
-      IRequestTracker TrackRequest(string name);
+      /// <summary>
+      /// Track incoming application request
+      /// </summary>
+      /// <param name="name"></param>
+      /// <param name="duration"></param>
+      /// <param name="error"></param>
+      void Request(string name, long duration, Exception error = null);
+
+      /// <summary>
+      /// Measures metric of a specified name
+      /// </summary>
+      /// <param name="name">Metric name</param>
+      /// <param name="value">Value of this metric</param>
+      void Metric(string name, double value);
    }
 }

@@ -40,6 +40,10 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
                ApplyRequest(e);
                break;
 
+            case EventType.Metric:
+               ApplyMetric(e);
+               break;
+
             default:
                ApplyTrace(e);
                break;
@@ -69,7 +73,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
       {
          var t = new EventTelemetry
          {
-            Name = e.UseProperty<string>(KnownProperty.MethodName)
+            Name = e.UseProperty<string>(KnownProperty.EventName)
          };
          Add(t, e);
          Add(t, e.Properties);
@@ -95,7 +99,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
       {
          var tr = new RequestTelemetry
          {
-            Name = e.UseProperty<string>(KnownProperty.ApplicationName),
+            Name = e.UseProperty<string>(KnownProperty.RequestName),
             Duration = TimeSpan.FromTicks(e.UseProperty<long>(KnownProperty.Duration)),
             Success = e.ErrorException == null,
             ResponseCode = e.ErrorException == null ? "200" : e.ErrorException.GetType().Name
@@ -105,6 +109,21 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
 
          _client.TrackRequest(tr);
       }
+
+      private void ApplyMetric(LogEvent e)
+      {
+         var t = new MetricTelemetry();
+         t.Name = e.UseProperty<string>(KnownProperty.MetricName);
+         t.Sum = e.UseProperty<double>(KnownProperty.MetricValue);
+         Add(t, e);
+         Add(t, e.Properties);
+
+         _client.TrackMetric(t);
+      }
+
+      //todo:
+      //_client.TrackAvailability(null);
+      //_client.TrackPageView(null);
 
       private static void Add(ISupportProperties telemetry, Dictionary<string, object> properties)
       {

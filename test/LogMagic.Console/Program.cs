@@ -21,39 +21,31 @@ namespace LogMagic.Console
          L.Config
             .EnrichWith.Constant(KnownProperty.NodeName, "program.cs")
             .WriteTo.PoshConsole()
-            .WriteTo.AzureApplicationInsights("b75b27a8-d3a2-4709-a2e3-5e99b07ba2ec");
+            .WriteTo.AzureApplicationInsights("c9e98491-5d78-49f5-9439-bd32e460b44d");
 
          log.D("debug message");
          log.W("warning message");
          log.I("information");
 
-         using (var dep = log.TrackDependency("coffeepot", "plug-in"))
+         log.Dependency("coffeepot", "plug-in", TimeSpan.FromSeconds(1).Ticks, null);
+
+         log.Dependency("coffeepot", "plug-out", TimeSpan.FromSeconds(1).Ticks, new Exception("can't plug out, it's stuck!"));
+
+         log.Metric("start", 12345);
+
+         for (int i = 0; i < 3; i++)
          {
-            Thread.Sleep(TimeSpan.FromSeconds(1));
+            log.Event("program run");
          }
 
-         using (var dep = log.TrackDependency("coffeepot", "plug-out"))
-         {
-            Thread.Sleep(TimeSpan.FromSeconds(1));
-
-            dep.Add(new Exception("can't plug out, it's stuck!"));
-         }
-
-         for (int i = 0; i < 10; i++)
-         {
-            log.TrackEvent("program run");
-         }
-
-         using (var rq = log.TrackRequest("write to console"))
-         {
-            Thread.Sleep(TimeSpan.FromSeconds(1));
-            rq.Add(new Exception("totally unhandled"));
-         }
+         log.Request("write to console", TimeSpan.FromSeconds(1).Ticks, new Exception("totally unhandled"));
 
          for (int i = 0; i < 10; i++)
          {
             log.D("trace #{0} at {1}", i, DateTime.Now);
          }
+
+         
 
          log.D("done, press a key");
          System.Console.WriteLine("done!");
