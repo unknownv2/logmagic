@@ -72,8 +72,8 @@ namespace LogMagic
          var properties = new Dictionary<string, object>
          {
             { KnownProperty.Duration, duration },
-            { KnownProperty.ApplicationName, _name },
-            { KnownProperty.MethodName, command }
+            { KnownProperty.DependencyName, name },
+            { KnownProperty.DependencyCommand, command }
          };
 
          var parameters = new List<object> { _name, command, TimeSpan.FromTicks(duration) };

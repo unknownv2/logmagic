@@ -17,8 +17,8 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.4.4.0</FileVersion>
-    <Version>2.4.4</Version>
+    <FileVersion>2.4.5.0</FileVersion>
+    <Version>2.4.5</Version>
     <Description>Provides integrations for LogMagic library with Microsoft Azure tables and blobs as a destination.</Description>
     <RepositoryUrl>https://github.com/aloneguid/logmagic</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/aloneguid/logmagic/blob/master/LICENSE</PackageLicenseUrl>

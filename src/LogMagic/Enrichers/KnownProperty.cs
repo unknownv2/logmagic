@@ -56,6 +56,10 @@
 
       public const string MetricName = "metricName";
 
+      public const string DependencyName = "dependencyName";
+
+      public const string DependencyCommand = "dependencyCommand";
+
       public const string MetricValue = "metricValue";
    }
 }
