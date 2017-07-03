@@ -21,11 +21,6 @@ $PackageLicenseUrl = "https://github.com/aloneguid/logmagic/blob/master/LICENSE"
 $RepositoryType = "GitHub"
 $SlnPath = "logmagic.sln"
 
-function Set-VstsBuildNumber($BuildNumber)
-{
-   Write-Verbose -Verbose "##vso[build.updatebuildnumber]$BuildNumber"
-}
-
 function Update-ProjectVersion($File)
 {
    $v = $vt.($File.Name)
@@ -80,41 +75,5 @@ function Exec($Command, [switch]$ContinueOnError)
    }
 }
 
-# General validation
-if($Publish -and (-not $NuGetApiKey))
-{
-   Write-Error "Please specify nuget key to publish"
-   exit 1
-}
-
-# Update versioning information
-Get-ChildItem *.csproj -Recurse | Where-Object {-not($_.Name -like "*test*") -and -not($_.Name -like "*console*")} | % {
-   Write-Host "setting version on $($_.FullName)"
-   Update-ProjectVersion $_
-}
-Set-VstsBuildNumber $PackageVersion
-
 # Restore packages
 Exec "dotnet restore $SlnPath"
-
-# Build solution
-Get-ChildItem *.nupkg -Recurse | Remove-Item -Verbose
-Exec "dotnet build $SlnPath -c release"
-
-# Run the tests
-Exec "dotnet test test\LogMagic.Test\LogMagic.Test.csproj"
-
-# publish the nugets
-if($Publish.IsPresent)
-{
-   Write-Host "publishing nugets..."
-
-   Get-ChildItem *.nupkg -Recurse | Where-Object {$_.FullName -like "*release*" } | % {
-      $path = $_.FullName
-      Write-Host "publishing from $path"
-
-      Exec "nuget push $path -Source https://www.nuget.org/api/v2/package -ApiKey $NuGetApiKey" -ContinueOnError
-   }
-}
-
-Write-Host "build succeeded."
