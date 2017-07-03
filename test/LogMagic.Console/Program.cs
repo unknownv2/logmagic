@@ -27,9 +27,13 @@ namespace LogMagic.Console
          log.W("warning message");
          log.I("information");
 
-         log.Dependency("coffeepot", "plug-in", TimeSpan.FromSeconds(1).Ticks, null);
+         log.Dependency("coffeepot", "electric", "plug-in", TimeSpan.FromSeconds(1).Ticks);
+         log.Dependency("coffeepot", "electric", "plug-out", TimeSpan.FromSeconds(1).Ticks, new Exception("can't plug out, it's stuck!"));
 
-         log.Dependency("coffeepot", "plug-out", TimeSpan.FromSeconds(1).Ticks, new Exception("can't plug out, it's stuck!"));
+         log.Dependency("coffeepot", "plastic", "plug-in", TimeSpan.FromMilliseconds(10).Ticks);
+         log.Dependency("coffeepot", "plastic", "plug-out", TimeSpan.FromMilliseconds(10).Ticks);
+         log.Dependency("coffee", "cappuccino", "drink", TimeSpan.FromSeconds(1).Ticks);
+
 
          log.Metric("start", 12345);
 

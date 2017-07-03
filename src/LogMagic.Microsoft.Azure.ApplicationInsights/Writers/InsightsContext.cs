@@ -53,12 +53,10 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
 
       private void ApplyDependency(LogEvent e)
       {
-         string name = e.UseProperty<string>(KnownProperty.DependencyName);
-
          var d = new DependencyTelemetry()
          {
-            Type = name,
-            Name = name,
+            Type = e.UseProperty<string>(KnownProperty.DependencyType),
+            Name = e.UseProperty<string>(KnownProperty.DependencyName),
             Data = e.UseProperty<string>(KnownProperty.DependencyCommand),
             Duration = TimeSpan.FromTicks(e.UseProperty<long>(KnownProperty.Duration)),
             Success = e.ErrorException == null,

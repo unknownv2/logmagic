@@ -67,12 +67,13 @@ namespace LogMagic
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
-      public void Dependency(string name, string command, long duration, Exception error)
+      public void Dependency(string type, string name, string command, long duration, Exception error)
       {
          var properties = new Dictionary<string, object>
          {
             { KnownProperty.Duration, duration },
             { KnownProperty.DependencyName, name },
+            { KnownProperty.DependencyType, type },
             { KnownProperty.DependencyCommand, command }
          };
 
@@ -103,10 +104,10 @@ namespace LogMagic
          var properties = new Dictionary<string, object>
          {
             { KnownProperty.Duration, duration },
-            { KnownProperty.RequestName, _name }
+            { KnownProperty.RequestName, name }
          };
 
-         var parameters = new List<object> { _name, TimeSpan.FromTicks(duration) };
+         var parameters = new List<object> { name, TimeSpan.FromTicks(duration) };
          if (error != null) parameters.Add(error);
 
          Serve(LogSeverity.Info, EventType.HandledRequest, properties,

@@ -58,6 +58,8 @@
 
       public const string DependencyName = "dependencyName";
 
+      public const string DependencyType = "dependencyType";
+
       public const string DependencyCommand = "dependencyCommand";
 
       public const string MetricValue = "metricValue";
