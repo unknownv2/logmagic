@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
     <AssemblyTitle>LogMagic</AssemblyTitle>
@@ -28,7 +28,7 @@
 LogMagic also supports a relatively new paradigm of structured logging.</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="netbox" Version="1.2.0" />
+    <PackageReference Include="netbox" Version="1.4.6" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
     <PackageReference Include="System.Diagnostics.StackTrace" Version="4.3.0" />
