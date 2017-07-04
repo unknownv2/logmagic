@@ -6,7 +6,12 @@ param(
    $NuGetApiKey
 )
 
-$gv = "2.4.6"
+$gv = $env:APPVEYOR_BUILD_VERSION
+if($gv -eq $null)
+{
+   $gv = "2.4.6"
+}
+
 $vt = @{
    "LogMagic.Storage.Net.csproj" = "1.0.0-alpha-3";
    "LogMagic.Microsoft.Azure.ServiceFabric.csproj" = "5.6.204";

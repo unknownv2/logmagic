@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LogMagic
 {
@@ -42,7 +43,8 @@ namespace LogMagic
       /// Tracks application event
       /// </summary>
       /// <param name="name">Event name</param>
-      void Event(string name);
+      /// <param name="properties">Extra properties for this event</param>
+      void Event(string name, Dictionary<string, object> properties = null);
 
       /// <summary>
       /// Track incoming application request

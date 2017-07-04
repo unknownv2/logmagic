@@ -86,12 +86,10 @@ namespace LogMagic
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
-      public void Event(string name)
+      public void Event(string name, Dictionary<string, object> properties)
       {
-         var properties = new Dictionary<string, object>
-         {
-            { KnownProperty.EventName, name }
-         };
+         if (properties == null) properties = new Dictionary<string, object>();
+         properties[KnownProperty.EventName] = name;
 
          Serve(LogSeverity.Info, EventType.ApplicationEvent, properties,
             "application event {0} occurred",
