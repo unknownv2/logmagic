@@ -36,6 +36,7 @@ namespace LogMagic
       }
 #endif
 
+#if !NETSTANDARD14
       /// <summary>
       /// Enrich with current machine name
       /// </summary>
@@ -43,6 +44,7 @@ namespace LogMagic
       {
          return configuration.Custom(new MachineNameEnricher());
       }
+#endif
 
       /// <summary>
       /// Enrich by this machine's IP address
