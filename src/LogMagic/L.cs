@@ -41,6 +41,14 @@ namespace LogMagic
          return new LogClient(name);
       }
 
+      /// <summary>
+      /// Shutdowns submissions to logging writers.
+      /// </summary>
+      public static void Shutdown()
+      {
+         LogEventPump.Shutdown();
+      }
+
 #if NETFULL
     /// <summary>
     /// Get logger for the current class

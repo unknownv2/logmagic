@@ -54,6 +54,13 @@ namespace LogMagic
             {
 
             }
+            catch(Exception ex)
+            {
+#if NETFULL
+               Trace.TraceError($"unhandled exception while waiting for more events: {ex}");
+#endif
+               cts.Cancel();
+            }
          }
       }
 
@@ -75,6 +82,11 @@ namespace LogMagic
 #endif
             }
          }
+      }
+
+      public static void Shutdown()
+      {
+         cts.Cancel();
       }
 
    }
