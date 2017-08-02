@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace LogMagic
 {
@@ -39,7 +40,27 @@ namespace LogMagic
             }
          }
 
-         LogEventPump.Queue(e);
+         SubmitNow(e);
+      }
+
+      private void SubmitNow(LogEvent e)
+      {
+         foreach (ILogWriter writer in new List<ILogWriter>(L.Config.Writers))
+         {
+            try
+            {
+               writer.Write(new[] { e });
+            }
+            catch(Exception ex)
+            {
+               //there is nowhere else to log the error as we are the logger!
+               Console.WriteLine("could not write: " + ex);
+
+#if NETFULL
+               Trace.TraceError("fatal submit error: " + ex);
+#endif
+            }
+         }
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
