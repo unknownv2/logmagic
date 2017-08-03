@@ -7,15 +7,17 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
 {
    class ApplicationInsightsWriter : ILogWriter
    {
+      private readonly bool _flushOnWrite;
       private readonly TelemetryClient _telemetryClient;
       private readonly InsightsContext _context;
 
-      public ApplicationInsightsWriter(string instrumentationKey)
+      public ApplicationInsightsWriter(string instrumentationKey, bool flushOnWrite)
       {
          TelemetryConfiguration.Active.InstrumentationKey = instrumentationKey;
          _telemetryClient = new TelemetryClient();
          _telemetryClient.InstrumentationKey = instrumentationKey;
          _context = new InsightsContext(_telemetryClient);
+         _flushOnWrite = flushOnWrite;
       }
 
       public ApplicationInsightsWriter(TelemetryClient telemetryClient)

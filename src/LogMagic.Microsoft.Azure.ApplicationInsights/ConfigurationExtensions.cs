@@ -12,10 +12,12 @@ namespace LogMagic
       /// </summary>
       /// <param name="configuration">Configuration reference</param>
       /// <param name="instrumentationKey">Instrumentation key</param>
+      /// <param name="flushOnWrite">When true, flush will be forced on every write</param>
       /// <returns></returns>
-      public static ILogConfiguration AzureApplicationInsights(this IWriterConfiguration configuration, string instrumentationKey)
+      public static ILogConfiguration AzureApplicationInsights(this IWriterConfiguration configuration, string instrumentationKey,
+         bool flushOnWrite = false)
       {
-         return configuration.Custom(new ApplicationInsightsWriter(instrumentationKey));
+         return configuration.Custom(new ApplicationInsightsWriter(instrumentationKey, flushOnWrite));
       }
    }
 }
