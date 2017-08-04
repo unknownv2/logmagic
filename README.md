@@ -8,6 +8,11 @@ Like many other libraries for .NET, LogMagic provides diagnostic logging into fi
 
 LogMagic also supports a relatively new paradigm of *structured logging*.
 
+## Index
+
+- [Visual Studio Integration (snippets)](doc/vssnippets.md)
+- [List of known writers and enrichers](doc/providers.md)
+
 ## Installation
 
 ### Installing from NuGet
@@ -212,8 +217,3 @@ LogMagic uses levels as the primary means for assigning importance to log events
 2. **Information** - events of interest or that have relevance to outside observers
 3. **Warning** - indicators of possible issues or service degradation
 4. **Error** - fa failure within application or connected system, critical errors causing complete failure
-
-# Read More On
-
-- [Visual Studio Integration (snippets)](doc/vssnippets.md)
-- [List of known writers and enrichers](doc/providers.md)

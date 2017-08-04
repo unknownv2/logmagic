@@ -91,7 +91,7 @@ L.Config.WriteTo.AzureApplicationInsights("app insights key");
 ```
 Writes events [Azure AppInsights](https://azure.microsoft.com/en-us/services/application-insights/)
 
-[read more...](packages/azure-appinsights)
+[read more...](packages/azure-appinsights.md)
 
 
 ## Built-In Enrichers
