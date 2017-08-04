@@ -4,16 +4,34 @@ using System.Text;
 
 namespace LogMagic
 {
-    public enum EventType
-    {
-        Trace,
+   /// <summary>
+   /// Type of logging event
+   /// </summary>
+   public enum EventType
+   {
+      /// <summary>
+      /// The trace event, usual development logging
+      /// </summary>
+      Trace,
 
-        Dependency,
+      /// <summary>
+      /// The dependency execution event
+      /// </summary>
+      Dependency,
 
-        ApplicationEvent,
+      /// <summary>
+      /// The application event
+      /// </summary>
+      ApplicationEvent,
 
-        HandledRequest,
+      /// <summary>
+      /// The incoming request event
+      /// </summary>
+      HandledRequest,
 
-        Metric
-    }
+      /// <summary>
+      /// The metric event
+      /// </summary>
+      Metric
+   }
 }

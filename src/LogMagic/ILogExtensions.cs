@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace LogMagic
 {
+   /// <summary>
+   /// Useful logging extensions
+   /// </summary>
    public static class ILogExtensions
    {
       /// <summary>

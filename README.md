@@ -121,7 +121,7 @@ namespace LogMagicExample
 }
 ```
 
-4 **Run the program**
+4. **Run the program**
 
 ## Logging exceptions
 

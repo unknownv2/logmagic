@@ -79,25 +79,20 @@ Writes events to the remote [Seq](https://getseq.net/) server. Seq is a great lo
 
 `.Seq(string address, string apiKey)` overload allows passing an API key.
 
-### Microsoft Azure Blobs
+### Microsoft Azure AppInsights
 
-**Package**: [LogMagic.Microsoft.Azure](https://www.nuget.org/packages/LogMagic.Microsoft.Azure/)
-
-**Supported Frameworks**: `.NET 4.5`
-
-> todo
-
-Appends to Microsoft Azure blob storage append blob and rotates on daily basis.
-
-> todo
-
-### Microsoft Azure Tables
-
-**Package**: [LogMagic.Microsoft.Azure](https://www.nuget.org/packages/LogMagic.Microsoft.Azure/)
+**Package**: [LogMagic.Microsoft.Azure.ApplicationInsights](https://www.nuget.org/packages/LogMagic.Microsoft.Azure.ApplicationInsights/)
 
 **Supported Frameworks**: `.NET 4.5`
 
-> todo
+**Syntax:**
+```csharp
+L.Config.WriteTo.AzureApplicationInsights("app insights key");
+```
+Writes events [Azure AppInsights](https://azure.microsoft.com/en-us/services/application-insights/)
+
+[read more...](packages/azure-appinsights)
+
 
 ## Built-In Enrichers
 
