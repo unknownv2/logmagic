@@ -135,13 +135,11 @@ namespace LogMagic
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
-      public void Metric(string name, double value)
+      public void Metric(string name, double value, Dictionary<string, object> properties)
       {
-         var properties = new Dictionary<string, object>
-         {
-            { KnownProperty.MetricName, name },
-            { KnownProperty.MetricValue, value }
-         };
+         if (properties == null) properties = new Dictionary<string, object>();
+         properties[KnownProperty.MetricName] = name;
+         properties[KnownProperty.MetricValue] = value;
 
          Serve(LogSeverity.Info, EventType.Metric, properties,
             "metric {0} == {1}",

@@ -59,6 +59,7 @@ namespace LogMagic
       /// </summary>
       /// <param name="name">Metric name</param>
       /// <param name="value">Value of this metric</param>
-      void Metric(string name, double value);
+      /// <param name="properties">Extra properties for this metric</param>
+      void Metric(string name, double value, Dictionary<string, object> properties = null);
    }
 }
