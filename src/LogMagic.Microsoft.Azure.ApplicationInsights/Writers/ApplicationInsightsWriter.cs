@@ -32,7 +32,10 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
             _context.Apply(e);
          }
 
-         _telemetryClient.Flush();
+         if (_flushOnWrite)
+         {
+            _telemetryClient.Flush();
+         }
       }
 
       public Task WriteAsync(IEnumerable<LogEvent> events)

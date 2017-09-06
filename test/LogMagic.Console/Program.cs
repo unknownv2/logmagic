@@ -20,8 +20,8 @@ namespace LogMagic.Console
          //L.Config.WriteTo.File("c:\\tmp\\my.log");
          L.Config
             .EnrichWith.Constant(KnownProperty.NodeName, "program.cs")
-            .WriteTo.PoshConsole();
-            //.WriteTo.AzureApplicationInsights("c9e98491-5d78-49f5-9439-bd32e460b44d");
+            .WriteTo.PoshConsole()
+            .WriteTo.AzureApplicationInsights("c9e98491-5d78-49f5-9439-bd32e460b44d");
 
          log.D("debug message");
          log.W("warning message");
@@ -48,8 +48,6 @@ namespace LogMagic.Console
          {
             log.D("trace #{0} at {1}", i, DateTime.Now);
          }
-
-         
 
          log.D("done, press a key");
          System.Console.WriteLine("done!");

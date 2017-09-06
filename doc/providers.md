@@ -87,11 +87,13 @@ Writes events to the remote [Seq](https://getseq.net/) server. Seq is a great lo
 
 **Syntax:**
 ```csharp
-L.Config.WriteTo.AzureApplicationInsights("app insights key");
+L.Config.WriteTo.AzureApplicationInsights("app insights key", bool flushOnWrite = false);
 ```
 Writes events [Azure AppInsights](https://azure.microsoft.com/en-us/services/application-insights/)
 
-[read more...](packages/azure-appinsights.md)
+`flushOnWrite` parameter indicates whether to force a flush of events on each logging call. It's false by default and should only be set to true if you need an immediate submission as AppInsights caches events and submits in a batch periodically to achieve optimal performance. Note that settings this to true slows down logging dramatically.
+
+Read [extended explanation](packages/azure-appinsights.md) how LogMagic integrates with AppInsights.
 
 
 ## Built-In Enrichers
