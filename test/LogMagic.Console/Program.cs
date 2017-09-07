@@ -14,11 +14,9 @@ namespace LogMagic.Console
       {
          L.Config
             .EnrichWith.Constant(KnownProperty.NodeName, "program.cs")
-            //.WriteTo.PoshConsole("{time:H:mm:ss,fff}|{level,-7}|{source}|{" + KnownProperty.NodeName + "}|{stack1}|{stack2}|{message}{error}")
-            //.WriteTo.AzureApplicationInsights("c9e98491-5d78-49f5-9439-bd32e460b44d")
-            .WriteTo.Seq(new Uri("http://localhost:5341"));
+            .WriteTo.PoshConsole("{time:H:mm:ss,fff}|{level,-7}|{source}|{" + KnownProperty.NodeName + "}|{stack1}|{stack2}|{message}{error}")
+            .WriteTo.AzureApplicationInsights("c9e98491-5d78-49f5-9439-bd32e460b44d");
 
-         log.I("Hello {Name}!", "nblumhardt");
          log.D("test");
 
          using (L.CP("stack1", "s11"))
