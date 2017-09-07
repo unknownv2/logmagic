@@ -59,6 +59,11 @@ namespace LogMagic.Tokenisation
       }
 
       /// <summary>
+      /// The underlying format string.
+      /// </summary>
+      public string Template => _format ?? string.Empty;
+
+      /// <summary>
       /// Formats the token as a string
       /// </summary>
       public string Format(Token token, object value = null)
