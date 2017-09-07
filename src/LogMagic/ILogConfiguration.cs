@@ -14,6 +14,12 @@ namespace LogMagic
       ILogConfiguration ClearWriters();
 
       /// <summary>
+      /// Removes all configured enrichers
+      /// </summary>
+      /// <returns></returns>
+      ILogConfiguration ClearEnrichers();
+
+      /// <summary>
       /// Gets the list of configured enrichers
       /// </summary>
       IEnumerable<IEnricher> Enrichers { get; }

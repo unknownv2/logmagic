@@ -154,7 +154,7 @@ Multiple writers can be active at the same time.
 ```csharp
 L.Config
 	.WriteTo.PoshConsole()
-    .WriteTo.Trace();
+	.WriteTo.Trace();
 ```
 
 ### Formatting
@@ -182,11 +182,46 @@ All of the properties support standard .NET formatting used in `string.Format()`
 
 ### Enrichers
 
-Enrickers are simple components that add properties to a log event. This can be used for the purpose of attaching a thread id, machine IP address etc. for example.
+Enrichers are simple components that add properties to a log event. This can be used for the purpose of attaching a thread id, machine IP address etc. for example.
 
 ```csharp
 L.Config.EnrichWith.ThreadId();
 ```
+
+### Context Information
+
+Sometimes it's useful to add context information to a logging session during a call duration scope. LogMagic achieves it by dynamically adding and removing propeties from the ambient "execution context". For example, all messages during a transaction might carry the id of that transaction, and so on.
+
+The feature does not need any special configuration, and properties can be added an removed using `L.ContextProperty()`:
+
+```csharp
+log.D("no properties");
+
+using(L.CP("A", "id1"))
+{
+	log.D("carries property A=id1");
+
+	using(L.CP("B", "id2"))
+	{
+		log.D("carries A=id1 and B=id2");
+	}
+
+	log.D("carries property A=id1");
+
+	using(L.CP("A", "id3"))
+	{
+		log.D("carries property A=id3");
+	}
+
+	log.D("carries property A=id1");
+}
+
+log.D("no properties");
+```
+
+Pushing property onto the context will override any existing properties with the same name, until the object returned from `L.CP()` is disposed, as the property A in the example demonstrates.
+
+**Important:** properties must be popped from the context in the precise order in which they were added. Behavior otherwise is undefined.
 
 ## Writing log events
 

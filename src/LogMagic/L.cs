@@ -83,5 +83,17 @@ namespace LogMagic
          return className;
       }
 #endif
-    }
+
+      /// <summary>
+      /// Adds a context property
+      /// </summary>
+      /// <param name="name">Property name</param>
+      /// <param name="value">Property value</param>
+      /// <returns></returns>
+      public static IDisposable CP(string name, string value)
+      {
+         return LogContext.PushProperty(name, value);
+      }
+
+   }
 }

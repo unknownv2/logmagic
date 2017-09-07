@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using LogMagic.Tokenisation;
 using LogMagic.Enrichers;
+using System.Collections.Generic;
 
 namespace LogMagic
 {
@@ -17,16 +18,10 @@ namespace LogMagic
          if (error != null) e.AddProperty(KnownProperty.Error, error);
 
          //enrich
-         foreach(IEnricher enricher in L.Config.Enrichers)
-         {
-            string pn;
-            object pv;
-            enricher.Enrich(e, out pn, out pv);
-            if (pn != null)
-            {
-               e.AddProperty(pn, pv);
-            }
-         }
+         Enrich(e, L.Config.Enrichers);
+#if NETSTANDARD || NET46
+         Enrich(e, LogContext.Enrichers?.Values);
+#endif
 
          //message
          FormattedString fs = FormattedString.Parse(format, parameters);
@@ -38,6 +33,22 @@ namespace LogMagic
          }
 
          return e;
+      }
+
+      private static void Enrich(LogEvent e, IEnumerable<IEnricher> enrichers)
+      {
+         if (enrichers == null) return;
+
+         foreach (IEnricher enricher in enrichers)
+         {
+            string pn;
+            object pv;
+            enricher.Enrich(e, out pn, out pv);
+            if (pn != null)
+            {
+               e.AddProperty(pn, pv);
+            }
+         }
       }
 
       private static Exception ExtractError(object[] parameters)

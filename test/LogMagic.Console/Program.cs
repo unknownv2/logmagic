@@ -12,46 +12,25 @@ namespace LogMagic.Console
 
       public static void Main(string[] args)
       {
-         //TaskPumpTest();
-         //System.Console.ReadLine(); return;
-
-         //L.Config.WriteTo.Console();
-         //L.Config.WriteTo.PoshConsole();
-         //L.Config.WriteTo.File("c:\\tmp\\my.log");
          L.Config
             .EnrichWith.Constant(KnownProperty.NodeName, "program.cs")
-            .WriteTo.PoshConsole()
+            .WriteTo.PoshConsole("{time:H:mm:ss,fff}|{level,-7}|{source}|{" + KnownProperty.NodeName + "}|{stack1}|{stack2}|{message}{error}")
             .WriteTo.AzureApplicationInsights("c9e98491-5d78-49f5-9439-bd32e460b44d");
 
-         log.D("debug message");
-         log.W("warning message");
-         log.I("information");
+         log.D("test");
 
-         log.Dependency("coffeepot", "electric", "plug-in", TimeSpan.FromSeconds(1).Ticks);
-         log.Dependency("coffeepot", "electric", "plug-out", TimeSpan.FromSeconds(1).Ticks, new Exception("can't plug out, it's stuck!"));
-
-         log.Dependency("coffeepot", "plastic", "plug-in", TimeSpan.FromMilliseconds(10).Ticks);
-         log.Dependency("coffeepot", "plastic", "plug-out", TimeSpan.FromMilliseconds(10).Ticks);
-         log.Dependency("coffee", "cappuccino", "drink", TimeSpan.FromSeconds(1).Ticks);
-
-
-         log.Metric("start", 12345);
-
-         for (int i = 0; i < 3; i++)
+         using (L.CP("stack1", "s11"))
          {
-            log.Event("program run");
+            log.D("test");
+
+            using (L.CP("stack1", "s12"))
+            {
+               log.D("test");
+            }
          }
+         log.D("test");
 
-         log.Request("write to console", TimeSpan.FromSeconds(1).Ticks, new Exception("totally unhandled"));
-
-         for (int i = 0; i < 10; i++)
-         {
-            log.D("trace #{0} at {1}", i, DateTime.Now);
-         }
-
-         log.D("done, press a key");
-         System.Console.WriteLine("done!");
-         System.Console.ReadLine();
+         C.ReadLine();
       }
 
       private static void TaskPumpTest()

@@ -19,6 +19,13 @@ namespace LogMagic.Configuration
          return this;
       }
 
+      public ILogConfiguration ClearEnrichers()
+      {
+         _enrichers.Clear();
+
+         return this;
+      }
+
       public ILogConfiguration Custom(ILogWriter writer)
       {
          _writers.Add(writer);
