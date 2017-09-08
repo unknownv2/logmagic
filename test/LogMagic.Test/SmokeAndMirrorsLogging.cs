@@ -7,14 +7,6 @@ using System.Net;
 
 namespace LogMagic.Test
 {
-   public class AzureBlobWriterTest : SmokeAndMirrorsLogging
-   {
-      public AzureBlobWriterTest() : base("azure-blob")
-      {
-
-      }
-   }
-
    public class FilesWriterTest : SmokeAndMirrorsLogging
    {
       public FilesWriterTest() : base("files")
@@ -65,14 +57,6 @@ namespace LogMagic.Test
 
          switch (receiverName)
          {
-            case "azure-blob":
-               L.Config.WriteTo.StorageAppendBlob(
-                  StorageFactory.Blobs.AzureBlobStorage(new NetworkCredential(settings.AzureStorageName, settings.AzureStorageKey), "logmagic"),
-                  "smokeandmirrors");
-
-               //L.Config.WriteTo.AzureAppendBlob(settings.AzureStorageName, settings.AzureStorageKey,
-               //   "logs-integration", "smokeandmirrors");
-               break;
             case "files":
                L.Config.WriteTo.File(Path.Combine(TestDir.FullName, "subdir", "testlog.txt"));
                break;
