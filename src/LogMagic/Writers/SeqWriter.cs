@@ -77,7 +77,7 @@ namespace LogMagic.Writers
             {
                Timestamp = new DateTimeOffset(e.EventTime),
                Level = e.Severity.ToString(),
-               MessageTemplate = e.FormattedMessage,
+               MessageTemplate = e.Message.Template,
                Exception = e.GetProperty(KnownProperty.Error)?.ToString(),
             };
 

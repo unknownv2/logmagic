@@ -74,7 +74,6 @@ namespace LogMagic
          return configuration.Custom(new FileLogWriter(fileName, format));
       }
 
-#if NETFULL
       /// <summary>
       /// Writes events to Seq server (https://getseq.net/)
       /// </summary>
@@ -90,6 +89,5 @@ namespace LogMagic
       {
          return configuration.Custom(new SeqWriter(serverAddress, apiKey));
       }
-#endif
    }
 }

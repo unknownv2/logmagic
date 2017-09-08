@@ -30,5 +30,13 @@ namespace LogMagic.Test
          Assert.Equal(1, fs.NamedParameters["first"]);
          Assert.Equal(2, fs.NamedParameters["second"]);
       }
+
+      [Fact]
+      public void Parse_OriginalFormatIsPreserved()
+      {
+         const string template = "Hello, {name}!";
+         FormattedString fs = FormattedString.Parse(template, new object[]{"Alice"});
+         Assert.Equal(template, fs.Template);
+      }
    }
 }
