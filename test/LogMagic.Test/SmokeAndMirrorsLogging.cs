@@ -15,14 +15,6 @@ namespace LogMagic.Test
       }
    }
 
-   public class AzureTableWriterTest : SmokeAndMirrorsLogging
-   {
-      public AzureTableWriterTest() : base("azure-table")
-      {
-
-      }
-   }
-
    public class FilesWriterTest : SmokeAndMirrorsLogging
    {
       public FilesWriterTest() : base("files")
@@ -81,10 +73,6 @@ namespace LogMagic.Test
                //L.Config.WriteTo.AzureAppendBlob(settings.AzureStorageName, settings.AzureStorageKey,
                //   "logs-integration", "smokeandmirrors");
                break;
-            case "azure-table":
-               L.Config.WriteTo.AzureTable(settings.AzureStorageName, settings.AzureStorageKey,
-                  "logsintegration");
-               break;
             case "files":
                L.Config.WriteTo.File(Path.Combine(TestDir.FullName, "subdir", "testlog.txt"));
                break;
@@ -118,8 +106,6 @@ namespace LogMagic.Test
          {
             log.D("test {i}", i);
          }
-
-         Thread.Sleep(TimeSpan.FromMinutes(1));
       }
    }
 }
