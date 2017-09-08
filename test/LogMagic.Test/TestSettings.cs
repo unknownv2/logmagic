@@ -13,6 +13,7 @@ namespace LogMagic.Test
       protected override void OnConfigure(IConfigConfiguration configuration)
       {
          configuration.UseIniFile("c:\\tmp\\integration-tests.ini");
+         configuration.UseEnvironmentVariables();
       }
    }
 }
