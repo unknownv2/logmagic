@@ -36,8 +36,9 @@ namespace LogMagic
       /// <param name="command">Command issued to the dependency</param>
       /// <param name="duration"></param>
       /// <param name="error"></param>
+      /// <param name="properties"></param>
       /// <returns>Dependency tracker. Needs to be disposed to stop tracking.</returns>
-      void Dependency(string type, string name, string command, long duration, Exception error = null);
+      void Dependency(string type, string name, string command, long duration, Dictionary<string, object> properties = null, Exception error = null);
 
       /// <summary>
       /// Tracks application event

@@ -19,20 +19,19 @@ namespace LogMagic
       /// <param name="name">The name.</param>
       /// <param name="command">The command.</param>
       /// <param name="call">The call.</param>
-      /// <returns></returns>
-      public static async Task<T> Dependency<T>(this ILog log, string type, string name, string command, Func<Task<T>> call)
+      /// <param name="properties">Extra properties</param>
+      public static async Task Dependency<T>(this ILog log, string type, string name, string command, Func<Task> call, Dictionary<string, object> properties = null)
       {
          using (var time = new TimeMeasure())
          {
             try
             {
-               T result = await call();
-               log.Dependency(type, name, command, time.ElapsedTicks);
-               return result;
+               await call();
+               log.Dependency(type, name, command, time.ElapsedTicks, properties, null);
             }
             catch (Exception ex)
             {
-               log.Dependency(type, name, command, time.ElapsedTicks, ex);
+               log.Dependency(type, name, command, time.ElapsedTicks, properties, ex);
                throw;
             }
          }
