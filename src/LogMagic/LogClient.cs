@@ -88,15 +88,14 @@ namespace LogMagic
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
-      public void Dependency(string type, string name, string command, long duration, Exception error)
+      public void Dependency(string type, string name, string command, long duration, Dictionary<string, object> properties, Exception error)
       {
-         var properties = new Dictionary<string, object>
-         {
-            { KnownProperty.Duration, duration },
-            { KnownProperty.DependencyName, name },
-            { KnownProperty.DependencyType, type },
-            { KnownProperty.DependencyCommand, command }
-         };
+         if (properties == null) properties = new Dictionary<string, object>();
+
+         properties[KnownProperty.Duration] = duration;
+         properties[KnownProperty.DependencyName] = name;
+         properties[KnownProperty.DependencyType] = type;
+         properties[KnownProperty.DependencyCommand] = command;
 
          var parameters = new List<object> { _name, command, TimeSpan.FromTicks(duration) };
          if (error != null) parameters.Add(error);
