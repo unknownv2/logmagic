@@ -20,7 +20,7 @@ namespace LogMagic
       /// <param name="command">The command.</param>
       /// <param name="call">The call.</param>
       /// <param name="properties">Extra properties</param>
-      public static async Task Dependency<T>(this ILog log, string type, string name, string command, Func<Task> call, Dictionary<string, object> properties = null)
+      public static async Task Dependency(this ILog log, string type, string name, string command, Func<Task> call, Dictionary<string, object> properties = null)
       {
          using (var time = new TimeMeasure())
          {
