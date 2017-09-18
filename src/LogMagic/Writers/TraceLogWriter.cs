@@ -34,20 +34,13 @@ namespace LogMagic.Writers
          {
             string line = TextFormatter.Format(e, _format);
 
-            switch(e.Severity)
+            if(e.ErrorException != null)
             {
-               case LogSeverity.Debug:
-                  Trace.WriteLine(line);
-                  break;
-               case LogSeverity.Error:
-                  Trace.TraceError(line);
-                  break;
-               case LogSeverity.Info:
-                  Trace.TraceInformation(line);
-                  break;
-               case LogSeverity.Warning:
-                  Trace.TraceWarning(line);
-                  break;
+               Trace.TraceError(line);
+            }
+            else
+            {
+               Trace.TraceInformation(line);
             }
          }
       }

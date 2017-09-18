@@ -26,11 +26,11 @@ namespace LogMagic
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
-      internal void Serve(LogSeverity severity, EventType eventType,
+      internal void Serve(EventType eventType,
          Dictionary<string, object> properties,
          string format,  params object[] parameters)
       {
-         LogEvent e = EventFactory.CreateEvent(_name, severity, eventType, format, parameters);
+         LogEvent e = EventFactory.CreateEvent(_name, eventType, format, parameters);
 
          if(properties != null && properties.Count > 0)
          {
@@ -57,34 +57,16 @@ namespace LogMagic
                Console.WriteLine("could not write: " + ex);
 
 #if NETFULL
-               Trace.TraceError("fatal submit error: " + ex);
+               System.Diagnostics.Trace.TraceError("fatal submit error: " + ex);
 #endif
             }
          }
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
-      public void D(string format, params object[] parameters)
+      public void Trace(string format, params object[] parameters)
       {
-         Serve(LogSeverity.Debug, EventType.Trace, null, format, parameters);
-      }
-
-      [MethodImpl(MethodImplOptions.NoInlining)]
-      public void E(string format, params object[] parameters)
-      {
-         Serve(LogSeverity.Error, EventType.Trace, null, format, parameters);
-      }
-
-      [MethodImpl(MethodImplOptions.NoInlining)]
-      public void I(string format, params object[] parameters)
-      {
-         Serve(LogSeverity.Info, EventType.Trace, null, format, parameters);
-      }
-
-      [MethodImpl(MethodImplOptions.NoInlining)]
-      public void W(string format, params object[] parameters)
-      {
-         Serve(LogSeverity.Warning, EventType.Trace, null, format, parameters);
+         Serve(EventType.Trace, null, format, parameters);
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
@@ -100,7 +82,7 @@ namespace LogMagic
          var parameters = new List<object> { _name, command, TimeSpan.FromTicks(duration) };
          if (error != null) parameters.Add(error);
 
-         Serve(LogSeverity.Info, EventType.Dependency, properties,
+         Serve(EventType.Dependency, properties,
             "dependency {0}.{1} took {2}",
             parameters.ToArray());
       }
@@ -111,7 +93,7 @@ namespace LogMagic
          if (properties == null) properties = new Dictionary<string, object>();
          properties[KnownProperty.EventName] = name;
 
-         Serve(LogSeverity.Info, EventType.ApplicationEvent, properties,
+         Serve(EventType.ApplicationEvent, properties,
             "application event {0} occurred",
             name);
       }
@@ -128,7 +110,7 @@ namespace LogMagic
          var parameters = new List<object> { name, TimeSpan.FromTicks(duration) };
          if (error != null) parameters.Add(error);
 
-         Serve(LogSeverity.Info, EventType.HandledRequest, properties,
+         Serve(EventType.HandledRequest, properties,
             "request {0} took {1}",
             parameters.ToArray());
       }
@@ -140,7 +122,7 @@ namespace LogMagic
          properties[KnownProperty.MetricName] = name;
          properties[KnownProperty.MetricValue] = value;
 
-         Serve(LogSeverity.Info, EventType.Metric, properties,
+         Serve(EventType.Metric, properties,
             "metric {0} == {1}",
             name, value);
       }

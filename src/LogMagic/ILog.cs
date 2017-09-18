@@ -9,24 +9,9 @@ namespace LogMagic
    public interface ILog
    {
       /// <summary>
-      /// Send debug statement
+      /// Send trace
       /// </summary>
-      void D(string format, params object[] parameters);
-
-      /// <summary>
-      /// Send error statement
-      /// </summary>
-      void E(string format, params object[] parameters);
-
-      /// <summary>
-      /// Send general information statement
-      /// </summary>
-      void I(string format, params object[] parameters);
-
-      /// <summary>
-      /// Send warning statement
-      /// </summary>
-      void W(string format, params object[] parameters);
+      void Trace(string format, params object[] parameters);
 
       /// <summary>
       /// Start tracking dependency.

@@ -13,9 +13,8 @@ namespace LogMagic
       /// <summary>
       /// Constructs a new instance of a log event
       /// </summary>
-      public LogEvent(LogSeverity severity, string sourceName, DateTime eventTime)
+      public LogEvent(string sourceName, DateTime eventTime)
       {
-         Severity = severity;
          SourceName = sourceName;
          EventTime = eventTime;
       }
@@ -24,11 +23,6 @@ namespace LogMagic
       /// Name of the source, usually class name or type
       /// </summary>
       public string SourceName;
-
-      /// <summary>
-      /// Log severity
-      /// </summary>
-      public LogSeverity Severity;
 
       /// <summary>
       /// Type of log event, default is trace

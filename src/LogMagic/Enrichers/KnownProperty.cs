@@ -45,6 +45,10 @@
       /// </summary>
       public const string ThreadId = "threadId";
 
+      public const string OperationId = "operationId";
+
+      public const string OperationParentId = "operationParentId";
+
       /// <summary>
       /// Operation duration
       /// </summary>

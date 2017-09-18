@@ -9,7 +9,7 @@ param(
 $gv = $env:APPVEYOR_BUILD_VERSION
 if($gv -eq $null)
 {
-   $gv = "2.4.6"
+   $gv = "2.5.0"
 }
 
 $vt = @{

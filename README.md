@@ -111,7 +111,7 @@ namespace LogMagicExample
 
          try
          {
-            _log.D("dividing {a} by {b}", a, b);
+            _log.Trace("dividing {a} by {b}", a, b);
             Console.WriteLine(a / b);
          }
          catch(Exception ex)
@@ -119,7 +119,7 @@ namespace LogMagicExample
             _log.E("unexpected error", ex);
          }
 
-         _log.D("attempting to divide by zero");
+         _log.Trace("attempting to divide by zero");
       }
 
    }
@@ -195,28 +195,28 @@ Sometimes it's useful to add context information to a logging session during a c
 The feature does not need any special configuration, and properties can be added an removed using `L.ContextProperty()`:
 
 ```csharp
-log.D("no properties");
+log.Trace("no properties");
 
 using(L.CP("A", "id1"))
 {
-	log.D("carries property A=id1");
+	log.Trace("carries property A=id1");
 
 	using(L.CP("B", "id2"))
 	{
-		log.D("carries A=id1 and B=id2");
+		log.Trace("carries A=id1 and B=id2");
 	}
 
-	log.D("carries property A=id1");
+	log.Trace("carries property A=id1");
 
 	using(L.CP("A", "id3"))
 	{
-		log.D("carries property A=id3");
+		log.Trace("carries property A=id3");
 	}
 
-	log.D("carries property A=id1");
+	log.Trace("carries property A=id1");
 }
 
-log.D("no properties");
+log.Trace("no properties");
 ```
 
 Pushing property onto the context will override any existing properties with the same name, until the object returned from `L.CP()` is disposed, as the property A in the example demonstrates.

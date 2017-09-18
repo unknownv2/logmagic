@@ -24,6 +24,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.ServiceFabric.Services.Remoting" Version="2.6.204" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\LogMagic\LogMagic.csproj" />
   </ItemGroup>
 </Project>

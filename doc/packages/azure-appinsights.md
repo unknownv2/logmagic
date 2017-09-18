@@ -32,7 +32,7 @@ You can watch application events in the AppInsight account from the Events tab:
 Dependencies are external resources your application depends on. For instance, if you're calling to an external database this is a dependency. It's useful to track the dependency and know how long in takes to execute, which you can do with a following call:
 
 ```csharp
-log.Dependency(
+log.Traceependency(
 	"dependency type name",
 	"dependency instance name",
 	"operation name",

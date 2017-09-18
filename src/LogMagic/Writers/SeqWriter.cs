@@ -76,7 +76,7 @@ namespace LogMagic.Writers
             var re = new RawEvent
             {
                Timestamp = new DateTimeOffset(e.EventTime),
-               Level = e.Severity.ToString(),
+               Level = "info",
                MessageTemplate = e.Message.Template,
                Exception = e.GetProperty(KnownProperty.Error)?.ToString(),
             };

@@ -83,12 +83,12 @@ namespace LogMagic.Test
 
          //L.Config.FilterBy.
 
-         log.D("hello!");
-         log.D("exception is here!", new Exception("test exception"));
+         log.Trace("hello!");
+         log.Trace("exception is here!", new Exception("test exception"));
 
          for(int i = 0; i < 100; i++)
          {
-            log.D("test {i}", i);
+            log.Trace("test {i}", i);
          }
       }
    }

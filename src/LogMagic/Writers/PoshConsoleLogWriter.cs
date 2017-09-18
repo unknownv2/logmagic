@@ -66,7 +66,7 @@ namespace LogMagic.Writers
                         Cg.Write(e.EventTime.ToString(token.Format), TimeColour);
                         break;
                      case TextFormatter.Severity:
-                        LogSeverity(e.Severity);
+                        LogSeverity(e);
                         break;
                      case TextFormatter.Source:
                         Cg.Write(e.SourceName, SourceColour);
@@ -128,22 +128,15 @@ namespace LogMagic.Writers
          }
       }
 
-      private void LogSeverity(LogSeverity s)
+      private void LogSeverity(LogEvent e)
       {
-         switch(s)
+         if(e.ErrorException == null)
          {
-            case LogMagic.LogSeverity.Debug:
-               Cg.Write("DBG", ConsoleColor.White);
-               break;
-            case LogMagic.LogSeverity.Error:
-               Cg.Write("ERR", ConsoleColor.White, ConsoleColor.Red);
-               break;
-            case LogMagic.LogSeverity.Info:
-               Cg.Write("INF", ConsoleColor.White, ConsoleColor.DarkGreen);
-               break;
-            case LogMagic.LogSeverity.Warning:
-               Cg.Write("WRN", ConsoleColor.White, ConsoleColor.DarkRed);
-               break;
+            Cg.Write("INF", ConsoleColor.White, ConsoleColor.DarkGreen);
+         }
+         else
+         {
+            Cg.Write("ERR", ConsoleColor.White, ConsoleColor.Red);
          }
       }
 

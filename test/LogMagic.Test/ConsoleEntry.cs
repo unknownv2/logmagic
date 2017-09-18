@@ -21,23 +21,23 @@ namespace LogMagicExample
 
       private void Run()
       {
-         _log.I("hello, LogMagic!");
+         _log.Trace("hello, LogMagic!");
 
-         _log.W("we are going to divide by zero!");
+         _log.Trace("we are going to divide by zero!");
 
          int a = 10, b = 0;
 
          try
          {
-            _log.D("dividing {a} by {b}", a, b);
+            _log.Trace("dividing {a} by {b}", a, b);
             Console.WriteLine(a / b);
          }
          catch(Exception ex)
          {
-            _log.E("unexpected error", ex);
+            _log.Trace("unexpected error", ex);
          }
 
-         _log.D("attempting to divide by zero");
+         _log.Trace("attempting to divide by zero");
       }
 
    }

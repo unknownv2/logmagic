@@ -43,7 +43,7 @@ namespace LogMagic
                         b.Append(e.EventTime.ToString(token.Format));
                         break;
                      case Severity:
-                        string sev = e.Severity.ToString().ToUpper();
+                        string sev = e.ErrorException == null ? "I" : "E";
                         if (token.Format != null) sev = string.Format(token.NativeFormat, sev);
                         b.Append(sev);
                         break;
@@ -80,23 +80,6 @@ namespace LogMagic
          }
 
          return b.ToString();
-      }
-
-      private static string GetLogSeverity(LogSeverity s)
-      {
-         switch (s)
-         {
-            case LogSeverity.Debug:
-               return "DEBUG";
-            case LogSeverity.Error:
-               return "ERROR";
-            case LogSeverity.Info:
-               return "INFO ";
-            case LogSeverity.Warning:
-               return "WARN ";
-            default:
-               return string.Empty;
-         }
       }
    }
 }

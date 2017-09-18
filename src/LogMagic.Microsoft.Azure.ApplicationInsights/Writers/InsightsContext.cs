@@ -81,7 +81,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
 
       private void ApplyTrace(LogEvent e)
       {
-         var tr = new TraceTelemetry(e.FormattedMessage, ToLogSeverity(e.Severity));
+         var tr = new TraceTelemetry(e.FormattedMessage, SeverityLevel.Information);
          Add(tr, e);
          Add(tr, e.Properties);
 
@@ -133,23 +133,8 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
       private static void Add(ITelemetry telemetry, LogEvent e)
       {
          telemetry.Timestamp = e.EventTime;
-      }
-
-      private static SeverityLevel ToLogSeverity(LogSeverity severity)
-      {
-         switch (severity)
-         {
-            case LogSeverity.Debug:
-               return SeverityLevel.Verbose;
-            case LogSeverity.Info:
-               return SeverityLevel.Information;
-            case LogSeverity.Warning:
-               return SeverityLevel.Warning;
-            case LogSeverity.Error:
-               return SeverityLevel.Error;
-            default:
-               return SeverityLevel.Error;
-         }
+         telemetry.Context.Operation.Id = e.UseProperty<string>(KnownProperty.OperationId);
+         telemetry.Context.Operation.ParentId = e.UseProperty<string>(KnownProperty.OperationParentId);
       }
    }
 }
