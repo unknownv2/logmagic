@@ -99,13 +99,11 @@ namespace LogMagicExample
          new Program().Run();
 
          Console.ReadLine();
-
-         L.Shutdown();
       }
 
       private void Run()
       {
-         _log.I("hello, LogMagic!");
+         _log.Trace("hello, LogMagic!");
 
          int a = 10, b = 0;
 
@@ -116,7 +114,7 @@ namespace LogMagicExample
          }
          catch(Exception ex)
          {
-            _log.E("unexpected error", ex);
+            _log.Trace("unexpected error", ex);
          }
 
          _log.Trace("attempting to divide by zero");
@@ -130,7 +128,7 @@ namespace LogMagicExample
 
 ## Logging exceptions
 
-LogMagic always check last parameter of log arguments whether it's an exception class and eliminates from the argument list.
+LogMagic always check last parameter of `Trace()` arguments whether it's an exception class and eliminates from the argument list.
 
 
 ## Configuration basics
@@ -192,23 +190,23 @@ L.Config.EnrichWith.ThreadId();
 
 Sometimes it's useful to add context information to a logging session during a call duration scope. LogMagic achieves it by dynamically adding and removing propeties from the ambient "execution context". For example, all messages during a transaction might carry the id of that transaction, and so on.
 
-The feature does not need any special configuration, and properties can be added an removed using `L.ContextProperty()`:
+The feature does not need any special configuration, and properties can be added an removed using `L.Context()`:
 
 ```csharp
 log.Trace("no properties");
 
-using(L.CP("A", "id1"))
+using(L.Context("A".PairedWith("id1")))
 {
 	log.Trace("carries property A=id1");
 
-	using(L.CP("B", "id2"))
+	using(L.Context("B".PairedWith("id2")))
 	{
 		log.Trace("carries A=id1 and B=id2");
 	}
 
 	log.Trace("carries property A=id1");
 
-	using(L.CP("A", "id3"))
+	using(L.Context("A".PairedWith("id3")))
 	{
 		log.Trace("carries property A=id3");
 	}
@@ -219,7 +217,16 @@ using(L.CP("A", "id1"))
 log.Trace("no properties");
 ```
 
-Pushing property onto the context will override any existing properties with the same name, until the object returned from `L.CP()` is disposed, as the property A in the example demonstrates.
+Pushing property onto the context will override any existing properties with the same name, until the object returned from `L.Context()` is disposed, as the property A in the example demonstrates.
+
+`L.Context()` accepts multiple properties at once if you need to:
+
+```csharp
+using(L.Context("A".PairedWith("id1"), "B".PairedWith("id2") ))
+{
+	//...
+}
+```
 
 **Important:** properties must be popped from the context in the precise order in which they were added. Behavior otherwise is undefined.
 
@@ -232,7 +239,7 @@ private readonly ILog _log = L.G<Class>();
 
 // ...
 
-_log.I("application v{version} started on {date}", "1.0", DateTime.UtcNow);
+_log.Trace("application v{version} started on {date}", "1.0", DateTime.UtcNow);
 ```
 
 ### Message template syntax
@@ -246,9 +253,4 @@ the string above `"application v{version} started on {date}"` is a *message temp
 
 ### Log event levels
 
-LogMagic uses levels as the primary means for assigning importance to log events. The levels in increasing order of importance are:
-
-1. **Debug** - internal control flow and diagnostic state dumps to facilitate pinpointing of recognised problems
-2. **Information** - events of interest or that have relevance to outside observers
-3. **Warning** - indicators of possible issues or service degradation
-4. **Error** - fa failure within application or connected system, critical errors causing complete failure
+LogMagic doesn't have the classic logging levels (i.e. debug, info, warn etc.) as this is proven to be rarely used. Instead you only need one single `Trace()` method. Due to the fact that structured logging is supported and promoted there is no need to have logging levels as you can always filter based on a custom property if you ever need to.

@@ -8,22 +8,23 @@ namespace LogMagic.Console
 {
    public static class Program
    {
-      private static readonly LogMagic.ILog log = LogMagic.L.G(typeof(Program));
+      private static readonly LogMagic.ILog log = L.G(typeof(Program));
 
       public static void Main(string[] args)
       {
          L.Config
             .EnrichWith.Constant(KnownProperty.NodeName, "program.cs")
+            .EnrichWith.Constant(KnownProperty.OperationId, Guid.NewGuid().ToString())
             .WriteTo.PoshConsole("{time:H:mm:ss,fff}|{level,-7}|{source}|{" + KnownProperty.NodeName + "}|{stack1}|{stack2}|{message}{error}")
-            .WriteTo.AzureApplicationInsights("c9e98491-5d78-49f5-9439-bd32e460b44d", true);
+            .WriteTo.AzureApplicationInsights("24703760-10ec-4e0b-b3ee-777f6ea80977", true);
 
          log.Trace("test");
 
-         using (L.CP("stack1", "s11"))
+         using (L.Context("stack1".PairedWith("s11")))
          {
             log.Trace("test");
 
-            using (L.CP("stack1", "s12"))
+            using (L.Context("stack1".PairedWith("s12")))
             {
                log.Trace("test");
             }

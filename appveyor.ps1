@@ -7,14 +7,15 @@ param(
 )
 
 $gv = $env:APPVEYOR_BUILD_VERSION
+$bn = $env:APPVEYOR_BUILD_NUMBER
 if($gv -eq $null)
 {
    $gv = "2.5.0"
 }
 
 $vt = @{
-   "LogMagic.Storage.Net.csproj" = "1.0.0-alpha-3";
-   "LogMagic.Microsoft.Azure.ServiceFabric.csproj" = "5.6.204";
+   "LogMagic.Storage.Net.csproj" = "1.0.0-alpha-$bn";
+   "LogMagic.Microsoft.Azure.ServiceFabric.csproj" = "5.6.204.$bn";
 }
 
 $Copyright = "Copyright (c) 2015-2017 by Ivan Gavryliuk"

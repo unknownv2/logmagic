@@ -2,7 +2,7 @@ version: 2.5.{build}
 image: Visual Studio 2017
 configuration: Release
 environment:
-  Azure.AppInsights.InstrumentationKey: 6fd5b7d6-5844-478b-a9df-cfb49d5bd65e
+  Azure.AppInsights.InstrumentationKey: 24703760-10ec-4e0b-b3ee-777f6ea80977
 before_build:
 - ps: .\appveyor.ps1
 build:

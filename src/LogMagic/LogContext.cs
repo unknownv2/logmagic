@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using LogMagic.Enrichers;
+using System.Collections.Generic;
 #if NET45
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Lifetime;
@@ -20,12 +21,18 @@ namespace LogMagic
          new AsyncLocal<ConcurrentDictionary<string, IEnricher>>();
 #endif
 
-      public static IDisposable PushProperty(string name, string value)
+      public static IDisposable Push(IEnumerable<KeyValuePair<string, string>> properties)
       {
          ConcurrentDictionary<string, IEnricher> stack = GetOrCreateEnricherStack();
          var bookmark = new StackBookmark(Clone(stack));
 
-         stack[name] = new ConstantEnricher(name, value);
+         if (properties != null)
+         {
+            foreach (var pair in properties)
+            {
+               stack[pair.Key] = new ConstantEnricher(pair);
+            }
+         }
 
          Enrichers = stack;
 

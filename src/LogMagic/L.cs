@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -87,12 +88,9 @@ namespace LogMagic
       /// <summary>
       /// Adds a context property
       /// </summary>
-      /// <param name="name">Property name</param>
-      /// <param name="value">Property value</param>
-      /// <returns></returns>
-      public static IDisposable CP(string name, string value)
+      public static IDisposable Context(params KeyValuePair<string, string>[] properties)
       {
-         return LogContext.PushProperty(name, value);
+         return LogContext.Push(properties);
       }
 
    }

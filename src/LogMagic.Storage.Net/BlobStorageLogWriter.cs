@@ -10,11 +10,11 @@ namespace LogMagic.Storage.Net
 {
    class BlobStorageLogWriter : ILogWriter
    {
-      private readonly IBlobStorage _blobStorage;
+      private readonly IBlobStorageProvider _blobStorage;
       private readonly FormattedString _format;
       private readonly string _documentId;
 
-      public BlobStorageLogWriter(IBlobStorage blobStorage, string documentId, string format)
+      public BlobStorageLogWriter(IBlobStorageProvider blobStorage, string documentId, string format)
       {
          _blobStorage = blobStorage ?? throw new ArgumentNullException(nameof(blobStorage));
          _format = format == null ? null : FormattedString.Parse(format, null);
@@ -31,26 +31,13 @@ namespace LogMagic.Storage.Net
             sb.AppendLine(TextFormatter.Format(e, _format));
          }
 
-         using (MemoryStream ms = sb.ToString().ToMemoryStream())
+         Task.Run(() =>
          {
-            _blobStorage.AppendFromStream(_documentId, ms);
-         }
-      }
-
-      public async Task WriteAsync(IEnumerable<LogEvent> events)
-      {
-         if (events == null) return;
-
-         var sb = new StringBuilder();
-         foreach(LogEvent e in events)
-         {
-            sb.AppendLine(TextFormatter.Format(e, _format));
-         }
-
-         using (MemoryStream ms = sb.ToString().ToMemoryStream())
-         {
-            await _blobStorage.AppendFromStreamAsync(_documentId, ms);
-         }
+            using (MemoryStream ms = sb.ToString().ToMemoryStream())
+            {
+               _blobStorage.WriteAsync(_documentId, ms, true);
+            }
+         });
       }
 
       public void Dispose()

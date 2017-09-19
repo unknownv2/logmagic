@@ -11,7 +11,7 @@ namespace LogMagic
    public static class ConfigurationExtensions
    {
       /// <summary>
-      /// Writes logs to a blob using <see cref="IBlobStorage.AppendFromStream(string, System.IO.Stream)"/> method
+      /// Writes logs to a blob
       /// </summary>
       /// <param name="configuration">Configuration reference</param>
       /// <param name="blobStorage">Valid blob storage reference</param>
@@ -19,7 +19,7 @@ namespace LogMagic
       /// <param name="format">Optional format string</param>
       /// <returns></returns>
       public static ILogConfiguration StorageAppendBlob(this IWriterConfiguration configuration,
-         IBlobStorage blobStorage,
+         IBlobStorageProvider blobStorage,
          string documentId,
          string format = null)
       {
