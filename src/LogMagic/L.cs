@@ -97,11 +97,13 @@ namespace LogMagic
       /// <summary>
       /// Marks a start of an operation pushing operation id and parent operation id to the context
       /// </summary>
-      public static IDisposable Operation(Guid id, string parentId = null)
+      public static IDisposable Operation(Guid id, Guid? parentId = null)
       {
-         var ps = new Dictionary<string, string>();
-         ps[KnownProperty.OperationId] = id.ToString();
-         if (parentId != null) ps[KnownProperty.OperationParentId] = parentId;
+         var ps = new Dictionary<string, string>
+         {
+            [KnownProperty.OperationId] = id.ToString()
+         };
+         if (parentId != null) ps[KnownProperty.OperationParentId] = parentId.Value.ToString();
 
          return LogContext.Push(ps);
       }
