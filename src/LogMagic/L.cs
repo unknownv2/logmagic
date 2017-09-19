@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using LogMagic.Configuration;
+using LogMagic.Enrichers;
 
 namespace LogMagic
 {
@@ -91,6 +92,18 @@ namespace LogMagic
       public static IDisposable Context(params KeyValuePair<string, string>[] properties)
       {
          return LogContext.Push(properties);
+      }
+
+      /// <summary>
+      /// Marks a start of an operation pushing operation id and parent operation id to the context
+      /// </summary>
+      public static IDisposable Operation(Guid id, string parentId = null)
+      {
+         var ps = new Dictionary<string, string>();
+         ps[KnownProperty.OperationId] = id.ToString();
+         if (parentId != null) ps[KnownProperty.OperationParentId] = parentId;
+
+         return LogContext.Push(ps);
       }
 
    }
