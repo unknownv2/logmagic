@@ -23,8 +23,9 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Enrichers
          e.AddProperty(KnownFabricProperty.ApplicationName, _context.CodePackageActivationContext.ApplicationName);
          e.AddProperty(KnownFabricProperty.ApplicationTypeName, _context.CodePackageActivationContext.ApplicationTypeName);
          e.AddProperty(KnownFabricProperty.NodeName, _context.NodeContext.NodeName);
+         e.AddProperty(KnownProperty.Version, _context.CodePackageActivationContext.CodePackageVersion);
 
-         if(_context is StatelessServiceContext)
+         if (_context is StatelessServiceContext)
          {
             e.AddProperty(KnownFabricProperty.InstanceId, _context.ReplicaOrInstanceId);
          }
