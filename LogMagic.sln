@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0D2BC941-7E3A-4A1A-B5DA-A7F3AB32C785}"
 EndProject
@@ -38,6 +38,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packages", "packages", "{6F
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Storage.Net", "src\LogMagic.Storage.Net\LogMagic.Storage.Net.csproj", "{1F8081AD-AA09-4064-8058-DA435A290521}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "snippets", "snippets", "{93004547-82CD-472A-AD2F-B718810B64B9}"
+	ProjectSection(SolutionItems) = preProject
+		src\vssnippets\lcfgposhcon.snippet = src\vssnippets\lcfgposhcon.snippet
+		src\vssnippets\ldef.snippet = src\vssnippets\ldef.snippet
+		src\vssnippets\lt.snippet = src\vssnippets\lt.snippet
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +88,7 @@ Global
 		{14792561-4CBB-4FC8-B078-33075B5D9B92} = {0D2BC941-7E3A-4A1A-B5DA-A7F3AB32C785}
 		{6FB79E25-3BFA-4433-AD23-E0CF33A88C2C} = {93BEADBD-BDF0-4261-81C9-233EA3CF0A4F}
 		{1F8081AD-AA09-4064-8058-DA435A290521} = {0D2BC941-7E3A-4A1A-B5DA-A7F3AB32C785}
+		{93004547-82CD-472A-AD2F-B718810B64B9} = {42816ED5-2E52-4DBE-980A-9034B21B228D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6A9360B6-B177-4333-8D5A-3493AD9F3B55}
