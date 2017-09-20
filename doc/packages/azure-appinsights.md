@@ -1,6 +1,6 @@
 # Microsoft Azure AppInsights
 
-All the calls to `log.X` push trace events to AppInsights. Those are the events you can't directly see on main AppInsigts page but can access from **Analytics** tab:
+All the calls to `log.Trace()` push trace events to AppInsights. Those are the events you can't directly see on main AppInsigts page but can access from **Analytics** tab:
 
 ![Azure Appinsights Analytics Button](azure-appinsights-analytics-button.png)
 
@@ -32,7 +32,7 @@ You can watch application events in the AppInsight account from the Events tab:
 Dependencies are external resources your application depends on. For instance, if you're calling to an external database this is a dependency. It's useful to track the dependency and know how long in takes to execute, which you can do with a following call:
 
 ```csharp
-log.Traceependency(
+log.Dependency(
 	"dependency type name",
 	"dependency instance name",
 	"operation name",
