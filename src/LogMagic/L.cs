@@ -88,6 +88,17 @@ namespace LogMagic
 
 
 #if !NET45
+
+      /// <summary>
+      /// Adds a context property
+      /// </summary>
+      public static IDisposable Context(IEnumerable<KeyValuePair<string, string>> properties)
+      {
+         if (properties == null) return null;
+
+         return LogContext.Push(properties);
+      }
+
       /// <summary>
       /// Adds a context property
       /// </summary>
@@ -108,6 +119,15 @@ namespace LogMagic
          if (propertyName == null) throw new ArgumentNullException(nameof(propertyName));
 
          return LogContext.GetValueByName(propertyName);
+      }
+
+      /// <summary>
+      /// Gets a dictionary of all current context values
+      /// </summary>
+      /// <returns></returns>
+      public static Dictionary<string, string> GetContextValues()
+      {
+         return LogContext.GetAllValues();
       }
 
       /// <summary>

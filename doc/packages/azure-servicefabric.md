@@ -59,6 +59,7 @@ The way LogMagic does this is by transferring two properties called _operationId
 - Picks up the value of _operationId_.
 - Creates a new call context by generating a new unique value for _operationId_.
 - Sets context property _operationParentId_ to the old value of _operationId_.
+- In addition to that, both client and server maintains exact values of all context properties on both sides.
 
 In order for this to work, you need to set up a few things first. However this library is called Log**Magic** and I've tried to make it a magic.
 

@@ -27,6 +27,7 @@ namespace LogMagic.FabricApp.StatefulSimulator
       {
          string opId = L.GetContextValue(KnownProperty.OperationId);
          string pId = L.GetContextValue(KnownProperty.OperationParentId);
+         var all = L.GetContextValues();
 
          return Task.FromResult(true);
       }

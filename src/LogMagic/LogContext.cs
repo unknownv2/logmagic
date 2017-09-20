@@ -58,7 +58,7 @@ namespace LogMagic
       {
          var enrichers = Enrichers;
 
-         ConstantEnricher enricher = Enrichers
+         ConstantEnricher enricher = enrichers
             .Values
             .Cast<ConstantEnricher>()
             .FirstOrDefault(e => e.Name == name);
@@ -66,6 +66,16 @@ namespace LogMagic
          if (enricher == null) return null;
 
          return enricher.Value;
+      }
+
+      public static Dictionary<string, string> GetAllValues()
+      {
+         var enrichers = Enrichers;
+
+         return enrichers
+            .Values
+            .Cast<ConstantEnricher>()
+            .ToDictionary(c => c.Name, c => c.Value);
       }
 
       sealed class StackBookmark : IDisposable

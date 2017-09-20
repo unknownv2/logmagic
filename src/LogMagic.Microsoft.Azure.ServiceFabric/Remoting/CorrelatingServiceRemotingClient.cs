@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Fabric;
 using System.Threading.Tasks;
 using LogMagic.Enrichers;
@@ -62,11 +63,19 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
       private async Task<byte[]> SendAndTrackRequestAsync(ServiceRemotingMessageHeaders messageHeaders,
          byte[] requestBody, Func<Task<byte[]>> doSendRequest)
       {
-         string operationId = L.GetContextValue(KnownProperty.OperationId);
+         //add all context values
+         Dictionary<string, string> contextValues = L.GetContextValues();
 
-         if (operationId != null)
+         foreach(var pair in contextValues)
          {
-            messageHeaders.AddHeader(CorrelationHeader.OperationIdHeaderName, operationId);
+            string headerName = CorrelationHeader.MakeHeader(pair.Key);
+            messageHeaders.AddHeader(headerName, pair.Value);
+         }
+
+         if(contextValues.Count > 0)
+         {
+            string listValue = string.Join(";", contextValues.Keys);
+            messageHeaders.AddHeader(CorrelationHeader.HeaderListHeaderName, listValue);
          }
 
          byte[] result = await doSendRequest().ConfigureAwait(false);

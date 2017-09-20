@@ -38,10 +38,13 @@ namespace LogMagic.FabricApp.StatelessSimulator
       {
          using (L.Operation(Guid.NewGuid()))
          {
-            IStatefulSimulatorService proxy = CorrelatingServiceProxy.Create<IStatefulSimulatorService>(
-               new Uri("fabric:/LogMagic.FabricTestApp/LogMagic.FabricApp.StatefulSimulator"), new ServicePartitionKey(0));
+            using (L.Context("p1".PairedWith("v1"), "p2".PairedWith("v2")))
+            {
+               IStatefulSimulatorService proxy = CorrelatingServiceProxy.Create<IStatefulSimulatorService>(
+                  new Uri("fabric:/LogMagic.FabricTestApp/LogMagic.FabricApp.StatefulSimulator"), new ServicePartitionKey(0));
 
-            await proxy.InvokeTest();
+               await proxy.InvokeTest();
+            }
          }
       }
    }
