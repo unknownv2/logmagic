@@ -4,6 +4,7 @@ using System.Fabric;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using LogMagic.Enrichers;
 using LogMagic.FabricApp.Interfaces;
 using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
@@ -24,6 +25,9 @@ namespace LogMagic.FabricApp.StatefulSimulator
 
       public Task InvokeTest()
       {
+         string opId = L.GetContextValue(KnownProperty.OperationId);
+         string pId = L.GetContextValue(KnownProperty.OperationParentId);
+
          return Task.FromResult(true);
       }
 
@@ -37,7 +41,7 @@ namespace LogMagic.FabricApp.StatefulSimulator
       protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
       {
          //return new[] { new ServiceReplicaListener(context => this.CreateServiceRemotingListener(context)) };
-         return new[] { this.CreateLogMagicReplicaListener() };
+         return new[] { this.CreateCorrelatingReplicaListener() };
       }
 
       /// <summary>

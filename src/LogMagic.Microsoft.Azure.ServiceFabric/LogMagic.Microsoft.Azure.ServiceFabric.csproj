@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFramework>net46</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
     <PackageProjectUrl>https://github.com/aloneguid/logmagic</PackageProjectUrl>
     <PackageIconUrl>http://i.isolineltd.com/nuget/logmagic.png</PackageIconUrl>
-    <Description>LogMagic Azure Service Fabric integration support. This package extracts context information from the running service and injects as enriched properties.</Description>
+    <Description>LogMagic Azure Service Fabric integration support. This package extracts context information from the running service and injects as enriched properties. It also supports correlating proxies helping to carry context information between service fabric native services and actors.</Description>
     <RepositoryUrl>https://github.com/aloneguid/logmagic</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <AssemblyOriginatorKeyFile>../../logmagic.snk</AssemblyOriginatorKeyFile>

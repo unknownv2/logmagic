@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using LogMagic.FabricApp.Interfaces;
+using LogMagic.Microsoft.Azure.ServiceFabric;
 using Microsoft.ServiceFabric.Services.Client;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
@@ -35,10 +36,13 @@ namespace LogMagic.FabricApp.StatelessSimulator
       /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service instance.</param>
       protected override async Task RunAsync(CancellationToken cancellationToken)
       {
-         IStatefulSimulatorService proxy = L.Config.CreateServiceFabricServiceProxy<IStatefulSimulatorService>(
-            new Uri("fabric:/LogMagic.FabricTestApp/LogMagic.FabricApp.StatefulSimulator"), new ServicePartitionKey(0));
+         using (L.Operation(Guid.NewGuid()))
+         {
+            IStatefulSimulatorService proxy = CorrelatingServiceProxy.Create<IStatefulSimulatorService>(
+               new Uri("fabric:/LogMagic.FabricTestApp/LogMagic.FabricApp.StatefulSimulator"), new ServicePartitionKey(0));
 
-         await proxy.InvokeTest();
+            await proxy.InvokeTest();
+         }
       }
    }
 }

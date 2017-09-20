@@ -6,8 +6,6 @@
 
 **Package**: built-in
 
-**Supported Frameworks**: `.NET 4.5`, `.NET Standard 1.6`
-
 **Syntax:**
 ```csharp
 L.Config.WriteTo.Console();
@@ -22,8 +20,6 @@ Most basic write producing console output. By default it looks like this:
 ### Posh Console
 
 **Package**: built-in
-
-**Supported Frameworks**: `.NET 4.5`, `.NET Standard 1.6`
 
 **Syntax:**
 ```csharp
@@ -40,8 +36,6 @@ Colorful console writer. By default it looks like this:
 
 **Package**: built-in
 
-**Supported Frameworks**: `.NET 4.5`, `.NET Standard 1.6`
-
 **Syntax:**
 ```csharp
 L.Config.WriteTo.File("c:\\tmp\\my.log");
@@ -55,8 +49,6 @@ Writes logs to a file on disk specified in the first parameter. File is rolled e
 
 **Package**: built-in
 
-**Supported Frameworks**: `.NET 4.5`
-
 **Syntax:**
 ```csharp
 L.Config.WriteTo.Trace();
@@ -68,8 +60,6 @@ Writes events to `System.Diagnostics.Trace`. Note that it's only supported in `.
 ### Seq
 
 **Package**: built-in
-
-**Supported Frameworks**: `.NET 4.5`
 
 **Syntax:**
 ```csharp
@@ -83,8 +73,6 @@ Writes events to the remote [Seq](https://getseq.net/) server. Seq is a great lo
 
 **Package**: [LogMagic.Microsoft.Azure.ApplicationInsights](https://www.nuget.org/packages/LogMagic.Microsoft.Azure.ApplicationInsights/)
 
-**Supported Frameworks**: `.NET 4.5`
-
 **Syntax:**
 ```csharp
 L.Config.WriteTo.AzureApplicationInsights("app insights key", bool flushOnWrite = false);
@@ -95,6 +83,11 @@ Writes events [Azure AppInsights](https://azure.microsoft.com/en-us/services/app
 
 Read [extended explanation](packages/azure-appinsights.md) how LogMagic integrates with AppInsights.
 
+### Microsoft Service Fabric
+
+**Package**: [LogMagic.Microsoft.Azure.ServiceFabric](https://www.nuget.org/packages/LogMagic.Microsoft.Azure.ServiceFabric/)
+
+[Read more](packages/azure-servicefabric.md) on Azure Service Fabric integration.
 
 ## Built-In Enrichers
 

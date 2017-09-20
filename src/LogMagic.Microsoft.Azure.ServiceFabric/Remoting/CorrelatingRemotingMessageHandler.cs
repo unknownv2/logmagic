@@ -19,12 +19,12 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
    /// </summary>
    public class CorrelatingRemotingMessageHandler : IServiceRemotingMessageHandler
    {
-      private Lazy<DataContractSerializer> baggageSerializer;
+      private Lazy<DataContractSerializer> _baggageSerializer;
 
-      private IServiceRemotingMessageHandler innerHandler;
+      private IServiceRemotingMessageHandler _innerHandler;
       //private TelemetryClient telemetryClient;
-      private MethodNameProvider methodNameProvider;
-      private bool isActorService;
+      private MethodNameProvider _methodNameProvider;
+      private bool _isActorService;
 
       /// <summary>
       /// Initializes the <see cref="CorrelatingRemotingMessageHandler"/> object. It wraps the given service for all the core
@@ -35,10 +35,10 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
       public CorrelatingRemotingMessageHandler(ServiceContext serviceContext, IService service)
       {
          this.InitializeCommonFields();
-         this.innerHandler = new ServiceRemotingDispatcher(serviceContext, service);
+         this._innerHandler = new ServiceRemotingDispatcher(serviceContext, service);
 
          // Populate our method name provider with methods from the IService interfaces
-         this.methodNameProvider.AddMethodsForProxyOrService(service.GetType().GetInterfaces(), typeof(IService));
+         this._methodNameProvider.AddMethodsForProxyOrService(service.GetType().GetInterfaces(), typeof(IService));
       }
 
       /// <summary>
@@ -48,13 +48,13 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
       /// <param name="actorService">The actor service whose remoting messages this handler should handle.</param>
       public CorrelatingRemotingMessageHandler(ActorService actorService)
       {
-         this.InitializeCommonFields();
-         this.innerHandler = new ActorServiceRemotingDispatcher(actorService);
-         this.isActorService = true;
+         InitializeCommonFields();
+         _innerHandler = new ActorServiceRemotingDispatcher(actorService);
+         _isActorService = true;
 
          // Populate our method name provider with methods from the ActorService interfaces, and the Actor interfaces
-         this.methodNameProvider.AddMethodsForProxyOrService(actorService.GetType().GetInterfaces(), typeof(IService));
-         this.methodNameProvider.AddMethodsForProxyOrService(actorService.ActorTypeInformation.InterfaceTypes, typeof(IActor));
+         _methodNameProvider.AddMethodsForProxyOrService(actorService.GetType().GetInterfaces(), typeof(IService));
+         _methodNameProvider.AddMethodsForProxyOrService(actorService.ActorTypeInformation.InterfaceTypes, typeof(IActor));
       }
 
       /// <summary>
@@ -67,7 +67,7 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
       {
          HandleAndTrackRequestAsync(messageHeaders, () =>
          {
-            this.innerHandler.HandleOneWay(requestContext, messageHeaders, requestBody);
+            _innerHandler.HandleOneWay(requestContext, messageHeaders, requestBody);
             return Task.FromResult<byte[]>(null);
          }).Forget();
       }
@@ -82,18 +82,29 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
       /// <returns></returns>
       public Task<byte[]> RequestResponseAsync(IServiceRemotingRequestContext requestContext, ServiceRemotingMessageHeaders messageHeaders, byte[] requestBody)
       {
-         return HandleAndTrackRequestAsync(messageHeaders, () => this.innerHandler.RequestResponseAsync(requestContext, messageHeaders, requestBody));
+         return HandleAndTrackRequestAsync(messageHeaders, () => _innerHandler.RequestResponseAsync(requestContext, messageHeaders, requestBody));
       }
 
       private void InitializeCommonFields()
       {
          //this.telemetryClient = new TelemetryClient();
-         this.baggageSerializer = new Lazy<DataContractSerializer>(() => new DataContractSerializer(typeof(IEnumerable<KeyValuePair<string, string>>)));
-         this.methodNameProvider = new MethodNameProvider(false /* threadSafe */);
+         _baggageSerializer = new Lazy<DataContractSerializer>(() => new DataContractSerializer(typeof(IEnumerable<KeyValuePair<string, string>>)));
+         _methodNameProvider = new MethodNameProvider(false /* threadSafe */);
       }
 
       private async Task<byte[]> HandleAndTrackRequestAsync(ServiceRemotingMessageHeaders messageHeaders, Func<Task<byte[]>> doHandleRequest)
       {
+         Guid operationId;
+
+         if(messageHeaders.TryGetHeaderValue(CorrelationHeader.OperationIdHeaderName, out string operationIdString))
+         {
+            operationId = Guid.Parse(operationIdString);
+         }
+         else
+         {
+            operationId = Guid.NewGuid();
+         }
+
          // Create and prepare activity and RequestTelemetry objects to track this request.
          //RequestTelemetry rt = new RequestTelemetry();
 
@@ -106,9 +117,9 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          // Do our best effort in setting the request name.
          string methodName = null;
 
-         if (this.isActorService && messageHeaders.TryGetActorMethodAndInterfaceIds(out int methodId, out int interfaceId))
+         if (this._isActorService && messageHeaders.TryGetActorMethodAndInterfaceIds(out int methodId, out int interfaceId))
          {
-            methodName = this.methodNameProvider.GetMethodName(interfaceId, methodId);
+            methodName = this._methodNameProvider.GetMethodName(interfaceId, methodId);
 
             // Weird case, we couldn't find the method in the map. Just use the numerical id as the method name
             if (string.IsNullOrEmpty(methodName))
@@ -118,7 +129,7 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          }
          else
          {
-            methodName = this.methodNameProvider.GetMethodName(messageHeaders.InterfaceId, messageHeaders.MethodId);
+            methodName = this._methodNameProvider.GetMethodName(messageHeaders.InterfaceId, messageHeaders.MethodId);
 
             // Weird case, we couldn't find the method in the map. Just use the numerical id as the method name
             if (string.IsNullOrEmpty(methodName))
@@ -146,21 +157,24 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          // the Name, Type, Data, and Target properties
          //var operation = telemetryClient.StartOperation<RequestTelemetry>(rt);
 
-         try
+         using (L.Operation(Guid.NewGuid(), operationId))
          {
-            byte[] result = await doHandleRequest().ConfigureAwait(false);
-            return result;
-         }
-         catch (Exception e)
-         {
-            //telemetryClient.TrackException(e);
-            //operation.Telemetry.Success = false;
-            throw;
-         }
-         finally
-         {
-            // Stopping the operation, this will also pop the activity created by StartOperation off the activity stack.
-            //telemetryClient.StopOperation(operation);
+            try
+            {
+               byte[] result = await doHandleRequest().ConfigureAwait(false);
+               return result;
+            }
+            catch (Exception e)
+            {
+               //telemetryClient.TrackException(e);
+               //operation.Telemetry.Success = false;
+               throw;
+            }
+            finally
+            {
+               // Stopping the operation, this will also pop the activity created by StartOperation off the activity stack.
+               //telemetryClient.StopOperation(operation);
+            }
          }
       }
 

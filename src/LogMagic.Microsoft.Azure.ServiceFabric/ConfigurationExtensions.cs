@@ -21,25 +21,12 @@ namespace LogMagic
          return configuration.Custom(new ServiceFabricEnricher(context));
       }
 
-      public static TServiceInterface CreateServiceFabricServiceProxy<TServiceInterface>(
-         this ILogConfiguration configuration,
-         Uri serviceUri, ServicePartitionKey partitionKey = null, TargetReplicaSelector targetReplicaSelector = TargetReplicaSelector.Default,
-         string listenerName = null
-         ) where TServiceInterface : IService
+      public static ServiceReplicaListener CreateCorrelatingReplicaListener(this StatefulService service)
       {
-         var proxyFactory = new CorrelatingServiceProxyFactory(callbackClient =>
-            new FabricTransportServiceRemotingClientFactory(callbackClient: callbackClient));
-
-         TServiceInterface proxy =
-            proxyFactory.CreateServiceProxy<TServiceInterface>(serviceUri, partitionKey, targetReplicaSelector,
-               listenerName);
-
-         return proxy;
-      }
-
-      public static ServiceReplicaListener CreateLogMagicReplicaListener(this StatefulService service)
-      {
-         //todo: check that service is IService, this is not always true
+         if(!(service is IService))
+         {
+            throw new ArgumentException($"service must impelement {typeof(IService).FullName} interface");
+         }
 
          IServiceRemotingMessageHandler
             messageHandler = new CorrelatingRemotingMessageHandler(service.Context, (IService)service);

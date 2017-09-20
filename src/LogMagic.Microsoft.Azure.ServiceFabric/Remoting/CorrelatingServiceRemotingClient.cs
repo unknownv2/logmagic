@@ -62,7 +62,12 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
       private async Task<byte[]> SendAndTrackRequestAsync(ServiceRemotingMessageHeaders messageHeaders,
          byte[] requestBody, Func<Task<byte[]>> doSendRequest)
       {
-         messageHeaders.AddHeader("ivanTest", "ivanValue");
+         string operationId = L.GetContextValue(KnownProperty.OperationId);
+
+         if (operationId != null)
+         {
+            messageHeaders.AddHeader(CorrelationHeader.OperationIdHeaderName, operationId);
+         }
 
          byte[] result = await doSendRequest().ConfigureAwait(false);
 
