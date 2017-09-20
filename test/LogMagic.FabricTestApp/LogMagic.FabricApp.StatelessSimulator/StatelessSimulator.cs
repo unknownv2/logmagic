@@ -37,6 +37,8 @@ namespace LogMagic.FabricApp.StatelessSimulator
       {
          IStatefulSimulatorService proxy = L.Config.CreateServiceFabricServiceProxy<IStatefulSimulatorService>(
             new Uri("fabric:/LogMagic.FabricTestApp/LogMagic.FabricApp.StatefulSimulator"), new ServicePartitionKey(0));
+
+         await proxy.InvokeTest();
       }
    }
 }
