@@ -232,6 +232,8 @@ using(L.Context("A".PairedWith("id1"), "B".PairedWith("id2") ))
 
 You can also get context property value by name at any time in any place in your code by calling to `L.GetContextValue(propertyName)` which returns null if property doesn't exist.
 
+**Important:** Log context is not available when you target for .NET Framework 4.5 due to the reason that this version doesn't have any options to track execution. If you are still using .NET 4.5 or earlier it's time to upgrade to .NET 4.6.
+
 ## Writing log events
 
 Log events are written to writers using the `ILog` interface. Typically you will instantiate it on top of your class definition you want to log from. 
