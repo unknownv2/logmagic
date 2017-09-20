@@ -91,7 +91,21 @@ namespace LogMagic
       /// </summary>
       public static IDisposable Context(params KeyValuePair<string, string>[] properties)
       {
+         if (properties == null || properties.Length == 0) return null;
+
          return LogContext.Push(properties);
+      }
+
+      /// <summary>
+      /// Gets a context property by name
+      /// </summary>
+      /// <param name="propertyName">Property name</param>
+      /// <returns></returns>
+      public static string GetContextValue(string propertyName)
+      {
+         if (propertyName == null) throw new ArgumentNullException(nameof(propertyName));
+
+         return LogContext.GetValueByName(propertyName);
       }
 
       /// <summary>

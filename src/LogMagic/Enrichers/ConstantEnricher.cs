@@ -18,6 +18,10 @@ namespace LogMagic.Enrichers
 
       }
 
+      public string Name => _propertyName;
+
+      public string Value => _propertyValue;
+
       public void Enrich(LogEvent e, out string propertyName, out object propertyValue)
       {
          propertyName = _propertyName;

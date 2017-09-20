@@ -230,6 +230,8 @@ using(L.Context("A".PairedWith("id1"), "B".PairedWith("id2") ))
 
 **Important:** properties must be popped from the context in the precise order in which they were added. Behavior otherwise is undefined.
 
+You can also get context property value by name at any time in any place in your code by calling to `L.GetContextValue(propertyName)` which returns null if property doesn't exist.
+
 ## Writing log events
 
 Log events are written to writers using the `ILog` interface. Typically you will instantiate it on top of your class definition you want to log from. 

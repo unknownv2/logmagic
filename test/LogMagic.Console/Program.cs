@@ -26,6 +26,8 @@ namespace LogMagic.Console
 
             using (L.Context("stack1".PairedWith("s12")))
             {
+               log.Trace("s1 - {0}", L.GetContextValue("stack1"));
+
                log.Trace("test");
             }
          }

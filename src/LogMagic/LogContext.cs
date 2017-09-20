@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using LogMagic.Enrichers;
 using System.Collections.Generic;
+using System.Linq;
 #if NET45
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Lifetime;
@@ -111,6 +112,20 @@ namespace LogMagic
          set => Data.Value = value;
       }
 #endif
+
+      public static string GetValueByName(string name)
+      {
+         var enrichers = Enrichers;
+
+         ConstantEnricher enricher = Enrichers
+            .Values
+            .Cast<ConstantEnricher>()
+            .FirstOrDefault(e => e.Name == name);
+
+         if (enricher == null) return null;
+
+         return enricher.Value;
+      }
 
       sealed class StackBookmark : IDisposable
       {
