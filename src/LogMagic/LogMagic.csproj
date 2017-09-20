@@ -54,6 +54,9 @@ LogMagic also supports a relatively new paradigm of structured logging.</Descrip
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
     <Compile Remove="Enrichers/MethodNameEnricher.cs" />
   </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <Compile Remove="LogContext.cs" />
+  </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' or '$(TargetFramework)' == 'net46' ">
     <Reference Include="System.Net.Http" />
     <Reference Include="System" />

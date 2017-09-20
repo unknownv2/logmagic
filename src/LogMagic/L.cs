@@ -86,6 +86,8 @@ namespace LogMagic
       }
 #endif
 
+
+#if !NET45
       /// <summary>
       /// Adds a context property
       /// </summary>
@@ -121,6 +123,7 @@ namespace LogMagic
 
          return LogContext.Push(ps);
       }
+#endif
 
    }
 }
