@@ -36,7 +36,7 @@ namespace LogMagic.FabricApp.StatelessSimulator
       /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service instance.</param>
       protected override async Task RunAsync(CancellationToken cancellationToken)
       {
-         using (L.Operation(Guid.NewGuid()))
+         using (L.Operation())
          {
             using (L.Context("p1".PairedWith("v1"), "p2".PairedWith("v2")))
             {

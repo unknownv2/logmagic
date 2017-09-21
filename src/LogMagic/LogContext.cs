@@ -74,6 +74,8 @@ namespace LogMagic
       {
          var enrichers = Enrichers;
 
+         if (enrichers == null) return new Dictionary<string, string>();
+
          return enrichers
             .Values
             .Cast<ConstantEnricher>()

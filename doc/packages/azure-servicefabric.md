@@ -103,8 +103,17 @@ protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListe
 
 or in case of a stateless service:
 
-> todo
+```csharp
+protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
+{
+    return new[] { this.CreateCorrelatingInstanceListener() };
+}
+```
+
+Both methods accept a boolean flag `switchOperationContext` which is false by default and specifies whether to generate a new _operation ID_ on incoming request.
 
 ### Reliable Actors
+
+We're following the idential idea with Realiable actors. 
 
 > todo

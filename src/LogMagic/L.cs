@@ -132,7 +132,7 @@ namespace LogMagic
 
       /// <summary>
       /// Marks a start of an operation pushing operation id to the current context. If context already contains operation id,
-      /// then it's set as operation's parent ID
+      /// then it's set as operation's parent ID, unless they are equal.
       /// </summary>
       /// <param name="id">ID of the operation. When ommitted a new uniqueue ID is generated</param>
       public static IDisposable Operation(Guid? id = null)
@@ -145,7 +145,7 @@ namespace LogMagic
          {
             [KnownProperty.OperationId] = operationId
          };
-         if (parentId != null) ps[KnownProperty.OperationParentId] = parentId;
+         if (parentId != null && operationId != parentId) ps[KnownProperty.OperationParentId] = parentId;
 
          return LogContext.Push(ps);
       }

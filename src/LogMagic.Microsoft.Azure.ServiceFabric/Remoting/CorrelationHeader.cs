@@ -22,7 +22,9 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          return name;
       }
 
-      public static Dictionary<string, string> ParseHeaders(ServiceRemotingMessageHeaders messageHeaders, out Guid operationId)
+      public static Dictionary<string, string> ParseHeaders(
+         ServiceRemotingMessageHeaders messageHeaders,
+         out Guid operationId)
       {
          var result = new Dictionary<string, string>();
 

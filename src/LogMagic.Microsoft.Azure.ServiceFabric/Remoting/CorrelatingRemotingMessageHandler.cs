@@ -151,8 +151,10 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          // the Name, Type, Data, and Target properties
          //var operation = telemetryClient.StartOperation<RequestTelemetry>(rt);
 
+         Guid currentOperationId = _switchOperationContext ? Guid.NewGuid() : operationId;
+
          using (L.Context(contextProperties))
-         using (L.Operation(operationId))
+         using (L.Operation(currentOperationId))
          {
             try
             {

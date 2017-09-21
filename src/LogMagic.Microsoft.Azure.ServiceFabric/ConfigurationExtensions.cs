@@ -16,24 +16,44 @@ namespace LogMagic
 {
    public static class ConfigurationExtensions
    {
+      /// <summary>
+      /// Enriches logging with Service Fabric specific properties
+      /// </summary>
+      /// <param name="configuration"></param>
+      /// <param name="context">Stateful or stateless service context</param>
+      /// <returns></returns>
       public static ILogConfiguration AzureServiceFabricContext(this IEnricherConfiguration configuration, ServiceContext context)
       {
          return configuration.Custom(new ServiceFabricEnricher(context));
       }
 
-      public static ServiceReplicaListener CreateCorrelatingReplicaListener(this StatefulService service)
+      public static ServiceReplicaListener CreateCorrelatingReplicaListener(this StatefulService service, bool switchOperationContext = false)
       {
-         if(!(service is IService))
-         {
-            throw new ArgumentException($"service must impelement {typeof(IService).FullName} interface");
-         }
-
-         IServiceRemotingMessageHandler
-            messageHandler = new CorrelatingRemotingMessageHandler(service.Context, (IService)service, false);
+         IServiceRemotingMessageHandler messageHandler = CreateHandler(service, service.Context, switchOperationContext);
 
          return new ServiceReplicaListener(ctx =>
             new FabricTransportServiceRemotingListener(ctx, messageHandler));
       }
 
+      public static ServiceInstanceListener CreateCorrelatingInstanceListener(this StatefulService service, bool switchOperationContext = false)
+      {
+         IServiceRemotingMessageHandler messageHandler = CreateHandler(service, service.Context, switchOperationContext);
+
+         return new ServiceInstanceListener(ctx =>
+            new FabricTransportServiceRemotingListener(ctx, messageHandler));
+      }
+
+      private static IServiceRemotingMessageHandler CreateHandler(object serviceInstance, ServiceContext context, bool switchOperationContext)
+      {
+         if (!(serviceInstance is IService))
+         {
+            throw new ArgumentException($"service must impelement {typeof(IService).FullName} interface");
+         }
+
+         IServiceRemotingMessageHandler
+            messageHandler = new CorrelatingRemotingMessageHandler(context, (IService)serviceInstance, switchOperationContext);
+
+         return messageHandler;
+      }
    }
 }
