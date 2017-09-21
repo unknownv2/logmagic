@@ -131,15 +131,21 @@ namespace LogMagic
       }
 
       /// <summary>
-      /// Marks a start of an operation pushing operation id and parent operation id to the context
+      /// Marks a start of an operation pushing operation id to the current context. If context already contains operation id,
+      /// then it's set as operation's parent ID
       /// </summary>
-      public static IDisposable Operation(Guid id, Guid? parentId = null)
+      /// <param name="id">ID of the operation. When ommitted a new uniqueue ID is generated</param>
+      public static IDisposable Operation(Guid? id = null)
       {
+         string existingId = L.GetContextValue(KnownProperty.OperationId);
+         string operationId = id == null ? Guid.NewGuid().ToString() : id.Value.ToString();
+         string parentId = existingId;
+
          var ps = new Dictionary<string, string>
          {
-            [KnownProperty.OperationId] = id.ToString()
+            [KnownProperty.OperationId] = operationId
          };
-         if (parentId != null) ps[KnownProperty.OperationParentId] = parentId.Value.ToString();
+         if (parentId != null) ps[KnownProperty.OperationParentId] = parentId;
 
          return LogContext.Push(ps);
       }

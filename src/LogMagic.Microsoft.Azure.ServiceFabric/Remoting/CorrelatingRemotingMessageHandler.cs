@@ -148,8 +148,8 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          // the Name, Type, Data, and Target properties
          //var operation = telemetryClient.StartOperation<RequestTelemetry>(rt);
 
-         using (L.Operation(Guid.NewGuid(), operationId))
-            using(L.Context(contextProperties))
+         using (L.Context(contextProperties))
+         using (L.Operation(operationId))
          {
             try
             {
