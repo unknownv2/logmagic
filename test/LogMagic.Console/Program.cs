@@ -16,7 +16,21 @@ namespace LogMagic.Console
             .EnrichWith.Constant(KnownProperty.NodeName, "program.cs")
             .EnrichWith.Constant(KnownProperty.OperationId, Guid.NewGuid().ToString())
             .WriteTo.PoshConsole("{time:H:mm:ss,fff}|{level,-7}|{source}|{" + KnownProperty.NodeName + "}|{stack1}|{stack2}|{message}{error}")
-            .WriteTo.AzureApplicationInsights("24703760-10ec-4e0b-b3ee-777f6ea80977", true);
+            .WriteTo.AzureApplicationInsights("24703760-10ec-4e0b-b3ee-777f6ea80977", false);
+
+         using (L.Operation())
+         {
+            log.Trace("op: {0}, p: {1}", L.GetContextValue(KnownProperty.OperationId), L.GetContextValue(KnownProperty.OperationParentId));
+
+            using (L.Operation())
+            {
+               log.Trace("op: {0}, p: {1}", L.GetContextValue(KnownProperty.OperationId), L.GetContextValue(KnownProperty.OperationParentId));
+            }
+
+            log.Trace("op: {0}, p: {1}", L.GetContextValue(KnownProperty.OperationId), L.GetContextValue(KnownProperty.OperationParentId));
+         }
+
+         log.Trace("op: {0}, p: {1}", L.GetContextValue(KnownProperty.OperationId), L.GetContextValue(KnownProperty.OperationParentId));
 
          log.Trace("test");
 

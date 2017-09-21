@@ -58,6 +58,8 @@ namespace LogMagic
       {
          var enrichers = Enrichers;
 
+         if (enrichers == null) return null;
+
          ConstantEnricher enricher = enrichers
             .Values
             .Cast<ConstantEnricher>()

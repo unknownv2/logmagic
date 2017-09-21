@@ -29,7 +29,7 @@ namespace LogMagic
          }
 
          IServiceRemotingMessageHandler
-            messageHandler = new CorrelatingRemotingMessageHandler(service.Context, (IService)service);
+            messageHandler = new CorrelatingRemotingMessageHandler(service.Context, (IService)service, false);
 
          return new ServiceReplicaListener(ctx =>
             new FabricTransportServiceRemotingListener(ctx, messageHandler));

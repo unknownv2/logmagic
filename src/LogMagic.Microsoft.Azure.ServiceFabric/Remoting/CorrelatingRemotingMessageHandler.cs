@@ -25,6 +25,7 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
       //private TelemetryClient telemetryClient;
       private MethodNameProvider _methodNameProvider;
       private bool _isActorService;
+      private readonly bool _switchOperationContext;
 
       /// <summary>
       /// Initializes the <see cref="CorrelatingRemotingMessageHandler"/> object. It wraps the given service for all the core
@@ -32,13 +33,14 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
       /// </summary>
       /// <param name="service">The service whose remoting messages this handler should handle.</param>
       /// <param name="serviceContext">The context object for the service.</param>
-      public CorrelatingRemotingMessageHandler(ServiceContext serviceContext, IService service)
+      public CorrelatingRemotingMessageHandler(ServiceContext serviceContext, IService service, bool switchOperationContext)
       {
          this.InitializeCommonFields();
          this._innerHandler = new ServiceRemotingDispatcher(serviceContext, service);
 
          // Populate our method name provider with methods from the IService interfaces
          this._methodNameProvider.AddMethodsForProxyOrService(service.GetType().GetInterfaces(), typeof(IService));
+         _switchOperationContext = switchOperationContext;
       }
 
       /// <summary>
@@ -46,11 +48,12 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
       /// operations for servicing the request.
       /// </summary>
       /// <param name="actorService">The actor service whose remoting messages this handler should handle.</param>
-      public CorrelatingRemotingMessageHandler(ActorService actorService)
+      public CorrelatingRemotingMessageHandler(ActorService actorService, bool switchOperationContext)
       {
          InitializeCommonFields();
          _innerHandler = new ActorServiceRemotingDispatcher(actorService);
          _isActorService = true;
+         _switchOperationContext = switchOperationContext;
 
          // Populate our method name provider with methods from the ActorService interfaces, and the Actor interfaces
          _methodNameProvider.AddMethodsForProxyOrService(actorService.GetType().GetInterfaces(), typeof(IService));
