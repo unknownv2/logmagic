@@ -60,7 +60,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
             Duration = TimeSpan.FromTicks(e.UseProperty<long>(KnownProperty.Duration)),
             Success = e.ErrorException == null,
          };
-         Add(d, e.Properties);
+         AddProperties(d, e);
          Add(d, e);
 
          _client.TrackDependency(d);
@@ -73,7 +73,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
             Name = e.UseProperty<string>(KnownProperty.EventName)
          };
          Add(t, e);
-         Add(t, e.Properties);
+         AddProperties(t, e);
 
          _client.TrackEvent(t);
       }
@@ -82,7 +82,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
       {
          var tr = new TraceTelemetry(e.FormattedMessage, SeverityLevel.Information);
          Add(tr, e);
-         Add(tr, e.Properties);
+         AddProperties(tr, e);
 
          _client.TrackTrace(tr);
 
@@ -102,7 +102,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
             ResponseCode = e.ErrorException == null ? "200" : e.ErrorException.GetType().Name
          };
          Add(tr, e);
-         Add(tr, e.Properties);
+         AddProperties(tr, e);
 
          _client.TrackRequest(tr);
       }
@@ -113,7 +113,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
          t.Name = e.UseProperty<string>(KnownProperty.MetricName);
          t.Sum = e.UseProperty<double>(KnownProperty.MetricValue);
          Add(t, e);
-         Add(t, e.Properties);
+         AddProperties(t, e);
 
          _client.TrackMetric(t);
       }
@@ -122,11 +122,13 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
       //_client.TrackAvailability(null);
       //_client.TrackPageView(null);
 
-      private static void Add(ISupportProperties telemetry, Dictionary<string, object> properties)
+      private static void AddProperties(ISupportProperties telemetry, LogEvent e)
       {
-         if (properties == null) return;
+         telemetry.Properties.Add("loggerName", e.SourceName);
 
-         telemetry.Properties.AddRange(properties.ToDictionary(entry => entry.Key, entry => entry.Value?.ToString()));
+         if (e.Properties == null) return;
+
+         telemetry.Properties.AddRange(e.Properties.ToDictionary(entry => entry.Key, entry => entry.Value?.ToString()));
       }
 
       private static void Add(ITelemetry telemetry, LogEvent e)
