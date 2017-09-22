@@ -54,18 +54,17 @@ An example of those property values:
 
 Logging becomes more complicated when you want to track calls between services, actors or a mix of them. LogMagic includes a way to track operations between services called **correlating proxies**. This includes support for the built-in Service Remoting protocol out of the box, and you can easily add your own protocol based on source code.
 
-The way LogMagic does this is by transferring two properties called _operationId_ and _operationParentId_ between service calls. _operationId_ value is captured before the call is issued to the remote service (if it's present) and the remote service does the following:
+The whole idea is based on capturing current executing context. Please refere to the [main page](../../README.md) to read about how to add context information.
 
-- Picks up the value of _operationId_.
-- Creates a new call context by generating a new unique value for _operationId_.
-- Sets context property _operationParentId_ to the old value of _operationId_.
-- In addition to that, both client and server maintains exact values of all context properties on both sides.
+Ideally you would like to capture the context and when making a call to another service, transfer it to another service. You can do it, of course, by adding a method parameter on your service interface like `Task DoWork(Dictionary<string, string> context, other parameters)`, however this becomes really tedious and just not cool. Service Fabric doesn't capture the context automatically because it doesn't know about LogMagic, and frankly, about any other logging framework therefore you'll end up with a situation like this:
 
-In order for this to work, you need to set up a few things first. However this library is called Log**Magic** and I've tried to make it a magic.
+![Sf Context 00](sf-context-00.png)
 
-### Reliable Services
+LogMagic can solve this problem for you really easily by capturing the current context, and adding it to all outgoing calls for a specific client.
 
-#### Client
+All you have to do is
+
+### Create a correlating client
 
 Usually with raw Service Fabric you would create a remoting proxy in your code by calling a following piece of code:
 
@@ -79,9 +78,15 @@ In order to capture the call context all you have to do is change `ServiceProxy`
 IRemoteServiceInterface = CorrelatingServiceProxy.Create<IRemoteServiceInterface>(serviceUri, ...);
 ```
 
-We've kept method signatures identical to the ones Service Fabric SDK has, therefore no of the parameters have to change.
+We've kept method signatures identical to the ones Service Fabric SDK has, therefore no of the parameters have to change!
 
-#### Server
+After you do this you'll end up with a situation like this:
+
+![Sf Context 01](sf-context-01.png)
+
+The correlating proxy will intercept the calls for the specific proxy, capture current context, add it to the outgoing call and send to the remote service. The context will reach the remote service, will be deserialized by the built-in Service Fabric message handler and give control to your service, discarding all the extra context we've passed. And that's OK, because the remote service doesn't know how to handle those extra headers we've included.
+
+The good news is LogMagic includes an ability to automatically capture it. In order for this to work, you need to set up a few things first. However this library is called Log**Magic** and I've tried to make it a magic.
 
 On the listener service you would normally set up remoting using the following code:
 
@@ -112,14 +117,13 @@ protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceLis
 
 Both methods accept a boolean flag `switchOperationContext` which is false by default and specifies whether to generate a new _operation ID_ on incoming request.
 
-### Reliable Actors
+The way LogMagic does this is by transferring two properties called _operationId_ and _operationParentId_ between service calls. _operationId_ value is captured before the call is issued to the remote service (if it's present) and the remote service does the following:
 
-We're following the idential idea with Realiable actors. 
+- Picks up the value of _operationId_.
+- Creates a new call context by generating a new unique value for _operationId_.
+- Sets context property _operationParentId_ to the old value of _operationId_.
+- In addition to that, both client and server maintains exact values of all context properties on both sides.
 
-#### Client
+After that's all done, context information will be taken from the client, restored on the server and the magic continues.
 
-```csharp
-
-```
-
-> todo
+![Sf Context 02](sf-context-02.png)

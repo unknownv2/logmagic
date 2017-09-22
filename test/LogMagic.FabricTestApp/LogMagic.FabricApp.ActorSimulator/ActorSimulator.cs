@@ -7,6 +7,7 @@ using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Runtime;
 using Microsoft.ServiceFabric.Actors.Client;
 using LogMagic.FabricApp.ActorSimulator.Interfaces;
+using LogMagic.Microsoft.Azure.ServiceFabric;
 
 namespace LogMagic.FabricApp.ActorSimulator
 {
