@@ -5,6 +5,9 @@
     <Parameter Name="LogMagic.FabricApp.StatefulSimulator_PartitionCount" DefaultValue="1" />
     <Parameter Name="LogMagic.FabricApp.StatefulSimulator_TargetReplicaSetSize" DefaultValue="3" />
     <Parameter Name="LogMagic.FabricApp.StatelessSimulator_InstanceCount" DefaultValue="-1" />
+    <Parameter Name="ActorSimulatorActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="ActorSimulatorActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="ActorSimulatorActorService_TargetReplicaSetSize" DefaultValue="3" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
@@ -35,6 +38,11 @@
       <StatelessService ServiceTypeName="LogMagic.FabricApp.StatelessSimulatorType" InstanceCount="[LogMagic.FabricApp.StatelessSimulator_InstanceCount]">
         <SingletonPartition />
       </StatelessService>
+    </Service>
+    <Service Name="ActorSimulatorActorService" GeneratedIdRef="8bc05871-3f5d-4572-87a4-fb268554f67b|Persisted">
+      <StatefulService ServiceTypeName="ActorSimulatorActorServiceType" TargetReplicaSetSize="[ActorSimulatorActorService_TargetReplicaSetSize]" MinReplicaSetSize="[ActorSimulatorActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[ActorSimulatorActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
     </Service>
   </DefaultServices>
 </ApplicationManifest>

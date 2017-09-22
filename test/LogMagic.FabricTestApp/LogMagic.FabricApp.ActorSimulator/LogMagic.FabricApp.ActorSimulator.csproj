@@ -106,6 +106,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\LogMagic.Microsoft.Azure.ServiceFabric\LogMagic.Microsoft.Azure.ServiceFabric.csproj">
+      <Project>{f1a30846-c16c-49d1-8f88-ae134112f85b}</Project>
+      <Name>LogMagic.Microsoft.Azure.ServiceFabric</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\LogMagic\LogMagic.csproj">
+      <Project>{2d99309e-2f2e-4583-9be3-80deb6091d1c}</Project>
+      <Name>LogMagic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogMagic.FabricApp.ActorSimulator.Interfaces\LogMagic.FabricApp.ActorSimulator.Interfaces.csproj">
       <Project>{107896A2-1CFC-4E1B-9723-3715A057F6E2}</Project>
       <Name>LogMagic.FabricApp.ActorSimulator.Interfaces</Name>

@@ -4,8 +4,10 @@ using System.Fabric;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using LogMagic.FabricApp.ActorSimulator.Interfaces;
 using LogMagic.FabricApp.Interfaces;
 using LogMagic.Microsoft.Azure.ServiceFabric;
+using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Services.Client;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
@@ -43,7 +45,13 @@ namespace LogMagic.FabricApp.StatelessSimulator
                IStatefulSimulatorService proxy = CorrelatingServiceProxy.Create<IStatefulSimulatorService>(
                   new Uri("fabric:/LogMagic.FabricTestApp/LogMagic.FabricApp.StatefulSimulator"), new ServicePartitionKey(0));
 
+               IActorSimulator actorProxy = CorrelatingActorProxy.Create<IActorSimulator>(
+                  ActorId.CreateRandom(),
+                  new Uri("fabric:/LogMagic.FabricTestApp/ActorSimulatorActorService"));
+
                await proxy.InvokeTest();
+
+               await actorProxy.SetCountAsync(5, cancellationToken);
             }
          }
       }

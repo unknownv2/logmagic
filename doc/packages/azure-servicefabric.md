@@ -78,6 +78,12 @@ In order to capture the call context all you have to do is change `ServiceProxy`
 IRemoteServiceInterface = CorrelatingServiceProxy.Create<IRemoteServiceInterface>(serviceUri, ...);
 ```
 
+or to call an Actor:
+
+```csharp
+IActorInterface actorProxy = CorrelatingActorProxy.Create<IActorInterface>(actorId, actorUri, ...);
+```
+
 We've kept method signatures identical to the ones Service Fabric SDK has, therefore no of the parameters have to change!
 
 After you do this you'll end up with a situation like this:
