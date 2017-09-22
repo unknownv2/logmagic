@@ -85,7 +85,7 @@ function Exec($Command, [switch]$ContinueOnError)
 Exec "dotnet restore $SlnPath"
 
 # Update versioning information
-Get-ChildItem *.csproj -Recurse | Where-Object {-not($_.Name -like "*test*") -and -not($_.Name -like "*console*")} | % {
+Get-ChildItem *.csproj -Recurse | Where-Object {-not($_.Name -like "*test*") -and -not($_.Name -like "*console*") -or ($_.Name -like "*Simulator*")} | % {
    Write-Host "setting version on $($_.FullName)"
    Update-ProjectVersion $_
 }
