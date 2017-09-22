@@ -11,6 +11,8 @@ using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting.FabricTransport.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
+using Microsoft.ServiceFabric.Actors.Runtime;
+using Microsoft.ServiceFabric.Actors.Remoting.FabricTransport.Runtime;
 
 namespace LogMagic
 {
@@ -35,7 +37,15 @@ namespace LogMagic
             new FabricTransportServiceRemotingListener(ctx, messageHandler));
       }
 
-      public static ServiceInstanceListener CreateCorrelatingInstanceListener(this StatefulService service, bool switchOperationContext = false)
+      public static ServiceReplicaListener CreateCorrelatingActorReplicaListener(this ActorService service, bool switchOperationContext = false)
+      {
+         IServiceRemotingMessageHandler messageHandler = CreateHandler(service, switchOperationContext);
+
+         return new ServiceReplicaListener(ctx =>
+            new FabricTransportActorServiceRemotingListener(ctx, messageHandler, new FabricTransportRemotingListenerSettings()));
+      }
+
+      public static ServiceInstanceListener CreateCorrelatingInstanceListener(this StatelessService service, bool switchOperationContext = false)
       {
          IServiceRemotingMessageHandler messageHandler = CreateHandler(service, service.Context, switchOperationContext);
 
@@ -52,6 +62,14 @@ namespace LogMagic
 
          IServiceRemotingMessageHandler
             messageHandler = new CorrelatingRemotingMessageHandler(context, (IService)serviceInstance, switchOperationContext);
+
+         return messageHandler;
+      }
+
+      private static IServiceRemotingMessageHandler CreateHandler(ActorService actorService, bool switchOperationContext)
+      {
+         IServiceRemotingMessageHandler
+            messageHandler = new CorrelatingRemotingMessageHandler(actorService, switchOperationContext);
 
          return messageHandler;
       }

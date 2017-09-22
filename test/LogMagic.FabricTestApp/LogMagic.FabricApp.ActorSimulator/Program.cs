@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Fabric;
 using System.Threading;
 using System.Threading.Tasks;
+using LogMagic.Microsoft.Azure.ServiceFabric.Remoting;
 using Microsoft.ServiceFabric.Actors.Runtime;
 
 namespace LogMagic.FabricApp.ActorSimulator
@@ -22,7 +23,7 @@ namespace LogMagic.FabricApp.ActorSimulator
             // For more information, see https://aka.ms/servicefabricactorsplatform
 
             ActorRuntime.RegisterActorAsync<ActorSimulator>(
-               (context, actorType) => new ActorService(context, actorType)).GetAwaiter().GetResult();
+               (context, actorType) => new CorrelatingActorService(context, actorType)).GetAwaiter().GetResult();
 
             Thread.Sleep(Timeout.Infinite);
          }

@@ -92,6 +92,8 @@ After you do this you'll end up with a situation like this:
 
 The correlating proxy will intercept the calls for the specific proxy, capture current context, add it to the outgoing call and send to the remote service. The context will reach the remote service, will be deserialized by the built-in Service Fabric message handler and give control to your service, discarding all the extra context we've passed. And that's OK, because the remote service doesn't know how to handle those extra headers we've included.
 
+### Create a correlating message handler
+
 The good news is LogMagic includes an ability to automatically capture it. In order for this to work, you need to set up a few things first. However this library is called Log**Magic** and I've tried to make it a magic.
 
 On the listener service you would normally set up remoting using the following code:
@@ -122,6 +124,11 @@ protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceLis
 ```
 
 Both methods accept a boolean flag `switchOperationContext` which is false by default and specifies whether to generate a new _operation ID_ on incoming request.
+
+Or in case of Actors you'll need to into actor's project `Program.cs` and change ActorService ro CorrelatingActorService:
+
+![Sf Context 03](sf-context-03.png)
+
 
 The way LogMagic does this is by transferring two properties called _operationId_ and _operationParentId_ between service calls. _operationId_ value is captured before the call is issued to the remote service (if it's present) and the remote service does the following:
 

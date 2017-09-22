@@ -8,6 +8,7 @@ using Microsoft.ServiceFabric.Actors.Runtime;
 using Microsoft.ServiceFabric.Actors.Client;
 using LogMagic.FabricApp.ActorSimulator.Interfaces;
 using LogMagic.Microsoft.Azure.ServiceFabric;
+using System.Fabric;
 
 namespace LogMagic.FabricApp.ActorSimulator
 {
@@ -64,6 +65,8 @@ namespace LogMagic.FabricApp.ActorSimulator
       /// <returns></returns>
       Task IActorSimulator.SetCountAsync(int count, CancellationToken cancellationToken)
       {
+         var all = L.GetContextValues();
+
          // Requests are not guaranteed to be processed in order nor at most once.
          // The update function here verifies that the incoming count is greater than the current count to preserve order.
          return this.StateManager.AddOrUpdateStateAsync("count", count, (key, value) => count > value ? count : value, cancellationToken);
