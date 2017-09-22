@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.FabricApp.Stateful
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.FabricApp.Interfaces", "LogMagic.FabricApp.Interfaces\LogMagic.FabricApp.Interfaces.csproj", "{6BAEDACC-695B-4CC9-A221-06FF0101C7B5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.FabricApp.ActorSimulator", "LogMagic.FabricApp.ActorSimulator\LogMagic.FabricApp.ActorSimulator.csproj", "{42C51F1B-80B7-46F0-9986-AC7F140086FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.FabricApp.ActorSimulator.Interfaces", "LogMagic.FabricApp.ActorSimulator.Interfaces\LogMagic.FabricApp.ActorSimulator.Interfaces.csproj", "{107896A2-1CFC-4E1B-9723-3715A057F6E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,18 @@ Global
 		{6BAEDACC-695B-4CC9-A221-06FF0101C7B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6BAEDACC-695B-4CC9-A221-06FF0101C7B5}.Release|x64.ActiveCfg = Release|Any CPU
 		{6BAEDACC-695B-4CC9-A221-06FF0101C7B5}.Release|x64.Build.0 = Release|Any CPU
+		{42C51F1B-80B7-46F0-9986-AC7F140086FE}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{42C51F1B-80B7-46F0-9986-AC7F140086FE}.Debug|x64.ActiveCfg = Debug|x64
+		{42C51F1B-80B7-46F0-9986-AC7F140086FE}.Debug|x64.Build.0 = Debug|x64
+		{42C51F1B-80B7-46F0-9986-AC7F140086FE}.Release|Any CPU.ActiveCfg = Release|x64
+		{42C51F1B-80B7-46F0-9986-AC7F140086FE}.Release|x64.ActiveCfg = Release|x64
+		{42C51F1B-80B7-46F0-9986-AC7F140086FE}.Release|x64.Build.0 = Release|x64
+		{107896A2-1CFC-4E1B-9723-3715A057F6E2}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{107896A2-1CFC-4E1B-9723-3715A057F6E2}.Debug|x64.ActiveCfg = Debug|x64
+		{107896A2-1CFC-4E1B-9723-3715A057F6E2}.Debug|x64.Build.0 = Debug|x64
+		{107896A2-1CFC-4E1B-9723-3715A057F6E2}.Release|Any CPU.ActiveCfg = Release|x64
+		{107896A2-1CFC-4E1B-9723-3715A057F6E2}.Release|x64.ActiveCfg = Release|x64
+		{107896A2-1CFC-4E1B-9723-3715A057F6E2}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
