@@ -1,5 +1,4 @@
-﻿#if NETFULL
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using LogMagic.Tokenisation;
@@ -53,4 +52,3 @@ namespace LogMagic.Writers
       }
    }
 }
-#endif
