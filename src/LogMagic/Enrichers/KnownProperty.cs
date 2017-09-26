@@ -45,8 +45,14 @@
       /// </summary>
       public const string ThreadId = "threadId";
 
+      /// <summary>
+      /// Used to track an operation across multiple layers
+      /// </summary>
       public const string OperationId = "operationId";
 
+      /// <summary>
+      /// Used in conjunction with <see cref="OperationId"/> to track the parent operation ID
+      /// </summary>
       public const string OperationParentId = "operationParentId";
 
       /// <summary>
@@ -54,18 +60,39 @@
       /// </summary>
       public const string Duration = "duration";
 
+      /// <summary>
+      /// Event name
+      /// </summary>
       public const string EventName = "eventName";
 
+      /// <summary>
+      /// Request name
+      /// </summary>
       public const string RequestName = "requestName";
 
+      /// <summary>
+      /// Metric name
+      /// </summary>
       public const string MetricName = "metricName";
 
+      /// <summary>
+      /// Dependency name
+      /// </summary>
       public const string DependencyName = "dependencyName";
 
+      /// <summary>
+      /// Dependency type
+      /// </summary>
       public const string DependencyType = "dependencyType";
 
+      /// <summary>
+      /// Dependency command
+      /// </summary>
       public const string DependencyCommand = "dependencyCommand";
 
+      /// <summary>
+      /// Metric value
+      /// </summary>
       public const string MetricValue = "metricValue";
    }
 }
