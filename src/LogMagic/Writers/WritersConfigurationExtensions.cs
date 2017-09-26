@@ -40,7 +40,6 @@ namespace LogMagic
          return configuration.Custom(new PoshConsoleLogWriter(format));
       }
 
-#if NETFULL
       /// <summary>
       /// Writes to .NET trace
       /// </summary>
@@ -56,7 +55,6 @@ namespace LogMagic
       {
          return configuration.Custom(new TraceLogWriter(format));
       }
-#endif
 
       /// <summary>
       /// Writes to file on disk and rolls it over every day.
