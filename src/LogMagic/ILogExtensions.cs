@@ -120,5 +120,21 @@ namespace LogMagic
          }
       }
 
+      public static void Request(this ILog log, string name, Action call, params KeyValuePair<string, object>[] properties)
+      {
+         using (var time = new TimeMeasure())
+         {
+            try
+            {
+               call();
+               log.Request(name, time.ElapsedTicks, null, properties);
+            }
+            catch(Exception ex)
+            {
+               log.Request(name, time.ElapsedTicks, ex, properties);
+               throw;
+            }
+         }
+      }
    }
 }

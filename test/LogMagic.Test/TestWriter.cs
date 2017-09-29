@@ -21,11 +21,5 @@ namespace LogMagic.Test
             Event = e;
          }
       }
-
-      public Task WriteAsync(IEnumerable<LogEvent> events)
-      {
-         Write(events);
-         return Task.FromResult(true);
-      }
    }
 }
