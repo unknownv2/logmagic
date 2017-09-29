@@ -69,7 +69,10 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          foreach(var pair in contextValues)
          {
             string headerName = CorrelationHeader.MakeHeader(pair.Key);
-            messageHeaders.AddHeader(headerName, pair.Value);
+            if (!messageHeaders.TryGetHeaderValue(headerName, out byte[] v))
+            {
+               messageHeaders.AddHeader(headerName, pair.Value);
+            }
          }
 
          if(contextValues.Count > 0)
