@@ -42,8 +42,9 @@ namespace LogMagic.Writers
             Events = events.Select(e => RawEvent.FromLogEvent(e)).ToArray()
          };
 
-         string json = data.ToJsonString();
-         return json;
+         throw new NotImplementedException();
+         //string json = data.ToJsonString();
+         //return json;
       }
 
       public void Dispose()

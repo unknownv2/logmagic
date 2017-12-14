@@ -27,7 +27,7 @@ namespace LogMagic
       }
 
       public static ILogConfiguration StorageTables(this IWriterConfiguration configuration,
-         ITableStorage tableStorage)
+         ITableStorageProvider tableStorage)
       {
          throw new NotImplementedException();
       }

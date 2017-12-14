@@ -2,18 +2,15 @@
 
 namespace LogMagic.Test
 {
-   class TestSettings : SettingsContainer
+   public interface ISettings
    {
-      public readonly Option<string> AzureStorageName = new Option<string>("Azure.Storage.Name", null);
+      [Option(Alias = "Azure.Storage.Name")]
+      string AzureStorageName { get; }
 
-      public readonly Option<string> AzureStorageKey = new Option<string>("Azure.Storage.Key", null);
+      [Option(Alias = "Azure.Storage.Key")]
+      string AzureStorageKey { get; }
 
-      public readonly Option<string> AppInsightsKey = new Option<string>("Azure.AppInsights.InstrumentationKey", null);
-
-      protected override void OnConfigure(IConfigConfiguration configuration)
-      {
-         configuration.UseIniFile("c:\\tmp\\integration-tests.ini");
-         configuration.UseEnvironmentVariables();
-      }
+      [Option(Alias = "Azure.AppInsights.InstrumentationKey")]
+      string AppInsightsKey { get; }
    }
 }

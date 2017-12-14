@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using NetBox.Extensions;
 
 namespace LogMagic
 {
@@ -108,12 +109,13 @@ namespace LogMagic
          ps[KnownProperty.Duration] = duration;
          ps[KnownProperty.RequestName] = name;
 
-         var parameters = new List<object> { name, TimeSpan.FromTicks(duration) };
-         if (error != null) parameters.Add(error);
+         if (error != null)
+         {
+            ps[KnownProperty.Error] = error;
+         }
 
          Serve(EventType.HandledRequest, ps,
-            "request {0} took {1}",
-            parameters.ToArray());
+            "request {0} took {1}", name, TimeSpan.FromTicks(duration));
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]

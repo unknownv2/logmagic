@@ -2,6 +2,7 @@
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DataContracts;
+using NetBox.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,9 +95,11 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
 
       private void ApplyRequest(LogEvent e)
       {
+         string name = e.UseProperty<string>(KnownProperty.RequestName);
+
          var tr = new RequestTelemetry
          {
-            Name = e.UseProperty<string>(KnownProperty.RequestName),
+            Name = name,
             Duration = TimeSpan.FromTicks(e.UseProperty<long>(KnownProperty.Duration)),
             Success = e.ErrorException == null,
             ResponseCode = e.ErrorException == null ? "200" : e.ErrorException.GetType().Name

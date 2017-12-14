@@ -4,6 +4,7 @@ using System;
 using System.Threading;
 using Storage.Net;
 using System.Net;
+using Config.Net;
 
 namespace LogMagic.Test
 {
@@ -52,8 +53,12 @@ namespace LogMagic.Test
    {
       protected SmokeAndMirrorsLogging(string receiverName)
       {
+         ISettings settings = new ConfigurationBuilder<ISettings>()
+            .UseIniFile("c:\\tmp\\integration-tests.ini")
+            .UseEnvironmentVariables()
+            .Build();
+
          L.Config.ClearWriters();
-         var settings = new TestSettings();
 
          switch (receiverName)
          {
