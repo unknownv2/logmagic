@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace LogMagic.Configuration
 {
@@ -6,7 +7,7 @@ namespace LogMagic.Configuration
    {
       private readonly List<ILogWriter> _writers = new List<ILogWriter>();
       private readonly List<IEnricher> _enrichers = new List<IEnricher>();
-      private readonly List<IFilter> _activeFilters = new List<IFilter>();
+      private readonly Dictionary<ILogWriter, List<IFilter>> _activeFilters = new Dictionary<ILogWriter, List<IFilter>>();
 
       public IEnumerable<IEnricher> Enrichers => _enrichers;
 
@@ -54,9 +55,25 @@ namespace LogMagic.Configuration
 
       public ILogConfiguration Custom(IFilter filter)
       {
+         ILogWriter writer = _writers.LastOrDefault();
+         if (writer == null) return this;
+
+         if(!_activeFilters.TryGetValue(writer, out List<IFilter> filters))
+         {
+            filters = new List<IFilter>();
+            _activeFilters[writer] = filters;
+         }
+
+         filters.Add(filter);
          return this;
       }
 
-      public IFilterConfiguration FilterBy => this;
+      public IReadOnlyCollection<IFilter> GetFilters(ILogWriter writer)
+      {
+         if (!_activeFilters.TryGetValue(writer, out List<IFilter> filters)) return null;
+         return filters;
+      }
+
+      public IFilterConfiguration When => this;
    }
 }

@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using NetBox.Extensions;
+using System.Linq;
 
 namespace LogMagic
 {
@@ -52,7 +53,13 @@ namespace LogMagic
          {
             try
             {
-               writer.Write(new[] { e });
+               IReadOnlyCollection<IFilter> filters = L.Config.GetFilters(writer);
+               bool active = filters == null || filters.Any(f => f.Match(e));
+
+               if (active)
+               {
+                  writer.Write(new[] { e });
+               }
             }
             catch(Exception ex)
             {

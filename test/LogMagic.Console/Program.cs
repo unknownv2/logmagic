@@ -17,11 +17,16 @@ namespace LogMagic.Console
             .EnrichWith.Constant(KnownProperty.NodeName, "program.cs")
             .EnrichWith.Constant(KnownProperty.OperationId, Guid.NewGuid().ToString())
             //.WriteTo.PoshConsole("{time:H:mm:ss,fff}|{level,-7}|{source}|{" + KnownProperty.NodeName + "}|{stack1}|{stack2}|{message}{error}")
-            .WriteTo.PoshConsole("{time}{message}")
+            .WriteTo.PoshConsole("all: @{time}|{message}")
+            .WriteTo.PoshConsole("some: @{time}|{message}").When.Lambda(e => e.FormattedMessage != "skip")
             .WriteTo.AzureApplicationInsights("24703760-10ec-4e0b-b3ee-777f6ea80977", true);
 
          log.Request("rname", 1);
+         log.Trace("all");
+         log.Trace("skip");
+         log.Trace("all");
 
+         System.Console.ReadLine();
          return;
 
          using (L.Operation())

@@ -30,6 +30,13 @@ namespace LogMagic
       IEnumerable<ILogWriter> Writers { get; }
 
       /// <summary>
+      /// Get available filters for a log writer
+      /// </summary>
+      /// <param name="writer"></param>
+      /// <returns></returns>
+      IReadOnlyCollection<IFilter> GetFilters(ILogWriter writer);
+
+      /// <summary>
       /// Entry point to enrichers configuration
       /// </summary>
       IEnricherConfiguration EnrichWith { get; }
@@ -42,6 +49,6 @@ namespace LogMagic
       /// <summary>
       /// Entry point to filters configuration
       /// </summary>
-      IFilterConfiguration FilterBy { get; }
+      IFilterConfiguration When { get; }
    }
 }
