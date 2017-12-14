@@ -29,6 +29,7 @@ LogMagic also supports a relatively new paradigm of structured logging.</Descrip
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="netbox" Version="2.0.0.34" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.4' Or '$(TargetFramework)' == 'netstandard1.6' ">
     <PackageReference Include="System.Diagnostics.StackTrace" Version="4.3.0" />

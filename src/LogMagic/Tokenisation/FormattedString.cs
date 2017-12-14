@@ -178,7 +178,7 @@ namespace LogMagic.Tokenisation
             if (!int.TryParse(pos, out p))
             {
                name = pos;
-               if (name == "time") format = format.Substring(1);
+               if (format != null && name == "time") format = format.Substring(1);
                position = _namedPos;
             }
             else
