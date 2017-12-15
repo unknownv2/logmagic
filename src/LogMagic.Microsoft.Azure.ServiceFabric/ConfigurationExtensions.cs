@@ -13,11 +13,17 @@ using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.ServiceFabric.Actors.Runtime;
 using Microsoft.ServiceFabric.Actors.Remoting.FabricTransport.Runtime;
+using LogMagic.Microsoft.Azure.ServiceFabric.Writers;
 
 namespace LogMagic
 {
    public static class ConfigurationExtensions
    {
+      public static ILogConfiguration AzureServiceFabricHealthReport(this IWriterConfiguration configuration, ServiceContext context)
+      {
+         return configuration.Custom(new HealthReportWriter(context));
+      }
+
       /// <summary>
       /// Enriches logging with Service Fabric specific properties
       /// </summary>

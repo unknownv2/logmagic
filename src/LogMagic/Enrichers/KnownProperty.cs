@@ -94,5 +94,7 @@
       /// Metric value
       /// </summary>
       public const string MetricValue = "metricValue";
+
+      public const string ClusterHealthProperty = "clusterHealth";
    }
 }
