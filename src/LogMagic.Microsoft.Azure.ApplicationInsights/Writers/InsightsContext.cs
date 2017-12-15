@@ -89,7 +89,13 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
 
          if (e.ErrorException != null)
          {
-            _client.TrackException(new ExceptionTelemetry(e.ErrorException) { Timestamp = e.EventTime });
+            var et = new ExceptionTelemetry(e.ErrorException);
+            et.Message = e.FormattedMessage;
+
+            Add(et, e);
+            AddProperties(et, e);
+
+            _client.TrackException(et);
          }
       }
 
