@@ -25,6 +25,11 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Writers
             var hi = new HealthInformation(e.SourceName, healthProperty.ToString(),
                e.ErrorException == null ? HealthState.Warning : HealthState.Error);
             hi.Description = e.FormattedMessage;
+            if (e.ErrorException != null)
+            {
+               hi.Description += Environment.NewLine;
+               hi.Description += e.GetProperty(KnownProperty.Error).ToString();
+            };
 
             _context.CodePackageActivationContext.ReportApplicationHealth(hi);
          }
