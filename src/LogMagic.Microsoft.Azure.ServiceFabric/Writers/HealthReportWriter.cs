@@ -31,7 +31,7 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Writers
                hi.Description += e.GetProperty(KnownProperty.Error).ToString();
             };
 
-            _context.CodePackageActivationContext.ReportApplicationHealth(hi);
+            _context.CodePackageActivationContext.ReportDeployedServicePackageHealth(hi);
          }
       }
 

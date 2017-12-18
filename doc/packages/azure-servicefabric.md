@@ -148,7 +148,29 @@ After that's all done, context information will be taken from the client, restor
 First of all, in order to enable Health Report writer, you simply add it to LogMagic configuration:
 
 ```csharp
-L.Config
-	.WriteTo.AzureServiceFabricHealthReport(this.Context)
-
+L.Config.WriteTo.AzureServiceFabricHealthReport(this.Context);
 ```
+
+This is all you need to do to hook up health report writer! By default non of the events are written to health report. Why? Well, because health reporting must be a **rare** event, unlike tracing. You should really minimise the amount of calls to report health.
+
+Health Report writer only writes trace calls that have a property `KnownProperty.ClusterHealthProperty` set, which itslef must be set to a helth report short reason. Health Report description will be set to the trace message, which will also contain exception details if exception has occurred.
+
+If exception is present in the trace message, health state will be reported as `Error`, otherwise it's a `Warning` message. There is no other reason to send a health report if nothing is wrong.
+
+Here is an example of sending a health report reporting a warning:
+
+```csharp
+log.Trace("the resources are approaching ")
+```
+
+and the one reporting an error:
+
+```csharp
+```
+
+Here is how they look like in SF Explorer:
+
+
+
+> The health is reported for current **deployed service package**.
+
