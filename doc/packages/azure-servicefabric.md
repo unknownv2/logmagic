@@ -168,6 +168,8 @@ and the one reporting an error:
 ```csharp
 ```
 
+in this report I'm creating an `OutOfMemoryException` directly just as an example, however in real life the exception most probably will originate from your application.
+
 Here is how they look like in SF Explorer:
 
 

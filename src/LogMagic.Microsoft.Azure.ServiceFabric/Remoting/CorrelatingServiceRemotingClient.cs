@@ -69,21 +69,29 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          foreach(var pair in contextValues)
          {
             string headerName = CorrelationHeader.MakeHeader(pair.Key);
-            if (!messageHeaders.TryGetHeaderValue(headerName, out byte[] v))
-            {
-               messageHeaders.AddHeader(headerName, pair.Value);
-            }
+            AddOrReplaceHeader(messageHeaders, headerName, pair.Value);
          }
 
          if(contextValues.Count > 0)
          {
             string listValue = string.Join(";", contextValues.Keys);
-            messageHeaders.AddHeader(CorrelationHeader.HeaderListHeaderName, listValue);
+            AddOrReplaceHeader(messageHeaders, CorrelationHeader.HeaderListHeaderName, listValue);
          }
 
          byte[] result = await doSendRequest().ConfigureAwait(false);
 
          return result;
+      }
+
+      private static void AddOrReplaceHeader(ServiceRemotingMessageHeaders headers, string headerName, string headerValue)
+      {
+         if(headers.TryGetHeaderValue(headerName, out byte[] tmp))
+         {
+            //todo: how do I replace them???
+            return;
+         }
+
+         headers.AddHeader(headerName, headerValue);
       }
 
       private string GetMethodName(ServiceRemotingMessageHeaders messageHeaders)
