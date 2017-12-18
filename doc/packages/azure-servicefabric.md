@@ -172,6 +172,13 @@ in this report I'm creating an `OutOfMemoryException` directly just as an exampl
 
 Here is how they look like in SF Explorer:
 
+### Warning
+
+![Sf Explorer Warning](sf-explorer-warning.png)
+
+### Error
+
+![Sf Explorer Error](sf-explorer-error.png)
 
 
 > The health is reported for current **deployed service package**.
