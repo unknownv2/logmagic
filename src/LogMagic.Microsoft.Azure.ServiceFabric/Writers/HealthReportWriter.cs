@@ -25,6 +25,8 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Writers
             var hi = new HealthInformation(e.SourceName, healthProperty.ToString(),
                e.ErrorException == null ? HealthState.Warning : HealthState.Error);
             hi.Description = e.FormattedMessage;
+            hi.TimeToLive = TimeSpan.FromMinutes(5);
+            hi.RemoveWhenExpired = true;
             if (e.ErrorException != null)
             {
                hi.Description += Environment.NewLine;
