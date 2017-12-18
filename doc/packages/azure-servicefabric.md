@@ -2,7 +2,7 @@
 
 To install the integration install this [NuGet package](https://www.nuget.org/packages/LogMagic.Microsoft.Azure.ServiceFabric/).
 
-This package provides two ways of integrating with Service Fabric - **enrichment** and **correlating proxies**.
+This package provides two ways of integrating with Service Fabric - [enrichment](##enrichment), [correlating proxies](##correlating-proxies), and [health reports](##health-reports)
 
 ## Encrichment
 
@@ -140,3 +140,15 @@ The way LogMagic does this is by transferring two properties called _operationId
 After that's all done, context information will be taken from the client, restored on the server and the magic continues.
 
 ![Sf Context 02](sf-context-02.png)
+
+## Health Reports
+
+[Health Monitoring](https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-health-introduction) is a standard features in Service Fabric which generates a cluster reports when something bad happens. You can see health reports visually in Service Fabric Explorer, however most of the time you are only seeing system reports. It would be pretty awesome to send your own information here, however it requires you to use Service Fabric API and propagate the dependencies across the application. LogMagic solves this in a uniqueue way.
+
+First of all, in order to enable Health Report writer, you simply add it to LogMagic configuration:
+
+```csharp
+L.Config
+	.WriteTo.AzureServiceFabricHealthReport(this.Context)
+
+```

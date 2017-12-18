@@ -19,6 +19,12 @@ namespace LogMagic
 {
    public static class ConfigurationExtensions
    {
+      /// <summary>
+      /// Integrates with Service Fabric Health Reports
+      /// </summary>
+      /// <param name="configuration"></param>
+      /// <param name="context"></param>
+      /// <returns></returns>
       public static ILogConfiguration AzureServiceFabricHealthReport(this IWriterConfiguration configuration, ServiceContext context)
       {
          return configuration.Custom(new HealthReportWriter(context));

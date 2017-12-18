@@ -10,6 +10,12 @@ The easiest way to get the events is to type a simple query in analytics:
 
 `ILog` interface has a few extra methods which AppInsights package redirects to a proper location withing the account:
 
+## Traces
+
+Any call to `log.Trace()` writes an AppInsights trace, with an only exception from this rule. When you trace an exception (last parameter is a `System.Exception` object) LogMagic will write both a **trace** and **error** report for this line. This is important because AppInsights will display errors on a separate tab in a portal and won't take them from traces.
+
+Both exceptions and traces, however, share the same session properties, so you can match exceptions to trace information if you ever need to.
+
 ## Application Events
 
 Application events help to report something important and distinct happening in your application. Events are logged by a call:

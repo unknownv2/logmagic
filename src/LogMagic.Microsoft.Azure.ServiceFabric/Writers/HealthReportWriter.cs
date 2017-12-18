@@ -22,9 +22,9 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Writers
             object healthProperty = e.GetProperty(KnownProperty.ClusterHealthProperty);
             if (healthProperty == null) continue;
 
-
             var hi = new HealthInformation(e.SourceName, healthProperty.ToString(),
                e.ErrorException == null ? HealthState.Warning : HealthState.Error);
+            hi.Description = e.FormattedMessage;
 
             _context.CodePackageActivationContext.ReportApplicationHealth(hi);
          }
