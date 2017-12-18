@@ -160,12 +160,19 @@ If exception is present in the trace message, health state will be reported as `
 Here is an example of sending a health report reporting a warning:
 
 ```csharp
-log.Trace("the resources are approaching ")
+using (L.Context(new KeyValuePair<string, string>(KnownProperty.ClusterHealthProperty, "the resources are about to be exhaused")))
+{
+   log.Trace("we are about to exhaust all the resources, just letting you know!");
+}
 ```
 
 and the one reporting an error:
 
 ```csharp
+using (L.Context(new KeyValuePair<string, string>(KnownProperty.ClusterHealthProperty, "no resources available")))
+{
+   log.Trace("all the resources are exhaused", new OutOfMemoryException("no memory left!"));
+}
 ```
 
 in this report I'm creating an `OutOfMemoryException` directly just as an example, however in real life the exception most probably will originate from your application.
