@@ -81,13 +81,13 @@ Writes events [Azure AppInsights](https://azure.microsoft.com/en-us/services/app
 
 `flushOnWrite` parameter indicates whether to force a flush of events on each logging call. It's false by default and should only be set to true if you need an immediate submission as AppInsights caches events and submits in a batch periodically to achieve optimal performance. Note that settings this to true slows down logging dramatically.
 
-Read [extended explanation](packages/azure-appinsights.md) how LogMagic integrates with AppInsights.
+Read [extended explanation](impl/azure-appinsights.md) how LogMagic integrates with AppInsights.
 
 ### Microsoft Service Fabric
 
 **Package**: [LogMagic.Microsoft.Azure.ServiceFabric](https://www.nuget.org/packages/LogMagic.Microsoft.Azure.ServiceFabric/)
 
-[Read more](packages/azure-servicefabric.md) on Azure Service Fabric integration.
+[Read more](impl/azure-servicefabric.md) on Azure Service Fabric integration.
 
 ## Built-In Enrichers
 
