@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0D2BC941-7E3A-4A1A-B5DA-A7F3AB32C785}"
 EndProject
@@ -16,6 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6714F8E9-8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{93BEADBD-BDF0-4261-81C9-233EA3CF0A4F}"
 	ProjectSection(SolutionItems) = preProject
+		doc\drawings.vsdx = doc\drawings.vsdx
 		doc\providers.md = doc\providers.md
 		README.md = README.md
 		doc\vsshortcuts.md = doc\vsshortcuts.md

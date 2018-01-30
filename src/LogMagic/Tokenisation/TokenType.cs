@@ -13,6 +13,8 @@
       /// <summary>
       /// Parameter, indexed or named
       /// </summary>
-      Parameter
+      Parameter,
+
+      Time
    }
 }

@@ -1,5 +1,16 @@
 # List of known Writers and Enrichers
 
+## Index
+
+- Writers
+  - [System Console](###system-console)
+  - [Posh Console](###posh-console)
+  - [File on Disk](###file-on-disk)
+  - [System Trace](###system-trace)
+  - [Azure AppInsights](###microsoft-azure-appinsights)
+  - [Microsoft Service Fabric](###microsoft-service-fabric)
+- [Built-in Enrichers](##built-in-enrichers)
+
 ## Writers
 
 ### System Console

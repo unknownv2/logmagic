@@ -16,12 +16,12 @@
       public int Position;
 
       /// <summary>
-      /// If a native formatting is used contains the format string
+      /// If a native formatting is used, contains the format string
       /// </summary>
       public string NativeFormat;
 
       /// <summary>
-      /// If a native formatting is used contains the format string without position parameter
+      /// If a native formatting is used, contains the format string without position parameter
       /// </summary>
       public string Format;
 

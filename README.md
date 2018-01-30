@@ -1,6 +1,6 @@
 # LogMagic [![NuGet](https://img.shields.io/nuget/v/LogMagic.svg?maxAge=2592000?style=flat-square)](https://www.nuget.org/packages/LogMagic/)
 
-![logmagic icon](https://alonestore.blob.core.windows.net/nuget/logmagic.png) 
+![logmagic icon](http://i.isolineltd.com/nuget/logmagic.png)
 
 ## Why LogMagic
 

@@ -2,7 +2,7 @@
 
 To install the integration install this [NuGet package](https://www.nuget.org/packages/LogMagic.Microsoft.Azure.ServiceFabric/).
 
-This package provides two ways of integrating with Service Fabric - [enrichment](##enrichment), [correlating proxies](##correlating-proxies), and [health reports](##health-reports)
+This package provides two ways of integrating with Service Fabric - [enrichment](#enrichment), [correlating proxies](#correlating-proxies), and [health reports](#health-reports)
 
 ## Encrichment
 
@@ -140,6 +140,7 @@ The way LogMagic does this is by transferring two properties called _operationId
 After that's all done, context information will be taken from the client, restored on the server and the magic continues.
 
 ![Sf Context 02](sf-context-02.png)
+
 
 ## Health Reports
 
