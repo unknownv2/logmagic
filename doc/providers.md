@@ -3,7 +3,6 @@
 ## Index
 
 - Writers
-  - [System Console](###system-console)
   - [Posh Console](###posh-console)
   - [File on Disk](###file-on-disk)
   - [System Trace](###system-trace)
@@ -12,21 +11,6 @@
 - [Built-in Enrichers](##built-in-enrichers)
 
 ## Writers
-
-### System Console
-
-**Package**: built-in
-
-**Syntax:**
-```csharp
-L.Config.WriteTo.Console();
-```
-
-Most basic write producing console output. By default it looks like this:
-
-![Writers Console Default](img/writers-console-default.png)
-
-`.Console(string format)` overload allows custom formatting.
 
 ### Posh Console
 

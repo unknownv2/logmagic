@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{93BEADBD-BDF
 		doc\drawings.vsdx = doc\drawings.vsdx
 		doc\providers.md = doc\providers.md
 		README.md = README.md
-		doc\vsshortcuts.md = doc\vsshortcuts.md
+		doc\vssnippets.md = doc\vssnippets.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic", "src\LogMagic\LogMagic.csproj", "{D154DBFD-E8AD-4ACC-990A-4B6393242C3E}"
@@ -36,6 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "impl", "impl", "{6FB79E25-3
 	ProjectSection(SolutionItems) = preProject
 		doc\impl\azure-appinsights.md = doc\impl\azure-appinsights.md
 		doc\impl\azure-servicefabric.md = doc\impl\azure-servicefabric.md
+		doc\impl\system-console.md = doc\impl\system-console.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Storage.Net", "src\LogMagic.Storage.Net\LogMagic.Storage.Net.csproj", "{1F8081AD-AA09-4064-8058-DA435A290521}"

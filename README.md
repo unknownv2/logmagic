@@ -11,7 +11,7 @@ LogMagic also supports a relatively new paradigm of *structured logging*.
 ## Index
 
 - [Visual Studio Integration (snippets)](doc/vssnippets.md)
-- [List of known writers and enrichers](doc/providers.md)
+- [List of known writers and enrichers](#known-providers-and-enrichers)
 
 ## Installation
 
@@ -258,3 +258,11 @@ the string above `"application v{version} started on {date}"` is a *message temp
 ### Log event levels
 
 LogMagic doesn't have the classic logging levels (i.e. debug, info, warn etc.) as this is proven to be rarely used. Instead you only need one single `Trace()` method. Due to the fact that structured logging is supported and promoted there is no need to have logging levels as you can always filter based on a custom property if you ever need to.
+
+## Known Providers and Enrichers
+
+|Name|Description|
+|----|-----------|
+|[System Console](doc/impl/system-console)|Simplest logger that outputs events to the system console.|
+|[Azure Application Insights](doc/impl/azure-appinsights)|Emits telemetry into [Azure Application Insights](https://azure.microsoft.com/en-us/services/application-insights/)|
+|[Azure Service Fabric](doc/impl/azure-servicefabric.md)|Integrates with [Azure Service Fabric](https://azure.microsoft.com/en-us/services/service-fabric/) by building correlating proxies, enrichers, and emitting cluster health events|
