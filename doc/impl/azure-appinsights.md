@@ -1,5 +1,15 @@
 # Microsoft Azure AppInsights
 
+**Package**: [LogMagic.Microsoft.Azure.ApplicationInsights](https://www.nuget.org/packages/LogMagic.Microsoft.Azure.ApplicationInsights/)
+
+**Syntax:**
+```csharp
+L.Config.WriteTo.AzureApplicationInsights("app insights key", bool flushOnWrite = false);
+```
+Writes events [Azure AppInsights](https://azure.microsoft.com/en-us/services/application-insights/)
+
+`flushOnWrite` parameter indicates whether to force a flush of events on each logging call. It's false by default and should only be set to true if you need an immediate submission as AppInsights caches events and submits in a batch periodically to achieve optimal performance. Note that settings this to true slows down logging dramatically.
+
 All the calls to `log.Trace()` push trace events to AppInsights. Those are the events you can't directly see on main AppInsigts page but can access from **Analytics** tab:
 
 ![Azure Appinsights Analytics Button](azure-appinsights-analytics-button.png)

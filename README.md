@@ -263,6 +263,21 @@ LogMagic doesn't have the classic logging levels (i.e. debug, info, warn etc.) a
 
 |Name|Description|
 |----|-----------|
-|[System Console](doc/impl/system-console)|Simplest logger that outputs events to the system console.|
-|[Azure Application Insights](doc/impl/azure-appinsights)|Emits telemetry into [Azure Application Insights](https://azure.microsoft.com/en-us/services/application-insights/)|
+|[System Console](doc/impl/system-console.md)|Simplest logger that outputs events to the system console.|
+|[Posh Console](doc/impl/posh-console.md)|Simplest logger that outputs events to the system console, but also supports colorisation.|
+|[System Trace](doc/impl/system-trace.md)|Writes to the system trace.|
+|[File on disk](doc/impl/disk-file.md)|A really simple writer that outputs to a file on disk.|
+|[Azure Application Insights](doc/impl/azure-appinsights)|Emits telemetry into [Azure Application Insights](https://azure.microsoft.com/en-us/services/application-insights/).|
 |[Azure Service Fabric](doc/impl/azure-servicefabric.md)|Integrates with [Azure Service Fabric](https://azure.microsoft.com/en-us/services/service-fabric/) by building correlating proxies, enrichers, and emitting cluster health events|
+
+### Built-in enrichers
+
+| Writer Syntax | Meaning        |
+|---------------|----------------|
+|  `.Constant()` | adds a constant value to every log event |
+| `.MachineIp()` | current machine IP address |
+| `.MachineName()` | current machine DNS name |
+| `.MethodName()` | caller's method name |
+| `.ThreadId()` | managed thread id |
+
+Note that external packages may add more enrichers which are not listed here but documented on specific package page.

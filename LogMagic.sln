@@ -17,7 +17,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{93BEADBD-BDF0-4261-81C9-233EA3CF0A4F}"
 	ProjectSection(SolutionItems) = preProject
 		doc\drawings.vsdx = doc\drawings.vsdx
-		doc\providers.md = doc\providers.md
 		README.md = README.md
 		doc\vssnippets.md = doc\vssnippets.md
 	EndProjectSection
@@ -36,7 +35,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "impl", "impl", "{6FB79E25-3
 	ProjectSection(SolutionItems) = preProject
 		doc\impl\azure-appinsights.md = doc\impl\azure-appinsights.md
 		doc\impl\azure-servicefabric.md = doc\impl\azure-servicefabric.md
+		doc\impl\disk-file.md = doc\impl\disk-file.md
+		doc\impl\posh-console.md = doc\impl\posh-console.md
+		doc\impl\seq.md = doc\impl\seq.md
 		doc\impl\system-console.md = doc\impl\system-console.md
+		doc\impl\system-trace.md = doc\impl\system-trace.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Storage.Net", "src\LogMagic.Storage.Net\LogMagic.Storage.Net.csproj", "{1F8081AD-AA09-4064-8058-DA435A290521}"
