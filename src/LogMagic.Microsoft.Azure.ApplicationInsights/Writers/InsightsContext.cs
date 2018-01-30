@@ -4,7 +4,6 @@ using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DataContracts;
 using NetBox.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
@@ -81,7 +80,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
 
       private void ApplyTrace(LogEvent e)
       {
-         var tr = new TraceTelemetry(e.FormattedMessage, SeverityLevel.Information);
+         var tr = new TraceTelemetry(e.FormattedMessage, GetSeverityLevel(e));
          Add(tr, e);
          AddProperties(tr, e);
 
@@ -145,6 +144,27 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
          telemetry.Timestamp = e.EventTime;
          telemetry.Context.Operation.Id = e.UseProperty<string>(KnownProperty.OperationId);
          telemetry.Context.Operation.ParentId = e.UseProperty<string>(KnownProperty.OperationParentId);
+      }
+
+      private static SeverityLevel GetSeverityLevel(LogEvent e)
+      {
+         LogSeverity sev = e.UseProperty(KnownProperty.Severity, LogSeverity.Information);
+
+         switch (sev)
+         {
+            case LogSeverity.Verbose:
+               return SeverityLevel.Verbose;
+            case LogSeverity.Information:
+               return SeverityLevel.Information;
+            case LogSeverity.Warning:
+               return SeverityLevel.Warning;
+            case LogSeverity.Error:
+               return SeverityLevel.Critical;
+            case LogSeverity.Critical:
+               return SeverityLevel.Critical;
+            default:
+               return SeverityLevel.Information;
+         }
       }
    }
 }

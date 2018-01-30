@@ -74,7 +74,7 @@ namespace LogMagic
       }
 
       /// <summary>
-      /// Tries to get the log property by name
+      /// Tries to get the log property by name or returns null if property does not exist.
       /// </summary>
       public object GetProperty(string name)
       {
