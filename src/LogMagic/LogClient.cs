@@ -80,6 +80,12 @@ namespace LogMagic
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
+      public void Trace(string format, object[] parameters, params KeyValuePair<string, object>[] properties)
+      {
+         Serve(EventType.Trace, Create(properties), format, parameters);
+      }
+
+      [MethodImpl(MethodImplOptions.NoInlining)]
       public void Dependency(string type, string name, string command, long duration, Exception error, params KeyValuePair<string, object>[] properties)
       {
          var ps = Create(properties);

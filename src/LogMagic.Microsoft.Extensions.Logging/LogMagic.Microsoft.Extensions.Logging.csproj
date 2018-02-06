@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\LogMagic\LogMagic.csproj" />
+    <ProjectReference Include="..\LogMagic\LogMagic.csproj" />
   </ItemGroup>
 
 </Project>
