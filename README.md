@@ -10,8 +10,13 @@ LogMagic also supports a relatively new paradigm of *structured logging*.
 
 ## Index
 
+- [Installation](#installation)
+- [Setup](#setup)
+- [Example Application](#example-application)
+- [Configuration Basica](#configuration-basics)
+- [Writing Log Events](#writing-log-events)
+- [Known Writers and Enrichers](#known-writers-and-enrichers)
 - [Visual Studio Integration (snippets)](doc/vssnippets.md)
-- [List of known writers and enrichers](#known-providers-and-enrichers)
 
 ## Installation
 
@@ -28,7 +33,7 @@ The core logging package is [LogMagic](https://www.nuget.org/packages/LogMagic).
 PM> Install-Package LogMagic
 ```
 
-### Setup
+## Setup
 
 Types are in `LogMagic` namespace
 
@@ -65,7 +70,7 @@ L.Config.WriteTo.Console();
 
 This is typically done once at application startup.
 
-### Example application
+## Example application
 
 The complete example below shows logging in a simple console application, with events sent to the console as well as to file on disk.
 
@@ -126,12 +131,12 @@ namespace LogMagicExample
 
 4. **Run the program**
 
-## Logging exceptions
+## Logging Exceptions
 
 LogMagic always check last parameter of `Trace()` arguments whether it's an exception class and eliminates from the argument list.
 
 
-## Configuration basics
+## Configuration Basics
 
 LogMagic uses C# API to configure logging.
 
@@ -259,7 +264,7 @@ the string above `"application v{version} started on {date}"` is a *message temp
 
 LogMagic doesn't have the classic logging levels (i.e. debug, info, warn etc.) as this is proven to be rarely used. Instead you only need one single `Trace()` method. Due to the fact that structured logging is supported and promoted there is no need to have logging levels as you can always filter based on a custom property if you ever need to.
 
-## Known Providers and Enrichers
+## Known Writers and Enrichers
 
 |Name|Description|
 |----|-----------|
