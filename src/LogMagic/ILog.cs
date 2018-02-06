@@ -14,6 +14,11 @@ namespace LogMagic
       void Trace(string format, params object[] parameters);
 
       /// <summary>
+      /// Send trace
+      /// </summary>
+      void Trace(string format, params KeyValuePair<string, object>[] properties);
+
+      /// <summary>
       /// Start tracking dependency.
       /// </summary>
       /// <param name="name">Dependency name</param>

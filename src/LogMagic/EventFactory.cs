@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace LogMagic
 {
-   static class EventFactory
+   public static class EventFactory
    {
       [MethodImpl(MethodImplOptions.NoInlining)]
       public static LogEvent CreateEvent(string sourceName, EventType eventType, string format, object[] parameters)
