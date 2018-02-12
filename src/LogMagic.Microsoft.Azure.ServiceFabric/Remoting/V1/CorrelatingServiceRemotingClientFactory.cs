@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !REMOTING20
+using System;
 using System.Fabric;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,7 +7,7 @@ using Microsoft.ServiceFabric.Services.Client;
 using Microsoft.ServiceFabric.Services.Communication.Client;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
 
-namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
+namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting.V1
 {
    class CorrelatingServiceRemotingClientFactory : IServiceRemotingClientFactory
    {
@@ -54,3 +55,4 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
       }
    }
 }
+#endif

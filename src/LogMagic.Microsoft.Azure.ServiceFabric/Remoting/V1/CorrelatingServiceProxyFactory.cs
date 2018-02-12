@@ -9,7 +9,7 @@ using Microsoft.ServiceFabric.Services.Communication.Client;
 using Microsoft.ServiceFabric.Services.Remoting;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
 
-namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
+namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting.V1
 {
    //read more: https://github.com/Microsoft/ApplicationInsights-ServiceFabric
 

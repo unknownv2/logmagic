@@ -1,11 +1,12 @@
-﻿using System;
+﻿#if !REMOTING20
+using System;
 using System.Collections.Generic;
 using System.Fabric;
 using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Runtime;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 
-namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
+namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting.V1
 {
    public class CorrelatingActorService : ActorService
    {
@@ -20,3 +21,4 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
       }
    }
 }
+#endif

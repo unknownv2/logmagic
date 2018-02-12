@@ -1,19 +1,22 @@
 ﻿using LogMagic.Microsoft.Azure.ServiceFabric.Enrichers;
 using System.Fabric;
 using Microsoft.ServiceFabric.Services.Remoting;
-using Microsoft.ServiceFabric.Services.Remoting.Client;
 using System;
-using Microsoft.ServiceFabric.Services.Client;
-using Microsoft.ServiceFabric.Services.Communication.Client;
-using LogMagic.Microsoft.Azure.ServiceFabric.Remoting;
-using Microsoft.ServiceFabric.Services.Remoting.FabricTransport.Client;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting.FabricTransport.Runtime;
-using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.ServiceFabric.Actors.Runtime;
-using Microsoft.ServiceFabric.Actors.Remoting.FabricTransport.Runtime;
 using LogMagic.Microsoft.Azure.ServiceFabric.Writers;
+#if REMOTING20
+using Microsoft.ServiceFabric.Services.Remoting.V2.Runtime;
+using Microsoft.ServiceFabric.Services.Remoting.V2.FabricTransport.Runtime;
+using Microsoft.ServiceFabric.Actors.Remoting.V2.FabricTransport.Runtime;
+#else
+using Microsoft.ServiceFabric.Services.Remoting.Runtime;
+using Microsoft.ServiceFabric.Actors.Remoting.FabricTransport.Runtime;
+using LogMagic.Microsoft.Azure.ServiceFabric.Remoting.V1;
+#endif
+
 
 namespace LogMagic
 {
@@ -40,6 +43,9 @@ namespace LogMagic
       {
          return configuration.Custom(new ServiceFabricEnricher(context));
       }
+
+#if REMOTING20
+#else
 
       public static ServiceReplicaListener CreateCorrelatingReplicaListener(this StatefulService service, bool switchOperationContext = false)
       {
@@ -85,5 +91,7 @@ namespace LogMagic
 
          return messageHandler;
       }
+
+#endif
    }
 }

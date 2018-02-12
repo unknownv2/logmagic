@@ -1,9 +1,10 @@
-﻿using System;
+﻿#if !REMOTING20
+using System;
 using System.Collections.Generic;
 using LogMagic.Enrichers;
 using Microsoft.ServiceFabric.Services.Remoting;
 
-namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
+namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting.V1
 {
    static class CorrelationHeader
    {
@@ -55,3 +56,4 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
       }
    }
 }
+#endif

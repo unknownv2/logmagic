@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !REMOTING20
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors.Remoting.Builder;
 using Microsoft.ServiceFabric.Services.Remoting;
 
-namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
+namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting.V1
 {
    internal static class ServiceRemotingMessageHeadersExtensions
    {
@@ -92,3 +93,4 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
       }
    }
 }
+#endif
