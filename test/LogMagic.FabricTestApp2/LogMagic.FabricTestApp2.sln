@@ -7,8 +7,6 @@ Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "LogMagic.FabricTestApp2", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.FabricTestApp.StatelessSimulator", "LogMagic.FabricTestApp.StatelessSimulator\LogMagic.FabricTestApp.StatelessSimulator.csproj", "{D09796FB-E06E-4A5F-B437-805F00E799C4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Microsoft.Azure.ServiceFabric", "..\..\src\LogMagic.Microsoft.Azure.ServiceFabric\LogMagic.Microsoft.Azure.ServiceFabric.csproj", "{8B457687-0B05-4E44-A5F6-870FCEC6255D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.FabricTestApp.StatefulSimulator", "LogMagic.FabricTestApp.StatefulSimulator\LogMagic.FabricTestApp.StatefulSimulator.csproj", "{3084DA17-8A3F-41E1-BB01-5CE8722372E2}"
 EndProject
 Global
@@ -35,14 +33,6 @@ Global
 		{D09796FB-E06E-4A5F-B437-805F00E799C4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D09796FB-E06E-4A5F-B437-805F00E799C4}.Release|x64.ActiveCfg = Release|Any CPU
 		{D09796FB-E06E-4A5F-B437-805F00E799C4}.Release|x64.Build.0 = Release|Any CPU
-		{8B457687-0B05-4E44-A5F6-870FCEC6255D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B457687-0B05-4E44-A5F6-870FCEC6255D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B457687-0B05-4E44-A5F6-870FCEC6255D}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{8B457687-0B05-4E44-A5F6-870FCEC6255D}.Debug|x64.Build.0 = Debug|Any CPU
-		{8B457687-0B05-4E44-A5F6-870FCEC6255D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B457687-0B05-4E44-A5F6-870FCEC6255D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8B457687-0B05-4E44-A5F6-870FCEC6255D}.Release|x64.ActiveCfg = Release|Any CPU
-		{8B457687-0B05-4E44-A5F6-870FCEC6255D}.Release|x64.Build.0 = Release|Any CPU
 		{3084DA17-8A3F-41E1-BB01-5CE8722372E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3084DA17-8A3F-41E1-BB01-5CE8722372E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3084DA17-8A3F-41E1-BB01-5CE8722372E2}.Debug|x64.ActiveCfg = Debug|Any CPU
