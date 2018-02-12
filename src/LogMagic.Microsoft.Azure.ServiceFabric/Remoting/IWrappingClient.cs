@@ -1,8 +1,4 @@
-﻿#if REMOTING20
-using Microsoft.ServiceFabric.Services.Remoting.V2.Client;
-#else
-using Microsoft.ServiceFabric.Services.Remoting.Client;
-#endif
+﻿using Microsoft.ServiceFabric.Services.Remoting.Client;
 
 namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 {

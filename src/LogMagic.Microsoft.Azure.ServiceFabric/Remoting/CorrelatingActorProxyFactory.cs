@@ -1,5 +1,4 @@
-﻿#if !REMOTING20
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Fabric;
 using System.Linq;
@@ -11,7 +10,7 @@ using Microsoft.ServiceFabric.Services.Communication.Client;
 using Microsoft.ServiceFabric.Services.Remoting;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
 
-namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting.V1
+namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 {
    /// <summary>
    /// Class for creating and wrapping the actor proxy factory. This class delegates all operations to the
@@ -139,4 +138,3 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting.V1
       }
    }
 }
-#endif

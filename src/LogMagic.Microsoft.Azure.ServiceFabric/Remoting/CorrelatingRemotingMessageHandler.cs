@@ -1,5 +1,4 @@
-﻿#if !REMOTING20
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Fabric;
 using System.Linq;
@@ -12,7 +11,7 @@ using Microsoft.ServiceFabric.Actors.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting;
 using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 
-namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting.V1
+namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 {
    /// <summary>
    /// Service remoting handler that wraps a service and parses correlation id and context, if they have been passed by the caller as
@@ -197,4 +196,3 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting.V1
    }
 
 }
-#endif

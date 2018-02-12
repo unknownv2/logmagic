@@ -1,13 +1,9 @@
 ﻿using System;
-using LogMagic.Microsoft.Azure.ServiceFabric.Remoting.V1;
+using LogMagic.Microsoft.Azure.ServiceFabric.Remoting;
 using Microsoft.ServiceFabric.Services.Client;
 using Microsoft.ServiceFabric.Services.Communication.Client;
 using Microsoft.ServiceFabric.Services.Remoting;
-#if REMOTING20
-using Microsoft.ServiceFabric.Services.Remoting.V2.FabricTransport.Client;
-#else
 using Microsoft.ServiceFabric.Services.Remoting.FabricTransport.Client;
-#endif
 
 namespace LogMagic.Microsoft.Azure.ServiceFabric
 {

@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net46;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net46</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
     <PackageProjectUrl>https://github.com/aloneguid/logmagic</PackageProjectUrl>
@@ -18,31 +18,13 @@
     <PackageLicenseUrl>https://github.com/aloneguid/logmagic/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
  
-    
   <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
     <PackageReference Include="Microsoft.ServiceFabric" Version="5.6.204" />
     <PackageReference Include="Microsoft.ServiceFabric.Actors" Version="2.6.204" />
     <PackageReference Include="Microsoft.ServiceFabric.Services.Remoting" Version="2.6.204" />
   </ItemGroup>
 
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="Microsoft.ServiceFabric" Version="6.1.456" />
-    <PackageReference Include="Microsoft.ServiceFabric.Actors" Version="3.0.456" />
-    <PackageReference Include="Microsoft.ServiceFabric.Services.Remoting" Version="3.0.456" />
-  </ItemGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <DefineConstants>$(DefineConstants);REMOTING20</DefineConstants>
-  </PropertyGroup>
-
-
   <ItemGroup>
     <ProjectReference Include="..\LogMagic\LogMagic.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Remoting\V2\" />
   </ItemGroup>
 </Project>
