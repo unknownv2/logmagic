@@ -32,7 +32,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LogMagic.FabricTestApp.StatefulSimulator\LogMagic.FabricTestApp.StatefulSimulator.csproj" />
     <ProjectReference Include="..\LogMagic.FabricTestApp.StatelessSimulator\LogMagic.FabricTestApp.StatelessSimulator.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />

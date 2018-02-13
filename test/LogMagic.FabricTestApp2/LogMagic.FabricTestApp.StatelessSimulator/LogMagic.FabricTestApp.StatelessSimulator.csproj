@@ -14,4 +14,8 @@
     <PackageReference Include="Microsoft.ServiceFabric.Services.Remoting" Version="3.0.456" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LogMagic.FabricTestApp.Interfaces\LogMagic.FabricTestApp.Interfaces.csproj" />
+  </ItemGroup>
+
 </Project>

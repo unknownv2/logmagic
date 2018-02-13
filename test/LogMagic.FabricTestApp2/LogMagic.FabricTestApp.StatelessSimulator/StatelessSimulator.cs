@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting.V2.FabricTransport.Runtime;
+using Microsoft.ServiceFabric.Services.Remoting.V2.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace LogMagic.FabricTestApp.StatelessSimulator
@@ -28,8 +29,15 @@ namespace LogMagic.FabricTestApp.StatelessSimulator
       {
          return new ServiceInstanceListener[]
          {
-            new ServiceInstanceListener(c => new FabricTransportServiceRemotingListener(c, new StatelessSimulatorRemotingService()))
+            new ServiceInstanceListener(c => new FabricTransportServiceRemotingListener(c, CreateMessageHandler()))
          };
+      }
+
+      private IServiceRemotingMessageHandler CreateMessageHandler()
+      {
+         return new CustomRemotingMessageHandler(Context, new StatelessSimulatorRemotingService());
+
+         //the handler is the "root" object in remoting hierarchy
       }
 
       /// <summary>
