@@ -11,6 +11,7 @@ using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
 using Microsoft.ServiceFabric.Services.Remoting.V2.FabricTransport.Client;
 using Microsoft.ServiceFabric.Services.Runtime;
+using StatefulSimulator.Remoting;
 
 namespace StatefulSimulator
 {
@@ -43,8 +44,9 @@ namespace StatefulSimulator
       protected override async Task RunAsync(CancellationToken cancellationToken)
       {
          var proxyFactory = new ServiceProxyFactory(c => new FabricTransportServiceRemotingClientFactory());
+         var proxyFactory2 = new ServiceProxyFactory(c => new CorrelatingFabricTransportServiceRemotingClientFactory());
 
-         ISampleService service = proxyFactory.CreateServiceProxy<ISampleService>(
+         ISampleService service = proxyFactory2.CreateServiceProxy<ISampleService>(
             new Uri("fabric:/LogMagic.FabricTestApp2/LogMagic.FabricTestApp.StatelessSimulator"));
 
          string hey = await service.GetHelloAsync("hey");
