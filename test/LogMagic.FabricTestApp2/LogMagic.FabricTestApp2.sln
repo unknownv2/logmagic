@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Microsoft.Azure.Se
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.FabricTestApp.Interfaces", "LogMagic.FabricTestApp.Interfaces\LogMagic.FabricTestApp.Interfaces.csproj", "{2B344B4D-BA24-4288-AA9F-94A2D2CE8291}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatefulSimulator", "StatefulSimulator\StatefulSimulator.csproj", "{9570EBE3-5AEA-431E-BC5D-FAB3F3334ACD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,14 @@ Global
 		{2B344B4D-BA24-4288-AA9F-94A2D2CE8291}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2B344B4D-BA24-4288-AA9F-94A2D2CE8291}.Release|x64.ActiveCfg = Release|Any CPU
 		{2B344B4D-BA24-4288-AA9F-94A2D2CE8291}.Release|x64.Build.0 = Release|Any CPU
+		{9570EBE3-5AEA-431E-BC5D-FAB3F3334ACD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9570EBE3-5AEA-431E-BC5D-FAB3F3334ACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9570EBE3-5AEA-431E-BC5D-FAB3F3334ACD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9570EBE3-5AEA-431E-BC5D-FAB3F3334ACD}.Debug|x64.Build.0 = Debug|Any CPU
+		{9570EBE3-5AEA-431E-BC5D-FAB3F3334ACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9570EBE3-5AEA-431E-BC5D-FAB3F3334ACD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9570EBE3-5AEA-431E-BC5D-FAB3F3334ACD}.Release|x64.ActiveCfg = Release|Any CPU
+		{9570EBE3-5AEA-431E-BC5D-FAB3F3334ACD}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
