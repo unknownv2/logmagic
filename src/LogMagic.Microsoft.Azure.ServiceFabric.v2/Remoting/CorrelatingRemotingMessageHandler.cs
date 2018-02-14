@@ -97,7 +97,7 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 
       private async Task<byte[]> HandleAndTrackRequestAsync(ServiceRemotingMessageHeaders messageHeaders, Func<Task<byte[]>> doHandleRequest)
       {
-         Dictionary<string, string> contextProperties = CorrelationHeader.ParseHeaders(messageHeaders, out Guid operationId);
+         Dictionary<string, string> contextProperties = CorrelationHeader.ParseHeaders(messageHeaders, out string operationId);
 
          // Create and prepare activity and RequestTelemetry objects to track this request.
          //RequestTelemetry rt = new RequestTelemetry();
@@ -151,7 +151,7 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          // the Name, Type, Data, and Target properties
          //var operation = telemetryClient.StartOperation<RequestTelemetry>(rt);
 
-         Guid currentOperationId = _switchOperationContext ? Guid.NewGuid() : operationId;
+         string currentOperationId = _switchOperationContext ? Guid.NewGuid().ToString() : operationId;
 
          using (L.Context(contextProperties))
          using (L.Operation(currentOperationId))

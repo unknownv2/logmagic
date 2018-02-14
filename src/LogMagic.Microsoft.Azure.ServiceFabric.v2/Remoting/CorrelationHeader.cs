@@ -24,7 +24,7 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 
       public static Dictionary<string, string> ParseHeaders(
          ServiceRemotingMessageHeaders messageHeaders,
-         out Guid operationId)
+         out string operationId)
       {
          var result = new Dictionary<string, string>();
 
@@ -41,14 +41,14 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
             }
          }
 
-         if(result.TryGetValue(KnownProperty.OperationId, out string operationIdString) && Guid.TryParse(operationIdString, out Guid operationIdParsed))
+         if(result.TryGetValue(KnownProperty.OperationId, out string operationIdString))
          {
-            operationId = operationIdParsed;
+            operationId = operationIdString;
             result.Remove(KnownProperty.OperationId);
          }
          else
          {
-            operationId = Guid.NewGuid();
+            operationId = Guid.NewGuid().ToString();
          }
 
          return result;
