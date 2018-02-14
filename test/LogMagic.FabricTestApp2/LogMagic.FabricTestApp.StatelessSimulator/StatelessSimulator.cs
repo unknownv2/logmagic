@@ -27,18 +27,20 @@ namespace LogMagic.FabricTestApp.StatelessSimulator
       /// <returns>A collection of listeners.</returns>
       protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
       {
-         return new ServiceInstanceListener[]
+         /*return new ServiceInstanceListener[]
          {
             new ServiceInstanceListener(c => new FabricTransportServiceRemotingListener(c, CreateMessageHandler()))
-         };
+         };*/
+
+         return new ServiceInstanceListener[] { this.CreateCorrelatingServiceInstanceListener(new StatelessSimulatorRemotingService()) };
       }
 
-      private IServiceRemotingMessageHandler CreateMessageHandler()
+      /*private IServiceRemotingMessageHandler CreateMessageHandler()
       {
          return new CustomRemotingMessageHandler(Context, new StatelessSimulatorRemotingService());
 
          //the handler is the "root" object in remoting hierarchy
-      }
+      }*/
 
       /// <summary>
       /// This is the main entry point for your service instance.

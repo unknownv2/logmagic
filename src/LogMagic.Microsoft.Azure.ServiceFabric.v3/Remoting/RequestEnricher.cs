@@ -16,7 +16,7 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 
          IServiceRemotingRequestMessageHeader headers = message.GetHeader();
 
-         foreach(var cv in context)
+         foreach(KeyValuePair<string, string> cv in context)
          {
             AddHeader(headers, cv);
          }
