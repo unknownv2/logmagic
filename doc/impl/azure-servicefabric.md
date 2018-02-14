@@ -1,5 +1,9 @@
 # Microsoft Service Fabric
 
+There are two streams of NuGet packages for Service Fabric support:
+- 5.6 - targeting Azure Service Fabric 5.6 and supporting Remoting v1 only and .NET 4.6.1 only.
+- 6.1 - targeting Azure Service Fabric 6.1 and supporting Remoting v2 only as v1 was removed and targeting .NET Core 2.0 and .NET 4.6.1.
+
 To install the integration install this [NuGet package](https://www.nuget.org/packages/LogMagic.Microsoft.Azure.ServiceFabric/).
 
 This package provides two ways of integrating with Service Fabric - [enrichment](#enrichment), [correlating proxies](#correlating-proxies), and [health reports](#health-reports)
@@ -83,6 +87,8 @@ or to call an Actor:
 ```csharp
 IActorInterface actorProxy = CorrelatingActorProxy.Create<IActorInterface>(actorId, actorUri, ...);
 ```
+
+> note that Actors are not supported in v6 version yet.
 
 We've kept method signatures identical to the ones Service Fabric SDK has, therefore no of the parameters have to change!
 
