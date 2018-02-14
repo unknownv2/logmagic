@@ -1,4 +1,5 @@
 ﻿using Microsoft.ServiceFabric.Services.Common;
+using Microsoft.ServiceFabric.Services.Remoting.V2;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -20,22 +21,30 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
             }
          }
 
-         return null;
+         return $"{interfaceId}.{methodId}";
+      }
+
+      public static string GetMethodName(IServiceRemotingRequestMessage message)
+      {
+         IServiceRemotingRequestMessageHeader header = message.GetHeader();
+
+         return GetMethodName(header.InterfaceId, header.MethodId);
       }
 
       public static void AddMethodsForProxyOrService(IEnumerable<Type> interfaces, Type baseInterfaceType)
       {
          foreach (Type interfaceType in interfaces)
          {
-            if (!baseInterfaceType.IsAssignableFrom(interfaceType))
+            if (!baseInterfaceType.IsAssignableFrom(interfaceType) || interfaceType == baseInterfaceType)
             {
                continue;
             }
 
-            int interfaceId = IdUtil.ComputeId(interfaceType);
+            int interfaceIdv1 = IdUtil.ComputeId(interfaceType);
+            int interfaceIdv2 = IdUtil.ComputeIdWithCRC(interfaceType);
 
             // Add if it's not there, don't add if it's there already
-            if (!idToMethodNameMap.TryGetValue(interfaceId, out Dictionary<int, string> methodMap))
+            if (!idToMethodNameMap.TryGetValue(interfaceIdv1, out Dictionary<int, string> methodMap))
             {
                // Since idToMethodNameMap can be accessed by multiple threads, it is important to make sure
                // the inner dictionary has everything added, before this is added to idToMethodNameMap. The
@@ -45,12 +54,17 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
                methodMap = new Dictionary<int, string>();
                foreach (MethodInfo method in interfaceType.GetMethods())
                {
-                  methodMap[IdUtil.ComputeId(method)] = method.Name;
+                  int methodIdv1 = IdUtil.ComputeId(method);
+                  int methodIdv2 = IdUtil.ComputeIdWithCRC(method);
+
+                  methodMap[methodIdv1] = method.Name;
+                  methodMap[methodIdv2] = method.Name;
                }
 
                // If multiple threads are trying to set this entry, the last one wins, and this is ok to have
                // since this method map should always look the same once it's constructed.
-               idToMethodNameMap[interfaceId] = methodMap;
+               idToMethodNameMap[interfaceIdv1] = methodMap;
+               idToMethodNameMap[interfaceIdv2] = methodMap;
             }
          }
       }

@@ -47,7 +47,10 @@ namespace StatefulSimulator
          var proxyFactory = new ServiceProxyFactory(c => new FabricTransportServiceRemotingClientFactory());
          var proxyFactory2 = new ServiceProxyFactory(c => new CorrelatingFabricTransportServiceRemotingClientFactory());
 
-         ISampleService service = proxyFactory2.CreateServiceProxy<ISampleService>(
+         //ISampleService service = proxyFactory2.CreateServiceProxy<ISampleService>(
+         //   new Uri("fabric:/LogMagic.FabricTestApp2/LogMagic.FabricTestApp.StatelessSimulator"));
+
+         ISampleService service = CorrelatingProxyFactory.CreateServiceProxy<ISampleService>(
             new Uri("fabric:/LogMagic.FabricTestApp2/LogMagic.FabricTestApp.StatelessSimulator"));
 
          using (L.Context(new KeyValuePair<string, string>("param1", "value1")))

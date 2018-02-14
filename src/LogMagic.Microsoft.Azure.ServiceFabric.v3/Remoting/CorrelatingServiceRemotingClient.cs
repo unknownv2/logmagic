@@ -38,15 +38,16 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          set => _inner.Endpoint = value;
       }
 
-      public async Task<IServiceRemotingResponseMessage> RequestResponseAsync(IServiceRemotingRequestMessage requestRequestMessage)
+      public async Task<IServiceRemotingResponseMessage> RequestResponseAsync(IServiceRemotingRequestMessage requestMessage)
       {
-         _enricher.Enrich(requestRequestMessage);
+         _enricher.Enrich(requestMessage);
 
          using (var time = new TimeMeasure())
          {
-            IServiceRemotingResponseMessage response = await _inner.RequestResponseAsync(requestRequestMessage);
+            string methodName = MethodResolver.GetMethodName(requestMessage);
 
-            requestRequestMessage.GetHeader().
+            IServiceRemotingResponseMessage response = await _inner.RequestResponseAsync(requestMessage);
+
             return response;
          }
       }

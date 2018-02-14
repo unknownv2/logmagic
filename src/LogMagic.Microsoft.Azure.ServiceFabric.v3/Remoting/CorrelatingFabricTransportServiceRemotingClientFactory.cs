@@ -15,7 +15,7 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 {
    public class CorrelatingFabricTransportServiceRemotingClientFactory : IServiceRemotingClientFactory
    {
-      private readonly FabricTransportServiceRemotingClientFactory _inner;
+      private readonly IServiceRemotingClientFactory _inner;
 
       public event EventHandler<CommunicationClientEventArgs<IServiceRemotingClient>> ClientConnected;
       public event EventHandler<CommunicationClientEventArgs<IServiceRemotingClient>> ClientDisconnected;
@@ -26,15 +26,33 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          IServicePartitionResolver servicePartitionResolver = null,
          IEnumerable<IExceptionHandler> exceptionHandlers = null,
          string traceId = null,
-         IServiceRemotingMessageSerializationProvider serializationProvider = null)
+         IServiceRemotingMessageSerializationProvider serializationProvider = null) :
+         this(remotingSettings, remotingCallbackMessageHandler, servicePartitionResolver, exceptionHandlers, traceId, serializationProvider, null)
       {
-         _inner = new FabricTransportServiceRemotingClientFactory(
-            remotingSettings,
-            remotingCallbackMessageHandler,
-            servicePartitionResolver,
-            exceptionHandlers,
-            traceId,
-            serializationProvider);
+
+      }
+
+      internal CorrelatingFabricTransportServiceRemotingClientFactory(
+         FabricTransportRemotingSettings remotingSettings = null,
+         IServiceRemotingCallbackMessageHandler remotingCallbackMessageHandler = null,
+         IServicePartitionResolver servicePartitionResolver = null,
+         IEnumerable<IExceptionHandler> exceptionHandlers = null,
+         string traceId = null,
+         IServiceRemotingMessageSerializationProvider serializationProvider = null,
+         IServiceRemotingClientFactory inner = null)
+      {
+         if (inner == null)
+         {
+            inner = new FabricTransportServiceRemotingClientFactory(
+               remotingSettings,
+               remotingCallbackMessageHandler,
+               servicePartitionResolver,
+               exceptionHandlers,
+               traceId,
+               serializationProvider);
+         }
+
+         _inner = inner;
       }
 
       public async Task<IServiceRemotingClient> GetClientAsync(Uri serviceUri, ServicePartitionKey partitionKey, TargetReplicaSelector targetReplicaSelector, string listenerName, OperationRetrySettings retrySettings, CancellationToken cancellationToken)
