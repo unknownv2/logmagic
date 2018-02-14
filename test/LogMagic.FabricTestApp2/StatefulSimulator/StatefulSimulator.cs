@@ -4,6 +4,7 @@ using System.Fabric;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using LogMagic;
 using LogMagic.FabricTestApp.Interfaces;
 using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Client;
@@ -49,7 +50,10 @@ namespace StatefulSimulator
          ISampleService service = proxyFactory2.CreateServiceProxy<ISampleService>(
             new Uri("fabric:/LogMagic.FabricTestApp2/LogMagic.FabricTestApp.StatelessSimulator"));
 
-         string hey = await service.GetHelloAsync("hey");
+         using (L.Context(new KeyValuePair<string, string>("param1", "value1")))
+         {
+            string hey = await service.GetHelloAsync("hey");
+         }
 
          // TODO: Replace the following sample code with your own logic 
          //       or remove this RunAsync override if it's not needed in your service.

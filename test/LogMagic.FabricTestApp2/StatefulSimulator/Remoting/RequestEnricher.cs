@@ -8,6 +8,8 @@ namespace StatefulSimulator.Remoting
 {
    class RequestEnricher
    {
+      private static readonly Encoding Enc = Encoding.UTF8;
+
       public void Enrich(IServiceRemotingRequestMessage message)
       {
          Dictionary<string, string> context = L.GetContextValues();
@@ -15,7 +17,17 @@ namespace StatefulSimulator.Remoting
 
          IServiceRemotingRequestMessageHeader headers = message.GetHeader();
 
-         //headers.AddHeader()
+         foreach(var cv in context)
+         {
+            headers.AddHeader(cv.Key, GetHeaderValue(cv.Value));
+         }
+      }
+
+      private static byte[] GetHeaderValue(string s)
+      {
+         if (s == null) return null;
+
+         return Enc.GetBytes(s);
       }
    }
 }
