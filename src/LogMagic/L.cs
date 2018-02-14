@@ -158,10 +158,10 @@ namespace LogMagic
       /// then it's set as operation's parent ID, unless they are equal.
       /// </summary>
       /// <param name="id">ID of the operation. When ommitted a new uniqueue ID is generated</param>
-      public static IDisposable Operation(Guid? id = null)
+      public static IDisposable Operation(string id = null)
       {
          string existingId = L.GetContextValue(KnownProperty.OperationId);
-         string operationId = id == null ? Guid.NewGuid().ToString() : id.Value.ToString();
+         string operationId = id == null ? Guid.NewGuid().ToString() : id;
          string parentId = existingId;
 
          var ps = new Dictionary<string, string>
