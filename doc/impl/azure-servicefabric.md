@@ -1,7 +1,7 @@
 # Microsoft Service Fabric
 
 There are two streams of NuGet packages for Service Fabric support:
-- 5.6 - targeting Azure Service Fabric 5.6 and supporting Remoting v1 only and .NET 4.6.1 only.
+- 5.6 - targeting Azure Service Fabric 5.6 and supporting Remoting v1 only and .NET 4.6.1 only. This package has reached a stable phase and is not currently being worked on as remoting v1 is getting deprecated.
 - 6.1 - targeting Azure Service Fabric 6.1 and supporting Remoting v2 only as v1 was removed and targeting .NET Core 2.0 and .NET 4.6.1.
 
 To install the integration install this [NuGet package](https://www.nuget.org/packages/LogMagic.Microsoft.Azure.ServiceFabric/).
@@ -100,7 +100,43 @@ The correlating proxy will intercept the calls for the specific proxy, capture c
 
 ### Create a correlating message handler
 
-The good news is LogMagic includes an ability to automatically capture it. In order for this to work, you need to set up a few things first. However this library is called Log**Magic** and I've tried to make it a magic.
+The good news is LogMagic includes an ability to automatically capture it. In order for this to work, you need to set up a few things first. However this library is called Log**Magic** and I've tried to make it a magic. The techniques a slightly different between remoting v1 and v2.
+
+#### Remoting v2
+
+On the listener service you would normally set up remoting using the following code:
+
+```csharp
+protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
+{
+   return new ServiceInstanceListener[]
+   {
+      new ServiceInstanceListener(c => new FabricTransportServiceRemotingListener(c, new FabricRemotingMessageHandler(Context, new MyServiceInstance())))
+   }
+}
+```
+
+which can be replaced by:
+
+```csharp
+protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
+{
+   return new ServiceInstanceListener[] { this.CreateCorrelatingServiceInstanceListener(new MyServiceInstance()) };
+}
+```
+
+note that with remoting v2 you have to pass an instance of your service implementation which derives from `IService`. Apparently if you are implementing it in the service class itself (which is a bad idea anyway) you can simply pass `this`.
+
+or in case of a stateful service:
+
+> implementation pending
+
+or in case of Actors
+
+> implementation pending
+
+
+#### Remoting v1
 
 On the listener service you would normally set up remoting using the following code:
 
@@ -119,7 +155,6 @@ protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListe
     return new[] { this.CreateCorrelatingReplicaListener() };
 }
 ```
-
 or in case of a stateless service:
 
 ```csharp
@@ -129,12 +164,11 @@ protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceLis
 }
 ```
 
-Both methods accept a boolean flag `switchOperationContext` which is false by default and specifies whether to generate a new _operation ID_ on incoming request.
-
 Or in case of Actors you'll need to into actor's project `Program.cs` and change ActorService ro CorrelatingActorService:
 
 ![Sf Context 03](sf-context-03.png)
 
+### Technique
 
 The way LogMagic does this is by transferring two properties called _operationId_ and _operationParentId_ between service calls. _operationId_ value is captured before the call is issued to the remote service (if it's present) and the remote service does the following:
 
