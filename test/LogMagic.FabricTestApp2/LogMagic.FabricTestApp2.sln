@@ -15,7 +15,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatefulSimulator", "Statef
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic", "..\..\src\LogMagic\LogMagic.csproj", "{FE696877-E2DE-4178-9827-53780494B6B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.Microsoft.Azure.ServiceFabric.v3", "..\..\src\LogMagic.Microsoft.Azure.ServiceFabric.v3\LogMagic.Microsoft.Azure.ServiceFabric.v3.csproj", "{276DCAC8-78AC-415C-B027-D10CCACEE206}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Microsoft.Azure.ServiceFabric.v3", "..\..\src\LogMagic.Microsoft.Azure.ServiceFabric.v3\LogMagic.Microsoft.Azure.ServiceFabric.v3.csproj", "{276DCAC8-78AC-415C-B027-D10CCACEE206}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D3BA1AEE-0FF6-4724-9266-9E6991501959}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\.editorconfig = ..\..\.editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
