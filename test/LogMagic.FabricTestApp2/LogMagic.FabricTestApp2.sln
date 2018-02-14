@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatefulSimulator", "Statef
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic", "..\..\src\LogMagic\LogMagic.csproj", "{FE696877-E2DE-4178-9827-53780494B6B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.Microsoft.Azure.ServiceFabric.v3", "..\..\src\LogMagic.Microsoft.Azure.ServiceFabric.v3\LogMagic.Microsoft.Azure.ServiceFabric.v3.csproj", "{276DCAC8-78AC-415C-B027-D10CCACEE206}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,14 @@ Global
 		{FE696877-E2DE-4178-9827-53780494B6B4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE696877-E2DE-4178-9827-53780494B6B4}.Release|x64.ActiveCfg = Release|Any CPU
 		{FE696877-E2DE-4178-9827-53780494B6B4}.Release|x64.Build.0 = Release|Any CPU
+		{276DCAC8-78AC-415C-B027-D10CCACEE206}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{276DCAC8-78AC-415C-B027-D10CCACEE206}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{276DCAC8-78AC-415C-B027-D10CCACEE206}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{276DCAC8-78AC-415C-B027-D10CCACEE206}.Debug|x64.Build.0 = Debug|Any CPU
+		{276DCAC8-78AC-415C-B027-D10CCACEE206}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{276DCAC8-78AC-415C-B027-D10CCACEE206}.Release|Any CPU.Build.0 = Release|Any CPU
+		{276DCAC8-78AC-415C-B027-D10CCACEE206}.Release|x64.ActiveCfg = Release|Any CPU
+		{276DCAC8-78AC-415C-B027-D10CCACEE206}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

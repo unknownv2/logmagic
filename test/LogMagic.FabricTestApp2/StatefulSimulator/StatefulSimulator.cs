@@ -6,13 +6,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using LogMagic;
 using LogMagic.FabricTestApp.Interfaces;
+using LogMagic.Microsoft.Azure.ServiceFabric.Remoting;
 using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Client;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
 using Microsoft.ServiceFabric.Services.Remoting.V2.FabricTransport.Client;
 using Microsoft.ServiceFabric.Services.Runtime;
-using StatefulSimulator.Remoting;
 
 namespace StatefulSimulator
 {

@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace StatefulSimulator.Remoting
+namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 {
    public class CorrelatingFabricTransportServiceRemotingClientFactory : IServiceRemotingClientFactory
    {

@@ -1,10 +1,9 @@
 ﻿using LogMagic;
 using Microsoft.ServiceFabric.Services.Remoting.V2;
-using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace StatefulSimulator.Remoting
+namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 {
    class RequestEnricher
    {
@@ -19,15 +18,19 @@ namespace StatefulSimulator.Remoting
 
          foreach(var cv in context)
          {
-            headers.AddHeader(cv.Key, GetHeaderValue(cv.Value));
+            AddHeader(headers, cv);
          }
       }
 
-      private static byte[] GetHeaderValue(string s)
+      private static void AddHeader(IServiceRemotingRequestMessageHeader headers, KeyValuePair<string, string> header)
       {
-         if (s == null) return null;
+         //don't add a header if it already exists
+         //todo: figure out why it already exists
+         if (headers.TryGetHeaderValue(header.Key, out byte[] headerValue)) return;
 
-         return Enc.GetBytes(s);
+         byte[] value = header.Value == null ? null : Enc.GetBytes(header.Value);
+
+         headers.AddHeader(header.Key, value);
       }
    }
 }

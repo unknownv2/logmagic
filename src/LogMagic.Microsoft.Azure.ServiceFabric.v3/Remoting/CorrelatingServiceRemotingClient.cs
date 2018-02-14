@@ -4,10 +4,11 @@ using System;
 using System.Fabric;
 using System.Threading.Tasks;
 
-namespace StatefulSimulator.Remoting
+namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 {
-   public class CorrelatingServiceRemotingClient : IServiceRemotingClient
+   class CorrelatingServiceRemotingClient : IServiceRemotingClient
    {
+      private static readonly ILog log = L.G(typeof(CorrelatingServiceRemotingClient));
       private readonly IServiceRemotingClient _inner;
       private readonly RequestEnricher _enricher;
 
@@ -41,7 +42,13 @@ namespace StatefulSimulator.Remoting
       {
          _enricher.Enrich(requestRequestMessage);
 
-         return await _inner.RequestResponseAsync(requestRequestMessage);
+         using (var time = new TimeMeasure())
+         {
+            IServiceRemotingResponseMessage response = await _inner.RequestResponseAsync(requestRequestMessage);
+
+            requestRequestMessage.GetHeader().
+            return response;
+         }
       }
 
       public void SendOneWay(IServiceRemotingRequestMessage requestMessage)
