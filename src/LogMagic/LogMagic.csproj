@@ -26,6 +26,10 @@
     <Version>2.4.7</Version>
     <Description>Like many other libraries for .NET, LogMagic provides diagnostic logging into files, the console, and elsewhere. It's probably the easiest framework to setup, has a clean API, extremely extensible.
 LogMagic also supports a relatively new paradigm of structured logging.</Description>
+    <PackageReleaseNotes>v2.6
+- new feature: support for asp.net core middleware
+- new feature: support for Service Fabric Remoting v2
+- improvement: L.Context is super easy to use</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="netbox" Version="2.0.0.35" />
