@@ -13,7 +13,7 @@ LogMagic also supports a relatively new paradigm of *structured logging*.
 - [Installation](#installation)
 - [Setup](#setup)
 - [Example Application](#example-application)
-- [Configuration Basica](#configuration-basics)
+- [Configuration Basics](#configuration-basics)
 - [Writing Log Events](#writing-log-events)
 - [Known Writers and Enrichers](#known-writers-and-enrichers)
 - [Visual Studio Integration (snippets)](doc/vssnippets.md)
@@ -200,18 +200,18 @@ The feature does not need any special configuration, and properties can be added
 ```csharp
 log.Trace("no properties");
 
-using(L.Context("A".PairedWith("id1")))
+using(L.Context("A", "id1"))
 {
 	log.Trace("carries property A=id1");
 
-	using(L.Context("B".PairedWith("id2")))
+	using(L.Context("B", "id2"))
 	{
 		log.Trace("carries A=id1 and B=id2");
 	}
 
 	log.Trace("carries property A=id1");
 
-	using(L.Context("A".PairedWith("id3")))
+	using(L.Context("A", "id3"))
 	{
 		log.Trace("carries property A=id3");
 	}
@@ -227,11 +227,13 @@ Pushing property onto the context will override any existing properties with the
 `L.Context()` accepts multiple properties at once if you need to:
 
 ```csharp
-using(L.Context("A".PairedWith("id1"), "B".PairedWith("id2") ))
+using(L.Context("A", "id1",  "B", "id2"))
 {
 	//...
 }
 ```
+
+Logging context is used extensively by LogMagic plugins to carry execution context information across the application. For instance, web applications need to known which request the code is related to etc.
 
 **Important:** properties must be popped from the context in the precise order in which they were added. Behavior otherwise is undefined.
 

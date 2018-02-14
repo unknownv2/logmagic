@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using LogMagic.Configuration;
@@ -97,6 +98,28 @@ namespace LogMagic
          if (properties == null) return null;
 
          return LogContext.Push(properties);
+      }
+
+      /// <summary>
+      /// Adds one or more context properties.
+      /// </summary>
+      /// <param name="properties">
+      /// Array or properties where even numbers are property names and odd numbers are property values.
+      /// If you have an odd number of array elements the last one is discarded.
+      /// </param>
+      public static IDisposable Context(params string[] properties)
+      {
+         if (properties == null) return null;
+
+         var d = new Dictionary<string, string>();
+
+         int maxLength = properties.Length - properties.Length % 2;
+         for(int i = 0; i < maxLength; i += 2)
+         {
+            d[properties[i]] = properties[i + 1];
+         }
+
+         return LogContext.Push(d);
       }
 
       /// <summary>
