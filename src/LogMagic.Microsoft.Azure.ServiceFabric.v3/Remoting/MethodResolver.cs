@@ -57,8 +57,10 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
                   int methodIdv1 = IdUtil.ComputeId(method);
                   int methodIdv2 = IdUtil.ComputeIdWithCRC(method);
 
-                  methodMap[methodIdv1] = method.Name;
-                  methodMap[methodIdv2] = method.Name;
+                  string methodName = $"{interfaceType.Name}::{method.Name}";
+
+                  methodMap[methodIdv1] = methodName;
+                  methodMap[methodIdv2] = methodName;
                }
 
                // If multiple threads are trying to set this entry, the last one wins, and this is ok to have
