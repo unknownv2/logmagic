@@ -6,6 +6,7 @@ using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting;
 using Microsoft.ServiceFabric.Services.Remoting.V2.FabricTransport.Runtime;
 using LogMagic.Microsoft.Azure.ServiceFabric.Remoting;
+using Microsoft.ServiceFabric.Actors.Runtime;
 
 namespace LogMagic
 {
@@ -44,52 +45,16 @@ namespace LogMagic
          return listener;
       }
 
-      /*
-      public static ServiceReplicaListener CreateCorrelatingReplicaListener(this StatefulService service, bool switchOperationContext = false)
+      public static ServiceReplicaListener CreateCorrelatingReplicaListener(this StatefulService service,
+         IService serviceImplementation,
+         string listenerName = "",
+         bool listenOnSecondary = false)
       {
-         IServiceRemotingMessageHandler messageHandler = CreateHandler(service, service.Context, switchOperationContext);
+         var handler = new CorrelatingRemotingMessageHandler(service.Context, serviceImplementation);
 
-         return new ServiceReplicaListener(ctx =>
-            new FabricTransportServiceRemotingListener(ctx, messageHandler));
+         var listener = new ServiceReplicaListener(c => new FabricTransportServiceRemotingListener(c, handler));
+
+         return listener;
       }
-
-      public static ServiceReplicaListener CreateCorrelatingActorReplicaListener(this ActorService service, bool switchOperationContext = false)
-      {
-         IServiceRemotingMessageHandler messageHandler = CreateHandler(service, switchOperationContext);
-
-         return new ServiceReplicaListener(ctx =>
-            new FabricTransportActorServiceRemotingListener(ctx, messageHandler, new FabricTransportRemotingListenerSettings()));
-      }
-
-      public static ServiceInstanceListener CreateCorrelatingInstanceListener(this StatelessService service, bool switchOperationContext = false)
-      {
-         IServiceRemotingMessageHandler messageHandler = CreateHandler(service, service.Context, switchOperationContext);
-
-         return new ServiceInstanceListener(ctx =>
-            new FabricTransportServiceRemotingListener(ctx, messageHandler));
-      }
-
-      private static IServiceRemotingMessageHandler CreateHandler(object serviceInstance, ServiceContext context, bool switchOperationContext)
-      {
-         if (!(serviceInstance is IService))
-         {
-            throw new ArgumentException($"service must impelement {typeof(IService).FullName} interface");
-         }
-
-         IServiceRemotingMessageHandler
-            messageHandler = new CorrelatingRemotingMessageHandler(context, (IService)serviceInstance, switchOperationContext);
-
-         return messageHandler;
-      }
-
-      private static IServiceRemotingMessageHandler CreateHandler(ActorService actorService, bool switchOperationContext)
-      {
-         IServiceRemotingMessageHandler
-            messageHandler = new CorrelatingRemotingMessageHandler(actorService, switchOperationContext);
-
-         return messageHandler;
-      }
-      */
-
    }
 }

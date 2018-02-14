@@ -129,7 +129,12 @@ note that with remoting v2 you have to pass an instance of your service implemen
 
 or in case of a stateful service:
 
-> implementation pending
+```csharp
+protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
+{
+   return new ServiceInstanceListener[] { this.CreateCorrelatingServiceReplicaListener(new MyServiceInstance()) };
+}
+```
 
 or in case of Actors
 
