@@ -13,7 +13,7 @@ namespace LogMagic.Enrichers
 
       public void Enrich(LogEvent e, out string propertyName, out object propertyValue)
       {
-         propertyName = KnownProperty.NodeName;
+         propertyName = KnownProperty.RoleName;
          propertyValue = _machineName;
       }
    }

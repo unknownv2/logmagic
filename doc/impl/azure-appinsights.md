@@ -76,3 +76,8 @@ Requests are usually mapped to incoming requests for your application. For isnta
 ```csharp
 log.Request("GetProducts", time.ElapsedTicks);
 ```
+
+## Useful links
+
+- [AppInsights data model](https://docs.microsoft.com/en-us/azure/application-insights/application-insights-data-model)
+- [Telemetry correlation](https://docs.microsoft.com/en-us/azure/application-insights/application-insights-correlation)

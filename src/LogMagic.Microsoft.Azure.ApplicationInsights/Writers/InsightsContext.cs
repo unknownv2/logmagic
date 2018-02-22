@@ -22,8 +22,8 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
       public void Apply(LogEvent e)
       {
          _context.Component.Version = e.UseProperty(KnownProperty.Version, string.Empty);
-         _context.Cloud.RoleName = e.UseProperty(KnownProperty.NodeName, string.Empty);
-         _context.Cloud.RoleInstance = e.UseProperty(KnownProperty.NodeInstanceId, string.Empty);
+         _context.Cloud.RoleName = e.UseProperty(KnownProperty.RoleName, string.Empty);
+         _context.Cloud.RoleInstance = e.UseProperty(KnownProperty.RoleInstance, string.Empty);
 
          switch(e.EventType)
          {

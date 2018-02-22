@@ -21,19 +21,19 @@
       public const string Version = "version";
 
       /// <summary>
-      /// Node name
+      /// In multiinstance scenarios this property identifies the application component.
       /// </summary>
-      public const string NodeName = "nodeName";
+      public const string RoleName = "roleName";
+
+      /// <summary>
+      /// In multiinstance scenarios this property identifies the application component physical instance identifier.
+      /// </summary>
+      public const string RoleInstance = "roleInstance";
 
       /// <summary>
       /// Node IP address
       /// </summary>
       public const string NodeIp = "nodeIp";
-
-      /// <summary>
-      /// In multiinstance scenarios this property identifies the instance ID
-      /// </summary>
-      public const string NodeInstanceId = "nodeInstanceId";
 
       /// <summary>
       /// Method name the code is executing in
@@ -48,7 +48,7 @@
       /// <summary>
       /// Used to track an operation across multiple layers
       /// </summary>
-      public const string OperationId = "operationId";
+      public const string OperationId = "Request-Id";
 
       /// <summary>
       /// Used in conjunction with <see cref="OperationId"/> to track the parent operation ID
