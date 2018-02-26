@@ -28,7 +28,7 @@ namespace LogMagic.Proxy
             : null;
          Exception error = null;
 
-         _onBeforeExecution?.Invoke(invocation.Method, invocation.Arguments);
+         _onBeforeExecution?.Invoke(_log, invocation.Method, invocation.Arguments);
 
          try
          {
@@ -51,7 +51,7 @@ namespace LogMagic.Proxy
             {
                long ticks = measure.ElapsedTicks;
 
-               _onAfterExecution(invocation.Method, invocation.Arguments, invocation.ReturnValue, error);
+               _onAfterExecution(_log, invocation.Method, invocation.Arguments, invocation.ReturnValue, error);
             }
 
             if(measure != null)

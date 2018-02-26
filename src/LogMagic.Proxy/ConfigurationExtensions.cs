@@ -5,9 +5,9 @@ using LogMagic.Proxy;
 
 namespace LogMagic
 {
-   public delegate void OnBeforeExecution(MethodInfo method, object[] arguments);
+   public delegate void OnBeforeExecution(ILog log, MethodInfo method, object[] arguments);
 
-   public delegate void OnAfterExecution(MethodInfo method, object[] argument, object returnValue, Exception error);
+   public delegate void OnAfterExecution(ILog log, MethodInfo method, object[] argument, object returnValue, Exception error);
 
    public static class ConfigurationExtensions
    {
