@@ -28,9 +28,6 @@ namespace LogMagic.WebApiApp
       public void ConfigureServices(IServiceCollection services)
       {
          services.AddMvc();
-
-         RequestTelemetry t;
-
       }
 
       // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

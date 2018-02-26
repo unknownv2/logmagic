@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.WebApiApp", "LogMagic.WebApiApp\LogMagic.WebApiApp.csproj", "{9202DA84-15E8-4E7C-A4F2-B259E4791BD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.WebApiApp", "LogMagic.WebApiApp\LogMagic.WebApiApp.csproj", "{9202DA84-15E8-4E7C-A4F2-B259E4791BD4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic", "..\..\src\LogMagic\LogMagic.csproj", "{2574222E-75B5-49E4-9162-504B0A2CC93B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Microsoft.AspNetCore", "..\..\src\LogMagic.Microsoft.AspNetCore\LogMagic.Microsoft.AspNetCore.csproj", "{A2A2D306-14F3-4751-90D4-5AEC682F2AE2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{425434A4-62E4-46D7-853D-BC6FF57C48A1}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\doc\impl\aspnetcore.md = ..\..\doc\impl\aspnetcore.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
