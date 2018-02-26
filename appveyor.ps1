@@ -18,9 +18,9 @@ if($bn -eq $null)
 }
 
 $vt = @{
-   "LogMagic.Storage.Net.csproj" = "1.0.0-alpha-$bn";
-   "LogMagic.Microsoft.Azure.ServiceFabric.v2.csproj" = "5.6.204.$bn";
-   "LogMagic.Microsoft.Azure.ServiceFabric.v3.csproj" = "6.1.456.$bn";
+   "LogMagic.Storage.Net.csproj" = "1.0.0-alpha2-$bn";
+   "LogMagic.Microsoft.Azure.ServiceFabric.v2.csproj" = "5.6.205.$bn";
+   "LogMagic.Microsoft.Azure.ServiceFabric.v3.csproj" = "6.1.457.$bn";
 }
 
 $Copyright = "Copyright (c) 2015-2017 by Ivan Gavryliuk"
