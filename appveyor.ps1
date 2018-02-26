@@ -12,6 +12,10 @@ if($gv -eq $null)
 {
    $gv = "2.5.0"
 }
+if($bn -eq $null)
+{
+   $bn = "0"
+}
 
 $vt = @{
    "LogMagic.Storage.Net.csproj" = "1.0.0-alpha-$bn";

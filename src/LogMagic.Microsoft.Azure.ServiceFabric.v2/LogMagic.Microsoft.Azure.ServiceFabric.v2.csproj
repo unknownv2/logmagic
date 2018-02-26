@@ -13,7 +13,7 @@
     <PackageTags>azure-service-fabric logging</PackageTags>
     <AssemblyVersion>5.0.0.0</AssemblyVersion>
     <FileVersion>5.6.204.0</FileVersion>
-    <Version>5.6.204.</Version>
+    <Version>5.6.204.0</Version>
     <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
     <PackageLicenseUrl>https://github.com/aloneguid/logmagic/blob/master/LICENSE</PackageLicenseUrl>
     <AssemblyName>LogMagic.Microsoft.Azure.ServiceFabric</AssemblyName>
