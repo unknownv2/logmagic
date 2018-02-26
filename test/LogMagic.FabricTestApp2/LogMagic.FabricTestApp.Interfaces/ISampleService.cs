@@ -6,6 +6,8 @@ namespace LogMagic.FabricTestApp.Interfaces
 {
    public interface ISampleService : IService
    {
-      Task<string> GetHelloAsync(string input);
+      Task<string> PingSuccessAsync(string input);
+
+      Task<string> PingFailureAsync(string input);
    }
 }

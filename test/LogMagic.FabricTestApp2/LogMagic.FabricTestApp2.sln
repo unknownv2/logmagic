@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "LogMagic.FabricTestApp2", "LogMagic.FabricTestApp2\LogMagic.FabricTestApp2.sfproj", "{549B8A30-CAF5-4637-A0FD-086FF21AF3B1}"
 EndProject
@@ -20,6 +20,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D3BA1AEE-0FF6-4724-9266-9E6991501959}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\.editorconfig = ..\..\.editorconfig
+		..\..\doc\impl\azure-servicefabric.md = ..\..\doc\impl\azure-servicefabric.md
 	EndProjectSection
 EndProject
 Global

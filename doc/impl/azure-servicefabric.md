@@ -88,7 +88,7 @@ or to call an Actor:
 IActorInterface actorProxy = CorrelatingActorProxy.Create<IActorInterface>(actorId, actorUri, ...);
 ```
 
-> note that Actors are not supported in v6 version yet.
+> note that Actors integration are not supported in v6 version yet.
 
 We've kept method signatures identical to the ones Service Fabric SDK has, therefore no of the parameters have to change!
 

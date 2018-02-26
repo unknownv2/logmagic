@@ -46,11 +46,11 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          {
             string methodName = MethodResolver.GetMethodName(requestMessage);
 
-            log.Trace("begin call {0}", methodName);
+            //log.Trace("begin call {0}", methodName);
 
             IServiceRemotingResponseMessage response = await _inner.RequestResponseAsync(requestMessage);
 
-            log.Trace("finished call {0} in {1}", methodName, time.Elapsed);
+            //log.Trace("finished call {0} in {1}", methodName, time.Elapsed);
 
             return response;
          }

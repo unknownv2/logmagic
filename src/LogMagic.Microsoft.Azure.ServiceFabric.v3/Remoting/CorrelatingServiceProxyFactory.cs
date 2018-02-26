@@ -4,8 +4,6 @@ using Microsoft.ServiceFabric.Services.Remoting;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
 using Microsoft.ServiceFabric.Services.Remoting.V2.Client;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 {

@@ -53,7 +53,17 @@ namespace StatefulSimulator
 
          using (L.Context(new KeyValuePair<string, string>("param1", "value1")))
          {
-            string hey = await service.GetHelloAsync("hey");
+            try
+            {
+
+               string hey = await service.PingSuccessAsync("hey");
+
+               hey = await service.PingFailureAsync("fail");
+            }
+            catch(Exception ex)
+            {
+               ex = null;
+            }
          }
       }
    }
