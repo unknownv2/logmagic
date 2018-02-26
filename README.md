@@ -274,7 +274,7 @@ LogMagic doesn't have the classic logging levels (i.e. debug, info, warn etc.) a
 |[Posh Console](doc/impl/posh-console.md)|Simplest logger that outputs events to the system console, but also supports colorisation.|
 |[System Trace](doc/impl/system-trace.md)|Writes to the system trace.|
 |[File on disk](doc/impl/disk-file.md)|A really simple writer that outputs to a file on disk.|
-|[Azure Application Insights](doc/impl/azure-appinsights)|Emits telemetry into [Azure Application Insights](https://azure.microsoft.com/en-us/services/application-insights/).|
+|[Azure Application Insights](doc/impl/azure-appinsights.md)|Emits telemetry into [Azure Application Insights](https://azure.microsoft.com/en-us/services/application-insights/).|
 |[Azure Service Fabric](doc/impl/azure-servicefabric.md)|Integrates with [Azure Service Fabric](https://azure.microsoft.com/en-us/services/service-fabric/) by building correlating proxies, enrichers, and emitting cluster health events|
 |[ASP.NET Core](doc/impl/aspnetcore.md)|Provides a custom middleware that automatically logs requests.|
 

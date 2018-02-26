@@ -2,11 +2,6 @@
 
 **Package**: [LogMagic.Microsoft.AspNetCore](https://www.nuget.org/packages/LogMagic.Microsoft.AspNetCore/)
 
-**Syntax:**
-```csharp
-L.Config.WriteTo.AzureApplicationInsights("app insights key", bool flushOnWrite = false);
-```
-
 Provides integration with [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/) in a form of a custom middleware that can be injected into usual request pipeline.
 
 ## Installing
