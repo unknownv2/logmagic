@@ -51,7 +51,7 @@ namespace LogMagic.Proxy
             {
                long ticks = measure.ElapsedTicks;
 
-               _onAfterExecution(_log, invocation.Method, invocation.Arguments, invocation.ReturnValue, error);
+               _onAfterExecution(_log, invocation.Method, invocation.Arguments, invocation.ReturnValue, ticks, error);
             }
 
             if(measure != null)
