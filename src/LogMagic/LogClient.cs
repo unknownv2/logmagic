@@ -27,6 +27,11 @@ namespace LogMagic
          _name = name ?? throw new ArgumentNullException(nameof(name));
       }
 
+      /// <summary>
+      /// Logger name
+      /// </summary>
+      public string Name => _name;
+
       [MethodImpl(MethodImplOptions.NoInlining)]
       internal void Serve(
          EventType eventType,
@@ -38,7 +43,7 @@ namespace LogMagic
 
          if(properties != null && properties.Count > 0)
          {
-            foreach(var prop in properties)
+            foreach(KeyValuePair<string, object> prop in properties)
             {
                e.AddProperty(prop.Key, prop.Value);
             }
@@ -88,7 +93,7 @@ namespace LogMagic
       [MethodImpl(MethodImplOptions.NoInlining)]
       public void Dependency(string type, string name, string command, long duration, Exception error, params KeyValuePair<string, object>[] properties)
       {
-         var ps = Create(properties);
+         Dictionary<string, object> ps = Create(properties);
 
          ps[KnownProperty.Duration] = duration;
          ps[KnownProperty.DependencyName] = name;
@@ -106,7 +111,7 @@ namespace LogMagic
       [MethodImpl(MethodImplOptions.NoInlining)]
       public void Event(string name, params KeyValuePair<string, object>[] properties)
       {
-         var ps = Create(properties);
+         Dictionary<string, object> ps = Create(properties);
          ps[KnownProperty.EventName] = name;
 
          Serve(EventType.ApplicationEvent, ps,
@@ -117,7 +122,7 @@ namespace LogMagic
       [MethodImpl(MethodImplOptions.NoInlining)]
       public void Request(string name, long duration, Exception error, params KeyValuePair<string, object>[] properties)
       {
-         var ps = Create(properties);
+         Dictionary<string, object> ps = Create(properties);
 
          ps[KnownProperty.Duration] = duration;
          ps[KnownProperty.RequestName] = name;
@@ -134,7 +139,7 @@ namespace LogMagic
       [MethodImpl(MethodImplOptions.NoInlining)]
       public void Metric(string name, double value, params KeyValuePair<string, object>[] properties)
       {
-         var ps = Create(properties);
+         Dictionary<string, object> ps = Create(properties);
 
          ps[KnownProperty.MetricName] = name;
          ps[KnownProperty.MetricValue] = value;
