@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
     <AssemblyName>LogMagic.Microsoft.Azure.ServiceFabric</AssemblyName>
@@ -14,20 +13,17 @@
     <AssemblyOriginatorKeyFile>../../logmagic.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <PackageTags>azure-service-fabric logging</PackageTags>
-    <AssemblyVersion>5.0.0.0</AssemblyVersion>
-    <FileVersion>5.6.204.0</FileVersion>
-    <Version>5.6.204</Version>
+    <AssemblyVersion>6.0.0.0</AssemblyVersion>
+    <FileVersion>6.1.456.0</FileVersion>
+    <Version>6.1.456.</Version>
     <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
     <PackageLicenseUrl>https://github.com/aloneguid/logmagic/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.ServiceFabric.Services.Remoting" Version="3.0.456" />
     <PackageReference Include="Microsoft.ServiceFabric.Actors" Version="3.0.456" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\LogMagic\LogMagic.csproj" />
   </ItemGroup>
-
 </Project>

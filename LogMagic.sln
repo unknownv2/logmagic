@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0D2BC941-7E3A-4A1A-B5DA-A7F3AB32C785}"
 EndProject
@@ -58,7 +58,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceFabric", "ServiceFab
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Microsoft.Azure.ServiceFabric.v3", "src\LogMagic.Microsoft.Azure.ServiceFabric.v3\LogMagic.Microsoft.Azure.ServiceFabric.v3.csproj", "{58CD5954-71EF-4FA1-9ABF-AF45ACD68C6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.Microsoft.AspNetCore", "src\LogMagic.Microsoft.AspNetCore\LogMagic.Microsoft.AspNetCore.csproj", "{33F2EE47-C8AC-4505-ADFD-F335045C5BD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Microsoft.AspNetCore", "src\LogMagic.Microsoft.AspNetCore\LogMagic.Microsoft.AspNetCore.csproj", "{33F2EE47-C8AC-4505-ADFD-F335045C5BD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.Proxy", "src\LogMagic.Proxy\LogMagic.Proxy.csproj", "{00633190-30A0-445C-A905-211FE3ABF254}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -102,6 +104,10 @@ Global
 		{33F2EE47-C8AC-4505-ADFD-F335045C5BD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33F2EE47-C8AC-4505-ADFD-F335045C5BD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33F2EE47-C8AC-4505-ADFD-F335045C5BD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00633190-30A0-445C-A905-211FE3ABF254}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00633190-30A0-445C-A905-211FE3ABF254}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00633190-30A0-445C-A905-211FE3ABF254}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00633190-30A0-445C-A905-211FE3ABF254}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,6 +125,7 @@ Global
 		{AD542CF4-F1F7-46D8-BF9C-A2C5EBB69176} = {0D2BC941-7E3A-4A1A-B5DA-A7F3AB32C785}
 		{58CD5954-71EF-4FA1-9ABF-AF45ACD68C6E} = {AD542CF4-F1F7-46D8-BF9C-A2C5EBB69176}
 		{33F2EE47-C8AC-4505-ADFD-F335045C5BD0} = {0D2BC941-7E3A-4A1A-B5DA-A7F3AB32C785}
+		{00633190-30A0-445C-A905-211FE3ABF254} = {0D2BC941-7E3A-4A1A-B5DA-A7F3AB32C785}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6A9360B6-B177-4333-8D5A-3493AD9F3B55}
