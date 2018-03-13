@@ -32,7 +32,10 @@ namespace LogMagic.FabricTestApp.StatelessSimulator
             new ServiceInstanceListener(c => new FabricTransportServiceRemotingListener(c, CreateMessageHandler()))
          };*/
 
-         return new ServiceInstanceListener[] { this.CreateCorrelatingServiceInstanceListener(new StatelessSimulatorRemotingService()) };
+         return new ServiceInstanceListener[]
+         {
+            this.CreateCorrelatingServiceInstanceListener(new StatelessSimulatorRemotingService())
+         };
       }
 
       /*private IServiceRemotingMessageHandler CreateMessageHandler()

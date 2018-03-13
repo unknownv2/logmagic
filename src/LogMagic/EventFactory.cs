@@ -6,8 +6,19 @@ using System.Collections.Generic;
 
 namespace LogMagic
 {
+   /// <summary>
+   /// Utility methods to create logging events
+   /// </summary>
    public static class EventFactory
    {
+      /// <summary>
+      /// Creates a rich logging event
+      /// </summary>
+      /// <param name="sourceName"></param>
+      /// <param name="eventType"></param>
+      /// <param name="format"></param>
+      /// <param name="parameters"></param>
+      /// <returns></returns>
       [MethodImpl(MethodImplOptions.NoInlining)]
       public static LogEvent CreateEvent(string sourceName, EventType eventType, string format, object[] parameters)
       {
@@ -27,7 +38,7 @@ namespace LogMagic
          FormattedString fs = FormattedString.Parse(format, parameters);
          e.Message = fs;
          e.FormattedMessage = fs.ToString();
-         foreach(var namedParam in fs.NamedParameters)
+         foreach(KeyValuePair<string, object> namedParam in fs.NamedParameters)
          {
             e.AddProperty(namedParam.Key, namedParam.Value);
          }

@@ -48,6 +48,10 @@
          Format = format;
       }
 
+      /// <summary>
+      /// Returns token name
+      /// </summary>
+      /// <returns></returns>
       public override string ToString()
       {
          return Name;

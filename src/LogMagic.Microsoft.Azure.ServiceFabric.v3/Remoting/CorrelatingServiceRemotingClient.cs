@@ -10,11 +10,13 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
    {
       private static readonly ILog log = L.G(typeof(CorrelatingServiceRemotingClient));
       private readonly IServiceRemotingClient _inner;
+      private readonly Action<CallSummary> _raiseSummary;
       private readonly RequestEnricher _enricher;
 
-      public CorrelatingServiceRemotingClient(IServiceRemotingClient inner)
+      public CorrelatingServiceRemotingClient(IServiceRemotingClient inner, Action<CallSummary> raiseSummary)
       {
          _inner = inner;
+         _raiseSummary = raiseSummary;
          _enricher = new RequestEnricher();
       }
 
@@ -44,15 +46,28 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 
          using (var time = new TimeMeasure())
          {
+            Exception gex = null;
             string methodName = MethodResolver.GetMethodName(requestMessage);
+            try
+            {
 
-            //log.Trace("begin call {0}", methodName);
+               IServiceRemotingResponseMessage response = await _inner.RequestResponseAsync(requestMessage);
 
-            IServiceRemotingResponseMessage response = await _inner.RequestResponseAsync(requestMessage);
-
-            //log.Trace("finished call {0} in {1}", methodName, time.Elapsed);
-
-            return response;
+               return response;
+            }
+            catch(Exception ex)
+            {
+               gex = ex;
+               throw;
+            }
+            finally
+            {
+               if (_raiseSummary != null)
+               {
+                  var summary = new CallSummary(methodName, gex, time.ElapsedTicks);
+                  _raiseSummary(summary);
+               }
+            }
          }
       }
 

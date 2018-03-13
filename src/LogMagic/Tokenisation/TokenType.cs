@@ -15,6 +15,9 @@
       /// </summary>
       Parameter,
 
+      /// <summary>
+      /// Event time
+      /// </summary>
       Time
    }
 }

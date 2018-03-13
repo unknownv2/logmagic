@@ -14,9 +14,10 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          Uri serviceUri,
          ServicePartitionKey partitionKey = null,
          TargetReplicaSelector targetReplicaSelector = TargetReplicaSelector.Default,
-         string listenerName = null) where TServiceInterface : IService
+         string listenerName = null,
+         Action<CallSummary> raiseSummary = null) where TServiceInterface : IService
       {
-         var proxyFactory = new CorrelatingServiceProxyFactory();
+         var proxyFactory = new CorrelatingServiceProxyFactory(raiseSummary: raiseSummary);
 
          return proxyFactory.CreateServiceProxy<TServiceInterface>(serviceUri, partitionKey, targetReplicaSelector, listenerName);
       }

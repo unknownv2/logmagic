@@ -13,7 +13,6 @@ namespace LogMagic
       /// <summary>
       /// Track dependency automatically, measure time and handle exceptions
       /// </summary>
-      /// <typeparam name="T"></typeparam>
       /// <param name="log">The log.</param>
       /// <param name="type">The type.</param>
       /// <param name="name">The name.</param>
@@ -96,7 +95,6 @@ namespace LogMagic
       /// <summary>
       /// Track dependency automatically, measure time and handle exceptions
       /// </summary>
-      /// <typeparam name="T"></typeparam>
       /// <param name="log">The log.</param>
       /// <param name="type">The type.</param>
       /// <param name="name">The name.</param>
@@ -120,6 +118,13 @@ namespace LogMagic
          }
       }
 
+      /// <summary>
+      /// Tracks a request
+      /// </summary>
+      /// <param name="log"></param>
+      /// <param name="name"></param>
+      /// <param name="call"></param>
+      /// <param name="properties"></param>
       public static void Request(this ILog log, string name, Action call, params KeyValuePair<string, object>[] properties)
       {
          using (var time = new TimeMeasure())

@@ -22,6 +22,8 @@ namespace StatefulSimulator
    /// </summary>
    internal sealed class StatefulSimulator : StatefulService
    {
+      private static readonly ILog log = L.G(typeof(StatefulSimulator));
+
       public StatefulSimulator(StatefulServiceContext context)
           : base(context)
       {
@@ -49,7 +51,8 @@ namespace StatefulSimulator
          //   new Uri("fabric:/LogMagic.FabricTestApp2/LogMagic.FabricTestApp.StatelessSimulator"));
 
          ISampleService service = CorrelatingProxyFactory.CreateServiceProxy<ISampleService>(
-            new Uri("fabric:/LogMagic.FabricTestApp2/LogMagic.FabricTestApp.StatelessSimulator"));
+            new Uri("fabric:/LogMagic.FabricTestApp2/LogMagic.FabricTestApp.StatelessSimulator"),
+            raiseSummary: RaiseSummary);
 
          using (L.Context(new KeyValuePair<string, string>("param1", "value1")))
          {
@@ -65,6 +68,11 @@ namespace StatefulSimulator
                ex = null;
             }
          }
+      }
+
+      private void RaiseSummary(CallSummary summary)
+      {
+         log.Trace("call {0} completed in {1} ticks", summary.CallName, summary.DurationTicks);
       }
    }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LogMagic
 {
-   public class FormatStringBuilder
+   internal class FormatStringBuilder
    {
       private readonly List<MessageToken> _tokens = new List<MessageToken>();
 

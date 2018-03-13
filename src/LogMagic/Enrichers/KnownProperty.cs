@@ -95,6 +95,9 @@
       /// </summary>
       public const string MetricValue = "metricValue";
 
+      /// <summary>
+      /// Used by some loggers to report cluster health.
+      /// </summary>
       public const string ClusterHealthProperty = "clusterHealth";
 
       /// <summary>
