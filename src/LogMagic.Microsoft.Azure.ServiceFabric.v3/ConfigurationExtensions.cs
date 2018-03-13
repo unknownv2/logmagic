@@ -40,7 +40,7 @@ namespace LogMagic
       {
          var handler = new CorrelatingRemotingMessageHandler(service.Context, serviceImplementation);
 
-         var listener = new ServiceInstanceListener(c => new FabricTransportServiceRemotingListener(c, handler));
+         var listener = new ServiceInstanceListener(c => new FabricTransportServiceRemotingListener(c, handler), listenerName);
 
          return listener;
       }
@@ -52,7 +52,7 @@ namespace LogMagic
       {
          var handler = new CorrelatingRemotingMessageHandler(service.Context, serviceImplementation);
 
-         var listener = new ServiceReplicaListener(c => new FabricTransportServiceRemotingListener(c, handler));
+         var listener = new ServiceReplicaListener(c => new FabricTransportServiceRemotingListener(c, handler), listenerName);
 
          return listener;
       }
