@@ -7,6 +7,7 @@ using Microsoft.ServiceFabric.Services.Remoting;
 using Microsoft.ServiceFabric.Services.Remoting.V2.FabricTransport.Runtime;
 using LogMagic.Microsoft.Azure.ServiceFabric.Remoting;
 using Microsoft.ServiceFabric.Actors.Runtime;
+using System;
 
 namespace LogMagic
 {
@@ -36,9 +37,10 @@ namespace LogMagic
 
       public static ServiceInstanceListener CreateCorrelatingServiceInstanceListener(this StatelessService service,
          IService serviceImplementation,
-         string listenerName = "")
+         string listenerName = "",
+         Action<CallSummary> raiseSummary = null)
       {
-         var handler = new CorrelatingRemotingMessageHandler(service.Context, serviceImplementation);
+         var handler = new CorrelatingRemotingMessageHandler(service.Context, serviceImplementation, raiseSummary);
 
          var listener = new ServiceInstanceListener(c => new FabricTransportServiceRemotingListener(c, handler), listenerName);
 
@@ -48,9 +50,10 @@ namespace LogMagic
       public static ServiceReplicaListener CreateCorrelatingReplicaListener(this StatefulService service,
          IService serviceImplementation,
          string listenerName = "",
-         bool listenOnSecondary = false)
+         bool listenOnSecondary = false,
+         Action<CallSummary> raiseSummary = null)
       {
-         var handler = new CorrelatingRemotingMessageHandler(service.Context, serviceImplementation);
+         var handler = new CorrelatingRemotingMessageHandler(service.Context, serviceImplementation, raiseSummary);
 
          var listener = new ServiceReplicaListener(c => new FabricTransportServiceRemotingListener(c, handler), listenerName);
 

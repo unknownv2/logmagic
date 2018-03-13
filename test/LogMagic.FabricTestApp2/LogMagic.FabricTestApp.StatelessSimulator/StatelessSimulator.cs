@@ -16,6 +16,8 @@ namespace LogMagic.FabricTestApp.StatelessSimulator
    /// </summary>
    internal sealed class StatelessSimulator : StatelessService
    {
+      private static readonly ILog log = L.G(typeof(StatelessSimulator));
+
       public StatelessSimulator(StatelessServiceContext context)
          : base(context)
       {
@@ -34,8 +36,13 @@ namespace LogMagic.FabricTestApp.StatelessSimulator
 
          return new ServiceInstanceListener[]
          {
-            this.CreateCorrelatingServiceInstanceListener(new StatelessSimulatorRemotingService())
+            this.CreateCorrelatingServiceInstanceListener(new StatelessSimulatorRemotingService(), raiseSummary: RaiseSummary)
          };
+      }
+
+      private void RaiseSummary(CallSummary summary)
+      {
+         log.Trace("call {0} completed in {1}", summary.CallName, summary.DurationTicks, summary.Error);
       }
 
       /*private IServiceRemotingMessageHandler CreateMessageHandler()

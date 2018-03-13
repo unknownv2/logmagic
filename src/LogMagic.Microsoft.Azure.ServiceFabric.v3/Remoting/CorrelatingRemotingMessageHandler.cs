@@ -15,13 +15,15 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
    {
       private static readonly Encoding Enc = Encoding.UTF8;
       private readonly IServiceRemotingMessageHandler _innerHandler;
+      private readonly Action<CallSummary> _raiseSummary;
       private static FieldInfo getHeadersField;
 
-      public CorrelatingRemotingMessageHandler(ServiceContext serviceContext, IService serviceImplementation)
+      public CorrelatingRemotingMessageHandler(ServiceContext serviceContext, IService serviceImplementation, Action<CallSummary> raiseSummary)
       {
          _innerHandler = new ServiceRemotingMessageDispatcher(serviceContext, serviceImplementation);
 
          MethodResolver.AddMethodsForProxyOrService(serviceImplementation.GetType().GetInterfaces(), typeof(IService));
+         _raiseSummary = raiseSummary;
       }
 
       public IServiceRemotingMessageBodyFactory GetRemotingMessageBodyFactory()
@@ -39,16 +41,30 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          IServiceRemotingRequestMessage requestMessage)
       {
          Dictionary<string, string> context = ExtractContextProperties(requestMessage);
+         string methodName = MethodResolver.GetMethodName(requestMessage);
 
-         if (context == null)
+         Exception gex = null;
+         using (L.Context(context))
          {
-            return await _innerHandler.HandleRequestResponseAsync(requestContext, requestMessage);
-         }
-         else
-         {
-            using (L.Context(context))
+            using (var time = new TimeMeasure())
             {
-               return await _innerHandler.HandleRequestResponseAsync(requestContext, requestMessage);
+               try
+               {
+                  return await _innerHandler.HandleRequestResponseAsync(requestContext, requestMessage);
+               }
+               catch (Exception ex)
+               {
+                  gex = ex;
+                  throw;
+               }
+               finally
+               {
+                  if (_raiseSummary != null)
+                  {
+                     var summary = new CallSummary(methodName, gex, time.ElapsedTicks);
+                     _raiseSummary(summary);
+                  }
+               }
             }
          }
       }
