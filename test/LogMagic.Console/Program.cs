@@ -15,27 +15,23 @@ namespace LogMagic.Console
       {
          L.Config
             .EnrichWith.Constant(KnownProperty.RoleName, "program.cs")
+            .EnrichWith.Constant(KnownProperty.RoleInstance, Guid.NewGuid().ToString())
             .EnrichWith.Constant(KnownProperty.OperationId, Guid.NewGuid().ToString())
             //.WriteTo.PoshConsole("{time:H:mm:ss,fff}|{level,-7}|{source}|{" + KnownProperty.NodeName + "}|{stack1}|{stack2}|{message}{error}")
-            .WriteTo.PoshConsole("all: @{time}|{message}")
-            .WriteTo.PoshConsole("some: @{time}|{message}").When.Lambda(e => e.FormattedMessage != "skip")
-            .WriteTo.AzureApplicationInsights("24703760-10ec-4e0b-b3ee-777f6ea80977");
+            //.WriteTo.PoshConsole("all: @{time}|{message}")
+            //.WriteTo.PoshConsole("some: @{time}|{message}").When.Lambda(e => e.FormattedMessage != "skip")
+            .WriteTo.Console()
+            .WriteTo.Trace()
+            .WriteTo.AzureApplicationInsights("24703760-10ec-4e0b-b3ee-777f6ea80977", false);
 
          log.Request("rname", 1);
          log.Trace("all");
          log.Trace("skip");
          log.Trace("all");
 
-         ILoggingInterface ii = log.CreateInterfaceLogger<ILoggingInterface, LoggingImplementation>(new LoggingImplementation());
-
-         try
+         for(int i = 0; i < 10000; i++)
          {
-            ii.Succeed();
-            ii.Fail();
-         }
-         catch
-         {
-
+            log.Request("rname", 10);
          }
 
          System.Console.ReadLine();

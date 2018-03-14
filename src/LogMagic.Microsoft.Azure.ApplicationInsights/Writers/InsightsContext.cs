@@ -11,21 +11,19 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
    class InsightsContext
    {
       private readonly TelemetryClient _client;
-      private readonly LogMagicTelemetryContext _telemetryContext;
       private readonly TelemetryContext _context;
 
-      public InsightsContext(TelemetryClient client, LogMagicTelemetryContext telemetryContext)
+      public InsightsContext(TelemetryClient client)
       {
          _client = client;
-         _telemetryContext = telemetryContext;
          _context = client.Context;
       }
 
       public void Apply(LogEvent e)
       {
-         _telemetryContext.Version = e.UseProperty(KnownProperty.Version, string.Empty);
-         _telemetryContext.RoleName = e.UseProperty(KnownProperty.RoleName, string.Empty);
-         _telemetryContext.RoleInstance = e.UseProperty(KnownProperty.RoleInstance, string.Empty);
+         LogMagicTelemetryProcessor.Version = e.UseProperty(KnownProperty.Version, string.Empty);
+         LogMagicTelemetryProcessor.RoleName = e.UseProperty(KnownProperty.RoleName, string.Empty);
+         LogMagicTelemetryProcessor.RoleInstance = e.UseProperty(KnownProperty.RoleInstance, string.Empty);
 
          switch(e.EventType)
          {

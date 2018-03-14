@@ -7,19 +7,28 @@ using Microsoft.ApplicationInsights.Extensibility;
 
 namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
 {
-   class LogMagicTelemetryContext : ITelemetryProcessor
+   class LogMagicTelemetryProcessor : ITelemetryProcessor
    {
-      public string Version { get; set; }
+      private readonly ITelemetryProcessor _next;
 
-      public string RoleName { get; set; }
+      public LogMagicTelemetryProcessor(ITelemetryProcessor next)
+      {
+         _next = next;
+      }
 
-      public string RoleInstance { get; set; }
+      public static string Version { get; set; }
+
+      public static string RoleName { get; set; }
+
+      public static string RoleInstance { get; set; }
 
       public void Process(ITelemetry item)
       {
          item.Context.Component.Version = Version;
          item.Context.Cloud.RoleInstance = RoleInstance;
          item.Context.Cloud.RoleName = RoleName;
+
+         _next.Process(item);
       }
    }
 }

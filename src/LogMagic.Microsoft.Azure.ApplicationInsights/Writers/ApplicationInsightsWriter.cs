@@ -16,15 +16,13 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
       {
          TelemetryConfiguration.Active.InstrumentationKey = instrumentationKey;
 
-         //create custom context to inject important props
-         var context = new LogMagicTelemetryContext();
          TelemetryProcessorChainBuilder builder = TelemetryConfiguration.Active.TelemetryProcessorChainBuilder;
-         builder.Use(next => context);
+         builder.Use(next => new LogMagicTelemetryProcessor(next));
          builder.Build();
 
-         _telemetryClient = new TelemetryClient();
+         _telemetryClient = new TelemetryClient(TelemetryConfiguration.Active);
          _telemetryClient.InstrumentationKey = instrumentationKey;
-         _context = new InsightsContext(_telemetryClient, context);
+         _context = new InsightsContext(_telemetryClient);
 
          _flushOnWrite = flushOnWrite;
       }
