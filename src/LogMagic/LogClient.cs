@@ -85,75 +85,67 @@ namespace LogMagic
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
-      public void Trace(string format, object[] parameters, params KeyValuePair<string, object>[] properties)
+      public void Trace(string format, object[] parameters, Dictionary<string, object> properties)
       {
-         Serve(EventType.Trace, Create(properties), format, parameters);
+         Serve(EventType.Trace, properties, format, parameters);
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
-      public void Dependency(string type, string name, string command, long duration, Exception error, params KeyValuePair<string, object>[] properties)
+      public void Dependency(string type, string name, string command, long duration, Exception error, Dictionary<string, object> properties)
       {
-         Dictionary<string, object> ps = Create(properties);
+         if (properties == null) properties = new Dictionary<string, object>();
 
-         ps[KnownProperty.Duration] = duration;
-         ps[KnownProperty.DependencyName] = name;
-         ps[KnownProperty.DependencyType] = type;
-         ps[KnownProperty.DependencyCommand] = command;
+         properties[KnownProperty.Duration] = duration;
+         properties[KnownProperty.DependencyName] = name;
+         properties[KnownProperty.DependencyType] = type;
+         properties[KnownProperty.DependencyCommand] = command;
 
          var parameters = new List<object> { _name, command, TimeSpan.FromTicks(duration) };
          if (error != null) parameters.Add(error);
 
-         Serve(EventType.Dependency, ps,
+         Serve(EventType.Dependency, properties,
             "dependency {0}.{1} took {2}",
             parameters.ToArray());
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
-      public void Event(string name, params KeyValuePair<string, object>[] properties)
+      public void Event(string name, Dictionary<string, object> properties)
       {
-         Dictionary<string, object> ps = Create(properties);
-         ps[KnownProperty.EventName] = name;
+         if (properties == null) properties = new Dictionary<string, object>();
+         properties[KnownProperty.EventName] = name;
 
-         Serve(EventType.ApplicationEvent, ps,
+         Serve(EventType.ApplicationEvent, properties,
             "application event {0} occurred",
             name);
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
-      public void Request(string name, long duration, Exception error, params KeyValuePair<string, object>[] properties)
+      public void Request(string name, long duration, Exception error, Dictionary<string, object> properties)
       {
-         Dictionary<string, object> ps = Create(properties);
-
-         ps[KnownProperty.Duration] = duration;
-         ps[KnownProperty.RequestName] = name;
+         if (properties == null) properties = new Dictionary<string, object>();
+         properties[KnownProperty.Duration] = duration;
+         properties[KnownProperty.RequestName] = name;
 
          if (error != null)
          {
-            ps[KnownProperty.Error] = error;
+            properties[KnownProperty.Error] = error;
          }
 
-         Serve(EventType.HandledRequest, ps,
+         Serve(EventType.HandledRequest, properties,
             "request {0} took {1}", name, TimeSpan.FromTicks(duration));
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]
-      public void Metric(string name, double value, params KeyValuePair<string, object>[] properties)
+      public void Metric(string name, double value, Dictionary<string, object> properties)
       {
-         Dictionary<string, object> ps = Create(properties);
+         if (properties == null) properties = new Dictionary<string, object>();
 
-         ps[KnownProperty.MetricName] = name;
-         ps[KnownProperty.MetricValue] = value;
+         properties[KnownProperty.MetricName] = name;
+         properties[KnownProperty.MetricValue] = value;
 
-         Serve(EventType.Metric, ps,
+         Serve(EventType.Metric, properties,
             "metric {0} == {1}",
             name, value);
-      }
-
-      private static Dictionary<string, object> Create(params KeyValuePair<string, object>[] properties)
-      {
-         var result = new Dictionary<string, object>();
-         if (properties != null) result.AddRange(properties);
-         return result;
       }
    }
 }

@@ -57,6 +57,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
             Type = e.UseProperty<string>(KnownProperty.DependencyType),
             Name = e.UseProperty<string>(KnownProperty.DependencyName),
             Data = e.UseProperty<string>(KnownProperty.DependencyCommand),
+            Target = e.UseProperty<string>(KnownProperty.DependencyTarget),
             Duration = TimeSpan.FromTicks(e.UseProperty<long>(KnownProperty.Duration)),
             Success = e.ErrorException == null,
          };

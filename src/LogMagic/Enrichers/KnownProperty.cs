@@ -90,6 +90,8 @@
       /// </summary>
       public const string DependencyCommand = "dependencyCommand";
 
+      public const string DependencyTarget = "dependencyTarget";
+
       /// <summary>
       /// Metric value
       /// </summary>

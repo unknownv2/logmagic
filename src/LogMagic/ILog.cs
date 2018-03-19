@@ -21,7 +21,7 @@ namespace LogMagic
       /// <summary>
       /// Send trace
       /// </summary>
-      void Trace(string format, object[] parameters, params KeyValuePair<string, object>[] properties);
+      void Trace(string format, object[] parameters, Dictionary<string, object> properties = null);
 
       /// <summary>
       /// Start tracking dependency.
@@ -32,15 +32,14 @@ namespace LogMagic
       /// <param name="duration"></param>
       /// <param name="error"></param>
       /// <param name="properties"></param>
-      /// <returns>Dependency tracker. Needs to be disposed to stop tracking.</returns>
-      void Dependency(string type, string name, string command, long duration, Exception error = null, params KeyValuePair<string, object>[] properties);
+      void Dependency(string type, string name, string command, long duration, Exception error = null, Dictionary<string, object> properties = null);
 
       /// <summary>
       /// Tracks application event
       /// </summary>
       /// <param name="name">Event name</param>
       /// <param name="properties">Extra properties for this event</param>
-      void Event(string name, params KeyValuePair<string, object>[] properties);
+      void Event(string name, Dictionary<string, object> properties = null);
 
       /// <summary>
       /// Track incoming application request
@@ -49,7 +48,7 @@ namespace LogMagic
       /// <param name="duration"></param>
       /// <param name="error"></param>
       /// <param name="properties">Optional property map</param>
-      void Request(string name, long duration, Exception error = null, params KeyValuePair<string, object>[] properties);
+      void Request(string name, long duration, Exception error = null, Dictionary<string, object> properties = null);
 
       /// <summary>
       /// Measures metric of a specified name
@@ -57,6 +56,6 @@ namespace LogMagic
       /// <param name="name">Metric name</param>
       /// <param name="value">Value of this metric</param>
       /// <param name="properties">Extra properties for this metric</param>
-      void Metric(string name, double value, params KeyValuePair<string, object>[] properties);
+      void Metric(string name, double value, Dictionary<string, object> properties = null);
    }
 }

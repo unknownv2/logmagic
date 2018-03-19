@@ -1,6 +1,8 @@
 ﻿using LogMagic.Enrichers;
 using NetBox.Extensions;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using C = System.Console;
@@ -14,24 +16,40 @@ namespace LogMagic.Console
       public static void Main(string[] args)
       {
          L.Config
-            .EnrichWith.Constant(KnownProperty.RoleName, "program.cs")
-            .EnrichWith.Constant(KnownProperty.RoleInstance, Guid.NewGuid().ToString())
-            .EnrichWith.Constant(KnownProperty.OperationId, Guid.NewGuid().ToString())
-            //.WriteTo.PoshConsole("{time:H:mm:ss,fff}|{level,-7}|{source}|{" + KnownProperty.NodeName + "}|{stack1}|{stack2}|{message}{error}")
-            //.WriteTo.PoshConsole("all: @{time}|{message}")
-            //.WriteTo.PoshConsole("some: @{time}|{message}").When.Lambda(e => e.FormattedMessage != "skip")
             .WriteTo.Console()
             .WriteTo.Trace()
-            .WriteTo.AzureApplicationInsights("24703760-10ec-4e0b-b3ee-777f6ea80977", false);
+            .WriteTo.AzureApplicationInsights("24703760-10ec-4e0b-b3ee-777f6ea80977", true);
 
-         log.Request("rname", 1);
-         log.Trace("all");
-         log.Trace("skip");
-         log.Trace("all");
-
-         for(int i = 0; i < 10000; i++)
+         using (L.Operation())
          {
-            log.Request("rname", 10);
+            using (L.Context(
+               KnownProperty.RoleInstance, Guid.NewGuid().ToString(),
+               KnownProperty.RoleName, "service 1"))
+            {
+               log.Request("call@2", 1);
+
+               log.Dependency("type", "name", "fake", 1, null,
+                  new Dictionary<string, object>
+                  {
+                     [KnownProperty.DependencyTarget] = "service 2"
+                  });
+
+               log.Dependency("leaf1", "leaf1", "fake", 1, null,
+                                 new Dictionary<string, object>
+                                 {
+                                    [KnownProperty.DependencyTarget] = "service 2"
+                                 }
+                  );
+
+               using (L.Operation())
+               {
+                  log.Request("call@3", 1, null,
+                     new Dictionary<string, object>
+                     {
+                        [KnownProperty.RoleName] = "service 2",
+                     });
+               }
+            }
          }
 
          System.Console.ReadLine();
