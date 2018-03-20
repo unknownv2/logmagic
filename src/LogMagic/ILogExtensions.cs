@@ -23,6 +23,11 @@ namespace LogMagic
          log.Request(name, duration, error, Compress(properties));
       }
 
+      public static void Event(this ILog log, string name, params string[] properties)
+      {
+         log.Event(name, Compress(properties));
+      }
+
       private static Dictionary<string, object> Compress(params string[] properties)
       {
          var d = new Dictionary<string, object>();

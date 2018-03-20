@@ -35,25 +35,25 @@ namespace LogMagic
          return configuration.Custom(new ServiceFabricEnricher(context));
       }
 
-      public static ServiceInstanceListener CreateCorrelatingServiceInstanceListener(this StatelessService service,
+      public static ServiceInstanceListener CreateCorrelatingServiceInstanceListener<TServiceInterface>(this StatelessService service,
          IService serviceImplementation,
          string listenerName = "",
          Action<CallSummary> raiseSummary = null)
       {
-         var handler = new CorrelatingRemotingMessageHandler(service.Context, serviceImplementation, raiseSummary);
+         var handler = new CorrelatingRemotingMessageHandler(L.G<TServiceInterface>(), service.Context, serviceImplementation, raiseSummary);
 
          var listener = new ServiceInstanceListener(c => new FabricTransportServiceRemotingListener(c, handler), listenerName);
 
          return listener;
       }
 
-      public static ServiceReplicaListener CreateCorrelatingReplicaListener(this StatefulService service,
+      public static ServiceReplicaListener CreateCorrelatingReplicaListener<TServiceInterface>(this StatefulService service,
          IService serviceImplementation,
          string listenerName = "",
          bool listenOnSecondary = false,
          Action<CallSummary> raiseSummary = null)
       {
-         var handler = new CorrelatingRemotingMessageHandler(service.Context, serviceImplementation, raiseSummary);
+         var handler = new CorrelatingRemotingMessageHandler(L.G<TServiceInterface>(), service.Context, serviceImplementation, raiseSummary);
 
          var listener = new ServiceReplicaListener(c => new FabricTransportServiceRemotingListener(c, handler), listenerName);
 

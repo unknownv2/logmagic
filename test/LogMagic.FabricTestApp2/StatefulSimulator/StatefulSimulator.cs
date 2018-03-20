@@ -45,7 +45,7 @@ namespace StatefulSimulator
       protected override async Task RunAsync(CancellationToken cancellationToken)
       {
          var proxyFactory = new ServiceProxyFactory(c => new FabricTransportServiceRemotingClientFactory());
-         var proxyFactory2 = new ServiceProxyFactory(c => new CorrelatingFabricTransportServiceRemotingClientFactory());
+         var proxyFactory2 = new ServiceProxyFactory(c => new CorrelatingFabricTransportServiceRemotingClientFactory<ISampleService>());
 
          //ISampleService service = proxyFactory2.CreateServiceProxy<ISampleService>(
          //   new Uri("fabric:/LogMagic.FabricTestApp2/LogMagic.FabricTestApp.StatelessSimulator"));

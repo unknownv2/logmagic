@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 {
-   public class CorrelatingFabricTransportServiceRemotingClientFactory : IServiceRemotingClientFactory
+   public class CorrelatingFabricTransportServiceRemotingClientFactory<TServiceInterface> : IServiceRemotingClientFactory
    {
       private readonly IServiceRemotingClientFactory _inner;
       private readonly Action<CallSummary> _raiseSummary;
@@ -68,7 +68,7 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          IServiceRemotingClient inner = await _inner.GetClientAsync(
             serviceUri, partitionKey, targetReplicaSelector, listenerName, retrySettings, cancellationToken);
 
-         return new CorrelatingServiceRemotingClient(inner, _raiseSummary, _remoteServiceName);
+         return new CorrelatingServiceRemotingClient(L.G<TServiceInterface>(), inner, _raiseSummary, _remoteServiceName);
       }
 
       public async Task<IServiceRemotingClient> GetClientAsync(ResolvedServicePartition previousRsp, TargetReplicaSelector targetReplicaSelector, string listenerName, OperationRetrySettings retrySettings, CancellationToken cancellationToken)
@@ -76,7 +76,7 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          IServiceRemotingClient inner = await _inner.GetClientAsync(
             previousRsp, targetReplicaSelector, listenerName, retrySettings, cancellationToken);
 
-         return new CorrelatingServiceRemotingClient(inner, _raiseSummary, _remoteServiceName);
+         return new CorrelatingServiceRemotingClient(L.G<TServiceInterface>(), inner, _raiseSummary, _remoteServiceName);
       }
 
       public IServiceRemotingMessageBodyFactory GetRemotingMessageBodyFactory()

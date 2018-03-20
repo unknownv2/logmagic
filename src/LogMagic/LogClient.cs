@@ -147,5 +147,10 @@ namespace LogMagic
             "metric {0} == {1}",
             name, value);
       }
+
+      public override string ToString()
+      {
+         return _name;
+      }
    }
 }

@@ -9,14 +9,15 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 {
    class CorrelatingServiceRemotingClient : IServiceRemotingClient
    {
-      private static readonly ILog log = L.G(typeof(CorrelatingServiceRemotingClient));
+      private readonly ILog _log;
       private readonly IServiceRemotingClient _inner;
       private readonly Action<CallSummary> _raiseSummary;
       private readonly string _remoteServiceName;
       private readonly RequestEnricher _enricher;
 
-      public CorrelatingServiceRemotingClient(IServiceRemotingClient inner, Action<CallSummary> raiseSummary, string remoteServiceName)
+      public CorrelatingServiceRemotingClient(ILog log, IServiceRemotingClient inner, Action<CallSummary> raiseSummary, string remoteServiceName)
       {
+         _log = log;
          _inner = inner;
          _raiseSummary = raiseSummary;
          _remoteServiceName = remoteServiceName;
@@ -50,7 +51,7 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          using (var time = new TimeMeasure())
          {
             string dependencyId = Guid.NewGuid().ToString();
-            using (L.Context(KnownProperty.OperationParentId))
+            using (L.Context(KnownProperty.OperationParentId, dependencyId))  //send parentId to the server
             {
                Exception gex = null;
                string methodName = MethodResolver.GetMethodName(requestMessage);
@@ -73,8 +74,8 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
                      _raiseSummary(summary);
                   }
 
-                  log.Dependency(_remoteServiceName, _remoteServiceName, methodName, time.ElapsedTicks, gex,
-                     KnownProperty.TelemetryId, dependencyId);
+                  _log.Dependency(_remoteServiceName, _remoteServiceName, methodName, time.ElapsedTicks, gex,
+                     KnownProperty.TelemetryId, dependencyId); //explicitly set dependency ID for this call
                }
             }
          }

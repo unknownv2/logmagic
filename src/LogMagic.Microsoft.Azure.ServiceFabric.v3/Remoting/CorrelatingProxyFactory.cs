@@ -18,7 +18,7 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          Action<CallSummary> raiseSummary = null,
          string remoteServiceName = null) where TServiceInterface : IService
       {
-         var proxyFactory = new CorrelatingServiceProxyFactory(raiseSummary: raiseSummary, remoteServiceName: remoteServiceName);
+         var proxyFactory = new CorrelatingServiceProxyFactory<TServiceInterface>(raiseSummary: raiseSummary, remoteServiceName: remoteServiceName);
 
          return proxyFactory.CreateServiceProxy<TServiceInterface>(serviceUri, partitionKey, targetReplicaSelector, listenerName);
       }

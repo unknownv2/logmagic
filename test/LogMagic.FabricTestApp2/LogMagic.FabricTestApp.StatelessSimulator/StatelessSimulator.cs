@@ -4,6 +4,7 @@ using System.Fabric;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using LogMagic.FabricTestApp.Interfaces;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting.V2.FabricTransport.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting.V2.Runtime;
@@ -36,7 +37,7 @@ namespace LogMagic.FabricTestApp.StatelessSimulator
 
          return new ServiceInstanceListener[]
          {
-            this.CreateCorrelatingServiceInstanceListener(new StatelessSimulatorRemotingService(), raiseSummary: RaiseSummary)
+            this.CreateCorrelatingServiceInstanceListener<ISampleService>(new StatelessSimulatorRemotingService(), raiseSummary: RaiseSummary)
          };
       }
 

@@ -7,7 +7,7 @@ using System;
 
 namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 {
-   public class CorrelatingServiceProxyFactory : IServiceProxyFactory
+   public class CorrelatingServiceProxyFactory<TServiceInterface> : IServiceProxyFactory
    {
       private readonly ServiceProxyFactory _serviceProxyFactory;
 
@@ -18,14 +18,14 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
             {
                if (createServiceRemotingClientFactory == null)
                {
-                  return new CorrelatingFabricTransportServiceRemotingClientFactory(inner: null, raiseSummary: raiseSummary, remoteServiceName: remoteServiceName);
+                  return new CorrelatingFabricTransportServiceRemotingClientFactory<TServiceInterface>(inner: null, raiseSummary: raiseSummary, remoteServiceName: remoteServiceName);
                }
 
                IServiceRemotingClientFactory innerClientFactory = createServiceRemotingClientFactory(callbackClient);
 
-               if (innerClientFactory is CorrelatingFabricTransportServiceRemotingClientFactory) return innerClientFactory;
+               if (innerClientFactory is CorrelatingFabricTransportServiceRemotingClientFactory<TServiceInterface>) return innerClientFactory;
 
-               return new CorrelatingFabricTransportServiceRemotingClientFactory(inner: innerClientFactory, raiseSummary: raiseSummary, remoteServiceName: remoteServiceName);
+               return new CorrelatingFabricTransportServiceRemotingClientFactory<TServiceInterface>(inner: innerClientFactory, raiseSummary: raiseSummary, remoteServiceName: remoteServiceName);
 
             },
             retrySettings);
