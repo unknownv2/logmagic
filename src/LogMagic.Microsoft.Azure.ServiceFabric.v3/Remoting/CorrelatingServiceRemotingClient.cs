@@ -1,4 +1,5 @@
-﻿using Microsoft.ServiceFabric.Services.Remoting.V2;
+﻿using LogMagic.Enrichers;
+using Microsoft.ServiceFabric.Services.Remoting.V2;
 using Microsoft.ServiceFabric.Services.Remoting.V2.Client;
 using System;
 using System.Fabric;
@@ -11,12 +12,14 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
       private static readonly ILog log = L.G(typeof(CorrelatingServiceRemotingClient));
       private readonly IServiceRemotingClient _inner;
       private readonly Action<CallSummary> _raiseSummary;
+      private readonly string _remoteServiceName;
       private readonly RequestEnricher _enricher;
 
-      public CorrelatingServiceRemotingClient(IServiceRemotingClient inner, Action<CallSummary> raiseSummary)
+      public CorrelatingServiceRemotingClient(IServiceRemotingClient inner, Action<CallSummary> raiseSummary, string remoteServiceName)
       {
          _inner = inner;
          _raiseSummary = raiseSummary;
+         _remoteServiceName = remoteServiceName;
          _enricher = new RequestEnricher();
       }
 
@@ -46,26 +49,32 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 
          using (var time = new TimeMeasure())
          {
-            Exception gex = null;
-            string methodName = MethodResolver.GetMethodName(requestMessage);
-            try
+            string dependencyId = Guid.NewGuid().ToString();
+            using (L.Context(KnownProperty.OperationParentId))
             {
-
-               IServiceRemotingResponseMessage response = await _inner.RequestResponseAsync(requestMessage);
-
-               return response;
-            }
-            catch(Exception ex)
-            {
-               gex = ex;
-               throw;
-            }
-            finally
-            {
-               if (_raiseSummary != null)
+               Exception gex = null;
+               string methodName = MethodResolver.GetMethodName(requestMessage);
+               try
                {
-                  var summary = new CallSummary(methodName, gex, time.ElapsedTicks);
-                  _raiseSummary(summary);
+                  IServiceRemotingResponseMessage response = await _inner.RequestResponseAsync(requestMessage);
+
+                  return response;
+               }
+               catch (Exception ex)
+               {
+                  gex = ex;
+                  throw;
+               }
+               finally
+               {
+                  if (_raiseSummary != null)
+                  {
+                     var summary = new CallSummary(methodName, gex, time.ElapsedTicks);
+                     _raiseSummary(summary);
+                  }
+
+                  log.Dependency(_remoteServiceName, _remoteServiceName, methodName, time.ElapsedTicks, gex,
+                     KnownProperty.TelemetryId, dependencyId);
                }
             }
          }

@@ -160,15 +160,13 @@ namespace LogMagic
       /// <param name="id">ID of the operation. When ommitted a new uniqueue ID is generated</param>
       public static IDisposable Operation(string id = null)
       {
-         string existingId = L.GetContextValue(KnownProperty.OperationId);
-         string operationId = id == null ? Guid.NewGuid().ToString() : id;
-         string parentId = existingId;
+         string existingId = GetContextValue(KnownProperty.OperationId);
+         string operationId = id ?? Guid.NewGuid().ToString();
 
          var ps = new Dictionary<string, string>
          {
             [KnownProperty.OperationId] = operationId
          };
-         if (parentId != null && operationId != parentId) ps[KnownProperty.OperationParentId] = parentId;
 
          return LogContext.Push(ps);
       }

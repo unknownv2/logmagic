@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
 {
+   //correlation: https://docs.microsoft.com/en-us/azure/application-insights/application-insights-correlation
    class ApplicationInsightsWriter : ILogWriter
    {
       private readonly bool _flushOnWrite;

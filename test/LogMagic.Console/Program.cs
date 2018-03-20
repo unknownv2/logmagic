@@ -11,7 +11,7 @@ namespace LogMagic.Console
 {
    public static class Program
    {
-      private static readonly LogMagic.ILog log = L.G(typeof(Program));
+      private static readonly ILog log = L.G(typeof(Program));
 
       public static void Main(string[] args)
       {
@@ -24,31 +24,18 @@ namespace LogMagic.Console
          {
             using (L.Context(
                KnownProperty.RoleInstance, Guid.NewGuid().ToString(),
-               KnownProperty.RoleName, "service 1"))
+               KnownProperty.RoleName, "service one"))
             {
-               log.Request("call@2", 1);
+               string requestId = Guid.NewGuid().ToString();
+               string dependencyId = Guid.NewGuid().ToString();
 
-               log.Dependency("type", "name", "fake", 1, null,
-                  new Dictionary<string, object>
-                  {
-                     [KnownProperty.DependencyTarget] = "service 2"
-                  });
+               log.Request("incoming", 1, null, KnownProperty.TelemetryId, requestId);
+               log.Dependency("http", "server", "correlate", 1, null,
+                  KnownProperty.TelemetryId, dependencyId);
 
-               log.Dependency("leaf1", "leaf1", "fake", 1, null,
-                                 new Dictionary<string, object>
-                                 {
-                                    [KnownProperty.DependencyTarget] = "service 2"
-                                 }
-                  );
-
-               using (L.Operation())
-               {
-                  log.Request("call@3", 1, null,
-                     new Dictionary<string, object>
-                     {
-                        [KnownProperty.RoleName] = "service 2",
-                     });
-               }
+               log.Request("incoming@2", 1, null,
+                  KnownProperty.RoleName, "service two",
+                  KnownProperty.OperationParentId, dependencyId);
             }
          }
 

@@ -55,6 +55,8 @@
       /// </summary>
       public const string OperationParentId = "operationParentId";
 
+      public const string TelemetryId = "telemetryId";
+
       /// <summary>
       /// Operation duration
       /// </summary>

@@ -18,6 +18,11 @@ namespace LogMagic
          log.Dependency(type, name, command, duration, error, Compress(properties));
       }
 
+      public static void Request(this ILog log, string name, long duration, Exception error = null, params string[] properties)
+      {
+         log.Request(name, duration, error, Compress(properties));
+      }
+
       private static Dictionary<string, object> Compress(params string[] properties)
       {
          var d = new Dictionary<string, object>();
