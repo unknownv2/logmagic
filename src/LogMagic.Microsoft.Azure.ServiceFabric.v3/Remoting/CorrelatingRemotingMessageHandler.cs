@@ -13,6 +13,7 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 {
    class CorrelatingRemotingMessageHandler : IServiceRemotingMessageHandler
    {
+      private static readonly ILog log = L.G(typeof(CorrelatingRemotingMessageHandler));
       private static readonly Encoding Enc = Encoding.UTF8;
       private readonly IServiceRemotingMessageHandler _innerHandler;
       private readonly Action<CallSummary> _raiseSummary;
@@ -64,6 +65,9 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
                      var summary = new CallSummary(methodName, gex, time.ElapsedTicks);
                      _raiseSummary(summary);
                   }
+
+                  log.Request(methodName, time.ElapsedTicks, gex,
+                     context.ToDictionary(k => k.Key, v => (object)(v.Value)));
                }
             }
          }
