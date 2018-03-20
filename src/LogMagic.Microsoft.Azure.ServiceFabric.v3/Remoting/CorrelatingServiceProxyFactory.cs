@@ -11,21 +11,21 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
    {
       private readonly ServiceProxyFactory _serviceProxyFactory;
 
-      public CorrelatingServiceProxyFactory(Func<IServiceRemotingCallbackMessageHandler, IServiceRemotingClientFactory> createServiceRemotingClientFactory = null, OperationRetrySettings retrySettings = null, Action<CallSummary> raiseSummary = null)
+      public CorrelatingServiceProxyFactory(Func<IServiceRemotingCallbackMessageHandler, IServiceRemotingClientFactory> createServiceRemotingClientFactory = null, OperationRetrySettings retrySettings = null, Action<CallSummary> raiseSummary = null, string remoteServiceName = null)
       {
          _serviceProxyFactory = new ServiceProxyFactory(
             (callbackClient) =>
             {
                if (createServiceRemotingClientFactory == null)
                {
-                  return new CorrelatingFabricTransportServiceRemotingClientFactory(inner: null, raiseSummary: raiseSummary);
+                  return new CorrelatingFabricTransportServiceRemotingClientFactory(inner: null, raiseSummary: raiseSummary, remoteServiceName: remoteServiceName);
                }
 
                IServiceRemotingClientFactory innerClientFactory = createServiceRemotingClientFactory(callbackClient);
 
                if (innerClientFactory is CorrelatingFabricTransportServiceRemotingClientFactory) return innerClientFactory;
 
-               return new CorrelatingFabricTransportServiceRemotingClientFactory(inner: innerClientFactory, raiseSummary: raiseSummary);
+               return new CorrelatingFabricTransportServiceRemotingClientFactory(inner: innerClientFactory, raiseSummary: raiseSummary, remoteServiceName: remoteServiceName);
 
             },
             retrySettings);
