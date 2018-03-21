@@ -1,6 +1,7 @@
 ﻿using LogMagic.Enrichers;
 using Microsoft.ServiceFabric.Services.Remoting.V2;
 using Microsoft.ServiceFabric.Services.Remoting.V2.Client;
+using NetBox.Extensions;
 using System;
 using System.Fabric;
 using System.Threading.Tasks;
@@ -46,15 +47,16 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 
       public async Task<IServiceRemotingResponseMessage> RequestResponseAsync(IServiceRemotingRequestMessage requestMessage)
       {
-         _enricher.Enrich(requestMessage);
+         string dependencyId = Guid.NewGuid().ToShortest();
+         string methodName = MethodResolver.GetMethodName(requestMessage);
 
          using (var time = new TimeMeasure())
          {
-            string dependencyId = Guid.NewGuid().ToString();
-            using (L.Context(KnownProperty.OperationParentId, dependencyId))  //send parentId to the server
+            using (L.Context(KnownProperty.ActivityId, dependencyId))   //dependency ID travels to the server as parent Id
             {
                Exception gex = null;
-               string methodName = MethodResolver.GetMethodName(requestMessage);
+               _enricher.Enrich(requestMessage);
+
                try
                {
                   IServiceRemotingResponseMessage response = await _inner.RequestResponseAsync(requestMessage);
@@ -74,8 +76,8 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
                      _raiseSummary(summary);
                   }
 
-                  _log.Dependency(_remoteServiceName, _remoteServiceName, methodName, time.ElapsedTicks, gex,
-                     KnownProperty.TelemetryId, dependencyId); //explicitly set dependency ID for this call
+                  //ActivityId is overriden by context
+                  _log.Dependency(_remoteServiceName, _remoteServiceName, methodName, time.ElapsedTicks, gex);
                }
             }
          }

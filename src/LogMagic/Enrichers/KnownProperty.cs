@@ -46,16 +46,19 @@
       public const string ThreadId = "threadId";
 
       /// <summary>
-      /// Used to track an operation across multiple layers
+      /// Tracks distributed operation across the layers. OperationId is a constant between all the calls affected in a distributed operation.
       /// </summary>
-      public const string OperationId = "Request-Id";
+      public const string OperationId = "operationId";
 
       /// <summary>
-      /// Used in conjunction with <see cref="OperationId"/> to track the parent operation ID
+      /// If current activity is initiated by another one, indicates the parent activity ID.
       /// </summary>
-      public const string OperationParentId = "operationParentId";
+      public const string ParentActivityId = "parentActivityId";
 
-      public const string TelemetryId = "telemetryId";
+      /// <summary>
+      /// Used to override the ID set by a telemetry call
+      /// </summary>
+      public const string ActivityId = "activityId";
 
       /// <summary>
       /// Operation duration

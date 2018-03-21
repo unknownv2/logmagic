@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using LogMagic.Enrichers;
 using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Remoting.Runtime;
 using Microsoft.ServiceFabric.Actors.Runtime;
@@ -154,7 +155,7 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
          string currentOperationId = _switchOperationContext ? Guid.NewGuid().ToString() : operationId;
 
          using (L.Context(contextProperties))
-         using (L.Operation(currentOperationId))
+         using (L.Context(KnownProperty.OperationId, currentOperationId))
          {
             try
             {

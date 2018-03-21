@@ -4,6 +4,7 @@ using System.Fabric;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using LogMagic.Enrichers;
 using LogMagic.FabricTestApp.Interfaces;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting.V2.FabricTransport.Runtime;
@@ -22,6 +23,12 @@ namespace LogMagic.FabricTestApp.StatelessSimulator
       public StatelessSimulator(StatelessServiceContext context)
          : base(context)
       {
+         L.Config
+            .WriteTo.Trace()
+            .WriteTo.AzureApplicationInsights("24703760-10ec-4e0b-b3ee-777f6ea80977")
+            .EnrichWith.AzureServiceFabricContext(context)
+            .EnrichWith.Constant(KnownProperty.RoleName, "StatelessSimulator")
+            .EnrichWith.Constant(KnownProperty.RoleInstance, context.ReplicaOrInstanceId.ToString());
       }
 
       /// <summary>

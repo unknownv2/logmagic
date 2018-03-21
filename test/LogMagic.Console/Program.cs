@@ -20,7 +20,7 @@ namespace LogMagic.Console
             .WriteTo.Trace()
             .WriteTo.AzureApplicationInsights("24703760-10ec-4e0b-b3ee-777f6ea80977", true);
 
-         using (L.Operation())
+         using (L.Context(KnownProperty.OperationId, Guid.NewGuid().ToShortest()))
          {
             using (L.Context(
                KnownProperty.RoleInstance, Guid.NewGuid().ToString(),
@@ -29,47 +29,15 @@ namespace LogMagic.Console
                string requestId = Guid.NewGuid().ToString();
                string dependencyId = Guid.NewGuid().ToString();
 
-               log.Request("incoming", 1, null, KnownProperty.TelemetryId, requestId);
+               log.Request("incoming", 1, null, KnownProperty.ActivityId, requestId);
                log.Dependency("http", "server", "correlate", 1, null,
-                  KnownProperty.TelemetryId, dependencyId);
+                  KnownProperty.ActivityId, dependencyId);
 
                log.Request("incoming@2", 1, null,
                   KnownProperty.RoleName, "service two",
-                  KnownProperty.OperationParentId, dependencyId);
+                  KnownProperty.ParentActivityId, dependencyId);
             }
          }
-
-         System.Console.ReadLine();
-         return;
-
-         using (L.Operation())
-         {
-            log.Trace("op: {0}, p: {1}", L.GetContextValue(KnownProperty.OperationId), L.GetContextValue(KnownProperty.OperationParentId));
-
-            using (L.Operation())
-            {
-               log.Trace("op: {0}, p: {1}", L.GetContextValue(KnownProperty.OperationId), L.GetContextValue(KnownProperty.OperationParentId));
-            }
-
-            log.Trace("op: {0}, p: {1}", L.GetContextValue(KnownProperty.OperationId), L.GetContextValue(KnownProperty.OperationParentId));
-         }
-
-         log.Trace("op: {0}, p: {1}", L.GetContextValue(KnownProperty.OperationId), L.GetContextValue(KnownProperty.OperationParentId));
-
-         log.Trace("test");
-
-         using (L.Context("stack1".PairedWith("s11")))
-         {
-            log.Trace("test");
-
-            using (L.Context("stack1".PairedWith("s12")))
-            {
-               log.Trace("s1 - {0}", L.GetContextValue("stack1"));
-
-               log.Trace("test");
-            }
-         }
-         log.Trace("test");
 
          C.ReadLine();
       }

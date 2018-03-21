@@ -19,7 +19,7 @@ namespace LogMagic
 
          if (properties != null)
          {
-            foreach (var pair in properties)
+            foreach (KeyValuePair<string, string> pair in properties)
             {
                stack[pair.Key] = new ConstantEnricher(pair);
             }
@@ -37,7 +37,7 @@ namespace LogMagic
 
       private static ConcurrentDictionary<string, IEnricher> GetOrCreateEnricherStack()
       {
-         var enrichers = Enrichers;
+         ConcurrentDictionary<string, IEnricher> enrichers = Enrichers;
 
          if (enrichers == null)
          {
@@ -56,7 +56,7 @@ namespace LogMagic
 
       public static string GetValueByName(string name)
       {
-         var enrichers = Enrichers;
+         ConcurrentDictionary<string, IEnricher> enrichers = Enrichers;
 
          if (enrichers == null) return null;
 
@@ -72,7 +72,7 @@ namespace LogMagic
 
       public static Dictionary<string, string> GetAllValues()
       {
-         var enrichers = Enrichers;
+         ConcurrentDictionary<string, IEnricher> enrichers = Enrichers;
 
          if (enrichers == null) return new Dictionary<string, string>();
 

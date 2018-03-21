@@ -61,7 +61,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
             Duration = TimeSpan.FromTicks(e.UseProperty<long>(KnownProperty.Duration)),
             Success = e.ErrorException == null,
          };
-         string id = e.UseProperty<string>(KnownProperty.TelemetryId);
+         string id = e.UseProperty<string>(KnownProperty.ActivityId);
          if (id != null) d.Id = id;
          AddProperties(d, e);
          Add(d, e);
@@ -112,7 +112,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
             Success = e.ErrorException == null,
             ResponseCode = e.ErrorException == null ? "200" : e.ErrorException.GetType().Name
          };
-         string id = e.UseProperty<string>(KnownProperty.TelemetryId);
+         string id = e.UseProperty<string>(KnownProperty.ActivityId);
          if (id != null) tr.Id = id;
          Add(tr, e);
          AddProperties(tr, e);
@@ -148,7 +148,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
       {
          telemetry.Timestamp = e.EventTime;
          telemetry.Context.Operation.Id = e.UseProperty<string>(KnownProperty.OperationId);
-         telemetry.Context.Operation.ParentId = e.UseProperty<string>(KnownProperty.OperationParentId);
+         telemetry.Context.Operation.ParentId = e.UseProperty<string>(KnownProperty.ParentActivityId);
       }
 
       private static SeverityLevel GetSeverityLevel(LogEvent e)

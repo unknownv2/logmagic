@@ -1,4 +1,5 @@
-﻿using Microsoft.ServiceFabric.Services.Remoting;
+﻿using LogMagic.Enrichers;
+using Microsoft.ServiceFabric.Services.Remoting;
 using Microsoft.ServiceFabric.Services.Remoting.V2;
 using Microsoft.ServiceFabric.Services.Remoting.V2.Runtime;
 using System;
@@ -89,9 +90,18 @@ namespace LogMagic.Microsoft.Azure.ServiceFabric.Remoting
 
          if (headersCollection == null) return null;
 
-         return headersCollection.ToDictionary(
+         var result = headersCollection.ToDictionary(
             e => e.Key,
             e => e.Value == null ? null : Enc.GetString(e.Value));
+
+         // ActivityId becomes parent here
+         if(result.TryGetValue(KnownProperty.ActivityId, out string activityId))
+         {
+            result[KnownProperty.ParentActivityId] = activityId;
+            result.Remove(KnownProperty.ActivityId);
+         }
+
+         return result;
       }
    }
 }

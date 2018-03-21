@@ -91,16 +91,6 @@ namespace LogMagic
 #if !NET45
 
       /// <summary>
-      /// Adds a context property
-      /// </summary>
-      public static IDisposable Context(IEnumerable<KeyValuePair<string, string>> properties)
-      {
-         if (properties == null) return null;
-
-         return LogContext.Push(properties);
-      }
-
-      /// <summary>
       /// Adds one or more context properties.
       /// </summary>
       /// <param name="properties">
@@ -109,7 +99,7 @@ namespace LogMagic
       /// </param>
       public static IDisposable Context(params string[] properties)
       {
-         if (properties == null) return null;
+         if (properties == null || properties.Length < 2) return null;
 
          var d = new Dictionary<string, string>();
 
@@ -125,9 +115,9 @@ namespace LogMagic
       /// <summary>
       /// Adds a context property
       /// </summary>
-      public static IDisposable Context(params KeyValuePair<string, string>[] properties)
+      public static IDisposable Context(Dictionary<string, string> properties)
       {
-         if (properties == null || properties.Length == 0) return null;
+         if (properties == null || properties.Count == 0) return null;
 
          return LogContext.Push(properties);
       }
@@ -153,23 +143,6 @@ namespace LogMagic
          return LogContext.GetAllValues();
       }
 
-      /// <summary>
-      /// Marks a start of an operation pushing operation id to the current context. If context already contains operation id,
-      /// then it's set as operation's parent ID, unless they are equal.
-      /// </summary>
-      /// <param name="id">ID of the operation. When ommitted a new uniqueue ID is generated</param>
-      public static IDisposable Operation(string id = null)
-      {
-         string existingId = GetContextValue(KnownProperty.OperationId);
-         string operationId = id ?? Guid.NewGuid().ToString();
-
-         var ps = new Dictionary<string, string>
-         {
-            [KnownProperty.OperationId] = operationId
-         };
-
-         return LogContext.Push(ps);
-      }
 #endif
 
    }

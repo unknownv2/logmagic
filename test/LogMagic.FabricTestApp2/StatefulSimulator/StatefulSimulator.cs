@@ -29,7 +29,11 @@ namespace StatefulSimulator
       {
          L.Config
             .WriteTo.Trace()
-            .EnrichWith.AzureServiceFabricContext(context);
+            .WriteTo.AzureApplicationInsights("24703760-10ec-4e0b-b3ee-777f6ea80977")
+            .EnrichWith.AzureServiceFabricContext(context)
+            .EnrichWith.Constant(KnownProperty.RoleName, "StatefulSimulator")
+            .EnrichWith.Constant(KnownProperty.RoleInstance, context.ReplicaOrInstanceId.ToString());
+
       }
 
       protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
@@ -52,9 +56,10 @@ namespace StatefulSimulator
 
          ISampleService service = CorrelatingProxyFactory.CreateServiceProxy<ISampleService>(
             new Uri("fabric:/LogMagic.FabricTestApp2/LogMagic.FabricTestApp.StatelessSimulator"),
-            raiseSummary: RaiseSummary);
+            raiseSummary: RaiseSummary,
+            remoteServiceName: "StatelessSimulator");
 
-         using (L.Context(new KeyValuePair<string, string>("param1", "value1")))
+         using (L.Context("param1", "value1"))
          {
             try
             {
@@ -72,7 +77,7 @@ namespace StatefulSimulator
 
       private void RaiseSummary(CallSummary summary)
       {
-         log.Trace("call {0} completed in {1} ticks", summary.CallName, summary.DurationTicks);
+         //log.Trace("call {0} completed in {1} ticks", summary.CallName, summary.DurationTicks);
       }
    }
 }

@@ -1,37 +1,79 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using LogMagic.Enrichers;
-using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.AspNetCore.Http;
+using NetBox.Extensions;
 
 namespace LogMagic.Microsoft.AspNetCore
 {
    class LogMagicMiddleware
    {
       private static readonly ILog log = L.G(typeof(LogMagicMiddleware));
-      private static bool _appInsightsInitialised;
       private readonly RequestDelegate _next;
 
       public LogMagicMiddleware(RequestDelegate next)
       {
          _next = next;
       }
-
+      
       public Task Invoke(HttpContext context)
       {
-         using (var time = new TimeMeasure())
-         {
-            string name = $"{context.Request.Path}{context.Request.QueryString}";
-            string operationId = TryGetOperationId(context);
+         string name = $"{context.Request.Path}{context.Request.QueryString}";
 
-            using (L.Operation(operationId))
+         Dictionary<string, string> correlationContext = GetIncomingContext();
+
+         //everything happening inside this request will have a proper operation id and
+         //parent activity id set from correlation context
+         using (L.Context(correlationContext))
+         {
+            using (var time = new TimeMeasure())
             {
-               return _next(context);
+               Exception gex = null;
+
+               try
+               {
+                  return _next(context);
+               }
+               catch (Exception ex)
+               {
+                  gex = ex;
+                  throw;
+               }
+               finally
+               {
+                  // request will have a new ID but parentId is fetched from current context which links it appropriately
+                  log.Request(name, time.ElapsedTicks, gex);
+               }
             }
          }
       }
 
-      private string TryGetOperationId(HttpContext context)
+      private Dictionary<string, string> GetIncomingContext()
+      {
+         var result = new Dictionary<string, string>();
+
+         //get root activity which is the one that initiated incoming call
+         Activity rootActivity = Activity.Current;
+         while (rootActivity.Parent != null) rootActivity = rootActivity.Parent;
+
+         //add properties which are stored in baggage
+         foreach (KeyValuePair<string, string> baggageItem in rootActivity.Baggage)
+         {
+            string key = baggageItem.Key;
+            string value = baggageItem.Value;
+
+            result[key] = value;
+         }
+
+         result[KnownProperty.ParentActivityId] = rootActivity.ParentId;
+         if (!result.ContainsKey(KnownProperty.OperationId)) result[KnownProperty.OperationId] = Guid.NewGuid().ToShortest();
+
+         return result;
+      }
+
+      /*private bool TryGetFromAppInsightsContext(HttpContext context, out string operationId, out string operationParentId, out string telemetryId)
       {
          RequestTelemetry appInsightsTelemetry = context.Features.Get<RequestTelemetry>();
 
@@ -51,8 +93,8 @@ namespace LogMagic.Microsoft.AspNetCore
             return appInsightsTelemetry.Context.Operation.Id;
          }
 
-         return null;
-      }
+         return false;
+      }*/
 
    }
 }
