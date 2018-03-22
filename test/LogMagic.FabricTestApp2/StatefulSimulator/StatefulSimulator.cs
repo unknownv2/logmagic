@@ -38,7 +38,23 @@ namespace StatefulSimulator
 
       protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
       {
-         return new ServiceReplicaListener[0];
+         //create remote proxy
+         ISampleService sample = CreateSampleService();
+
+         return new ServiceReplicaListener[]
+         {
+            this.CreateCorrelatingReplicaListener<IRootService>(new StatefulSimulatorRemotingService(sample))
+         };
+      }
+
+      private ISampleService CreateSampleService()
+      {
+         ISampleService service = CorrelatingProxyFactory.CreateServiceProxy<ISampleService>(
+            new Uri("fabric:/LogMagic.FabricTestApp2/LogMagic.FabricTestApp.StatelessSimulator"),
+            raiseSummary: RaiseSummary,
+            remoteServiceName: "StatelessSimulator");
+
+         return service;
       }
 
       /// <summary>
@@ -48,6 +64,8 @@ namespace StatefulSimulator
       /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service replica.</param>
       protected override async Task RunAsync(CancellationToken cancellationToken)
       {
+         return;
+
          var proxyFactory = new ServiceProxyFactory(c => new FabricTransportServiceRemotingClientFactory());
          var proxyFactory2 = new ServiceProxyFactory(c => new CorrelatingFabricTransportServiceRemotingClientFactory<ISampleService>());
 

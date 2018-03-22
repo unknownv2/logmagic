@@ -37,11 +37,6 @@ namespace LogMagic.FabricTestApp.StatelessSimulator
       /// <returns>A collection of listeners.</returns>
       protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
       {
-         /*return new ServiceInstanceListener[]
-         {
-            new ServiceInstanceListener(c => new FabricTransportServiceRemotingListener(c, CreateMessageHandler()))
-         };*/
-
          return new ServiceInstanceListener[]
          {
             this.CreateCorrelatingServiceInstanceListener<ISampleService>(new StatelessSimulatorRemotingService(), raiseSummary: RaiseSummary)

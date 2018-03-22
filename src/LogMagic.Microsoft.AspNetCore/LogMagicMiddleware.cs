@@ -56,18 +56,21 @@ namespace LogMagic.Microsoft.AspNetCore
 
          //get root activity which is the one that initiated incoming call
          Activity rootActivity = Activity.Current;
-         while (rootActivity.Parent != null) rootActivity = rootActivity.Parent;
-
-         //add properties which are stored in baggage
-         foreach (KeyValuePair<string, string> baggageItem in rootActivity.Baggage)
+         if (rootActivity != null)
          {
-            string key = baggageItem.Key;
-            string value = baggageItem.Value;
+            while (rootActivity.Parent != null) rootActivity = rootActivity.Parent;
 
-            result[key] = value;
+            //add properties which are stored in baggage
+            foreach (KeyValuePair<string, string> baggageItem in rootActivity.Baggage)
+            {
+               string key = baggageItem.Key;
+               string value = baggageItem.Value;
+
+               result[key] = value;
+            }
+
+            result[KnownProperty.ParentActivityId] = rootActivity.ParentId;
          }
-
-         result[KnownProperty.ParentActivityId] = rootActivity.ParentId;
          if (!result.ContainsKey(KnownProperty.OperationId)) result[KnownProperty.OperationId] = Guid.NewGuid().ToShortest();
 
          return result;
