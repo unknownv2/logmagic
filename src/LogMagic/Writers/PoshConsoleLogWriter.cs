@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LogMagic.Enrichers;
 using LogMagic.Tokenisation;
 
 namespace LogMagic.Writers
@@ -66,7 +67,7 @@ namespace LogMagic.Writers
                         Cg.Write(e.EventTime.ToString(token.Format), TimeColour);
                         break;
                      case TextFormatter.Severity:
-                        LogSeverity(e);
+                        WriteSeverity(e);
                         break;
                      case TextFormatter.Source:
                         Cg.Write(e.SourceName, SourceColour);
@@ -128,15 +129,45 @@ namespace LogMagic.Writers
          }
       }
 
-      private void LogSeverity(LogEvent e)
+      private void WriteSeverity(LogEvent e)
       {
-         if(e.ErrorException == null)
+         object sevObj = e.GetProperty(KnownProperty.Severity);
+
+         if (sevObj is LogSeverity sev)
          {
-            Cg.Write("INF", ConsoleColor.White, ConsoleColor.DarkGreen);
+
+            switch (sev)
+            {
+               case LogSeverity.Critical:
+                  Cg.Write("CRT", ConsoleColor.White, ConsoleColor.Red);
+                  break;
+               case LogSeverity.Error:
+                  Cg.Write("ERR", ConsoleColor.White, ConsoleColor.Red);
+                  break;
+               case LogSeverity.Information:
+                  Cg.Write("INF", ConsoleColor.White, ConsoleColor.Red);
+                  break;
+               case LogSeverity.Verbose:
+                  Cg.Write("DBG", ConsoleColor.White, ConsoleColor.Red);
+                  break;
+               case LogSeverity.Warning:
+                  Cg.Write("WRN", ConsoleColor.White, ConsoleColor.Red);
+                  break;
+               default:
+                  Cg.Write("INF", ConsoleColor.White, ConsoleColor.DarkGreen);
+                  break;
+            }
          }
          else
          {
-            Cg.Write("ERR", ConsoleColor.White, ConsoleColor.Red);
+            if (e.ErrorException == null)
+            {
+               Cg.Write("INF", ConsoleColor.White, ConsoleColor.DarkGreen);
+            }
+            else
+            {
+               Cg.Write("ERR", ConsoleColor.White, ConsoleColor.Red);
+            }
          }
       }
 

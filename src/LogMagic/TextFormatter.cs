@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using LogMagic.Enrichers;
 using LogMagic.Tokenisation;
 
 namespace LogMagic
@@ -43,7 +44,7 @@ namespace LogMagic
                         b.Append(e.EventTime.ToString(token.Format));
                         break;
                      case Severity:
-                        string sev = e.ErrorException == null ? "I" : "E";
+                        string sev = ToSeverityString(e);
                         if (token.Format != null) sev = string.Format(token.NativeFormat, sev);
                         b.Append(sev);
                         break;
@@ -80,6 +81,31 @@ namespace LogMagic
          }
 
          return b.ToString();
+      }
+
+      private static string ToSeverityString(LogEvent e)
+      {
+         object sevObj = e.GetProperty(KnownProperty.Severity);
+         if(!(sevObj is LogSeverity sev))
+         {
+            return e.ErrorException == null ? "I" : "E";
+         }
+
+         switch(sev)
+         {
+            case LogSeverity.Critical:
+               return "C";
+            case LogSeverity.Error:
+               return "E";
+            case LogSeverity.Information:
+               return "I";
+            case LogSeverity.Verbose:
+               return "D";
+            case LogSeverity.Warning:
+               return "W";
+            default:
+               return "I";
+         }
       }
    }
 }

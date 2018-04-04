@@ -17,8 +17,11 @@ namespace LogMagic.Console
       {
          L.Config
             .WriteTo.Console()
+            .WriteTo.PoshConsole()
             .WriteTo.Trace()
             .WriteTo.AzureApplicationInsights("24703760-10ec-4e0b-b3ee-777f6ea80977", true);
+
+         log.Critical("critical");
 
          using (L.Context(KnownProperty.OperationId, Guid.NewGuid().ToShortest()))
          {
