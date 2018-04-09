@@ -2,20 +2,20 @@
   <PropertyGroup>
     <TargetFrameworks>net46</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
-    <PackageProjectUrl>https://github.com/aloneguid/logmagic</PackageProjectUrl>
-    <PackageIconUrl>http://i.isolineltd.com/nuget/logmagic.png</PackageIconUrl>
+    <Copyright>Copyright (c) 2015-2018 by Ivan Gavryliuk</Copyright>
+    <PackageProjectUrl>https://github.com/aloneguid/config</PackageProjectUrl>
+    <PackageIconUrl>http://i.isolineltd.com/nuget/config.net.png</PackageIconUrl>
     <Description>LogMagic Azure Service Fabric integration support. This package extracts context information from the running service and injects as enriched properties. It also supports correlating proxies helping to carry context information between service fabric native services and actors.</Description>
-    <RepositoryUrl>https://github.com/aloneguid/logmagic</RepositoryUrl>
+    <RepositoryUrl>https://github.com/aloneguid/config</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <AssemblyOriginatorKeyFile>../../logmagic.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <PackageTags>azure-service-fabric logging</PackageTags>
     <AssemblyVersion>5.0.0.0</AssemblyVersion>
-    <FileVersion>5.6.204.0</FileVersion>
-    <Version>5.6.204.0</Version>
+    <FileVersion>5.6.1.1</FileVersion>
+    <Version>5.6.1-ci-00001</Version>
     <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
-    <PackageLicenseUrl>https://github.com/aloneguid/logmagic/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/aloneguid/config/blob/master/LICENSE</PackageLicenseUrl>
     <AssemblyName>LogMagic.Microsoft.Azure.ServiceFabric</AssemblyName>
     <RootNamespace>LogMagic.Microsoft.Azure.ServiceFabric</RootNamespace>
   </PropertyGroup>

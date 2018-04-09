@@ -2,19 +2,19 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard1.4;net45</TargetFrameworks>
     <Description>Provides loggic facilities for Microsoft Azure Application Insights.</Description>
-    <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
-    <PackageProjectUrl>https://github.com/aloneguid/logmagic</PackageProjectUrl>
-    <PackageIconUrl>http://i.isolineltd.com/nuget/logmagic.png</PackageIconUrl>
-    <RepositoryUrl>https://github.com/aloneguid/logmagic</RepositoryUrl>
+    <Copyright>Copyright (c) 2015-2018 by Ivan Gavryliuk</Copyright>
+    <PackageProjectUrl>https://github.com/aloneguid/config</PackageProjectUrl>
+    <PackageIconUrl>http://i.isolineltd.com/nuget/config.net.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/aloneguid/config</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>application-insights logging</PackageTags>
     <AssemblyOriginatorKeyFile>../../logmagic.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.5.0.0</FileVersion>
-    <Version>2.5.0</Version>
+    <FileVersion>2.9.0.1</FileVersion>
+    <Version>2.9.0-ci-00001</Version>
     <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
-    <PackageLicenseUrl>https://github.com/aloneguid/logmagic/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/aloneguid/config/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

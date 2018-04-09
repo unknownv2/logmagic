@@ -3,15 +3,15 @@
     <TargetFrameworks>netstandard1.6;net452</TargetFrameworks>
     <AssemblyOriginatorKeyFile>../../logmagic.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
-    <Version>1.0.0-alpha-</Version>
-    <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
-    <PackageIconUrl>http://i.isolineltd.com/nuget/logmagic.png</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/aloneguid/logmagic</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/aloneguid/logmagic</RepositoryUrl>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.9.0.1</FileVersion>
+    <Version>2.9.0-ci-00001</Version>
+    <Copyright>Copyright (c) 2015-2018 by Ivan Gavryliuk</Copyright>
+    <PackageIconUrl>http://i.isolineltd.com/nuget/config.net.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/aloneguid/config</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/aloneguid/config</RepositoryUrl>
     <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
-    <PackageLicenseUrl>https://github.com/aloneguid/logmagic/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/aloneguid/config/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryType>GitHub</RepositoryType>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageReleaseNotes>

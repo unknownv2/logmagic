@@ -1,41 +1,43 @@
-param(
-   [switch]
-   $Publish,
+$BuildNo = $env:APPVEYOR_BUILD_NUMBER
+$Major = 2
+$Minor = 9
+$Patch = 0
+$IsPrerelease = $true
 
-   [string]
-   $NuGetApiKey
-)
-
-$gv = $env:APPVEYOR_BUILD_VERSION
-$bn = $env:APPVEYOR_BUILD_NUMBER
-if($gv -eq $null)
+if($BuildNo -eq $null)
 {
-   $gv = "2.5.0"
-}
-if($bn -eq $null)
-{
-   $bn = "0"
+   $BuildNo = "1"
 }
 
 $vt = @{
-   "LogMagic.Storage.Net.csproj" = "1.0.0-alpha2-$bn";
-   "LogMagic.Microsoft.Azure.ServiceFabric.v2.csproj" = "5.6.205.$bn";
-   "LogMagic.Microsoft.Azure.ServiceFabric.v3.csproj" = "6.1.457.$bn";
+   "LogMagic.Microsoft.Azure.ServiceFabric.v2.csproj" = (5, 6, $BuildNo);
+   "LogMagic.Microsoft.Azure.ServiceFabric.v3.csproj" = (6, 1, $BuildNo);
 }
 
-$Copyright = "Copyright (c) 2015-2017 by Ivan Gavryliuk"
-$PackageIconUrl = "http://i.isolineltd.com/nuget/logmagic.png"
-$PackageProjectUrl = "https://github.com/aloneguid/logmagic"
-$RepositoryUrl = "https://github.com/aloneguid/logmagic"
+$Copyright = "Copyright (c) 2015-2018 by Ivan Gavryliuk"
+$PackageIconUrl = "http://i.isolineltd.com/nuget/config.net.png"
+$PackageProjectUrl = "https://github.com/aloneguid/config"
+$RepositoryUrl = "https://github.com/aloneguid/config"
 $Authors = "Ivan Gavryliuk (@aloneguid)"
-$PackageLicenseUrl = "https://github.com/aloneguid/logmagic/blob/master/LICENSE"
+$PackageLicenseUrl = "https://github.com/aloneguid/config/blob/master/LICENSE"
 $RepositoryType = "GitHub"
-$SlnPath = "logmagic.sln"
+
+$SlnPath = "LogMagic.sln"
 
 function Update-ProjectVersion($File)
 {
-   $v = $vt.($File.Name)
-   if($v -eq $null) { $v = $gv }
+   Write-Host "updating $File ..."
+
+   $over = $vt.($File.Name)
+   if($over -eq $null) {
+      $thisMajor = $Major
+      $thisMinor = $Minor
+      $thisPatch = $Patch
+   } else {
+      $thisMajor = $over[0]
+      $thisMinor = $over[1]
+      $thisPatch = $over[2]
+   }
 
    $xml = [xml](Get-Content $File.FullName)
 
@@ -48,12 +50,16 @@ function Update-ProjectVersion($File)
       $pg = $xml.Project.PropertyGroup[0]
    }
 
-   $parts = $v -split "\."
-   $bv = $parts[2]
-   if($bv.Contains("-")) { $bv = $bv.Substring(0, $bv.IndexOf("-"))}
-   $fv = "{0}.{1}.{2}.0" -f $parts[0], $parts[1], $bv
-   $av = "{0}.0.0.0" -f $parts[0]
-   $pv = $v
+   if($IsPrerelease) {
+      $suffix = "-ci-" + $BuildNo.PadLeft(5, '0')
+   } else {
+      $suffix = ""
+   }
+
+   
+   [string] $fv = "{0}.{1}.{2}.{3}" -f $thisMajor, $thisMinor, $thisPatch, $BuildNo
+   [string] $av = "{0}.0.0.0" -f $thisMajor
+   [string] $pv = "{0}.{1}.{2}{3}" -f $thisMajor, $thisMinor, $thisPatch, $suffix
 
    $pg.Version = $pv
    $pg.FileVersion = $fv
@@ -86,11 +92,11 @@ function Exec($Command, [switch]$ContinueOnError)
    }
 }
 
-# Restore packages
-Exec "dotnet restore $SlnPath"
-
 # Update versioning information
 Get-ChildItem *.csproj -Recurse | Where-Object {-not($_.Name -like "*test*") -and -not($_.Name -like "*console*") -and -not($_.Name -like "*FabricApp*") -and -not($_.Name -like "*Simulator*") -and -not ($_.Name -like "*WebApi*")} | % {
    Write-Host "setting version on $($_.FullName)"
    Update-ProjectVersion $_
 }
+
+# Restore packages
+Exec "dotnet restore $SlnPath"
