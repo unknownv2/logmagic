@@ -1,8 +1,8 @@
 # Microsoft Service Fabric
 
 There are two streams of NuGet packages for Service Fabric support:
-- 5.6 - targeting Azure Service Fabric 5.6 and supporting Remoting v1 only and .NET 4.6.1 only. This package has reached a stable phase and is not currently being worked on as remoting v1 is getting deprecated.
-- 6.1 - targeting Azure Service Fabric 6.1 and supporting Remoting v2 only as v1 was removed and targeting .NET Core 2.0 and .NET 4.6.1.
+- 5.6.x - targeting Azure Service Fabric 5.6 and supporting Remoting v1 only and .NET 4.6.1 only. This package has reached a stable phase and is not currently being worked on as remoting v1 is getting deprecated.
+- 6.1.x - targeting Azure Service Fabric 6.1 and supporting Remoting v2 only as v1 was removed and targeting .NET Core 2.0 and .NET 4.6.1.
 
 To install the integration install this [NuGet package](https://www.nuget.org/packages/LogMagic.Microsoft.Azure.ServiceFabric/).
 
