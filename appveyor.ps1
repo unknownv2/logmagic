@@ -1,7 +1,7 @@
 $BuildNo = $env:APPVEYOR_BUILD_NUMBER
 $Major = 2
 $Minor = 8
-$Patch = 1
+$Patch = 2
 $IsPrerelease = $false
 
 if($BuildNo -eq $null)
@@ -15,11 +15,11 @@ $vt = @{
 }
 
 $Copyright = "Copyright (c) 2015-2018 by Ivan Gavryliuk"
-$PackageIconUrl = "http://i.isolineltd.com/nuget/config.net.png"
-$PackageProjectUrl = "https://github.com/aloneguid/config"
-$RepositoryUrl = "https://github.com/aloneguid/config"
+$PackageIconUrl = "http://i.isolineltd.com/nuget/logmagic.png"
+$PackageProjectUrl = "https://github.com/aloneguid/logmagic"
+$RepositoryUrl = "https://github.com/aloneguid/logmagic"
 $Authors = "Ivan Gavryliuk (@aloneguid)"
-$PackageLicenseUrl = "https://github.com/aloneguid/config/blob/master/LICENSE"
+$PackageLicenseUrl = "https://github.com/aloneguid/logmagic/blob/master/LICENSE"
 $RepositoryType = "GitHub"
 
 $SlnPath = "LogMagic.sln"
