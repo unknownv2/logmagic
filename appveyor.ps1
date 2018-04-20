@@ -1,8 +1,8 @@
 $BuildNo = $env:APPVEYOR_BUILD_NUMBER
 $Major = 2
 $Minor = 9
-$Patch = 0
-$IsPrerelease = $true
+$Patch = 1
+$IsPrerelease = $false
 
 if($BuildNo -eq $null)
 {
