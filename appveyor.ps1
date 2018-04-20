@@ -1,6 +1,6 @@
 $BuildNo = $env:APPVEYOR_BUILD_NUMBER
 $Major = 2
-$Minor = 9
+$Minor = 8
 $Patch = 1
 $IsPrerelease = $false
 
