@@ -7,13 +7,13 @@ before_build:
 - ps: >-
    dotnet restore LogMagic.sln
 
-   cd src/LogMagic
+   dotnet housework setbuildnumber %FileVersion%  build.ini
 
-   dotnet housework setbuildnumber %FileVersion%  ../../build.ini
+   cd src
 
-   dotnet housework author *.csproj  ../../build.ini -r
+   dotnet housework author *.csproj  ../build.ini -r
 
-   cd ../..
+   cd ..
 build:
   project: LogMagic.sln
   verbosity: minimal
