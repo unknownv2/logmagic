@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Copyright>Copyright (c) 2015-2018 by Ivan Gavryliuk</Copyright>
     <AssemblyTitle>LogMagic</AssemblyTitle>
@@ -25,10 +25,12 @@
     <FileVersion>2.9.0.1</FileVersion>
     <Version>2.9.0-ci-00001</Version>
     <Description>Like many other libraries for .NET, LogMagic provides diagnostic logging into files, the console, and elsewhere. It's probably the easiest framework to setup, has a clean API, extremely extensible.
+
 LogMagic also supports a relatively new paradigm of structured logging.</Description>
     <PackageReleaseNotes>v2.6
 - new feature: support for asp.net core middleware
 - new feature: support for Service Fabric Remoting v2
+
 - improvement: L.Context is super easy to use</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
@@ -68,4 +70,7 @@ LogMagic also supports a relatively new paradigm of structured logging.</Descrip
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
+   <ItemGroup>
+      <DotNetCliToolReference Include="dotnet-housework" Version="0.0.7" />
+   </ItemGroup>
 </Project>

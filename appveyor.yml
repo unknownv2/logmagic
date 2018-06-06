@@ -4,7 +4,16 @@ configuration: Release
 environment:
   Azure.AppInsights.InstrumentationKey: 24703760-10ec-4e0b-b3ee-777f6ea80977
 before_build:
-- ps: .\appveyor.ps1
+- ps: >-
+   dotnet restore LogMagic.sln
+
+   cd src/LogMagic
+
+   dotnet housework setbuildnumber %FileVersion%  ../../build.ini
+
+   dotnet housework author *.csproj  ../../build.ini -r
+
+   cd ../..
 build:
   project: LogMagic.sln
   verbosity: minimal

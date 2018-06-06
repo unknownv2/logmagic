@@ -9,6 +9,9 @@ namespace LogMagic.Tokenisation
    /// </summary>
    public class FormattedString
    {
+      internal const string ParamBegin = "{";
+      internal const string ParamEnd = "}";
+      internal const string FormatSeparator = ":";
       private static readonly char[] ParamTrims = new char[] { '{', '}' };
       private readonly string _format;
       private readonly object[] _parameters;

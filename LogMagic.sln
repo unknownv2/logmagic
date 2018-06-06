@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		appveyor.ps1 = appveyor.ps1
 		appveyor.yml = appveyor.yml
+		build.ini = build.ini
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6714F8E9-8637-4F54-9728-5951ECC204DF}"
@@ -60,7 +61,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Microsoft.Azure.Se
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Microsoft.AspNetCore", "src\LogMagic.Microsoft.AspNetCore\LogMagic.Microsoft.AspNetCore.csproj", "{33F2EE47-C8AC-4505-ADFD-F335045C5BD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.Proxy", "src\LogMagic.Proxy\LogMagic.Proxy.csproj", "{00633190-30A0-445C-A905-211FE3ABF254}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Proxy", "src\LogMagic.Proxy\LogMagic.Proxy.csproj", "{00633190-30A0-445C-A905-211FE3ABF254}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

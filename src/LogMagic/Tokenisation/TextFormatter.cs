@@ -2,7 +2,7 @@
 using LogMagic.Enrichers;
 using LogMagic.Tokenisation;
 
-namespace LogMagic
+namespace LogMagic.Tokenisation
 {
    /// <summary>
    /// Log formatting utility methods
@@ -13,6 +13,13 @@ namespace LogMagic
       /// Default format string used to format log text
       /// </summary>
       public static readonly FormattedString DefaultFormat = FormattedString.Parse("{time:H:mm:ss,fff}|{level,-7}|{source}|{message}{error}", null);
+
+      public static readonly FormattedString DefaultFormat2 = FormattedString.Parse(
+         new FormattedStringBuilder()
+            .AddTime("H:mm:ss,fff")
+            .Build(),
+         null
+         );
 
       internal const string Time = "time";
       internal const string Severity = "level";
