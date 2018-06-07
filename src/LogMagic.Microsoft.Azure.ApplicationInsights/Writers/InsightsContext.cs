@@ -11,11 +11,13 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
    class InsightsContext
    {
       private readonly TelemetryClient _client;
+      private readonly WriterOptions _options;
       private readonly TelemetryContext _context;
 
-      public InsightsContext(TelemetryClient client)
+      public InsightsContext(TelemetryClient client, WriterOptions options)
       {
          _client = client;
+         _options = options;
          _context = client.Context;
       }
 
@@ -87,10 +89,14 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
          Add(tr, e);
          AddProperties(tr, e);
 
-         _client.TrackTrace(tr);
 
          if (e.ErrorException != null)
          {
+            if(_options.TraceExceptions)
+            {
+               _client.TrackTrace(tr);
+            }
+
             var et = new ExceptionTelemetry(e.ErrorException);
             et.Message = e.FormattedMessage;
 
@@ -98,6 +104,10 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
             AddProperties(et, e);
 
             _client.TrackException(et);
+         }
+         else
+         {
+            _client.TrackTrace(tr);
          }
       }
 

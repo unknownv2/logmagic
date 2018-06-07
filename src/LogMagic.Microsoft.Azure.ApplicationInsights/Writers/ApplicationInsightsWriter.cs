@@ -9,11 +9,11 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
    //correlation: https://docs.microsoft.com/en-us/azure/application-insights/application-insights-correlation
    class ApplicationInsightsWriter : ILogWriter
    {
-      private readonly bool _flushOnWrite;
       private readonly TelemetryClient _telemetryClient;
       private readonly InsightsContext _context;
+      private readonly WriterOptions _options;
 
-      public ApplicationInsightsWriter(string instrumentationKey, bool flushOnWrite)
+      public ApplicationInsightsWriter(string instrumentationKey, WriterOptions options)
       {
          TelemetryConfiguration.Active.InstrumentationKey = instrumentationKey;
 
@@ -23,9 +23,9 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
 
          _telemetryClient = new TelemetryClient(TelemetryConfiguration.Active);
          _telemetryClient.InstrumentationKey = instrumentationKey;
-         _context = new InsightsContext(_telemetryClient);
+         _context = new InsightsContext(_telemetryClient, options);
 
-         _flushOnWrite = flushOnWrite;
+         _options = options;
       }
 
       private void AddTelemetryContext()
@@ -45,7 +45,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
             _context.Apply(e);
          }
 
-         if (_flushOnWrite)
+         if (_options.FlushOnWrite)
          {
             _telemetryClient.Flush();
          }

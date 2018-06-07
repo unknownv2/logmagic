@@ -1,4 +1,5 @@
-﻿using LogMagic.Microsoft.Azure.ApplicationInsights.Writers;
+﻿using LogMagic.Microsoft.Azure.ApplicationInsights;
+using LogMagic.Microsoft.Azure.ApplicationInsights.Writers;
 
 namespace LogMagic
 {
@@ -15,9 +16,16 @@ namespace LogMagic
       /// <param name="flushOnWrite">When true, flush will be forced on every write</param>
       /// <returns></returns>
       public static ILogConfiguration AzureApplicationInsights(this IWriterConfiguration configuration, string instrumentationKey,
+         bool traceExceptions = true,
          bool flushOnWrite = false)
       {
-         return configuration.Custom(new ApplicationInsightsWriter(instrumentationKey, flushOnWrite));
+         var options = new WriterOptions
+         {
+            FlushOnWrite = flushOnWrite,
+            TraceExceptions = traceExceptions
+         };
+
+         return configuration.Custom(new ApplicationInsightsWriter(instrumentationKey, options));
       }
    }
 }
