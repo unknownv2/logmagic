@@ -11,7 +11,7 @@ before_build:
 
    dotnet housework setbuildnumber %FileVersion%  ../../build.ini
 
-   dotnet housework author *.csproj  ../../build.ini -r
+   dotnet housework author ../../*.csproj  ../../build.ini -r
 
    cd ../..
 build:
