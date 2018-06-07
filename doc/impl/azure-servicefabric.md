@@ -1,10 +1,8 @@
 # Microsoft Service Fabric
 
-There are two streams of NuGet packages for Service Fabric support:
-- 5.6.x - targeting Azure Service Fabric 5.6 and supporting Remoting v1 only and .NET 4.6.1 only. This package has reached a stable phase and is not currently being worked on as remoting v1 is getting deprecated.
-- 6.1.x - targeting Azure Service Fabric 6.1 and supporting Remoting v2 only as v1 was removed and targeting .NET Core 2.0 and .NET 4.6.1.
+We only support Azure Service Fabric 6.1.x and higher. 5.6 is not maintaned anymore since the world has moved on.
 
-To install the integration install this [NuGet package](https://www.nuget.org/packages/LogMagic.Microsoft.Azure.ServiceFabric/).
+To install the integration install this [NuGet package](https://www.nuget.org/packages/LogMagic.Microsoft.ServiceFabric/).
 
 This package provides two ways of integrating with Service Fabric - [enrichment](#enrichment), [correlating proxies](#correlating-proxies), and [health reports](#health-reports)
 
@@ -102,8 +100,6 @@ The correlating proxy will intercept the calls for the specific proxy, capture c
 
 The good news is LogMagic includes an ability to automatically capture it. In order for this to work, you need to set up a few things first. However this library is called Log**Magic** and I've tried to make it a magic. The techniques a slightly different between remoting v1 and v2.
 
-#### Remoting v2
-
 On the listener service you would normally set up remoting using the following code:
 
 ```csharp
@@ -140,38 +136,11 @@ or in case of Actors
 
 > implementation pending
 
-
-#### Remoting v1
-
-On the listener service you would normally set up remoting using the following code:
-
-```csharp
-protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
-{
-    return new[] { new ServiceReplicaListener(context => this.CreateServiceRemotingListener(context)) };
-}
-```
-
-To make it aware of the context the code looks even simpler:
-
-```csharp
-protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
-{
-    return new[] { this.CreateCorrelatingReplicaListener() };
-}
-```
-or in case of a stateless service:
-
-```csharp
-protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
-{
-    return new[] { this.CreateCorrelatingInstanceListener() };
-}
-```
-
+<!--
 Or in case of Actors you'll need to into actor's project `Program.cs` and change ActorService ro CorrelatingActorService:
 
 ![Sf Context 03](sf-context-03.png)
+-->
 
 ### Technique
 

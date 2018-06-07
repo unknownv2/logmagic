@@ -7,15 +7,11 @@ Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "LogMagic.FabricTestApp2", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.FabricTestApp.StatelessSimulator", "LogMagic.FabricTestApp.StatelessSimulator\LogMagic.FabricTestApp.StatelessSimulator.csproj", "{D09796FB-E06E-4A5F-B437-805F00E799C4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Microsoft.Azure.ServiceFabric.v2", "..\..\src\LogMagic.Microsoft.Azure.ServiceFabric.v2\LogMagic.Microsoft.Azure.ServiceFabric.v2.csproj", "{6553ECF0-A718-44C6-8EB5-BC30C483ED4D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.FabricTestApp.Interfaces", "LogMagic.FabricTestApp.Interfaces\LogMagic.FabricTestApp.Interfaces.csproj", "{2B344B4D-BA24-4288-AA9F-94A2D2CE8291}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatefulSimulator", "StatefulSimulator\StatefulSimulator.csproj", "{9570EBE3-5AEA-431E-BC5D-FAB3F3334ACD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic", "..\..\src\LogMagic\LogMagic.csproj", "{FE696877-E2DE-4178-9827-53780494B6B4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Microsoft.Azure.ServiceFabric.v3", "..\..\src\LogMagic.Microsoft.Azure.ServiceFabric.v3\LogMagic.Microsoft.Azure.ServiceFabric.v3.csproj", "{276DCAC8-78AC-415C-B027-D10CCACEE206}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D3BA1AEE-0FF6-4724-9266-9E6991501959}"
 	ProjectSection(SolutionItems) = preProject
@@ -25,9 +21,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Microsoft.Azure.ApplicationInsights", "..\..\src\LogMagic.Microsoft.Azure.ApplicationInsights\LogMagic.Microsoft.Azure.ApplicationInsights.csproj", "{1B4B47BF-9645-42E8-A094-FE5DFDDC1F4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.FabricTestApp.StatelessWebApp", "LogMagic.FabricTestApp.StatelessWebApp\LogMagic.FabricTestApp.StatelessWebApp.csproj", "{74260457-73A7-4191-BD88-D82C399C8E9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.FabricTestApp.StatelessWebApp", "LogMagic.FabricTestApp.StatelessWebApp\LogMagic.FabricTestApp.StatelessWebApp.csproj", "{74260457-73A7-4191-BD88-D82C399C8E9D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Microsoft.AspNetCore", "..\..\src\LogMagic.Microsoft.AspNetCore\LogMagic.Microsoft.AspNetCore.csproj", "{363084F0-E701-432D-ACED-CD6C156F3119}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Microsoft.ServiceFabric", "..\..\src\LogMagic.Microsoft.ServiceFabric\LogMagic.Microsoft.ServiceFabric.csproj", "{510B8CFB-0CC9-4EBA-A2FB-B31C42BA1300}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,14 +51,6 @@ Global
 		{D09796FB-E06E-4A5F-B437-805F00E799C4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D09796FB-E06E-4A5F-B437-805F00E799C4}.Release|x64.ActiveCfg = Release|Any CPU
 		{D09796FB-E06E-4A5F-B437-805F00E799C4}.Release|x64.Build.0 = Release|Any CPU
-		{6553ECF0-A718-44C6-8EB5-BC30C483ED4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6553ECF0-A718-44C6-8EB5-BC30C483ED4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6553ECF0-A718-44C6-8EB5-BC30C483ED4D}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{6553ECF0-A718-44C6-8EB5-BC30C483ED4D}.Debug|x64.Build.0 = Debug|Any CPU
-		{6553ECF0-A718-44C6-8EB5-BC30C483ED4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6553ECF0-A718-44C6-8EB5-BC30C483ED4D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6553ECF0-A718-44C6-8EB5-BC30C483ED4D}.Release|x64.ActiveCfg = Release|Any CPU
-		{6553ECF0-A718-44C6-8EB5-BC30C483ED4D}.Release|x64.Build.0 = Release|Any CPU
 		{2B344B4D-BA24-4288-AA9F-94A2D2CE8291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2B344B4D-BA24-4288-AA9F-94A2D2CE8291}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B344B4D-BA24-4288-AA9F-94A2D2CE8291}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -85,14 +75,6 @@ Global
 		{FE696877-E2DE-4178-9827-53780494B6B4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE696877-E2DE-4178-9827-53780494B6B4}.Release|x64.ActiveCfg = Release|Any CPU
 		{FE696877-E2DE-4178-9827-53780494B6B4}.Release|x64.Build.0 = Release|Any CPU
-		{276DCAC8-78AC-415C-B027-D10CCACEE206}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{276DCAC8-78AC-415C-B027-D10CCACEE206}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{276DCAC8-78AC-415C-B027-D10CCACEE206}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{276DCAC8-78AC-415C-B027-D10CCACEE206}.Debug|x64.Build.0 = Debug|Any CPU
-		{276DCAC8-78AC-415C-B027-D10CCACEE206}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{276DCAC8-78AC-415C-B027-D10CCACEE206}.Release|Any CPU.Build.0 = Release|Any CPU
-		{276DCAC8-78AC-415C-B027-D10CCACEE206}.Release|x64.ActiveCfg = Release|Any CPU
-		{276DCAC8-78AC-415C-B027-D10CCACEE206}.Release|x64.Build.0 = Release|Any CPU
 		{1B4B47BF-9645-42E8-A094-FE5DFDDC1F4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1B4B47BF-9645-42E8-A094-FE5DFDDC1F4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B4B47BF-9645-42E8-A094-FE5DFDDC1F4D}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -117,6 +99,14 @@ Global
 		{363084F0-E701-432D-ACED-CD6C156F3119}.Release|Any CPU.Build.0 = Release|Any CPU
 		{363084F0-E701-432D-ACED-CD6C156F3119}.Release|x64.ActiveCfg = Release|Any CPU
 		{363084F0-E701-432D-ACED-CD6C156F3119}.Release|x64.Build.0 = Release|Any CPU
+		{510B8CFB-0CC9-4EBA-A2FB-B31C42BA1300}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{510B8CFB-0CC9-4EBA-A2FB-B31C42BA1300}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{510B8CFB-0CC9-4EBA-A2FB-B31C42BA1300}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{510B8CFB-0CC9-4EBA-A2FB-B31C42BA1300}.Debug|x64.Build.0 = Debug|Any CPU
+		{510B8CFB-0CC9-4EBA-A2FB-B31C42BA1300}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{510B8CFB-0CC9-4EBA-A2FB-B31C42BA1300}.Release|Any CPU.Build.0 = Release|Any CPU
+		{510B8CFB-0CC9-4EBA-A2FB-B31C42BA1300}.Release|x64.ActiveCfg = Release|Any CPU
+		{510B8CFB-0CC9-4EBA-A2FB-B31C42BA1300}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

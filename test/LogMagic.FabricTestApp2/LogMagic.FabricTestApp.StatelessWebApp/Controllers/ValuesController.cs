@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LogMagic.FabricTestApp.Interfaces;
-using LogMagic.Microsoft.Azure.ServiceFabric.Remoting;
+using LogMagic.Microsoft.ServiceFabric.Remoting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.ServiceFabric.Services.Client;
 

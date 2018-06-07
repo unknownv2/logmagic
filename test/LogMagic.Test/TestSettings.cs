@@ -10,7 +10,7 @@ namespace LogMagic.Test
       [Option(Alias = "Azure.Storage.Key")]
       string AzureStorageKey { get; }
 
-      [Option(Alias = "Azure.AppInsights.InstrumentationKey")]
+      [Option(Alias = "Azure.AppInsights.InstrumentationKey", DefaultValue = "fake key")]
       string AppInsightsKey { get; }
    }
 }

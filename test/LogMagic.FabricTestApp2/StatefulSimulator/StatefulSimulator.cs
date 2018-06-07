@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using LogMagic;
 using LogMagic.Enrichers;
 using LogMagic.FabricTestApp.Interfaces;
-using LogMagic.Microsoft.Azure.ServiceFabric.Remoting;
+using LogMagic.Microsoft.ServiceFabric.Remoting;
 using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Client;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;

@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\LogMagic.Microsoft.Azure.ApplicationInsights\LogMagic.Microsoft.Azure.ApplicationInsights.csproj" />
-    <ProjectReference Include="..\..\..\src\LogMagic.Microsoft.Azure.ServiceFabric.v3\LogMagic.Microsoft.Azure.ServiceFabric.v3.csproj" />
+    <ProjectReference Include="..\..\..\src\LogMagic.Microsoft.ServiceFabric\LogMagic.Microsoft.ServiceFabric.csproj" />
     <ProjectReference Include="..\LogMagic.FabricTestApp.Interfaces\LogMagic.FabricTestApp.Interfaces.csproj" />
   </ItemGroup>
 
