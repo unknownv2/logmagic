@@ -114,10 +114,12 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
       private void ApplyRequest(LogEvent e)
       {
          string name = e.UseProperty<string>(KnownProperty.RequestName);
+         string uri = e.UseProperty<string>(KnownProperty.RequestUri);
 
          var tr = new RequestTelemetry
          {
             Name = name,
+            Url = uri == null ? null : new Uri(uri),
             Duration = TimeSpan.FromTicks(e.UseProperty<long>(KnownProperty.Duration)),
             Success = e.ErrorException == null,
             ResponseCode = e.ErrorException == null ? "200" : e.ErrorException.GetType().Name

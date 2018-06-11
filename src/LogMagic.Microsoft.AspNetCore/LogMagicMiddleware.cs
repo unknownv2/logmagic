@@ -20,7 +20,8 @@ namespace LogMagic.Microsoft.AspNetCore
       
       public Task Invoke(HttpContext context)
       {
-         string name = $"{context.Request.Path}{context.Request.QueryString}";
+         string name = $"{context.Request.Method} {context.Request.Path}{context.Request.QueryString}";
+         string uri = $"{context.Request.Scheme}://{context.Request.Host}{context.Request.Path}{context.Request.QueryString}";
 
          Dictionary<string, string> correlationContext = GetIncomingContext();
 
@@ -44,7 +45,10 @@ namespace LogMagic.Microsoft.AspNetCore
                finally
                {
                   // request will have a new ID but parentId is fetched from current context which links it appropriately
-                  log.Request(name, time.ElapsedTicks, gex);
+                  using (L.Context(KnownProperty.RequestUri, uri))
+                  {
+                     log.Request(name, time.ElapsedTicks, gex);
+                  }
                }
             }
          }

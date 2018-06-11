@@ -76,6 +76,11 @@
       public const string RequestName = "requestName";
 
       /// <summary>
+      /// Absolute URI of a request
+      /// </summary>
+      public const string RequestUri = "requestUri";
+
+      /// <summary>
       /// Metric name
       /// </summary>
       public const string MetricName = "metricName";
