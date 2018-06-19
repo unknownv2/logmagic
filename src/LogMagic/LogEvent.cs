@@ -68,7 +68,7 @@ namespace LogMagic
       {
          if (name == null || value == null) return;
 
-         if(Properties == null) Properties = new Dictionary<string, object>();
+         if (Properties == null) Properties = new Dictionary<string, object>();
 
          Properties[name] = value;
       }
@@ -109,10 +109,39 @@ namespace LogMagic
          {
             return (T)r;
          }
-         catch(InvalidCastException)
+         catch (InvalidCastException)
          {
             //as a last resort try to cast to string
-            if(typeof(T) == typeof(string))
+            if (typeof(T) == typeof(string))
+            {
+               return (T)(object)(r.ToString());
+            }
+
+            return defaultValue;
+         }
+      }
+
+      /// <summary>
+      /// Calling this method get the property by name trying to cast to a specified type
+      /// </summary>
+      /// <param name="name">Property name</param>
+      /// <param name="defaultValue">Defalt value to use if property is not found</param>
+      /// <returns>Property value</returns>
+      public T GetProperty<T>(string name, T defaultValue = default(T))
+      {
+         if (Properties == null) return defaultValue;
+
+         object r;
+         if (!Properties.TryGetValue(name, out r)) r = defaultValue;
+
+         try
+         {
+            return (T)r;
+         }
+         catch (InvalidCastException)
+         {
+            //as a last resort try to cast to string
+            if (typeof(T) == typeof(string))
             {
                return (T)(object)(r.ToString());
             }

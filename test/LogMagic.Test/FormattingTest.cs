@@ -7,12 +7,13 @@ namespace LogMagic.Test
    public class FormattingTest
    {
       private TestWriter _writer;
-      private ILog _log = L.G();
+      private ILog _log = L.G<FormattingTest>();
 
       public FormattingTest()
       {
          _writer = new TestWriter();
          L.Config.ClearWriters();
+         L.Config.ClearEnrichers();
          L.Config
             .WriteTo.Trace()
             .WriteTo.Custom(_writer)

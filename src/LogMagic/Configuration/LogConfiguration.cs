@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LogMagic;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LogMagic.Configuration
@@ -9,9 +10,20 @@ namespace LogMagic.Configuration
       private readonly List<IEnricher> _enrichers = new List<IEnricher>();
       private readonly Dictionary<ILogWriter, List<IFilter>> _activeFilters = new Dictionary<ILogWriter, List<IFilter>>();
 
+#if !NET45
+      public LogContext Context { get; } = new LogContext();
+#endif
+
       public IEnumerable<IEnricher> Enrichers => _enrichers;
 
       public IEnumerable<ILogWriter> Writers => _writers;
+
+      public ILogConfiguration ClearFilters()
+      {
+         _activeFilters.Clear();
+
+         return this;
+      }
 
       public ILogConfiguration ClearWriters()
       {

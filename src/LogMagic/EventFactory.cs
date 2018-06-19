@@ -9,8 +9,17 @@ namespace LogMagic
    /// <summary>
    /// Utility methods to create logging events
    /// </summary>
-   public static class EventFactory
+   public class EventFactory
    {
+#if !NET45
+      private readonly LogContext _context;
+
+      public EventFactory(LogContext context)
+      {
+         _context = context;
+      }
+#endif
+
       /// <summary>
       /// Creates a rich logging event
       /// </summary>
@@ -20,7 +29,7 @@ namespace LogMagic
       /// <param name="parameters"></param>
       /// <returns></returns>
       [MethodImpl(MethodImplOptions.NoInlining)]
-      public static LogEvent CreateEvent(string sourceName, EventType eventType, string format, object[] parameters)
+      public LogEvent CreateEvent(string sourceName, EventType eventType, string format, object[] parameters)
       {
          var e = new LogEvent(sourceName, DateTime.UtcNow) { EventType = eventType };
 
@@ -31,7 +40,7 @@ namespace LogMagic
          //enrich
          Enrich(e, L.Config.Enrichers);
 #if NETSTANDARD || NET46
-         Enrich(e, LogContext.Enrichers?.Values);
+         Enrich(e, _context.Enrichers?.Values);
 #endif
 
          //message
@@ -46,7 +55,7 @@ namespace LogMagic
          return e;
       }
 
-      private static void Enrich(LogEvent e, IEnumerable<IEnricher> enrichers)
+      private void Enrich(LogEvent e, IEnumerable<IEnricher> enrichers)
       {
          if (enrichers == null) return;
 

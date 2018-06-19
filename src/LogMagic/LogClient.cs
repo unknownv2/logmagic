@@ -14,23 +14,20 @@ namespace LogMagic
    /// </summary>
    class LogClient : ILog
    {
+      private readonly ILogConfiguration _config;
       private readonly string _name;
+      private readonly EventFactory _factory;
 
-      public LogClient(Type type) :
-         this(type.FullName)
+      public LogClient(ILogConfiguration config, string name)
       {
-         
-      }
-
-      public LogClient(string name)
-      {
+         _config = config ?? throw new ArgumentNullException(nameof(config));
          _name = name ?? throw new ArgumentNullException(nameof(name));
+#if !NET45
+         _factory = new EventFactory(_config.Context);
+#else
+         _factory = new EventFactory();
+#endif
       }
-
-      /// <summary>
-      /// Logger name
-      /// </summary>
-      public string Name => _name;
 
       [MethodImpl(MethodImplOptions.NoInlining)]
       internal void Serve(
@@ -39,7 +36,7 @@ namespace LogMagic
          string format,
          params object[] parameters)
       {
-         LogEvent e = EventFactory.CreateEvent(_name, eventType, format, parameters);
+         LogEvent e = _factory.CreateEvent(_name, eventType, format, parameters);
 
          if(properties != null && properties.Count > 0)
          {
@@ -54,11 +51,11 @@ namespace LogMagic
 
       private void SubmitNow(LogEvent e)
       {
-         foreach (ILogWriter writer in new List<ILogWriter>(L.Config.Writers))
+         foreach (ILogWriter writer in new List<ILogWriter>(_config.Writers))
          {
             try
             {
-               IReadOnlyCollection<IFilter> filters = L.Config.GetFilters(writer);
+               IReadOnlyCollection<IFilter> filters = _config.GetFilters(writer);
                bool active = filters == null || filters.Any(f => f.Match(e));
 
                if (active)

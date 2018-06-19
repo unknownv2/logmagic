@@ -83,8 +83,8 @@ namespace LogMagic.Test
       [Fact]
       public void Smoke_SomethingSimple_DoestCrash()
       {
-         ILog log = L.G();
-         ILog _log = L.G();
+         ILog log = L.G<SmokeAndMirrorsLogging>();
+         ILog _log = L.G<SmokeAndMirrorsLogging>();
 
          //L.Config.FilterBy.
 

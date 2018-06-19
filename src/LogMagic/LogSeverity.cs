@@ -8,7 +8,7 @@
       /// <summary>
       /// Developer tracing
       /// </summary>
-      Verbose,
+      Verbose = 0,
 
       /// <summary>
       /// Informational message

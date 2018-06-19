@@ -9,11 +9,6 @@ namespace LogMagic
    public interface ILog
    {
       /// <summary>
-      /// Name of the logger
-      /// </summary>
-      string Name { get; }
-
-      /// <summary>
       /// Send trace
       /// </summary>
       void Trace(string format, params object[] parameters);

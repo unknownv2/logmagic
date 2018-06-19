@@ -5,7 +5,7 @@ namespace LogMagicExample
 {
    public class Program
    {
-      private readonly ILog _log = L.G();
+      private readonly ILog _log = L.G<Program>();
 
       public static void Main(string[] args)
       {
