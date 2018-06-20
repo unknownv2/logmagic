@@ -83,7 +83,7 @@
       /// <summary>
       /// Response code, for instance for HTTP requests. Can be an arbitrary string, but for HTTP codes it is advised to be a number
       /// </summary>
-      public const string ResponseCode = "responseCode";
+      public const string ResponseCode = "resultCode";
 
       /// <summary>
       /// Metric name
