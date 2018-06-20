@@ -44,8 +44,12 @@ namespace LogMagic.Microsoft.AspNetCore
                }
                finally
                {
+                  string responseCode = context.Response.StatusCode.ToString();
+
                   // request will have a new ID but parentId is fetched from current context which links it appropriately
-                  using (L.Context(KnownProperty.RequestUri, uri))
+                  using (L.Context(
+                     KnownProperty.RequestUri, uri,
+                     KnownProperty.ResponseCode, responseCode))
                   {
                      log.Request(name, time.ElapsedTicks, gex);
                   }

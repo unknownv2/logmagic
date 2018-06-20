@@ -81,6 +81,11 @@
       public const string RequestUri = "requestUri";
 
       /// <summary>
+      /// Response code, for instance for HTTP requests. Can be an arbitrary string, but for HTTP codes it is advised to be a number
+      /// </summary>
+      public const string ResponseCode = "responseCode";
+
+      /// <summary>
       /// Metric name
       /// </summary>
       public const string MetricName = "metricName";

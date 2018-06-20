@@ -115,6 +115,9 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
       {
          string name = e.UseProperty<string>(KnownProperty.RequestName);
          string uri = e.UseProperty<string>(KnownProperty.RequestUri);
+         string responseCode = e.UseProperty<string>(KnownProperty.ResponseCode)
+            ?? (e.ErrorException?.GetType().Name)
+            ?? "200";
 
          var tr = new RequestTelemetry
          {
@@ -122,7 +125,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
             Url = uri == null ? null : new Uri(uri),
             Duration = TimeSpan.FromTicks(e.UseProperty<long>(KnownProperty.Duration)),
             Success = e.ErrorException == null,
-            ResponseCode = e.ErrorException == null ? "200" : e.ErrorException.GetType().Name
+            ResponseCode = responseCode
          };
          string id = e.UseProperty<string>(KnownProperty.ActivityId);
          if (id != null) tr.Id = id;
