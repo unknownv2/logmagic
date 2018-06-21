@@ -4,11 +4,16 @@
 
 **Syntax:**
 ```csharp
-L.Config.WriteTo.AzureApplicationInsights("app insights key", bool flushOnWrite = false);
+L.Config.WriteTo.AzureApplicationInsights("app insights key",
+   bool traceExceptions = true,
+   bool flushOnWrite = false,
+   bool quickPulse = false);
 ```
 Writes events [Azure AppInsights](https://azure.microsoft.com/en-us/services/application-insights/)
 
-`flushOnWrite` parameter indicates whether to force a flush of events on each logging call. It's false by default and should only be set to true if you need an immediate submission as AppInsights caches events and submits in a batch periodically to achieve optimal performance. Note that settings this to true slows down logging dramatically.
+- `traceExceptions` indicates whether to add exception details to both exception telemetry and trace telemetry at the same time (default behavior) or only use exception telemetry.
+- `flushOnWrite` parameter indicates whether to force a flush of events on each logging call. It's false by default and should only be set to true if you need an immediate submission as AppInsights caches events and submits in a batch periodically to achieve optimal performance. Note that settings this to true slows down logging dramatically.
+- `quickPulse` (off by default) allows you to enable [Application Insights Live Streaming](https://docs.microsoft.com/en-us/azure/application-insights/app-insights-live-stream) (aka QuickPulse).
 
 All the calls to `log.Trace()` push trace events to AppInsights. Those are the events you can't directly see on main AppInsigts page but can access from **Analytics** tab:
 

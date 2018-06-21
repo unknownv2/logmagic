@@ -1,6 +1,7 @@
 ﻿using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
+using Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,12 +19,33 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
          TelemetryConfiguration.Active.InstrumentationKey = instrumentationKey;
 
          TelemetryProcessorChainBuilder builder = TelemetryConfiguration.Active.TelemetryProcessorChainBuilder;
+         QuickPulseTelemetryProcessor quickPulseProcessor = null;
+      
+         // add our own telemetry processor that can override session based variables
          builder.Use(next => new LogMagicTelemetryProcessor(next));
+
+         // optionally enable QuickPulse
+         if(options.EnableQuickPulse)
+         {
+            builder.Use((next) =>
+            {
+               quickPulseProcessor = new QuickPulseTelemetryProcessor(next);
+               return quickPulseProcessor;
+            });
+         }
+
          builder.Build();
 
          _telemetryClient = new TelemetryClient(TelemetryConfiguration.Active);
          _telemetryClient.InstrumentationKey = instrumentationKey;
          _context = new InsightsContext(_telemetryClient, options);
+
+         if(options.EnableQuickPulse)
+         {
+            var quickPulse = new QuickPulseTelemetryModule();
+            quickPulse.Initialize(TelemetryConfiguration.Active);
+            quickPulse.RegisterTelemetryProcessor(quickPulseProcessor);
+         }
 
          _options = options;
       }

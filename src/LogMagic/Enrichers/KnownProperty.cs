@@ -1,4 +1,6 @@
-﻿namespace LogMagic.Enrichers
+﻿using System;
+
+namespace LogMagic.Enrichers
 {
    /// <summary>
    /// Contains a curated list of known property names
@@ -61,7 +63,7 @@
       public const string ActivityId = "activityId";
 
       /// <summary>
-      /// Operation duration
+      /// Operation duration, has to be <see cref="Int64"/>
       /// </summary>
       public const string Duration = "duration";
 

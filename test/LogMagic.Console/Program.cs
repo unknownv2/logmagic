@@ -1,5 +1,6 @@
 ﻿using LogMagic.Enrichers;
 using NetBox.Extensions;
+using NetBox.Generator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace LogMagic.Console
             .WriteTo.Console()
             .WriteTo.PoshConsole()
             .WriteTo.Trace()
-            .WriteTo.AzureApplicationInsights("24703760-10ec-4e0b-b3ee-777f6ea80977", true);
+            .WriteTo.AzureApplicationInsights("9b854ad0-57ac-4a52-b453-6947351e00aa", quickPulse: true);
 
          log.Critical("critical");
 
@@ -40,6 +41,13 @@ namespace LogMagic.Console
                   KnownProperty.RoleName, "service two",
                   KnownProperty.ParentActivityId, dependencyId);
             }
+         }
+
+         for(int i = 0; i < 10000; i++)
+         {
+            log.Event("event #" + i);
+
+            Thread.Sleep(TimeSpan.FromMilliseconds(RandomGenerator.GetRandomInt(100, 5000)));
          }
 
          C.ReadLine();

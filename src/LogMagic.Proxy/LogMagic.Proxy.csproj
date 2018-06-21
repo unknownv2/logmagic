@@ -17,7 +17,7 @@
     <Version>2.9.0-ci-00001</Version>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Castle.Core" Version="4.2.1" />
+    <PackageReference Include="Castle.Core" Version="4.3.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LogMagic\LogMagic.csproj" />

@@ -20,6 +20,7 @@ namespace LogMagic.Microsoft.ServiceFabric.Remoting
       private readonly string _remoteServiceName;
 
       public event EventHandler<CommunicationClientEventArgs<IServiceRemotingClient>> ClientConnected;
+
       public event EventHandler<CommunicationClientEventArgs<IServiceRemotingClient>> ClientDisconnected;
 
       public CorrelatingFabricTransportServiceRemotingClientFactory(

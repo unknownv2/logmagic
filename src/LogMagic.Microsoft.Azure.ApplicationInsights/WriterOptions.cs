@@ -9,5 +9,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights
       public bool FlushOnWrite { get; set; }
 
       public bool TraceExceptions { get; set; }
+
+      public bool EnableQuickPulse { get; set; }
    }
 }
