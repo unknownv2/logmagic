@@ -19,7 +19,7 @@ namespace LogMagic
       /// <param name="format">Optional format string</param>
       /// <returns></returns>
       public static ILogConfiguration StorageAppendBlob(this IWriterConfiguration configuration,
-         IBlobStorageProvider blobStorage,
+         IBlobStorage blobStorage,
          string documentId,
          string format = null)
       {
@@ -27,7 +27,7 @@ namespace LogMagic
       }
 
       public static ILogConfiguration StorageTables(this IWriterConfiguration configuration,
-         ITableStorageProvider tableStorage)
+         ITableStorage tableStorage)
       {
          throw new NotImplementedException();
       }

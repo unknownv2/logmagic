@@ -11,11 +11,11 @@ namespace LogMagic.Storage.Net
 {
    class BlobStorageLogWriter : ILogWriter
    {
-      private readonly IBlobStorageProvider _blobStorage;
+      private readonly IBlobStorage _blobStorage;
       private readonly FormattedString _format;
       private readonly string _documentId;
 
-      public BlobStorageLogWriter(IBlobStorageProvider blobStorage, string documentId, string format)
+      public BlobStorageLogWriter(IBlobStorage blobStorage, string documentId, string format)
       {
          _blobStorage = blobStorage ?? throw new ArgumentNullException(nameof(blobStorage));
          _format = format == null ? null : FormattedString.Parse(format, null);
