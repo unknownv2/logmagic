@@ -20,7 +20,11 @@ namespace LogMagic.Console
             .WriteTo.Console()
             .WriteTo.PoshConsole()
             .WriteTo.Trace()
-            .WriteTo.AzureApplicationInsights("9b854ad0-57ac-4a52-b453-6947351e00aa", quickPulse: true);
+            .WriteTo.AzureApplicationInsights("9b854ad0-57ac-4a52-b453-6947351e00aa", quickPulse: true)
+               .When.SeverityIsAtLeast(LogSeverity.Information);
+
+         log.Event("test event",
+            KnownProperty.Severity, LogSeverity.Information);
 
          log.Critical("critical");
 

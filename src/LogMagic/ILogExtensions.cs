@@ -11,17 +11,17 @@ namespace LogMagic
    {
       public static void Dependency(this ILog log, string type, string name, string command, long duration,
          Exception error = null,
-         params string[] properties)
+         params object[] properties)
       {
          log.Dependency(type, name, command, duration, error, Compress(properties));
       }
 
-      public static void Request(this ILog log, string name, long duration, Exception error = null, params string[] properties)
+      public static void Request(this ILog log, string name, long duration, Exception error = null, params object[] properties)
       {
          log.Request(name, duration, error, Compress(properties));
       }
 
-      public static void Event(this ILog log, string name, params string[] properties)
+      public static void Event(this ILog log, string name, params object[] properties)
       {
          log.Event(name, Compress(properties));
       }

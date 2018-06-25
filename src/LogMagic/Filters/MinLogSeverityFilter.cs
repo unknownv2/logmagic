@@ -18,7 +18,7 @@ namespace LogMagic.Filters
       {
          if (e == null) return true;
 
-         LogSeverity severity = e.UseProperty<LogSeverity>(KnownProperty.Severity);
+         LogSeverity severity = e.GetProperty<LogSeverity>(KnownProperty.Severity);
 
          return severity >= _minSeverity;
       }
