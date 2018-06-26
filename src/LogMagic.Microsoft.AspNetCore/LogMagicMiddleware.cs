@@ -18,7 +18,7 @@ namespace LogMagic.Microsoft.AspNetCore
          _next = next;
       }
       
-      public Task Invoke(HttpContext context)
+      public async Task Invoke(HttpContext context)
       {
          string name = $"{context.Request.Method} {context.Request.Path}{context.Request.QueryString}";
          string uri = $"{context.Request.Scheme}://{context.Request.Host}{context.Request.Path}{context.Request.QueryString}";
@@ -35,7 +35,7 @@ namespace LogMagic.Microsoft.AspNetCore
 
                try
                {
-                  return _next(context);
+                  await _next(context);
                }
                catch (Exception ex)
                {

@@ -115,9 +115,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
       {
          string name = e.UseProperty<string>(KnownProperty.RequestName);
          string uri = e.UseProperty<string>(KnownProperty.RequestUri);
-         string responseCode = e.UseProperty<string>(KnownProperty.ResponseCode)
-            ?? (e.ErrorException?.GetType().Name)
-            ?? "200";
+         string responseCode = GetHttpResponseCode(e);
 
          var tr = new RequestTelemetry
          {
@@ -133,6 +131,26 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
          AddProperties(tr, e);
 
          _client.TrackRequest(tr);
+      }
+
+      private string GetHttpResponseCode(LogEvent e)
+      {
+         const string okCode = "200";
+         const string badCode = "500";
+
+         string setCode = e.UseProperty<string>(KnownProperty.ResponseCode);
+         string exCode = e.ErrorException?.GetType().Name;
+
+         if(setCode == okCode)
+         {
+            //sometimes response code is 200 but an exception is thrown, therefore we need to override it with 500
+            if(exCode != null)
+            {
+               return badCode;
+            }
+         }
+
+         return setCode;
       }
 
       private void ApplyMetric(LogEvent e)

@@ -16,6 +16,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D3BA1AEE-0FF6-4724-9266-9E6991501959}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\.editorconfig = ..\..\.editorconfig
+		..\..\doc\impl\aspnetcore.md = ..\..\doc\impl\aspnetcore.md
+		..\..\doc\impl\azure-appinsights.md = ..\..\doc\impl\azure-appinsights.md
 		..\..\doc\impl\azure-servicefabric.md = ..\..\doc\impl\azure-servicefabric.md
 	EndProjectSection
 EndProject

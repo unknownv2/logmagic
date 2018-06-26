@@ -33,6 +33,12 @@ namespace LogMagic.FabricTestApp.StatelessWebApp.Controllers
          return new string[] { "value1", "value2" };
       }
 
+      [Route("fail")]
+      public async Task GetFail()
+      {
+         throw new NotImplementedException();
+      }
+
       // GET api/values/5
       [HttpGet("{id}")]
       public string Get(int id)

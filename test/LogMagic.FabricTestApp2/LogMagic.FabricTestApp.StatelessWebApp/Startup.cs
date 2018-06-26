@@ -29,12 +29,12 @@ namespace LogMagic.FabricTestApp.StatelessWebApp
       // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
       public void Configure(IApplicationBuilder app, IHostingEnvironment env)
       {
-         app.UseLogMagic();
-
-         if (env.IsDevelopment())
+         /*if (env.IsDevelopment())
          {
             app.UseDeveloperExceptionPage();
-         }
+         }*/
+
+         app.UseLogMagic();
 
          app.UseMvc();
       }

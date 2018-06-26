@@ -11,18 +11,18 @@ After referencing the NuGet package find your `Startup.cs` file and add LogMagic
 ```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 {
-   app.UseLogMagic();
-
    if (env.IsDevelopment())
    {
       app.UseDeveloperExceptionPage();
    }
 
+   app.UseLogMagic();
+
    app.UseMvc();
 }
 ```
 
-Note that middleware should appear first in the list if you want things to work properly.
+> Make sure to call the UseElmahIo-method after installation of other pieces of middleware handling exceptions (like UseDeveloperExceptionPage and UseExceptionHandler), but before any calls to UseStaticFiles, UseMvc and similar.
 
 ## What does it do
 
