@@ -6,10 +6,7 @@ using System.Collections.Generic;
 
 namespace LogMagic
 {
-   /// <summary>
-   /// Utility methods to create logging events
-   /// </summary>
-   public class EventFactory
+   class EventFactory
    {
 #if !NET45
       private readonly LogContext _context;

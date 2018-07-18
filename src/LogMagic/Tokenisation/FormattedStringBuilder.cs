@@ -1,14 +1,18 @@
-﻿using LogMagic.Tokenisation;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Text;
 
 namespace LogMagic.Tokenisation
 {
+   /// <summary>
+   /// Helper class to build format strings
+   /// </summary>
    public class FormattedStringBuilder
    {
       private readonly StringBuilder _string = new StringBuilder();
 
+      /// <summary>
+      /// Add freehand text
+      /// </summary>
       public FormattedStringBuilder AddText(string text)
       {
          if (text == null)
@@ -42,6 +46,9 @@ namespace LogMagic.Tokenisation
          return this;
       }
 
+      /// <summary>
+      /// Add logging level
+      /// </summary>
       public FormattedStringBuilder AddLevel(int pad = 0)
       {
          _string.Append(FormattedString.ParamBegin);
@@ -57,6 +64,10 @@ namespace LogMagic.Tokenisation
          return this;
       }
 
+      /// <summary>
+      /// Build the formatting string
+      /// </summary>
+      /// <returns></returns>
       public string Build()
       {
          return _string.ToString();

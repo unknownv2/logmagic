@@ -9,6 +9,9 @@ namespace LogMagic
    /// </summary>
    public static class ILogExtensions
    {
+      /// <summary>
+      /// Track dependency
+      /// </summary>
       public static void Dependency(this ILog log, string type, string name, string command, long duration,
          Exception error = null,
          params object[] properties)
@@ -16,11 +19,17 @@ namespace LogMagic
          log.Dependency(type, name, command, duration, error, Compress(properties));
       }
 
+      /// <summary>
+      /// Track request
+      /// </summary>
       public static void Request(this ILog log, string name, long duration, Exception error = null, params object[] properties)
       {
          log.Request(name, duration, error, Compress(properties));
       }
 
+      /// <summary>
+      /// Track event
+      /// </summary>
       public static void Event(this ILog log, string name, params object[] properties)
       {
          log.Event(name, Compress(properties));

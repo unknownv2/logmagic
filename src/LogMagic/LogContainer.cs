@@ -5,7 +5,7 @@ using LogMagic.Configuration;
 
 namespace LogMagic
 {
-   public class LogContainer
+   class LogContainer
    {
 #if !NET45
       private LogContext _context;

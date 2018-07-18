@@ -10,7 +10,6 @@ namespace LogMagic
    public class TimeMeasure : IDisposable
    {
       private readonly Stopwatch _stopwatch = new Stopwatch();
-      private Exception _error;
 
       /// <summary>
       /// Creates a new intance of time measure and starts measuring execution time

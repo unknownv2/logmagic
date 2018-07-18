@@ -1,15 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LogMagic.Microsoft.Azure.ApplicationInsights
+﻿namespace LogMagic.Microsoft.Azure.ApplicationInsights
 {
-   class WriterOptions
+   /// <summary>
+   /// Writer options
+   /// </summary>
+   public class WriterOptions
    {
-      public bool FlushOnWrite { get; set; }
+      public bool FlushOnWrite { get; set; } = false;
 
-      public bool TraceExceptions { get; set; }
+      public bool TraceExceptions { get; set; } = true;
 
-      public bool EnableQuickPulse { get; set; }
+      public bool EnableQuickPulse { get; set; } = false;
+
+#if NETFULL
+      /// <summary>
+      /// When set, collects and sends the most common performance counters
+      /// </summary>
+      public bool CollectPerformanceCounters { get; set; } = false;
+
+#endif
    }
 }

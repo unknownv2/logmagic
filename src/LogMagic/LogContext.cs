@@ -8,11 +8,17 @@ using System.Threading;
 
 namespace LogMagic
 {
+   /// <summary>
+   /// Logging context
+   /// </summary>
    public class LogContext
    {
       private readonly AsyncLocal<ConcurrentDictionary<string, IEnricher>> Data =
          new AsyncLocal<ConcurrentDictionary<string, IEnricher>>();
 
+      /// <summary>
+      /// Push
+      /// </summary>
       public IDisposable Push(IEnumerable<KeyValuePair<string, string>> properties)
       {
          ConcurrentDictionary<string, IEnricher> stack = GetOrCreateEnricherStack();
@@ -49,12 +55,18 @@ namespace LogMagic
          return enrichers;
       }
 
+      /// <summary>
+      /// List of active enrichers
+      /// </summary>
       public ConcurrentDictionary<string, IEnricher> Enrichers
       {
          get => Data.Value;
          set => Data.Value = value;
       }
 
+      /// <summary>
+      /// Gets context property by name
+      /// </summary>
       public string GetValueByName(string name)
       {
          ConcurrentDictionary<string, IEnricher> enrichers = Enrichers;
@@ -71,6 +83,9 @@ namespace LogMagic
          return enricher.Value;
       }
 
+      /// <summary>
+      /// Gets all context values
+      /// </summary>
       public Dictionary<string, string> GetAllValues()
       {
          ConcurrentDictionary<string, IEnricher> enrichers = Enrichers;

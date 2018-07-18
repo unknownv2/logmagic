@@ -1,6 +1,7 @@
 ﻿using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
+using Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector;
 using Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -46,6 +47,14 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
             quickPulse.Initialize(TelemetryConfiguration.Active);
             quickPulse.RegisterTelemetryProcessor(quickPulseProcessor);
          }
+
+#if NETFULL
+         //optionally enable performance counters collection
+         var pcm = new PerformanceCollectorModule();
+         //todo: custom counters can be easily added here if required
+         //pcm.Counters.Add(new PerformanceCounterCollectionRequest(@"\.NET CLR Memory(LogMagic.Console)\# GC Handles", "GC Handles"));
+         pcm.Initialize(TelemetryConfiguration.Active);
+#endif
 
          _options = options;
       }

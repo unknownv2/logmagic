@@ -14,7 +14,7 @@ namespace LogMagic.Tokenisation
       /// </summary>
       public static readonly FormattedString DefaultFormat = FormattedString.Parse("{time:H:mm:ss,fff}|{level,-7}|{source}|{message}{error}", null);
 
-      public static readonly FormattedString DefaultFormat2 = FormattedString.Parse(
+      static readonly FormattedString DefaultFormat2 = FormattedString.Parse(
          new FormattedStringBuilder()
             .AddTime("H:mm:ss,fff")
             .Build(),

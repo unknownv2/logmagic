@@ -1,4 +1,5 @@
 ﻿using LogMagic.Enrichers;
+using LogMagic.Microsoft.Azure.ApplicationInsights;
 using NetBox.Extensions;
 using NetBox.Generator;
 using System;
@@ -20,10 +21,23 @@ namespace LogMagic.Console
             .WriteTo.Console()
             .WriteTo.PoshConsole()
             .WriteTo.Trace()
-            .WriteTo.AzureApplicationInsights("9b854ad0-57ac-4a52-b453-6947351e00aa", quickPulse: true)
-               .When.SeverityIsAtLeast(LogSeverity.Information);
+            .WriteTo.AzureApplicationInsights("13d9faf0-e96d-46ce-81b1-d8303c798765",
+               new WriterOptions
+               {
+                  EnableQuickPulse = true,
+                  FlushOnWrite = true,
+                  CollectPerformanceCounters = true
+               });
+               //.When.SeverityIsAtLeast(LogSeverity.Information);
 
-         log.Event("test event",
+         while(true)
+         {
+            log.Trace("new event");
+
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+         }
+
+         /*log.Event("test event",
             KnownProperty.Severity, LogSeverity.Information);
 
          log.Critical("critical");
@@ -53,6 +67,7 @@ namespace LogMagic.Console
 
             Thread.Sleep(TimeSpan.FromMilliseconds(RandomGenerator.GetRandomInt(100, 5000)));
          }
+         */
 
          C.ReadLine();
       }

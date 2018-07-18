@@ -20,10 +20,19 @@ namespace LogMagic
          DurationTicks = durationTicks;
       }
 
+      /// <summary>
+      /// Name of the call
+      /// </summary>
       public string CallName { get; }
 
+      /// <summary>
+      /// Error details if an error has occurred
+      /// </summary>
       public Exception Error { get; }
 
+      /// <summary>
+      /// Call duration
+      /// </summary>
       public long DurationTicks { get; }
    }
 }

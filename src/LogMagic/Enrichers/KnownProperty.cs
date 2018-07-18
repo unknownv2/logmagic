@@ -107,6 +107,9 @@ namespace LogMagic.Enrichers
       /// </summary>
       public const string DependencyCommand = "dependencyCommand";
 
+      /// <summary>
+      /// Dependency target
+      /// </summary>
       public const string DependencyTarget = "dependencyTarget";
 
       /// <summary>
