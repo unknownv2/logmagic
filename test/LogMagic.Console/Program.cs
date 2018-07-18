@@ -17,124 +17,105 @@ namespace LogMagic.Console
 
       public static void Main(string[] args)
       {
+         //initialise
          L.Config
-            .WriteTo.Console()
             .WriteTo.PoshConsole()
-            .WriteTo.Trace()
             .WriteTo.AzureApplicationInsights("13d9faf0-e96d-46ce-81b1-d8303c798765",
                new WriterOptions
                {
-                  EnableQuickPulse = true,
-                  FlushOnWrite = true,
-                  CollectPerformanceCounters = true
+                  FlushOnWrite = false,
+                  EnableQuickPulse = true
                });
-               //.When.SeverityIsAtLeast(LogSeverity.Information);
 
-         while(true)
+         while (true)
          {
-            log.Trace("new event");
+            Basics(5);
+
+            ApplicationMap();
 
             Thread.Sleep(TimeSpan.FromSeconds(1));
          }
+      }
 
-         /*log.Event("test event",
-            KnownProperty.Severity, LogSeverity.Information);
-
-         log.Critical("critical");
-
-         using (L.Context(KnownProperty.OperationId, Guid.NewGuid().ToShortest()))
+      private static void Basics(int maxObjects)
+      {
+         using (L.Context(
+            "Scenario", "Basics",
+            KnownProperty.OperationId, Guid.NewGuid().ToString()))
          {
+            using (var time = new TimeMeasure())
+            {
+               log.Event("Create Started");
+
+               for (int i = 0; i < maxObjects; i++)
+               {
+                  log.Trace("creating object {0}", i);
+
+                  log.Metric("Process Working Set", Environment.WorkingSet);
+               }
+
+               log.Event("Create Finished",
+                  "Objects Created", maxObjects);
+
+               log.Request("Create Objects", time.ElapsedTicks, null,
+                  "Objects Created", maxObjects);
+            }
+         }
+      }
+
+      private static void ApplicationMap()
+      {
+         using (L.Context(KnownProperty.OperationId, Guid.NewGuid().ToString()))
+         {
+            string webSiteActivityId = Guid.NewGuid().ToShortest();
+            string serverActivityId = Guid.NewGuid().ToShortest();
+
+            Exception ex = RandomGenerator.GetRandomInt(10) > 7 ? new Exception("simulated failure") : null;
+
+            //---- web site
             using (L.Context(
-               KnownProperty.RoleInstance, Guid.NewGuid().ToString(),
-               KnownProperty.RoleName, "service one"))
+               KnownProperty.RoleName, "Web Site"))
             {
-               string requestId = Guid.NewGuid().ToString();
-               string dependencyId = Guid.NewGuid().ToString();
+               log.Request("LogIn", RandomDurationMs(500, 600), ex);
 
-               log.Request("incoming", 1, null, KnownProperty.ActivityId, requestId);
-               log.Dependency("http", "server", "correlate", 1, null,
-                  KnownProperty.ActivityId, dependencyId);
+               log.Trace("checking credentials on the server...");
 
-               log.Request("incoming@2", 1, null,
-                  KnownProperty.RoleName, "service two",
-                  KnownProperty.ParentActivityId, dependencyId);
+               using (L.Context(KnownProperty.ActivityId, webSiteActivityId))
+               {
+                  log.Dependency("Server", "Server", "CheckCredential", 100);
+               }
             }
-         }
 
-         for(int i = 0; i < 10000; i++)
-         {
-            log.Event("event #" + i);
-
-            Thread.Sleep(TimeSpan.FromMilliseconds(RandomGenerator.GetRandomInt(100, 5000)));
-         }
-         */
-
-         C.ReadLine();
-      }
-
-      private static void TaskPumpTest()
-      {
-         var cts = new CancellationTokenSource();
-
-         Task t = Task.Factory.StartNew(() => Step(cts.Token), cts.Token);
-
-         C.WriteLine("c - cancel, number - send n event(s)");
-         string input;
-         while((input = C.ReadLine()) != "c")
-         {
-            evt.Set();
-         }
-
-         C.WriteLine("cancelling...");
-         cts.Cancel();
-         t.Wait();
-
-         C.WriteLine("finished");
-         C.ReadKey();
-      }
-
-      private static ManualResetEventSlim evt = new ManualResetEventSlim(false);
-
-      private static void Step(CancellationToken token)
-      {
-         C.WriteLine("step");
-
-         while(!token.IsCancellationRequested)
-         {
-            C.WriteLine("processing at " + DateTime.Now);
-
-            try
+            //---- server
+            using (L.Context(
+               KnownProperty.RoleName, "Server",
+               KnownProperty.ParentActivityId, webSiteActivityId,
+               KnownProperty.ActivityId, serverActivityId))
             {
-               evt.Wait(TimeSpan.FromSeconds(30), token);
-               evt.Reset();
-            }
-            catch(OperationCanceledException)
-            {
+               log.Request("CheckCredential", RandomDurationMs(400, 500));
 
+               log.Trace("fetching user from DB...");
+
+               log.Dependency("Databases", "MSSQL", "GetUser", RandomDurationMs(100, 200), ex);
+
+               if(ex != null)
+               {
+                  log.Trace("failed to fetch user", ex);
+               }
+
+               log.Trace("fetching user picture");
+
+               log.Dependency("Blob Storage", "Primary", "GetUserPicture", RandomDurationMs(100, 200));
             }
+
          }
-
-         C.WriteLine("step cancelled");
       }
 
-      public interface ILoggingInterface
+      private static long RandomDurationMs(int min, int max)
       {
-         void Succeed();
+         int ms = RandomGenerator.GetRandomInt(min, max);
 
-         void Fail();
-      }
-
-      public class LoggingImplementation : ILoggingInterface
-      {
-         public void Fail()
-         {
-            throw new ArgumentNullException("the failure signal");
-         }
-
-         public void Succeed()
-         {
-            
-         }
+         return TimeSpan.FromMilliseconds(ms).Ticks;
       }
    }
 }

@@ -180,8 +180,6 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
       private static void Add(ITelemetry telemetry, LogEvent e)
       {
          telemetry.Timestamp = e.EventTime;
-         telemetry.Context.Operation.Id = e.UseProperty<string>(KnownProperty.OperationId);
-         telemetry.Context.Operation.ParentId = e.UseProperty<string>(KnownProperty.ParentActivityId);
       }
 
       private static SeverityLevel GetSeverityLevel(LogEvent e)

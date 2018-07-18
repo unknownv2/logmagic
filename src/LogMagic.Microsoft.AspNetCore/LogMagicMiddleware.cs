@@ -23,6 +23,7 @@ namespace LogMagic.Microsoft.AspNetCore
          string name = $"{context.Request.Method} {context.Request.Path}{context.Request.QueryString}";
          string uri = $"{context.Request.Scheme}://{context.Request.Host}{context.Request.Path}{context.Request.QueryString}";
 
+         //parent activity ID is returned here
          Dictionary<string, string> correlationContext = GetIncomingContext();
 
          //everything happening inside this request will have a proper operation id and
@@ -79,7 +80,6 @@ namespace LogMagic.Microsoft.AspNetCore
 
             result[KnownProperty.ParentActivityId] = rootActivity.ParentId;
          }
-         if (!result.ContainsKey(KnownProperty.OperationId)) result[KnownProperty.OperationId] = Guid.NewGuid().ToShortest();
 
          return result;
       }

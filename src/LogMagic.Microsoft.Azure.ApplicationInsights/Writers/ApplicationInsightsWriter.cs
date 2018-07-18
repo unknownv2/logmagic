@@ -49,12 +49,17 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
          }
 
 #if NETFULL
-         //optionally enable performance counters collection
-         var pcm = new PerformanceCollectorModule();
-         //todo: custom counters can be easily added here if required
-         //pcm.Counters.Add(new PerformanceCounterCollectionRequest(@"\.NET CLR Memory(LogMagic.Console)\# GC Handles", "GC Handles"));
-         pcm.Initialize(TelemetryConfiguration.Active);
+         if (options.CollectPerformanceCounters)
+         {
+            //optionally enable performance counters collection
+            var pcm = new PerformanceCollectorModule();
+            //todo: custom counters can be easily added here if required
+            //pcm.Counters.Add(new PerformanceCounterCollectionRequest(@"\.NET CLR Memory(LogMagic.Console)\# GC Handles", "GC Handles"));
+            pcm.Initialize(TelemetryConfiguration.Active);
+         }
 #endif
+
+         TelemetryConfiguration.Active.TelemetryInitializers.Add(new OperationTelemetryInitialiser());
 
          _options = options;
       }
