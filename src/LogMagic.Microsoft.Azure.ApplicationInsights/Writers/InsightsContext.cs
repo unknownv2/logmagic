@@ -23,9 +23,9 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
 
       public void Apply(LogEvent e)
       {
-         LogMagicTelemetryProcessor.Version = e.UseProperty(KnownProperty.Version, string.Empty);
-         LogMagicTelemetryProcessor.RoleName = e.UseProperty(KnownProperty.RoleName, string.Empty);
-         LogMagicTelemetryProcessor.RoleInstance = e.UseProperty(KnownProperty.RoleInstance, string.Empty);
+         OperationTelemetryInitialiser.Version = e.UseProperty(KnownProperty.Version, string.Empty);
+         OperationTelemetryInitialiser.RoleName = e.UseProperty(KnownProperty.RoleName, string.Empty);
+         OperationTelemetryInitialiser.RoleInstance = e.UseProperty(KnownProperty.RoleInstance, string.Empty);
 
          switch(e.EventType)
          {

@@ -23,9 +23,15 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
          QuickPulseTelemetryProcessor quickPulseProcessor = null;
       
          // add our own telemetry processor that can override session based variables
-         builder.Use(next => new LogMagicTelemetryProcessor(next));
+         //builder.Use(next => new LogMagicTelemetryProcessor(next));
 
          // optionally enable QuickPulse
+         /*
+            - Free and is not counted towards the bill.
+            - The latency is 1 second compared to a few minutes.
+            - Retention is while the data is on the chart, not 90 days.
+            - Data is only streamed while you are in Live Metrics view.
+         */
          if(options.EnableQuickPulse)
          {
             builder.Use((next) =>
@@ -49,12 +55,15 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
          }
 
 #if NETFULL
+         // see https://github.com/Microsoft/ApplicationInsights-dotnet-server/blob/develop/Src/PerformanceCollector/Perf.Shared/PerformanceCollectorModule.cs
          if (options.CollectPerformanceCounters)
          {
             //optionally enable performance counters collection
             var pcm = new PerformanceCollectorModule();
-            //todo: custom counters can be easily added here if required
-            //pcm.Counters.Add(new PerformanceCounterCollectionRequest(@"\.NET CLR Memory(LogMagic.Console)\# GC Handles", "GC Handles"));
+            //custom counters can be easily added here if required
+
+            pcm.Counters.Add(new PerformanceCounterCollectionRequest(@"\.NET CLR Memory(LogMagic.Console)\# GC Handles", "GC Handles"));
+
             pcm.Initialize(TelemetryConfiguration.Active);
          }
 #endif

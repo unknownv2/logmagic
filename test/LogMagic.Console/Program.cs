@@ -29,7 +29,7 @@ namespace LogMagic.Console
 
          while (true)
          {
-            Basics(5);
+            //Basics(5);
 
             ApplicationMap();
 
