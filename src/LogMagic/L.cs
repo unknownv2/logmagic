@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using LogMagic.Configuration;
 
 namespace LogMagic
 {
@@ -9,18 +8,20 @@ namespace LogMagic
    /// </summary>
    public static class L
    {
+      private static readonly LogContainer _default = new LogContainer();
+
 
       /// <summary>
       /// Gets logging library configuration
       /// </summary>
-      public static ILogConfiguration Config { get; } = new LogConfiguration();
+      public static ILogConfiguration Config => _default.Config;
       /// <summary>
       /// Get logger for the specified type
       /// <typeparam name="T">Class type</typeparam>
       /// </summary>
       public static ILog G<T>()
       {
-         return new LogClient(Config, typeof(T).FullName);
+         return _default.G<T>();
       }
 
       /// <summary>
@@ -28,7 +29,7 @@ namespace LogMagic
       /// </summary>
       public static ILog G(Type t)
       {
-         return new LogClient(Config, t.FullName);
+         return _default.G(t);
       }
 
       /// <summary>
@@ -36,7 +37,7 @@ namespace LogMagic
       /// </summary>
       public static ILog G(string name)
       {
-         return new LogClient(Config, name);
+         return _default.G(name);
       }
 
 #if !NET45
@@ -50,17 +51,7 @@ namespace LogMagic
       /// </param>
       public static IDisposable Context(params string[] properties)
       {
-         if (properties == null || properties.Length < 2) return null;
-
-         var d = new Dictionary<string, string>();
-
-         int maxLength = properties.Length - properties.Length % 2;
-         for(int i = 0; i < maxLength; i += 2)
-         {
-            d[properties[i]] = properties[i + 1];
-         }
-
-         return Config.Context.Push(d);
+         return _default.Context(properties);
       }
 
       /// <summary>
@@ -68,9 +59,7 @@ namespace LogMagic
       /// </summary>
       public static IDisposable Context(Dictionary<string, string> properties)
       {
-         if (properties == null || properties.Count == 0) return null;
-
-         return Config.Context.Push(properties);
+         return _default.Context(properties);
       }
 
       /// <summary>
@@ -80,9 +69,7 @@ namespace LogMagic
       /// <returns></returns>
       public static string GetContextValue(string propertyName)
       {
-         if (propertyName == null) throw new ArgumentNullException(nameof(propertyName));
-
-         return Config.Context.GetValueByName(propertyName);
+         return _default.GetContextValue(propertyName);
       }
 
       /// <summary>
@@ -91,7 +78,7 @@ namespace LogMagic
       /// <returns></returns>
       public static Dictionary<string, string> GetContextValues()
       {
-         return Config.Context.GetAllValues();
+         return _default.GetContextValues();
       }
 
 #endif

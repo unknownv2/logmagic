@@ -47,10 +47,10 @@
       <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
    </PropertyGroup>
    <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
-      <DefineConstants>$(DefineConstants);NETFULL;NET45</DefineConstants>
+      <DefineConstants>$(DefineConstants);NETFULL;NET45;WINDOWS</DefineConstants>
    </PropertyGroup>
    <PropertyGroup Condition=" '$(TargetFramework)' == 'net46' ">
-      <DefineConstants>$(DefineConstants);NETFULL;NET46</DefineConstants>
+      <DefineConstants>$(DefineConstants);NETFULL;NET46;WINDOWS</DefineConstants>
    </PropertyGroup>
    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.4'">
       <Compile Remove="Enrichers/MachineNameEnricher.cs" />
@@ -69,5 +69,8 @@
    </ItemGroup>
    <ItemGroup>
       <DotNetCliToolReference Include="dotnet-housework" Version="0.0.7" />
+   </ItemGroup>
+   <ItemGroup>
+     <Folder Include="PerfCounters\" />
    </ItemGroup>
 </Project>
