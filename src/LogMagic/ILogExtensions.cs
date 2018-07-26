@@ -34,14 +34,14 @@ namespace LogMagic
       /// Track dependency with automation time measurement and error handling
       /// </summary>
       public static async Task<T> DependencyAsync<T>(this ILog log, string name, string command,
-         Func<Task<T>> action,
+         Task<T> action,
          params object[] properties)
       {
          using (var time = new TimeMeasure())
          {
             try
             {
-               T result = await action();
+               T result = await action;
 
                log.Dependency(name, name, command, time.ElapsedTicks, null, properties);
 
