@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using LogMagic.Enrichers;
 
 namespace LogMagic
@@ -17,6 +18,41 @@ namespace LogMagic
          params object[] properties)
       {
          log.Dependency(type, name, command, duration, error, Compress(properties));
+      }
+
+      /// <summary>
+      /// Track dependency
+      /// </summary>
+      public static void Dependency(this ILog log, string name, string command, long duration,
+         Exception error,
+         params object[] properties)
+      {
+         log.Dependency(name, name, command, duration, error, Compress(properties));
+      }
+
+      /// <summary>
+      /// Track dependency with automation time measurement and error handling
+      /// </summary>
+      public static async Task<T> DependencyAsync<T>(this ILog log, string name, string command,
+         Func<Task<T>> action,
+         params object[] properties)
+      {
+         using (var time = new TimeMeasure())
+         {
+            try
+            {
+               T result = await action();
+
+               log.Dependency(name, name, command, time.ElapsedTicks, null, properties);
+
+               return result;
+            }
+            catch(Exception ex)
+            {
+               log.Dependency(name, name, command, time.ElapsedTicks, ex, properties);
+               throw;
+            }
+         }
       }
 
       /// <summary>
