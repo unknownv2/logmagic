@@ -16,6 +16,7 @@ LogMagic also supports a relatively new paradigm of *structured logging*.
 - [Configuration Basics](#configuration-basics)
 - [Writing Log Events](#writing-log-events)
 - [Known Writers and Enrichers](#known-writers-and-enrichers)
+- [Async Helpers](#async-helpers)
 - [Visual Studio Integration (snippets)](doc/vssnippets.md)
 
 ## Installation
@@ -278,6 +279,7 @@ LogMagic doesn't have the classic logging levels (i.e. debug, info, warn etc.) a
 |[Azure Service Fabric](doc/impl/azure-servicefabric.md)|Integrates with [Azure Service Fabric](https://azure.microsoft.com/en-us/services/service-fabric/) by building correlating proxies, enrichers, and emitting cluster health events|
 |[ASP.NET Core](doc/impl/aspnetcore.md)|Provides a custom middleware that automatically logs requests.|
 
+
 ### Built-in enrichers
 
 | Writer Syntax | Meaning        |
@@ -289,3 +291,7 @@ LogMagic doesn't have the classic logging levels (i.e. debug, info, warn etc.) a
 | `.ThreadId()` | managed thread id |
 
 Note that external packages may add more enrichers which are not listed here but documented on specific package page.
+
+## Async Helpers
+
+Often tracking dependencies involves measuring time and catching exception whcih is a bit tedious.
