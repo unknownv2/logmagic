@@ -3,7 +3,7 @@
       <Copyright>Copyright (c) 2015-2018 by Ivan Gavryliuk</Copyright>
       <AssemblyTitle>LogMagic</AssemblyTitle>
       <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
-      <TargetFrameworks>netstandard1.4;netstandard1.6;net45;net46</TargetFrameworks>
+      <TargetFrameworks>netstandard1.4;netstandard1.6;netstandard2.0;net45;net46</TargetFrameworks>
       <GenerateDocumentationFile>true</GenerateDocumentationFile>
       <AssemblyName>LogMagic</AssemblyName>
       <AssemblyOriginatorKeyFile>../../logmagic.snk</AssemblyOriginatorKeyFile>
@@ -44,24 +44,17 @@
       <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD14</DefineConstants>
    </PropertyGroup>
    <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
-      <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
+      <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD16</DefineConstants>
+   </PropertyGroup>
+   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+      <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD20</DefineConstants>
    </PropertyGroup>
    <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
-      <DefineConstants>$(DefineConstants);NETFULL;NET45;WINDOWS</DefineConstants>
+      <DefineConstants>$(DefineConstants);NETFULL;NET45</DefineConstants>
    </PropertyGroup>
    <PropertyGroup Condition=" '$(TargetFramework)' == 'net46' ">
-      <DefineConstants>$(DefineConstants);NETFULL;NET46;WINDOWS</DefineConstants>
+      <DefineConstants>$(DefineConstants);NETFULL;NET46</DefineConstants>
    </PropertyGroup>
-   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.4'">
-      <Compile Remove="Enrichers/MachineNameEnricher.cs" />
-      <Compile Remove="Enrichers/MethodNameEnricher.cs" />
-   </ItemGroup>
-   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
-      <Compile Remove="Enrichers/MethodNameEnricher.cs" />
-   </ItemGroup>
-   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
-      <Compile Remove="LogContext.cs" />
-   </ItemGroup>
    <ItemGroup Condition=" '$(TargetFramework)' == 'net45' or '$(TargetFramework)' == 'net46' ">
       <Reference Include="System.Net.Http" />
       <Reference Include="System" />
@@ -69,8 +62,5 @@
    </ItemGroup>
    <ItemGroup>
       <DotNetCliToolReference Include="dotnet-housework" Version="0.0.7" />
-   </ItemGroup>
-   <ItemGroup>
-     <Folder Include="PerfCounters\" />
    </ItemGroup>
 </Project>

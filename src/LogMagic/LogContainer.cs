@@ -1,26 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using LogMagic.Configuration;
+using LogMagic.PerfCounters;
 
 namespace LogMagic
 {
    class LogContainer
    {
+      //private readonly PerfLoop _perfLoop;
+
 #if !NET45
-      private LogContext _context;
+      private readonly LogContext _context;
+#endif
 
       public LogContainer()
       {
          Config = new LogConfiguration();
+#if !NET45
          _context = new LogContext();
-      }
-#else
-      public LogContainer()
-      {
-         Config = new LogConfiguration();
-      }
 #endif
+
+         //_perfLoop = new PerfLoop(new LogClient(Config, typeof(LogContainer).Name));
+      }
 
       /// <summary>
       /// Container configuration
