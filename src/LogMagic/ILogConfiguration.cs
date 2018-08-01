@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using LogMagic.PerfCounters;
 
 namespace LogMagic
@@ -40,6 +41,11 @@ namespace LogMagic
       /// Add custom performance counter
       /// </summary>
       ILogConfiguration Custom(IPerformanceCounter performanceCounter);
+
+      /// <summary>
+      /// Set custom sampling interval
+      /// </summary>
+      ILogConfiguration WithSamplingInterval(TimeSpan samplingInterval);
    }
 
    #endregion

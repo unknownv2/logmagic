@@ -1,5 +1,6 @@
 ﻿using LogMagic;
 using LogMagic.PerfCounters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -97,6 +98,11 @@ namespace LogMagic.Configuration
             _perfCounters.Add(performanceCounter);
          }
 
+         return this;
+      }
+
+      public ILogConfiguration WithSamplingInterval(TimeSpan samplingInterval)
+      {
          return this;
       }
 
