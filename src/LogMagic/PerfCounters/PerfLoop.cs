@@ -12,15 +12,13 @@ namespace LogMagic.PerfCounters
    class PerfLoop
    {
       private readonly ILog log;
+      private readonly ILogConfiguration _configuration;
       private TimeSpan _samplingInterval = TimeSpan.FromSeconds(10);
-      private readonly List<IPerformanceCounter> _counters = new List<IPerformanceCounter>();
 
-      public PerfLoop(ILog log)
+      public PerfLoop(ILog log, ILogConfiguration configuration)
       {
          this.log = log ?? throw new ArgumentNullException(nameof(log));
-#if NETFULL
-         _counters.Add(new WindowsPerformanceCounter("Total CPU", "Processor", "% Processor Time", "_Total"));
-#endif
+         _configuration = configuration;
 
          var thread = new Thread(Loop)
          {
@@ -36,7 +34,7 @@ namespace LogMagic.PerfCounters
          {
             try
             {
-               foreach(IPerformanceCounter ipc in _counters)
+               foreach(IPerformanceCounter ipc in _configuration.PerformanceCounters)
                {
                   float value = ipc.GetValue();
                   log.Metric(ipc.Name, value);                  

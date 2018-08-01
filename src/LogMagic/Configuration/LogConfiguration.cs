@@ -1,14 +1,16 @@
 ﻿using LogMagic;
+using LogMagic.PerfCounters;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace LogMagic.Configuration
 {
-   class LogConfiguration : ILogConfiguration, IWriterConfiguration, IEnricherConfiguration, IFilterConfiguration
+   class LogConfiguration : ILogConfiguration, IWriterConfiguration, IEnricherConfiguration, IFilterConfiguration, IPerformanceCounterConfiguration
    {
       private readonly List<ILogWriter> _writers = new List<ILogWriter>();
       private readonly List<IEnricher> _enrichers = new List<IEnricher>();
       private readonly Dictionary<ILogWriter, List<IFilter>> _activeFilters = new Dictionary<ILogWriter, List<IFilter>>();
+      private readonly List<IPerformanceCounter> _perfCounters = new List<IPerformanceCounter>();
 
 #if !NET45
       public LogContext Context { get; } = new LogContext();
@@ -17,6 +19,8 @@ namespace LogMagic.Configuration
       public IEnumerable<IEnricher> Enrichers => _enrichers;
 
       public IEnumerable<ILogWriter> Writers => _writers;
+
+      public IReadOnlyCollection<IPerformanceCounter> PerformanceCounters => _perfCounters;
 
       public ILogConfiguration ClearFilters()
       {
@@ -86,6 +90,18 @@ namespace LogMagic.Configuration
          return filters;
       }
 
+      public ILogConfiguration Custom(IPerformanceCounter performanceCounter)
+      {
+         if (performanceCounter != null)
+         {
+            _perfCounters.Add(performanceCounter);
+         }
+
+         return this;
+      }
+
       public IFilterConfiguration When => this;
+
+      public IPerformanceCounterConfiguration CollectPerformanceCounters => this;
    }
 }

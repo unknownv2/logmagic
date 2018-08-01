@@ -25,7 +25,13 @@ namespace LogMagic.Console
                {
                   FlushOnWrite = false,
                   EnableQuickPulse = true
-               });
+               })
+            .CollectPerformanceCounters.PlatformDefault();
+
+         log.Trace("just a test");
+
+         C.ReadKey();
+         return;
 
          while (true)
          {

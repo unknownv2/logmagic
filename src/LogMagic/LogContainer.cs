@@ -8,14 +8,22 @@ using LogMagic.PerfCounters;
 
 namespace LogMagic
 {
-   class LogContainer
+   /// <summary>
+   /// Logging container provides a logging system instance. The global <see cref="L"/> variable provides access
+   /// to a default pre-created container, however you can create more containers if you app needs isolated
+   /// logging containers with distincts configurations.
+   /// </summary>
+   public class LogContainer
    {
-      //private readonly PerfLoop _perfLoop;
+      private readonly PerfLoop _perfLoop;
 
 #if !NET45
       private readonly LogContext _context;
 #endif
 
+      /// <summary>
+      /// Creates an instance of logging container
+      /// </summary>
       public LogContainer()
       {
          Config = new LogConfiguration();
@@ -23,7 +31,7 @@ namespace LogMagic
          _context = new LogContext();
 #endif
 
-         //_perfLoop = new PerfLoop(new LogClient(Config, typeof(LogContainer).Name));
+         _perfLoop = new PerfLoop(new LogClient(Config, typeof(LogContainer).Name), Config);
       }
 
       /// <summary>
@@ -31,16 +39,26 @@ namespace LogMagic
       /// </summary>
       public ILogConfiguration Config { get; }
 
+      /// <summary>
+      /// Get logger for the specified type
+      /// <typeparam name="T">Class type</typeparam>
+      /// </summary>
       public ILog G<T>()
       {
          return new LogClient(Config, typeof(T).FullName);
       }
 
+      /// <summary>
+      /// Get logger for the specified type
+      /// </summary>
       public ILog G(Type t)
       {
          return new LogClient(Config, t.FullName);
       }
 
+      /// <summary>
+      /// Gets logger by specified name. Use when you can't use more specific methods.
+      /// </summary>
       public ILog G(string name)
       {
          return new LogClient(Config, name);

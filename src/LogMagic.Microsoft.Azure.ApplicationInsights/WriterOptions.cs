@@ -1,7 +1,7 @@
 ﻿namespace LogMagic.Microsoft.Azure.ApplicationInsights
 {
    /// <summary>
-   /// Writer options
+   /// Applicaiton Insights Writer options
    /// </summary>
    public class WriterOptions
    {
@@ -28,9 +28,6 @@
       /// on outgoing traffic.
       /// </summary>
       public bool CollectPerformanceCounters { get; set; } = false;
-
-      
-
 #endif
    }
 }

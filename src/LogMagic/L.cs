@@ -15,6 +15,12 @@ namespace LogMagic
       /// Gets logging library configuration
       /// </summary>
       public static ILogConfiguration Config => _default.Config;
+
+      /// <summary>
+      /// Default logging container
+      /// </summary>
+      public static LogContainer DefaultContainer => _default;
+
       /// <summary>
       /// Get logger for the specified type
       /// <typeparam name="T">Class type</typeparam>
