@@ -18,11 +18,16 @@ namespace LogMagic
       /// </summary>
       public static ILogConfiguration PlatformDefault(this IPerformanceCounterConfiguration configuration)
       {
+
 #if NETFULL
-         configuration.WindowsCounter("Total CPU", "Processor", "% Processor Time", "_Total");
 
          string processName = Process.GetCurrentProcess().ProcessName;
-         configuration.WindowsCounter("Process CPU", "Process", "% Processor Time", processName);
+
+         configuration.WindowsCounter("Machine CPU Load (%)", "Processor", "% Processor Time", "_Total");
+         configuration.WindowsCounter("Machine Available Memory (bytes)", "Memory", "Available Bytes", null);
+         configuration.WindowsCounter("Process CPU Load (%)", "Process", "% Processor Time", processName);
+         configuration.WindowsCounter("Process Private Memory (bytes)", "Process", "Private Bytes", processName);
+         configuration.WindowsCounter("Process IO Data (bytes/sec)", "Process", "IO Data Bytes/sec", processName);
 #endif
 
          return configuration.Custom(null);
