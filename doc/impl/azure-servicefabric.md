@@ -71,22 +71,24 @@ All you have to do is
 Usually with raw Service Fabric you would create a remoting proxy in your code by calling a following piece of code:
 
 ```csharp
-IRemoteServiceInterface = ServiceProxy.Create<IRemoteServiceInterface>(serviceUri, ...);
+var proxyFactory = new ServiceProxyFactory(c => new FabricTransportServiceRemotingClientFactory());
+
+ISampleService service = proxyFactory.CreateServiceProxy<ISampleService>(uri);
 ```
 
-In order to capture the call context all you have to do is change `ServiceProxy` to `CorrelatingServiceProxy`, that's it:
+This is extremely simplified with LogMagic:
+
 
 ```csharp
-IRemoteServiceInterface = CorrelatingServiceProxy.Create<IRemoteServiceInterface>(serviceUri, ...);
+ISampleService service = CorrelatingProxyFactory.CreateServiceProxy<ISampleService>(uri);
+
 ```
 
 or to call an Actor:
 
 ```csharp
-IActorInterface actorProxy = CorrelatingActorProxy.Create<IActorInterface>(actorId, actorUri, ...);
+ISampleActor actor = CorrelatingProxyFactory.CreateActorProxy<IActorSimulator>(ActorId.CreateRandom());
 ```
-
-> note that Actors integration are not supported in v6 version yet.
 
 We've kept method signatures identical to the ones Service Fabric SDK has, therefore no of the parameters have to change!
 
@@ -117,24 +119,17 @@ which can be replaced by:
 ```csharp
 protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
 {
-   return new ServiceInstanceListener[] { this.CreateCorrelatingServiceInstanceListener(new MyServiceInstance()) };
+   return new ServiceInstanceListener[]
+   {
+      this.CreateCorrelatingServiceInstanceListener<ISampleService>(new SampleServiceImplementation())
+   };
 }
-```
 
-note that with remoting v2 you have to pass an instance of your service implementation which derives from `IService`. Apparently if you are implementing it in the service class itself (which is a bad idea anyway) you can simply pass `this`.
-
-or in case of a stateful service:
-
-```csharp
-protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
-{
-   return new ServiceInstanceListener[] { this.CreateCorrelatingServiceReplicaListener(new MyServiceInstance()) };
-}
 ```
 
 or in case of Actors
 
-> implementation pending
+> implementation pending, help!!!
 
 <!--
 Or in case of Actors you'll need to into actor's project `Program.cs` and change ActorService ro CorrelatingActorService:

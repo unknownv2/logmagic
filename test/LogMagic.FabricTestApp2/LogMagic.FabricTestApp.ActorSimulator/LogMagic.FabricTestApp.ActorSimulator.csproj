@@ -19,9 +19,4 @@
     <ProjectReference Include="..\LogMagic.FabricTestApp.ActorSimulator.Interfaces\LogMagic.FabricTestApp.ActorSimulator.Interfaces.csproj" />
   </ItemGroup>
 
-   <PropertyGroup>
-      <RuntimeFrameworkVersion>2.0.5</RuntimeFrameworkVersion>
-   </PropertyGroup>
-
-
 </Project>
