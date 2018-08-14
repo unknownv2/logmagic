@@ -6,8 +6,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using LogMagic;
 using LogMagic.Enrichers;
+using LogMagic.FabricTestApp.ActorSimulator.Interfaces;
 using LogMagic.FabricTestApp.Interfaces;
 using LogMagic.Microsoft.ServiceFabric.Remoting;
+using Microsoft.ServiceFabric.Actors;
+using Microsoft.ServiceFabric.Actors.Client;
 using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Client;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
@@ -64,10 +67,9 @@ namespace StatefulSimulator
       /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service replica.</param>
       protected override async Task RunAsync(CancellationToken cancellationToken)
       {
-         return;
-
          var proxyFactory = new ServiceProxyFactory(c => new FabricTransportServiceRemotingClientFactory());
          var proxyFactory2 = new ServiceProxyFactory(c => new CorrelatingFabricTransportServiceRemotingClientFactory<ISampleService>());
+         var proxyFactory3 = new ActorProxyFactory();
 
          //ISampleService service = proxyFactory2.CreateServiceProxy<ISampleService>(
          //   new Uri("fabric:/LogMagic.FabricTestApp2/LogMagic.FabricTestApp.StatelessSimulator"));
@@ -77,12 +79,17 @@ namespace StatefulSimulator
             raiseSummary: RaiseSummary,
             remoteServiceName: "StatelessSimulator");
 
+         IActorSimulator actor = CorrelatingProxyFactory.CreateActorProxy<IActorSimulator>(ActorId.CreateRandom());
+         //actor = proxyFactory3.CreateActorProxy<IActorSimulator>(ActorId.CreateRandom());
+
          using (L.Context("param1", "value1"))
          {
             try
             {
 
                string hey = await service.PingSuccessAsync("hey");
+
+               await actor.SetCountAsync(5, cancellationToken);
 
                hey = await service.PingFailureAsync("fail");
             }

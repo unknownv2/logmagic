@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <IsServiceFabricServiceProject>True</IsServiceFabricServiceProject>
+    <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
+    <UpdateServiceFabricManifestEnabled>True</UpdateServiceFabricManifestEnabled>
+    <ServicePackagePath>PackageRoot</ServicePackagePath>
+    <ServicePackagePrefix>$(MSBuildProjectName)</ServicePackagePrefix>
+    <FabActUtilWorkingDir>$(BaseIntermediateOutputPath)\FabActUtilTemp</FabActUtilWorkingDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ServiceFabric.Actors" Version="3.2.162" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LogMagic.FabricTestApp.ActorSimulator.Interfaces\LogMagic.FabricTestApp.ActorSimulator.Interfaces.csproj" />
+  </ItemGroup>
+
+   <PropertyGroup>
+      <RuntimeFrameworkVersion>2.0.5</RuntimeFrameworkVersion>
+   </PropertyGroup>
+
+
+</Project>

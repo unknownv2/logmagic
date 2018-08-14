@@ -7,7 +7,7 @@ using System;
 
 namespace LogMagic.Microsoft.ServiceFabric.Remoting
 {
-   public class CorrelatingServiceProxyFactory<TServiceInterface> : IServiceProxyFactory
+   class CorrelatingServiceProxyFactory<TServiceInterface> : IServiceProxyFactory
    {
       private readonly ServiceProxyFactory _serviceProxyFactory;
 
@@ -31,7 +31,9 @@ namespace LogMagic.Microsoft.ServiceFabric.Remoting
             retrySettings);
       }
 
+#pragma warning disable CS0693 // Type parameter has the same name as the type parameter from outer type
       public TServiceInterface CreateServiceProxy<TServiceInterface>(Uri serviceUri, ServicePartitionKey partitionKey = null, TargetReplicaSelector targetReplicaSelector = TargetReplicaSelector.Default, string listenerName = null) where TServiceInterface : IService
+#pragma warning restore CS0693 // Type parameter has the same name as the type parameter from outer type
       {
          TServiceInterface proxy =
             _serviceProxyFactory.CreateServiceProxy<TServiceInterface>(serviceUri, partitionKey, targetReplicaSelector,

@@ -6,5 +6,8 @@
     <Parameter Name="StatefulSimulator_MinReplicaSetSize" Value="1" />
     <Parameter Name="StatefulSimulator_TargetReplicaSetSize" Value="1" />
     <Parameter Name="LogMagic.FabricTestApp.StatelessSimulator_InstanceCount" Value="1" />
+    <Parameter Name="ActorSimulatorActorService_PartitionCount" Value="1" />
+    <Parameter Name="ActorSimulatorActorService_TargetReplicaSetSize" Value="1" />
+    <Parameter Name="ActorSimulatorActorService_MinReplicaSetSize" Value="1" />
   </Parameters>
 </Application>

@@ -2,6 +2,9 @@
 
 namespace Microsoft.AspNetCore.Builder
 {
+   /// <summary>
+   /// Configuration extensions
+   /// </summary>
    public static class ConfigurationExtensions
    {
       /// <summary>

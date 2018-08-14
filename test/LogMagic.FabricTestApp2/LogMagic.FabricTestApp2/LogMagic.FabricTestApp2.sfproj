@@ -32,6 +32,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LogMagic.FabricTestApp.ActorSimulator\LogMagic.FabricTestApp.ActorSimulator.csproj" />
     <ProjectReference Include="..\LogMagic.FabricTestApp.StatelessSimulator\LogMagic.FabricTestApp.StatelessSimulator.csproj" />
     <ProjectReference Include="..\LogMagic.FabricTestApp.StatelessWebApp\LogMagic.FabricTestApp.StatelessWebApp.csproj" />
     <ProjectReference Include="..\StatefulSimulator\StatefulSimulator.csproj" />

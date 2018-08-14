@@ -29,6 +29,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Microsoft.AspNetCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMagic.Microsoft.ServiceFabric", "..\..\src\LogMagic.Microsoft.ServiceFabric\LogMagic.Microsoft.ServiceFabric.csproj", "{510B8CFB-0CC9-4EBA-A2FB-B31C42BA1300}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.FabricTestApp.ActorSimulator", "LogMagic.FabricTestApp.ActorSimulator\LogMagic.FabricTestApp.ActorSimulator.csproj", "{5B5EF769-370D-4875-94A9-39A421C28949}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMagic.FabricTestApp.ActorSimulator.Interfaces", "LogMagic.FabricTestApp.ActorSimulator.Interfaces\LogMagic.FabricTestApp.ActorSimulator.Interfaces.csproj", "{63CD240B-47DE-4F71-AF8B-43B4FCEC5DD8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,6 +113,22 @@ Global
 		{510B8CFB-0CC9-4EBA-A2FB-B31C42BA1300}.Release|Any CPU.Build.0 = Release|Any CPU
 		{510B8CFB-0CC9-4EBA-A2FB-B31C42BA1300}.Release|x64.ActiveCfg = Release|Any CPU
 		{510B8CFB-0CC9-4EBA-A2FB-B31C42BA1300}.Release|x64.Build.0 = Release|Any CPU
+		{5B5EF769-370D-4875-94A9-39A421C28949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B5EF769-370D-4875-94A9-39A421C28949}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B5EF769-370D-4875-94A9-39A421C28949}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5B5EF769-370D-4875-94A9-39A421C28949}.Debug|x64.Build.0 = Debug|Any CPU
+		{5B5EF769-370D-4875-94A9-39A421C28949}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B5EF769-370D-4875-94A9-39A421C28949}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B5EF769-370D-4875-94A9-39A421C28949}.Release|x64.ActiveCfg = Release|Any CPU
+		{5B5EF769-370D-4875-94A9-39A421C28949}.Release|x64.Build.0 = Release|Any CPU
+		{63CD240B-47DE-4F71-AF8B-43B4FCEC5DD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63CD240B-47DE-4F71-AF8B-43B4FCEC5DD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63CD240B-47DE-4F71-AF8B-43B4FCEC5DD8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{63CD240B-47DE-4F71-AF8B-43B4FCEC5DD8}.Debug|x64.Build.0 = Debug|Any CPU
+		{63CD240B-47DE-4F71-AF8B-43B4FCEC5DD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63CD240B-47DE-4F71-AF8B-43B4FCEC5DD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63CD240B-47DE-4F71-AF8B-43B4FCEC5DD8}.Release|x64.ActiveCfg = Release|Any CPU
+		{63CD240B-47DE-4F71-AF8B-43B4FCEC5DD8}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

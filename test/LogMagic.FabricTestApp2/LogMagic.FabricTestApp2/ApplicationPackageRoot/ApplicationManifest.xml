@@ -6,10 +6,16 @@
     <Parameter Name="StatefulSimulator_PartitionCount" DefaultValue="1" />
     <Parameter Name="StatefulSimulator_TargetReplicaSetSize" DefaultValue="3" />
     <Parameter Name="LogMagic.FabricTestApp.StatelessSimulator_InstanceCount" DefaultValue="-1" />
+    <Parameter Name="ActorSimulatorActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="ActorSimulatorActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="ActorSimulatorActorService_TargetReplicaSetSize" DefaultValue="3" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
        ServiceManifest.xml file. -->
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="LogMagic.FabricTestApp.ActorSimulatorPkg" ServiceManifestVersion="1.0.0" />
+  </ServiceManifestImport>
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="LogMagic.FabricTestApp.StatelessWebAppPkg" ServiceManifestVersion="1.0.0" />
     <ConfigOverrides />
@@ -42,6 +48,11 @@
       <StatelessService ServiceTypeName="LogMagic.FabricTestApp.StatelessSimulatorType" InstanceCount="[LogMagic.FabricTestApp.StatelessSimulator_InstanceCount]">
         <SingletonPartition />
       </StatelessService>
+    </Service>
+    <Service Name="ActorSimulatorActorService" GeneratedIdRef="71bb746d-4974-478b-a72c-a4e8acb7625c|Persisted">
+      <StatefulService ServiceTypeName="ActorSimulatorActorServiceType" TargetReplicaSetSize="[ActorSimulatorActorService_TargetReplicaSetSize]" MinReplicaSetSize="[ActorSimulatorActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[ActorSimulatorActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
     </Service>
   </DefaultServices>
 </ApplicationManifest>

@@ -9,12 +9,17 @@ using Microsoft.ServiceFabric.Services.Remoting.V2.Client;
 
 namespace LogMagic.Microsoft.ServiceFabric.Remoting
 {
-   public class CorrelatingActorProxyFactory<TActorInterface> : IActorProxyFactory where TActorInterface : IActor
+   class CorrelatingActorProxyFactory<TActorInterface> : IActorProxyFactory where TActorInterface : IActor
    {
       private readonly ActorProxyFactory _actorProxyFactory;
 
-      public CorrelatingActorProxyFactory(Func<IServiceRemotingCallbackMessageHandler, IServiceRemotingClientFactory> createServiceRemotingClientFactory, OperationRetrySettings retrySettings = null, Action<CallSummary> raiseSummary = null, string remoteServiceName = null)
+      public CorrelatingActorProxyFactory(
+         Func<IServiceRemotingCallbackMessageHandler, IServiceRemotingClientFactory> createServiceRemotingClientFactory = null,
+         OperationRetrySettings retrySettings = null,
+         Action<CallSummary> raiseSummary = null,
+         string remoteServiceName = null)
       {
+
          _actorProxyFactory = new ActorProxyFactory(
             (callbackClient) =>
             {
@@ -33,7 +38,9 @@ namespace LogMagic.Microsoft.ServiceFabric.Remoting
             retrySettings);
       }
 
+#pragma warning disable CS0693 // Type parameter has the same name as the type parameter from outer type
       public TActorInterface CreateActorProxy<TActorInterface>(ActorId actorId, string applicationName = null, string serviceName = null, string listenerName = null) where TActorInterface : IActor
+#pragma warning restore CS0693 // Type parameter has the same name as the type parameter from outer type
       {
          TActorInterface proxy = _actorProxyFactory.CreateActorProxy<TActorInterface>(actorId, applicationName, serviceName, listenerName);
 
@@ -42,7 +49,9 @@ namespace LogMagic.Microsoft.ServiceFabric.Remoting
          return proxy;
       }
 
+#pragma warning disable CS0693 // Type parameter has the same name as the type parameter from outer type
       public TActorInterface CreateActorProxy<TActorInterface>(Uri serviceUri, ActorId actorId, string listenerName = null) where TActorInterface : IActor
+#pragma warning restore CS0693 // Type parameter has the same name as the type parameter from outer type
       {
          TActorInterface proxy = _actorProxyFactory.CreateActorProxy<TActorInterface>(serviceUri, actorId, listenerName);
 
