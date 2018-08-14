@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.ServiceFabric.Services.Remoting;
 
 namespace LogMagic.Microsoft.ServiceFabric.Remoting
 {
-   internal class Helper
+   internal static class Helper
    {
       public static bool IsEitherRemotingV2(RemotingClientVersion remotingClient)
       {

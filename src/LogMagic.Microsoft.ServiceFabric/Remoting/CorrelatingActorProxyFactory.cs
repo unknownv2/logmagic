@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
 using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Client;
 using Microsoft.ServiceFabric.Actors.Remoting;
-using Microsoft.ServiceFabric.Actors.Remoting.FabricTransport;
 using Microsoft.ServiceFabric.Services.Communication.Client;
 using Microsoft.ServiceFabric.Services.Remoting;
 using Microsoft.ServiceFabric.Services.Remoting.V2.Client;
@@ -24,7 +20,7 @@ namespace LogMagic.Microsoft.ServiceFabric.Remoting
          Action<CallSummary> raiseSummary = null,
          string remoteServiceName = null)
       {
-         _defaultListenerName = GetDefaultListenerName(out _providerAttribute);
+         _defaultListenerName = ActorHelper.GetDefaultListenerName<TActorInterface>(out _providerAttribute);
 
          if(_providerAttribute != null)
          {
@@ -94,43 +90,6 @@ namespace LogMagic.Microsoft.ServiceFabric.Remoting
       private string GetListenerName(string listenerName)
       {
          return _defaultListenerName ?? listenerName;
-      }
-
-      private string GetDefaultListenerName(out ActorRemotingProviderAttribute providerAttribute)
-      {
-         providerAttribute = GetProvider(new[] { typeof(TActorInterface) });
-
-         if (Helper.IsEitherRemotingV2(providerAttribute.RemotingClientVersion))
-         {
-            if(Helper.IsRemotingV2_1(providerAttribute.RemotingClientVersion))
-            {
-               return "V2_1Listener";
-            }
-            return "V2Listener";
-         }
-
-         return null;
-      }
-
-      private static ActorRemotingProviderAttribute GetProvider(IEnumerable<Type> types = null)
-      {
-         if (types != null)
-         {
-            foreach (Type type in types)
-            {
-               ActorRemotingProviderAttribute customAttribute = type.GetTypeInfo().Assembly.GetCustomAttribute<ActorRemotingProviderAttribute>();
-               if (customAttribute != null)
-                  return customAttribute;
-            }
-         }
-         Assembly entryAssembly = Assembly.GetEntryAssembly();
-         if (entryAssembly != (Assembly)null)
-         {
-            ActorRemotingProviderAttribute customAttribute = entryAssembly.GetCustomAttribute<ActorRemotingProviderAttribute>();
-            if (customAttribute != null)
-               return customAttribute;
-         }
-         return (ActorRemotingProviderAttribute)new FabricTransportActorRemotingProviderAttribute();
       }
 
    }

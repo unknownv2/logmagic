@@ -91,6 +91,8 @@ namespace StatefulSimulator
 
                await actor.SetCountAsync(5, cancellationToken);
 
+               int count = await actor.GetCountAsync(cancellationToken);
+
                hey = await service.PingFailureAsync("fail");
             }
             catch(Exception ex)

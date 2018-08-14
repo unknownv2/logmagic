@@ -9,14 +9,14 @@ namespace LogMagic.FabricTestApp.StatelessSimulator
 {
    class StatelessSimulatorRemotingService : ISampleService
    {
-      public async Task<string> PingFailureAsync(string input)
+      public Task<string> PingFailureAsync(string input)
       {
          throw new ArgumentException(nameof(input));
       }
 
-      public async Task<string> PingSuccessAsync(string input)
+      public Task<string> PingSuccessAsync(string input)
       {
-         return input + DateTime.UtcNow;
+         return Task.FromResult(input + DateTime.UtcNow);
       }
    }
 }

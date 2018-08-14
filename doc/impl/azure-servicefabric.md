@@ -1,6 +1,6 @@
 # Microsoft Service Fabric
 
-We only support Azure Service Fabric 6.1.x and higher. 5.6 is not maintaned anymore since the world has moved on.
+We only support Azure Service Fabric 6.x and higher. 5.x is not maintaned anymore since the world has moved on. We also only support **Remoting V2**. V1 support has dropped since it's not compatible with .NET Core and we have no interest in support it.
 
 To install the integration install this [NuGet package](https://www.nuget.org/packages/LogMagic.Microsoft.ServiceFabric/).
 
@@ -21,9 +21,7 @@ where `Context` is your current service's `ServiceContext`. Normally you would i
 public MyService(StatefulServiceContext context)
     : base(context)
 {
-  L.Config.ClearWriters();
-
-  L.Config
+   L.Config
     .WriteTo.Trace()
     .EnrichWith.AzureServiceFabricContext(this.Context);
 }
@@ -84,7 +82,7 @@ ISampleService service = CorrelatingProxyFactory.CreateServiceProxy<ISampleServi
 
 ```
 
-or to call an Actor:
+or to create an Actor proxy:
 
 ```csharp
 ISampleActor actor = CorrelatingProxyFactory.CreateActorProxy<IActorSimulator>(ActorId.CreateRandom());
@@ -127,15 +125,10 @@ protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceLis
 
 ```
 
-or in case of Actors
-
-> implementation pending, help!!!
-
-<!--
-Or in case of Actors you'll need to into actor's project `Program.cs` and change ActorService ro CorrelatingActorService:
+or in case of Actors the story is a little bit more complicated, however it's achievable. Ators internally are built on top of reliable services, and use idential remoting stack too, however it's slightly hidden under the hood. Having said that, the library is called Log**Magic** therefore it's supposed to be magically easy, so it is! To create a correlating actor you do not need to modify the actor class, but your `Program.cs` instead and change default `ActorService` to `CorrelatingActorService`. That's it.
 
 ![Sf Context 03](sf-context-03.png)
--->
+
 
 ### Technique
 

@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\LogMagic.Microsoft.ServiceFabric\LogMagic.Microsoft.ServiceFabric.csproj" />
     <ProjectReference Include="..\LogMagic.FabricTestApp.ActorSimulator.Interfaces\LogMagic.FabricTestApp.ActorSimulator.Interfaces.csproj" />
   </ItemGroup>
 

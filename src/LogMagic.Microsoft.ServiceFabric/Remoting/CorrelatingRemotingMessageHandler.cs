@@ -1,4 +1,7 @@
 ﻿using LogMagic.Enrichers;
+using Microsoft.ServiceFabric.Actors;
+using Microsoft.ServiceFabric.Actors.Remoting.V2.Runtime;
+using Microsoft.ServiceFabric.Actors.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting;
 using Microsoft.ServiceFabric.Services.Remoting.V2;
 using Microsoft.ServiceFabric.Services.Remoting.V2.Runtime;
@@ -27,6 +30,17 @@ namespace LogMagic.Microsoft.ServiceFabric.Remoting
          MethodResolver.AddMethodsForProxyOrService(serviceImplementation.GetType().GetInterfaces(), typeof(IService));
          _log = log;
          _raiseSummary = raiseSummary;
+      }
+
+      public CorrelatingRemotingMessageHandler(ILog log, ActorService actorService)
+      {
+         _innerHandler = new ActorServiceRemotingDispatcher(actorService, null);
+
+         MethodResolver.AddMethodsForProxyOrService(actorService.GetType().GetInterfaces(), typeof(IService));
+         MethodResolver.AddMethodsForProxyOrService(actorService.ActorTypeInformation.InterfaceTypes, typeof(IActor));
+
+         _log = log;
+         _raiseSummary = null;
       }
 
       public IServiceRemotingMessageBodyFactory GetRemotingMessageBodyFactory()
