@@ -55,14 +55,6 @@ namespace LogMagic
    /// </summary>
    public interface ILogConfiguration
    {
-#if !NET45
-      /// <summary>
-      /// Logging context
-      /// </summary>
-      LogContext Context { get; }
-
-#endif
-
       /// <summary>
       /// Removes all configured filters
       /// </summary>

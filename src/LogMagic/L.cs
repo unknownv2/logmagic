@@ -8,18 +8,16 @@ namespace LogMagic
    /// </summary>
    public static class L
    {
-      private static readonly LogContainer _default = new LogContainer();
-
 
       /// <summary>
       /// Gets logging library configuration
       /// </summary>
-      public static ILogConfiguration Config => _default.Config;
+      public static ILogConfiguration Config => DefaultContainer.Config;
 
       /// <summary>
       /// Default logging container
       /// </summary>
-      public static LogContainer DefaultContainer => _default;
+      public static LogContainer DefaultContainer { get; } = new LogContainer();
 
       /// <summary>
       /// Get logger for the specified type
@@ -27,7 +25,7 @@ namespace LogMagic
       /// </summary>
       public static ILog G<T>()
       {
-         return _default.G<T>();
+         return DefaultContainer.G<T>();
       }
 
       /// <summary>
@@ -35,7 +33,7 @@ namespace LogMagic
       /// </summary>
       public static ILog G(Type t)
       {
-         return _default.G(t);
+         return DefaultContainer.G(t);
       }
 
       /// <summary>
@@ -43,7 +41,7 @@ namespace LogMagic
       /// </summary>
       public static ILog G(string name)
       {
-         return _default.G(name);
+         return DefaultContainer.G(name);
       }
 
 #if !NET45
@@ -57,7 +55,7 @@ namespace LogMagic
       /// </param>
       public static IDisposable Context(params string[] properties)
       {
-         return _default.Context(properties);
+         return DefaultContainer.Context(properties);
       }
 
       /// <summary>
@@ -65,7 +63,7 @@ namespace LogMagic
       /// </summary>
       public static IDisposable Context(Dictionary<string, string> properties)
       {
-         return _default.Context(properties);
+         return DefaultContainer.Context(properties);
       }
 
       /// <summary>
@@ -75,7 +73,7 @@ namespace LogMagic
       /// <returns></returns>
       public static string GetContextValue(string propertyName)
       {
-         return _default.GetContextValue(propertyName);
+         return DefaultContainer.GetContextValue(propertyName);
       }
 
       /// <summary>
@@ -84,7 +82,7 @@ namespace LogMagic
       /// <returns></returns>
       public static Dictionary<string, string> GetContextValues()
       {
-         return _default.GetContextValues();
+         return DefaultContainer.GetContextValues();
       }
 
 #endif

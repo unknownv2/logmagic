@@ -22,11 +22,7 @@ namespace LogMagic
       {
          _config = config ?? throw new ArgumentNullException(nameof(config));
          _name = name ?? throw new ArgumentNullException(nameof(name));
-#if !NET45
-         _factory = new EventFactory(_config.Context);
-#else
          _factory = new EventFactory();
-#endif
       }
 
       [MethodImpl(MethodImplOptions.NoInlining)]

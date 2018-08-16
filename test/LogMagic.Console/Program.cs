@@ -28,7 +28,10 @@ namespace LogMagic.Console
                })
             .CollectPerformanceCounters.PlatformDefault();
 
-         log.Trace("just a test");
+         using (L.Context("one", "two"))
+         {
+            log.Trace("just a test");
+         }
 
          C.ReadKey();
          return;

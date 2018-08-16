@@ -8,21 +8,15 @@ using System.Threading;
 
 namespace LogMagic
 {
-   /// <summary>
-   /// Logging context
-   /// </summary>
-   public class LogContext
+   static class LogContext
    {
-      private readonly AsyncLocal<ConcurrentDictionary<string, IEnricher>> Data =
+      private static readonly AsyncLocal<ConcurrentDictionary<string, IEnricher>> Data =
          new AsyncLocal<ConcurrentDictionary<string, IEnricher>>();
 
-      /// <summary>
-      /// Push
-      /// </summary>
-      public IDisposable Push(IEnumerable<KeyValuePair<string, string>> properties)
+      public static IDisposable Push(IEnumerable<KeyValuePair<string, string>> properties)
       {
          ConcurrentDictionary<string, IEnricher> stack = GetOrCreateEnricherStack();
-         var bookmark = new StackBookmark(this, Clone(stack));
+         var bookmark = new StackBookmark(Clone(stack));
 
          if (properties != null)
          {
@@ -37,12 +31,12 @@ namespace LogMagic
          return bookmark;
       }
 
-      private ConcurrentDictionary<string, IEnricher> Clone(ConcurrentDictionary<string, IEnricher> stack)
+      private static ConcurrentDictionary<string, IEnricher> Clone(ConcurrentDictionary<string, IEnricher> stack)
       {
          return new ConcurrentDictionary<string, IEnricher>(stack);
       }
 
-      private ConcurrentDictionary<string, IEnricher> GetOrCreateEnricherStack()
+      private static ConcurrentDictionary<string, IEnricher> GetOrCreateEnricherStack()
       {
          ConcurrentDictionary<string, IEnricher> enrichers = Enrichers;
 
@@ -55,19 +49,13 @@ namespace LogMagic
          return enrichers;
       }
 
-      /// <summary>
-      /// List of active enrichers
-      /// </summary>
-      public ConcurrentDictionary<string, IEnricher> Enrichers
+      public static ConcurrentDictionary<string, IEnricher> Enrichers
       {
          get => Data.Value;
          set => Data.Value = value;
       }
 
-      /// <summary>
-      /// Gets context property by name
-      /// </summary>
-      public string GetValueByName(string name)
+      public static string GetValueByName(string name)
       {
          ConcurrentDictionary<string, IEnricher> enrichers = Enrichers;
 
@@ -83,10 +71,7 @@ namespace LogMagic
          return enricher.Value;
       }
 
-      /// <summary>
-      /// Gets all context values
-      /// </summary>
-      public Dictionary<string, string> GetAllValues()
+      public static Dictionary<string, string> GetAllValues()
       {
          ConcurrentDictionary<string, IEnricher> enrichers = Enrichers;
 
@@ -100,18 +85,16 @@ namespace LogMagic
 
       sealed class StackBookmark : IDisposable
       {
-         private readonly LogContext _context;
          private readonly ConcurrentDictionary<string, IEnricher> _enrichers;
 
-         public StackBookmark(LogContext context, ConcurrentDictionary<string, IEnricher> bookmark)
+         public StackBookmark(ConcurrentDictionary<string, IEnricher> bookmark)
          {
-            _context = context;
             _enrichers = bookmark;
          }
 
          public void Dispose()
          {
-            _context.Enrichers = _enrichers;
+            Enrichers = _enrichers;
          }
       }
    }

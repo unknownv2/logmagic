@@ -164,10 +164,6 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
          _client.TrackMetric(t);
       }
 
-      //todo:
-      //_client.TrackAvailability(null);
-      //_client.TrackPageView(null);
-
       private static void AddProperties(ISupportProperties telemetry, LogEvent e)
       {
          telemetry.Properties.Add("loggerName", e.SourceName);

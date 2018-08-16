@@ -8,15 +8,6 @@ namespace LogMagic
 {
    class EventFactory
    {
-#if !NET45
-      private readonly LogContext _context;
-
-      public EventFactory(LogContext context)
-      {
-         _context = context;
-      }
-#endif
-
       /// <summary>
       /// Creates a rich logging event
       /// </summary>
@@ -37,7 +28,7 @@ namespace LogMagic
          //enrich
          Enrich(e, L.Config.Enrichers);
 #if NETSTANDARD || NET46
-         Enrich(e, _context.Enrichers?.Values);
+         Enrich(e, LogContext.Enrichers?.Values);
 #endif
 
          //message

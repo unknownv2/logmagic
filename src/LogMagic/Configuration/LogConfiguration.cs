@@ -13,10 +13,6 @@ namespace LogMagic.Configuration
       private readonly Dictionary<ILogWriter, List<IFilter>> _activeFilters = new Dictionary<ILogWriter, List<IFilter>>();
       private readonly List<IPerformanceCounter> _perfCounters = new List<IPerformanceCounter>();
 
-#if !NET45
-      public LogContext Context { get; } = new LogContext();
-#endif
-
       public IEnumerable<IEnricher> Enrichers => _enrichers;
 
       public IEnumerable<ILogWriter> Writers => _writers;

@@ -17,19 +17,12 @@ namespace LogMagic
    {
       private readonly PerfLoop _perfLoop;
 
-#if !NET45
-      private readonly LogContext _context;
-#endif
-
       /// <summary>
       /// Creates an instance of logging container
       /// </summary>
       public LogContainer()
       {
          Config = new LogConfiguration();
-#if !NET45
-         _context = new LogContext();
-#endif
 
          _perfLoop = new PerfLoop(new LogClient(Config, typeof(LogContainer).Name), Config);
       }
@@ -85,7 +78,7 @@ namespace LogMagic
             d[properties[i]] = properties[i + 1];
          }
 
-         return _context.Push(d);
+         return LogContext.Push(d);
       }
 
       /// <summary>
@@ -95,7 +88,7 @@ namespace LogMagic
       {
          if (properties == null || properties.Count == 0) return null;
 
-         return _context.Push(properties);
+         return LogContext.Push(properties);
       }
 
       /// <summary>
@@ -107,7 +100,7 @@ namespace LogMagic
       {
          if (propertyName == null) throw new ArgumentNullException(nameof(propertyName));
 
-         return _context.GetValueByName(propertyName);
+         return LogContext.GetValueByName(propertyName);
       }
 
       /// <summary>
@@ -116,7 +109,7 @@ namespace LogMagic
       /// <returns></returns>
       public Dictionary<string, string> GetContextValues()
       {
-         return _context.GetAllValues();
+         return LogContext.GetAllValues();
       }
 #endif
    }
