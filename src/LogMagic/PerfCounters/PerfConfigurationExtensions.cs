@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
-#if NETFULL
+#if WINPERF
 using LogMagic.PerfCounters.Windows;
 #endif
 
@@ -14,12 +14,13 @@ namespace LogMagic
    public static class PerfConfigurationExtensions
    {
       /// <summary>
-      /// Add default platform performance counters
+      /// Add default platform performance counters. In Windows on desktop .NET or .NET Standard 2.0 adds a few
+      /// default performance counters, otherwise does nothing.
       /// </summary>
       public static ILogConfiguration PlatformDefault(this IPerformanceCounterConfiguration configuration)
       {
 
-#if NETFULL
+#if WINPERF
 
          string processName = Process.GetCurrentProcess().ProcessName;
 
@@ -33,9 +34,9 @@ namespace LogMagic
          return configuration.Custom(null);
       }
 
-#if NETFULL
+#if WINPERF
       /// <summary>
-      /// Windows based performance counter
+      /// Windows based performance counter. This w
       /// </summary>
       public static ILogConfiguration WindowsCounter(this IPerformanceCounterConfiguration configuration,
          string name, string categoryName, string counterName, string instanceName)
