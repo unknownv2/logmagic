@@ -26,7 +26,11 @@ namespace LogMagic.Console
                   FlushOnWrite = false,
                   EnableQuickPulse = true
                })
-            .CollectPerformanceCounters.PlatformDefault();
+            .CollectPerformanceCounters.PlatformDefault()
+            .CollectPerformanceCounters
+               .WindowsCounter("Machine CPU Load (%)", "Processor", "% Processor Time", "_Total")
+            .CollectPerformanceCounters
+               .WithSamplingInterval(TimeSpan.FromSeconds(10));
 
          using (L.Context("one", "two"))
          {

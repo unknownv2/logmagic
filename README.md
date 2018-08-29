@@ -267,6 +267,31 @@ the string above `"application v{version} started on {date}"` is a *message temp
 
 LogMagic doesn't have the classic logging levels (i.e. debug, info, warn etc.) as this is proven to be rarely used. Instead you only need one single `Trace()` method. Due to the fact that structured logging is supported and promoted there is no need to have logging levels as you can always filter based on a custom property if you ever need to.
 
+## Tracking performance
+
+You can track system or process performance by using the **performance counter** feature from LogMagic. This feature essentially emits a certain value on schedule, like *average memory usage*, *average CPU usage* etc. To configure a performance counter you would use **CollecPerformanceCounter** sentence in the configuration like so:
+
+```csharp
+L.Config
+   .WriteTo.PoshConsole()
+   .CollectPerformanceCounters.WindowsCounter("Machine CPU Load (%)", "Processor", "% Processor Time", "_Total");
+```
+
+In this case LogMagic will periodicall (every 10 seconds) collect windows performance counter value and emit a log event.
+
+If you don't know which counters you need you can always use `.CollectPerformanceCounters.PlatformDefault()` which on Windows will add the following counters to the collection list:
+
+- `"Machine CPU Load (%)", "Processor", "% Processor Time", "_Total"`
+- `"Machine Available Memory (bytes)", "Memory", "Available Bytes"`
+- `"Process CPU Load (%)", "Process", "% Processor Time", processName`
+- `"Process Private Memory (bytes)", "Process", "Private Bytes", processName`
+- `"Process IO Data (bytes/sec)", "Process", "IO Data Bytes/sec", processName`
+
+where `processName` is current executing process name.
+
+Performance counters in this version of LogMagic **only work on Windows** and only if you are using **Desktop .NET framework or .NET Standard 2.0 and higher**. In other cases performance counters are ignored. However, we are actively trying to support more platforms.
+
+
 ## Known Writers and Enrichers
 
 |Name|Description|
