@@ -74,6 +74,11 @@ namespace LogMagic
       ILogConfiguration ClearEnrichers();
 
       /// <summary>
+      /// Calls dispose on all configured writers
+      /// </summary>
+      void Shutdown();
+
+      /// <summary>
       /// Gets the list of configured enrichers
       /// </summary>
       IEnumerable<IEnricher> Enrichers { get; }

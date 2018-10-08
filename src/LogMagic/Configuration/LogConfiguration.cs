@@ -102,6 +102,14 @@ namespace LogMagic.Configuration
          return this;
       }
 
+      public void Shutdown()
+      {
+         foreach(ILogWriter writer in _writers)
+         {
+            writer.Dispose();
+         }
+      }
+
       public IFilterConfiguration When => this;
 
       public IPerformanceCounterConfiguration CollectPerformanceCounters => this;

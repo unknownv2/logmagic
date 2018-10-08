@@ -104,6 +104,7 @@ namespace LogMagic.Microsoft.Azure.ApplicationInsights.Writers
 
       public void Dispose()
       {
+         _telemetryClient.Flush();
       }
 
    }
